@@ -1,0 +1,41 @@
+name: PR Branch Policy
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened, ready_for_review]
+
+jobs:
+  enforce-branch-policy:
+    name: Enforce PR targets
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Check PR base/head branches
+        run: |
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Head branch: ${{ github.head_ref }}"
+
+          BASE="${{ github.base_ref }}"
+          HEAD="${{ github.head_ref }}"
+
+          # Allow PRs targeting 'stagging'
+          if [ "$BASE" = "stagging" ]; then
+            echo "OK: PR targets 'stagging'."
+            exit 0
+          fi
+
+          # Allow PRs to 'main' only when coming from 'stagging'
+          if [ "$BASE" = "main" ]; then
+            if [ "$HEAD" = "stagging" ]; then
+              echo "OK: PR to 'main' from 'stagging'."
+              exit 0
+            else
+              echo "ERROR: PRs to 'main' must come from 'stagging'."
+              exit 1
+            fi
+          fi
+
+          echo "ERROR: PRs must target 'stagging', or target 'main' only when coming from 'stagging'."
+          exit 1
