@@ -8,7 +8,7 @@ Pwani Innovation Week is an initiative for networking, collaboration, and showca
 - Clone: `git clone https://github.com/swahilipothub-dev/pwani-innovation-week`
 - Enter: `cd pwani-innovation-week`
 - Install: `npm install`
-- Dev server: `npm run dev` then open `http://localhost:3000`
+- Dev server: `npm run dev` then open `http://localhost:8080`
 - Build: `npm run build`
 - Preview build: `npm run preview`
 
