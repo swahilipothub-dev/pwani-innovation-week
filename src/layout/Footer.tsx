@@ -10,23 +10,23 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <div className="mb-6">
-              <img src='/piw_logo.png' height={30} width={200} />
+              <img src='/piw_logo.png' height={30} width={200} alt="Pwani Innovation Week Logo" />
             </div>
             <p className="text-gray-300 mb-6">
               Pwani Innovation Week 2025 <br />
               Pwani Re-imagined: Youth Agency, Innovation and Sustainability of Coastal Economies.
             </p>
             <div className="flex space-x-4">
-              <a href="https://x.com/pwaniinnovation" className="text-white hover:text-ocean transition-colors">
+              <a href="https://x.com/pwaniinnovation" className="text-white hover:text-ocean transition-colors" title="Follow us on X (Twitter)">
                 <FaXTwitter size='25'/>
               </a>
-              <a href="https://www.instagram.com/swahilipothub/" className="text-white hover:text-ocean transition-colors">
+              <a href="https://www.instagram.com/swahilipothub/" className="text-white hover:text-ocean transition-colors" title="Follow us on Instagram">
                 <FaInstagram size='25'/>
               </a>
-              <a href="https://www.linkedin.com/company/piwkenya/" className="text-white hover:text-ocean transition-colors">
+              <a href="https://www.linkedin.com/company/piwkenya/" className="text-white hover:text-ocean transition-colors" title="Follow us on LinkedIn">
                 <FaLinkedin size='25'/>
               </a>
-              <a href="https://www.facebook.com/pwaniinnovationweek" className="text-white hover:text-ocean transition-colors">
+              <a href="https://www.facebook.com/pwaniinnovationweek" className="text-white hover:text-ocean transition-colors" title="Follow us on Facebook">
                 <FaFacebook size='25'/>
               </a>
             </div>
