@@ -23,6 +23,9 @@ import Vendors from "@/pages/Vendors.tsx";
 import Inquiries from "@/pages/Inquiries.tsx";
 import Schedule from "./pages/Schedule.tsx";
 import Exhibitors from "./pages/Exhibitors.tsx";
+import Volunteer from "./pages/Volunteer.tsx";
+import ManagementTeam from "./pages/ManagementTeam.tsx";
+import Mentee from "./pages/Mentee.tsx";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +53,9 @@ const App = () => (
             <Route path="/networking-events" element={<NetworkingEvents/>}/>
             <Route path="/exhibitions" element={<Exhibitions/>}/>
             <Route path="/exhibitors" element={<Exhibitors/>}/>
+            <Route path="registration/internal/volunteer" element={<Volunteer/>}/>
+            <Route path="registration/internal/management-team" element={<ManagementTeam/>}/>
+            <Route path="registration/internal/mentee" element={<Mentee/>}/>
             <Route path="/piw-2023" element={<PIW2023/>}/>
             <Route path="/piw-2024" element={<PIW2024/>}/>
             <Route path="*" element={<NotFound/>}/>

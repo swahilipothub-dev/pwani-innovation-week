@@ -1,9 +1,10 @@
 // API Configuration
-export const API_BASE_URL = 'http://localhost:3000';
+export const API_BASE_URL = 'https://piw-express.onrender.com';
 
 // API Endpoints
 export const API_ENDPOINTS = {
   VOLUNTEERS: `${API_BASE_URL}/api/attendees/volunteers`,
-  MENTEE_ATTENDEES: `${API_BASE_URL}/api/attendees/management`,
-  TICKET_TYPES: 'https://piw-express.onrender.com/api/api/ticket-types',
+  MANAGEMENT_ATTENDEES: `${API_BASE_URL}/api/attendees/management`,
+  MENTEE_ATTENDEES: `${API_BASE_URL}/api/attendees/mentees`,
+  TICKET_TYPES: 'https://piw-express.onrender.com/api/ticket-types',
 } as const;
