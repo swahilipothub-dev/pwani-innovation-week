@@ -1,0 +1,10 @@
+// API Configuration
+export const API_BASE_URL = 'https://piw-express.onrender.com';
+
+// API Endpoints
+export const API_ENDPOINTS = {
+  VOLUNTEERS: `${API_BASE_URL}/api/attendees/volunteers`,
+  MANAGEMENT_ATTENDEES: `${API_BASE_URL}/api/attendees/management`,
+  MENTEE_ATTENDEES: `${API_BASE_URL}/api/attendees/mentees`,
+  TICKET_TYPES: 'https://piw-express.onrender.com/api/ticket-types',
+} as const;
