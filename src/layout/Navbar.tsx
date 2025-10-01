@@ -60,6 +60,12 @@ const Navbar = () => {
                   About
                 </Link>
                 <Link
+                  to="/schedule"
+                  className="text-base font-medium text-gray-800 hover:text-[#F97316] transition-colors duration-300"
+                >
+                  Schedule
+                </Link>
+                <Link
                   to="/speakers"
                   className="text-base font-medium text-gray-800 hover:text-[#F97316] transition-colors duration-300"
                 >
@@ -234,6 +240,13 @@ const Navbar = () => {
                 className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
               >
                 About
+              </Link>
+              <Link
+                to="/schedule"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+              >
+                Schedule
               </Link>
               <Link
                 to="/speakers"

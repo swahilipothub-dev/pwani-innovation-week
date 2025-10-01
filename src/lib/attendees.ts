@@ -22,6 +22,7 @@ export const MANAGEMENT_DEPARTMENTS = [
   'campus ambassadors',
   'finance and procurement',
   'internal volunteers',
+  'entrepreneurship',
 ] as const;
 
 export type Subcounty = (typeof SUBCOUNTIES)[number];
