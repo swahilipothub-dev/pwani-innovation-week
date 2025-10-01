@@ -209,7 +209,7 @@ const ManagementTeam = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="department">Preferred Department *</Label>
+                        <Label htmlFor="department">Department *</Label>
                         <Select
                           value={formData.department}
                           onValueChange={(value) => handleInputChange('department', value)}
