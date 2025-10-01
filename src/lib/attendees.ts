@@ -17,11 +17,6 @@ export const MANAGEMENT_DEPARTMENTS = [
   'swahilipotfm',
   'heritage',
   'hospitality',
-  'health',
-  'youth engagement',
-  'campus ambassadors',
-  'finance and procurement',
-  'internal volunteers',
 ] as const;
 
 export type Subcounty = (typeof SUBCOUNTIES)[number];
