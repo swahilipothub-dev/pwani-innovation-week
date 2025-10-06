@@ -7,26 +7,26 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { API_ENDPOINTS } from '@/lib/config';
-import { SUBCOUNTIES } from '@/lib/attendees';
+import { SUBCOUNTIES, MENTORS } from '@/lib/attendees';
 
 interface MenteeFormData {
   first_name: string;
-  middle_name?: string;
   last_name: string;
-  phone_number: string;
   email: string;
+  phone_number: string;
   gender: string;
   subcounty: string;
+  mentor: string;
 }
 
 const initialFormState: MenteeFormData = {
   first_name: '',
-  middle_name: '',
   last_name: '',
-  phone_number: '',
   email: '',
+  phone_number: '',
   gender: '',
   subcounty: '',
+  mentor: '',
 };
 
 const Mentee = () => {
@@ -36,13 +36,13 @@ const Mentee = () => {
     mutationFn: async (data: MenteeFormData) => {
       const payload = {
         first_name: data.first_name.trim(),
-        middle_name: data.middle_name?.trim() || undefined,
         last_name: data.last_name.trim(),
         phone_number: data.phone_number.trim(),
         email: data.email.trim(),
         gender: data.gender,
         subcounty: data.subcounty,
-      } satisfies Record<string, string | undefined>;
+        mentor: data.mentor,
+      } satisfies Record<string, string>;
 
       const response = await fetch(API_ENDPOINTS.MENTEE_ATTENDEES, {
         method: 'POST',
@@ -53,12 +53,13 @@ const Mentee = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit mentee registration');
+        throw new Error('Failed to submit mentee application');
       }
 
       return response.json();
     },
     onSuccess: () => {
+      // Reset form on success
       setFormData(initialFormState);
     },
   });
@@ -70,7 +71,7 @@ const Mentee = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     menteeMutation.mutate(formData);
   };
@@ -81,17 +82,18 @@ const Mentee = () => {
     formData.email &&
     formData.phone_number &&
     formData.gender &&
-    formData.subcounty;
+    formData.subcounty &&
+    formData.mentor;
 
   return (
     <div className="min-h-screen">
-      <section className="pt-24 pb-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white text-center relative">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-indigo-50 via-indigo-100/50 to-white text-center relative">
         <div className="section-container">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
             Mentee Registration
           </h1>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-            Apply to join the mentee program and receive guidance throughout PIW 2025.
+            Join as a mentee and get guidance from experienced mentors at PIW 2025.
           </p>
         </div>
       </section>
@@ -105,7 +107,7 @@ const Mentee = () => {
                   Mentee Application
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Share your details below to register for the mentee program
+                  Fill out the form below to apply as a mentee
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
@@ -113,14 +115,14 @@ const Mentee = () => {
                   <div className="text-center py-8">
                     <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-green-600 mb-2">
-                      Registration Submitted Successfully!
+                      Application Submitted Successfully!
                     </h3>
                     <p className="text-gray-600 mb-6">
-                      Thank you for applying to join the mentee program. We'll be in touch soon.
+                      Thank you for your interest in becoming a mentee. We'll be in touch soon.
                     </p>
-                    <Button
+                    <Button 
                       onClick={() => menteeMutation.reset()}
-                      className="bg-purple-600 hover:bg-purple-700"
+                      className="bg-indigo-600 hover:bg-indigo-700"
                     >
                       Submit Another Application
                     </Button>
@@ -150,17 +152,6 @@ const Mentee = () => {
                           placeholder="Enter your last name"
                         />
                       </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="middle_name">Middle Name</Label>
-                      <Input
-                        id="middle_name"
-                        type="text"
-                        value={formData.middle_name}
-                        onChange={(e) => handleInputChange('middle_name', e.target.value)}
-                        placeholder="Enter your middle name (optional)"
-                      />
                     </div>
 
                     <div className="space-y-2">
@@ -224,11 +215,30 @@ const Mentee = () => {
                       </div>
                     </div>
 
+                    <div className="space-y-2">
+                      <Label htmlFor="mentor">Preferred Mentor *</Label>
+                      <Select
+                        value={formData.mentor}
+                        onValueChange={(value) => handleInputChange('mentor', value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your mentor" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-60">
+                          {MENTORS.map(mentor => (
+                            <SelectItem key={mentor} value={mentor}>
+                              {mentor}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     {menteeMutation.isError && (
                       <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
                         <AlertCircle className="h-4 w-4" />
                         <span className="text-sm">
-                          {menteeMutation.error?.message || 'Failed to submit registration. Please try again.'}
+                          {menteeMutation.error?.message || 'Failed to submit application. Please try again.'}
                         </span>
                       </div>
                     )}
@@ -236,15 +246,15 @@ const Mentee = () => {
                     <Button
                       type="submit"
                       disabled={!isFormValid || menteeMutation.isPending}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                      className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
                     >
                       {menteeMutation.isPending ? (
                         <div className="flex items-center justify-center space-x-2">
                           <Loader2 className="h-4 w-4 animate-spin" />
-                          <span>Submitting Registration...</span>
+                          <span>Submitting Application...</span>
                         </div>
                       ) : (
-                        'Submit Registration'
+                        'Submit Application'
                       )}
                     </Button>
                   </form>

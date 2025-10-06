@@ -9,33 +9,33 @@ import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { API_ENDPOINTS } from '@/lib/config';
 import { SUBCOUNTIES, MANAGEMENT_DEPARTMENTS } from '@/lib/attendees';
 
-interface ManagementTeamFormData {
+interface ManagementFormData {
   first_name: string;
   middle_name?: string;
   last_name: string;
-  phone_number: string;
   email: string;
+  phone_number: string;
   gender: string;
-  department: string;
   subcounty: string;
+  department: string;
 }
 
-const initialFormState: ManagementTeamFormData = {
+const initialFormState: ManagementFormData = {
   first_name: '',
   middle_name: '',
   last_name: '',
-  phone_number: '',
   email: '',
+  phone_number: '',
   gender: '',
-  department: '',
   subcounty: '',
+  department: '',
 };
 
 const ManagementTeam = () => {
-  const [formData, setFormData] = useState<ManagementTeamFormData>(initialFormState);
+  const [formData, setFormData] = useState<ManagementFormData>(initialFormState);
 
-  const managementTeamMutation = useMutation({
-    mutationFn: async (data: ManagementTeamFormData) => {
+  const managementMutation = useMutation({
+    mutationFn: async (data: ManagementFormData) => {
       const payload = {
         first_name: data.first_name.trim(),
         middle_name: data.middle_name?.trim() || undefined,
@@ -43,8 +43,8 @@ const ManagementTeam = () => {
         phone_number: data.phone_number.trim(),
         email: data.email.trim(),
         gender: data.gender,
-        department: data.department,
         subcounty: data.subcounty,
+        department: data.department,
       } satisfies Record<string, string | undefined>;
 
       const response = await fetch(API_ENDPOINTS.MANAGEMENT_ATTENDEES, {
@@ -56,26 +56,27 @@ const ManagementTeam = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit management team registration');
+        throw new Error('Failed to submit management team application');
       }
 
       return response.json();
     },
     onSuccess: () => {
+      // Reset form on success
       setFormData(initialFormState);
     },
   });
 
-  const handleInputChange = (field: keyof ManagementTeamFormData, value: string) => {
+  const handleInputChange = (field: keyof ManagementFormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    managementTeamMutation.mutate(formData);
+    managementMutation.mutate(formData);
   };
 
   const isFormValid =
@@ -84,18 +85,18 @@ const ManagementTeam = () => {
     formData.email &&
     formData.phone_number &&
     formData.gender &&
-    formData.department &&
-    formData.subcounty;
+    formData.subcounty &&
+    formData.department;
 
   return (
     <div className="min-h-screen">
-      <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 via-blue-100/50 to-white text-center relative">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-green-50 via-green-100/50 to-white text-center relative">
         <div className="section-container">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
             Management Team Registration
           </h1>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-            Apply to join the management team and help deliver an unforgettable PIW 2025 experience.
+            Join the PIW 2025 management team and help organize this amazing event.
           </p>
         </div>
       </section>
@@ -109,22 +110,22 @@ const ManagementTeam = () => {
                   Management Team Application
                 </CardTitle>
                 <CardDescription className="text-gray-600">
-                  Provide your details below to register for the management team
+                  Fill out the form below to apply for the management team
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-8">
-                {managementTeamMutation.isSuccess ? (
+                {managementMutation.isSuccess ? (
                   <div className="text-center py-8">
                     <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold text-green-600 mb-2">
-                      Registration Submitted Successfully!
+                      Application Submitted Successfully!
                     </h3>
                     <p className="text-gray-600 mb-6">
-                      Thank you for applying to join the management team. We'll get back to you shortly.
+                      Thank you for your interest in joining the management team. We'll be in touch soon.
                     </p>
-                    <Button
-                      onClick={() => managementTeamMutation.reset()}
-                      className="bg-blue-600 hover:bg-blue-700"
+                    <Button 
+                      onClick={() => managementMutation.reset()}
+                      className="bg-green-600 hover:bg-green-700"
                     >
                       Submit Another Application
                     </Button>
@@ -209,18 +210,18 @@ const ManagementTeam = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="department">Department *</Label>
+                        <Label htmlFor="subcounty">Subcounty *</Label>
                         <Select
-                          value={formData.department}
-                          onValueChange={(value) => handleInputChange('department', value)}
+                          value={formData.subcounty}
+                          onValueChange={(value) => handleInputChange('subcounty', value)}
                         >
                           <SelectTrigger>
-                            <SelectValue placeholder="Select department" />
+                            <SelectValue placeholder="Select subcounty" />
                           </SelectTrigger>
                           <SelectContent>
-                            {MANAGEMENT_DEPARTMENTS.map(department => (
-                              <SelectItem key={department} value={department}>
-                                {department.replace(/\b\w/g, char => char.toUpperCase())}
+                            {SUBCOUNTIES.map(subcounty => (
+                              <SelectItem key={subcounty} value={subcounty}>
+                                {subcounty.replace(/\b\w/g, char => char.toUpperCase())}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -229,45 +230,45 @@ const ManagementTeam = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="subcounty">Subcounty *</Label>
+                      <Label htmlFor="department">Department *</Label>
                       <Select
-                        value={formData.subcounty}
-                        onValueChange={(value) => handleInputChange('subcounty', value)}
+                        value={formData.department}
+                        onValueChange={(value) => handleInputChange('department', value)}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select subcounty" />
+                          <SelectValue placeholder="Select department" />
                         </SelectTrigger>
                         <SelectContent>
-                          {SUBCOUNTIES.map(subcounty => (
-                            <SelectItem key={subcounty} value={subcounty}>
-                              {subcounty.replace(/\b\w/g, char => char.toUpperCase())}
+                          {MANAGEMENT_DEPARTMENTS.map(department => (
+                            <SelectItem key={department} value={department}>
+                              {department.replace(/\b\w/g, char => char.toUpperCase())}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
 
-                    {managementTeamMutation.isError && (
+                    {managementMutation.isError && (
                       <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
                         <AlertCircle className="h-4 w-4" />
                         <span className="text-sm">
-                          {managementTeamMutation.error?.message || 'Failed to submit registration. Please try again.'}
+                          {managementMutation.error?.message || 'Failed to submit application. Please try again.'}
                         </span>
                       </div>
                     )}
 
                     <Button
                       type="submit"
-                      disabled={!isFormValid || managementTeamMutation.isPending}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                      disabled={!isFormValid || managementMutation.isPending}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
                     >
-                      {managementTeamMutation.isPending ? (
+                      {managementMutation.isPending ? (
                         <div className="flex items-center justify-center space-x-2">
                           <Loader2 className="h-4 w-4 animate-spin" />
-                          <span>Submitting Registration...</span>
+                          <span>Submitting Application...</span>
                         </div>
                       ) : (
-                        'Submit Registration'
+                        'Submit Application'
                       )}
                     </Button>
                   </form>
