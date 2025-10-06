@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { API_ENDPOINTS } from '@/lib/config';
-import { SUBCOUNTIES, MENTORS } from '@/lib/attendees';
+import { SUBCOUNTIES, MENTORS, COHORTS } from '@/lib/attendees';
 
 interface MenteeFormData {
   first_name: string;
@@ -17,6 +17,7 @@ interface MenteeFormData {
   gender: string;
   subcounty: string;
   mentor: string;
+  cohort: string;
 }
 
 const initialFormState: MenteeFormData = {
@@ -27,6 +28,7 @@ const initialFormState: MenteeFormData = {
   gender: '',
   subcounty: '',
   mentor: '',
+  cohort: '',
 };
 
 const Mentee = () => {
@@ -42,6 +44,7 @@ const Mentee = () => {
         gender: data.gender,
         subcounty: data.subcounty,
         mentor: data.mentor,
+        cohort: data.cohort,
       } satisfies Record<string, string>;
 
       const response = await fetch(API_ENDPOINTS.MENTEE_ATTENDEES, {
@@ -83,7 +86,8 @@ const Mentee = () => {
     formData.phone_number &&
     formData.gender &&
     formData.subcounty &&
-    formData.mentor;
+    formData.mentor &&
+    formData.cohort;
 
   return (
     <div className="min-h-screen">
@@ -215,23 +219,44 @@ const Mentee = () => {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="mentor">Preferred Mentor *</Label>
-                      <Select
-                        value={formData.mentor}
-                        onValueChange={(value) => handleInputChange('mentor', value)}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your mentor" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-60">
-                          {MENTORS.map(mentor => (
-                            <SelectItem key={mentor} value={mentor}>
-                              {mentor}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="mentor">Case Manager(Mentor) *</Label>
+                        <Select
+                          value={formData.mentor}
+                          onValueChange={(value) => handleInputChange('mentor', value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select your mentor" />
+                          </SelectTrigger>
+                          <SelectContent className="max-h-60">
+                            {MENTORS.map(mentor => (
+                              <SelectItem key={mentor} value={mentor}>
+                                {mentor}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="cohort">Cohort *</Label>
+                        <Select
+                          value={formData.cohort}
+                          onValueChange={(value) => handleInputChange('cohort', value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select cohort" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {COHORTS.map(cohort => (
+                              <SelectItem key={cohort} value={cohort}>
+                                {cohort.replace(/\b\w/g, char => char.toUpperCase())}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
 
                     {menteeMutation.isError && (

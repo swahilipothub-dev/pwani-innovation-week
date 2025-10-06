@@ -28,6 +28,12 @@ export const MANAGEMENT_DEPARTMENTS = [
   'executive'
 ];
 
+export const COHORTS = [
+  'cohort 2',
+  'cohort 3',
+  'cohort 4'
+];
+
 export const MENTORS = [
   'Joshua Nyongesa',
   'Suad Abdulnassir Said',
