@@ -2,8 +2,44 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Briefcase, Globe, Users} from 'lucide-react';
 
+const keynoteSpeakers = [
+  { image: '/images/keynotespeakers/DR Kevit Desai.png' },
+  { image: '/images/keynotespeakers/Governor.png' },
+  { image: '/images/keynotespeakers/Kalkidan Mulugeta.png' },
+  { image: '/images/keynotespeakers/Mahmoud Noor.png' },
+  { image: '/images/keynotespeakers/Peter Maddens.png' },
+  // { image: '/images/keynotespeakers/Poster6.png' },
+];
+
+if (typeof window !== 'undefined') {
+  const styleId = 'keynote-speakers-hover-zoom';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      /* Smooth transform and proper origin */
+      img[alt^="Keynote Speaker"] {   
+        transition: transform 400ms ease;
+        transform-origin: center;
+        will-change: transform;
+      }
+
+      /* Slight zoom when the parent card is hovered */
+      div:hover > img[alt^="Keynote Speaker"] {
+        transform: scale(1.06);
+      }
+
+      /* Optional: make the card overflow hidden in case it's not already */
+      div:hover > img[alt^="Keynote Speaker"] {
+        display: block;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
 const Speakers = () => {
-  const categories = ['All', 'Keynote Speakers', 'Panel Experts', 'Workshop Leaders'];
+  const categories = ['Keynote Speakers', 'Panel Experts', 'Workshop Leaders'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const audienceTypes = [
@@ -43,18 +79,13 @@ const Speakers = () => {
         <div className="section-container py-20 relative z-10">
           <div className="text-center animate-fade-in">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-              Apply to <span className="gradient-text">Speak</span>
+              Event <span className="gradient-text">Speakers</span>
             </h1>
             <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
               Inspiring leaders, innovators, and changemakers driving coastal transformation
             </p>
-            <Link
-              to="/speaking/apply"
-              className="bg-[#F97316] hover:bg-[#ea580c] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:scale-105 inline-block"
-            >
-              Apply to Speak
-            </Link>
+            
           </div>
         </div>
       </div>
@@ -110,16 +141,40 @@ const Speakers = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="section-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-            Speakers Coming Soon
-          </h2>
-          <p className="text-xl text-gray-700 max-w-xl mx-auto">
-            We’re curating an amazing lineup of speakers. Stay tuned!
-          </p>
-        </div>
-      </section>
+      {selectedCategory === 'Keynote Speakers' ? (
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          <div className="section-container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800">
+              Keynote Speakers
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {keynoteSpeakers.map((speaker, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300"
+                >
+                  <img
+                    src={speaker.image}
+                    alt={`Keynote Speaker ${idx + 1}`}
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+          {/* <div className="section-container text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+              Speakers Coming Soon
+            </h2>
+            <p className="text-xl text-gray-700 max-w-xl mx-auto">
+              We’re curating an amazing lineup of speakers. Stay tuned!
+            </p>
+          </div> */}
+        </section>
+      )}
 
       <section className="py-20 bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
         <div className="section-container text-center">

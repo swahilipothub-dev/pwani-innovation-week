@@ -93,6 +93,14 @@ const Navbar = () => {
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <Link
+                        to="/experience"
+                        className="block w-full text-gray-800 hover:text-[#F97316]"
+                      >
+                        Experience
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
                         to="/vendors"
                         className="block w-full text-gray-800 hover:text-[#F97316]"
                       >
@@ -273,6 +281,13 @@ const Navbar = () => {
                   >
                     Apply to Speak
                   </Link>
+                    <Link
+                      to="/experience"
+                      onClick={() => setIsOpen(false)}
+                      className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    >
+                      Experience
+                    </Link>
                   <Link
                     to="/vendors"
                     onClick={() => setIsOpen(false)}

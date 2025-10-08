@@ -26,6 +26,7 @@ import Exhibitors from "./pages/Exhibitors.tsx";
 import Volunteer from "./pages/Volunteer.tsx";
 import ManagementTeam from "./pages/ManagementTeam.tsx";
 import Mentee from "./pages/Mentee.tsx";
+import Experience from "./pages/Experience.tsx";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/tickets" element={<Tickets/>}/>
             <Route path="/speaking/apply" element={<SpeakerApplicationForm/>}/>
             <Route path="/engage" element={<Engage/>}/>
+            <Route path="/experience" element={<Experience/>}/>
             <Route path="/vendors" element={<Vendors/>}/>
             <Route path="/contact" element={<Inquiries/>}/>
             <Route path="/hackathon" element={<Hackathon/>}/>
