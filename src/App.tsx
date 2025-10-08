@@ -26,6 +26,7 @@ import Exhibitors from "./pages/Exhibitors.tsx";
 import Volunteer from "./pages/Volunteer.tsx";
 import ManagementTeam from "./pages/ManagementTeam.tsx";
 import Mentee from "./pages/Mentee.tsx";
+import Experience from "./pages/Experience.tsx";
 
 const queryClient = new QueryClient();
 
@@ -43,22 +44,20 @@ const App = () => (
             <Route path="/speakers" element={<Speakers/>}/>
             <Route path="/tickets" element={<Tickets/>}/>
             <Route path="/speaking/apply" element={<SpeakerApplicationForm/>}/>
-            <Route path="/engage" element={<Engage/>}/>
-            <Route path="/vendors" element={<Vendors/>}/>
-            <Route path="/contact" element={<Inquiries/>}/>
-            <Route path="/hackathon" element={<Hackathon/>}/>
-            <Route path="/plenary-sessions" element={<PlenarySessions/>}/>
-            <Route path="/workshops" element={<Workshops/>}/>
-            <Route path="/panel-discussions" element={<PanelDiscussions/>}/>
-            <Route path="/networking-events" element={<NetworkingEvents/>}/>
-            <Route path="/exhibitions" element={<Exhibitions/>}/>
-            <Route path="/exhibitors" element={<Exhibitors/>}/>
-            <Route path="registration/internal/volunteer" element={<Volunteer/>}/>
-            <Route path="registration/internal/management-team" element={<ManagementTeam/>}/>
-            <Route path="registration/internal/mentee" element={<Mentee/>}/>
-            <Route path="/piw-2023" element={<PIW2023/>}/>
-            <Route path="/piw-2024" element={<PIW2024/>}/>
-            <Route path="*" element={<NotFound/>}/>
+<Route path="/engage" element={<Engage/>}/>
+<Route path="/experience" element={<Experience/>}/>
+<Route path="/vendors" element={<Vendors/>}/>
+<Route path="/workshops" element={<Workshops/>}/>
+<Route path="/panel-discussions" element={<PanelDiscussions/>}/>
+<Route path="/networking-events" element={<NetworkingEvents/>}/>
+<Route path="/exhibitions" element={<Exhibitions/>}/>
+<Route path="/exhibitors" element={<Exhibitors/>}/>
+<Route path="registration/internal/volunteer" element={<Volunteer/>}/>
+<Route path="registration/internal/management-team" element={<ManagementTeam/>}/>
+<Route path="registration/internal/mentee" element={<Mentee/>}/>
+<Route path="/piw-2023" element={<PIW2023/>}/>
+<Route path="/piw-2024" element={<PIW2024/>}/>
+<Route path="*" element={<NotFound/>}/>
           </Routes>
         </Layout>
       </BrowserRouter>
