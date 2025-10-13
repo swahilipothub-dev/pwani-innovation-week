@@ -90,10 +90,10 @@ const App = () => (
               path='registration/internal/volunteer'
               element={<Volunteer />}
             />  */}
-            {/* <Route
+            <Route
               path='registration/internal/management-team'
               element={<ManagementTeam />}
-            />  */}
+            /> 
             {/* <Route
               path='registration/internal/mentee'
               element={<Mentee />}
