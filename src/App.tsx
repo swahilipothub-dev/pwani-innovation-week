@@ -34,6 +34,7 @@ import Volunteer from './pages/Volunteer.tsx'
 import ManagementTeam from './pages/ManagementTeam.tsx'
 import Mentee from './pages/Mentee.tsx'
 import Experience from './pages/Experience.tsx'
+import CallForContentCreators from './pages/CallForContentCreators.tsx'
 
 const queryClient = new QueryClient()
 
@@ -64,6 +65,10 @@ const App = () => (
             <Route
               path='/experience'
               element={<Experience />}
+            />
+            <Route
+              path='/call-for-content-creators'
+              element={<CallForContentCreators />}
             />
             <Route path='/vendors' element={<Vendors />} />
             <Route
