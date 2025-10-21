@@ -48,12 +48,6 @@ const Navbar = () => {
             <ScrollArea className="w-full whitespace-nowrap rounded-md">
               <div className="flex items-center space-x-6">
                 <Link
-                  to="/"
-                  className="text-base font-medium text-gray-800 hover:text-[#F97316] transition-colors duration-300"
-                >
-                  Home
-                </Link>
-                <Link
                   to="/about"
                   className="text-base font-medium text-gray-800 hover:text-[#F97316] transition-colors duration-300"
                 >
