@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import {Briefcase, Globe, Users} from 'lucide-react';
+
 
 const keynoteSpeakers = [
   { image: '/images/keynotespeakers/DR Kevit Desai.png' },
@@ -15,30 +15,46 @@ const keynoteSpeakers = [
   { image: '/images/keynotespeakers/Prof  Abdulrazak Shaukat.png' },
 
 
+type Speaker = {
+  image: string;
+  name?: string;
+};
 
-
+const keynoteSpeakers: Speaker[] = [
+  {image: '/images/keynotespeakers/DR Kevit Desai.png'},
+  {image: '/images/keynotespeakers/Governor.png'},
+  {image: '/images/keynotespeakers/Kalkidan Mulugeta.png'},
+  {image: '/images/keynotespeakers/Mahmoud Noor.png'},
+  {image: '/images/keynotespeakers/Peter Maddens.png'},
+n
 ];
 
+const speakerCategories: Record<string, Speaker[]> = {
+  'Keynote Speakers': keynoteSpeakers,
+  'Panel Experts': [],
+  'Workshop Leaders': [],
+};
+
 if (typeof window !== 'undefined') {
-  const styleId = 'keynote-speakers-hover-zoom';
+  const styleId = 'speakers-hover-zoom';
   if (!document.getElementById(styleId)) {
     const style = document.createElement('style');
     style.id = styleId;
     style.textContent = `
       /* Smooth transform and proper origin */
-      img[alt^="Keynote Speaker"] {   
+      img.speaker-card-image {   
         transition: transform 400ms ease;
         transform-origin: center;
         will-change: transform;
       }
 
       /* Slight zoom when the parent card is hovered */
-      div:hover > img[alt^="Keynote Speaker"] {
+      div:hover > img.speaker-card-image {
         transform: scale(1.06);
       }
 
       /* Optional: make the card overflow hidden in case it's not already */
-      div:hover > img[alt^="Keynote Speaker"] {
+      div:hover > img.speaker-card-image {
         display: block;
       }
     `;
@@ -47,32 +63,20 @@ if (typeof window !== 'undefined') {
 }
 
 const Speakers = () => {
-  const categories = ['Keynote Speakers', 'Panel Experts', 'Workshop Leaders'];
+  const categories = ['All', ...Object.keys(speakerCategories)];
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const audienceTypes = [
-    {
-      title: 'Youth',
-      description: 'The essential cog in the PIW machine as partners and not mere beneficiaries. The event is youth-driven and interventions are geared towards building a resilient and youthful workforce.',
-      icon: Users,
-      color: 'from-blue-500 to-blue-600',
-      stats: '60% of participants'
-    },
-    {
-      title: 'Public & Private Sector',
-      description: 'The vital enablers and investors of a re-imagined Pwani. Providing a platform for collaboration, knowledge sharing, and identifying strategic investment opportunities.',
-      icon: Briefcase,
-      color: 'from-green-500 to-green-600',
-      stats: '25% of participants'
-    },
-    {
-      title: 'Community Leaders',
-      description: 'Coastal communities as stewards of natural resources. With deliberate discussions on aquaculture, cultural tourism and agriculture to unlock new economic pathways.',
-      icon: Globe,
-      color: 'from-orange-500 to-orange-600',
-      stats: '15% of participants'
-    }
-  ];
+  const speakersInView =
+    selectedCategory === 'All'
+      ? Object.entries(speakerCategories).flatMap(([category, speakers]) =>
+          speakers.map((speaker) => ({...speaker, category}))
+        )
+      : (speakerCategories[selectedCategory] || []).map((speaker) => ({
+          ...speaker,
+          category: selectedCategory,
+        }));
+  const currentHeading = selectedCategory === 'All' ? 'All Speakers' : selectedCategory;
+  const speakerLabel = (category: string) =>
+    category.endsWith('s') ? category.slice(0, -1) : category;
 
   return (
     <div className="min-h-screen">
@@ -98,37 +102,6 @@ const Speakers = () => {
         </div>
       </div>
 
-      <section className="py-20 bg-white">
-        <div className="section-container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">The Audience</h2>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700">Meet the diverse stakeholders driving coastal transformation</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {audienceTypes.map((type, index) => (
-              <div
-                key={index}
-                className="text-center bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 animate-fade-in"
-                style={{animationDelay: `${index * 200}ms`}}
-              >
-                <div
-                  className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${type.color} rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-300`}>
-                  <type.icon className="w-10 h-10 text-white"/>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{type.title}</h3>
-                <p className="text-gray-700 mb-4 leading-relaxed">{type.description}</p>
-                <div
-                  className="inline-block bg-gradient-to-r from-[#F97316] to-[#EA580C] text-white px-4 py-2 rounded-full text-sm font-semibold">
-                  {type.stats}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="py-12 bg-gray-50 border-b">
         <div className="section-container">
           <div className="flex flex-wrap justify-center gap-4">
@@ -149,55 +122,34 @@ const Speakers = () => {
         </div>
       </section>
 
-      {selectedCategory === 'Keynote Speakers' ? (
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          <div className="section-container">
-            <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800">
-              Keynote Speakers
-            </h2>
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="section-container">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800">
+            {currentHeading}
+          </h2>
+          {speakersInView.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {keynoteSpeakers.map((speaker, idx) => (
+              {speakersInView.map((speaker, idx) => (
                 <div
-                  key={idx}
+                  key={`${speaker.category}-${idx}`}
                   className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300"
                 >
                   <img
                     src={speaker.image}
-                    alt={`Keynote Speaker ${idx + 1}`}
-                    className="w-full h-auto object-cover"
+                    alt={`${speakerLabel(speaker.category)} ${idx + 1}`}
+                    className="w-full h-auto object-cover speaker-card-image"
                   />
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-      ) : (
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-          {/* <div className="section-container text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-              Speakers Coming Soon
-            </h2>
-            <p className="text-xl text-gray-700 max-w-xl mx-auto">
-              We’re curating an amazing lineup of speakers. Stay tuned!
-            </p>
-          </div> */}
-        </section>
-      )}
-
-      <section className="py-20 bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
-        <div className="section-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Want to Speak at PIW 2025?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Join our community of thought leaders and share your expertise with coastal innovators and changemakers.
-          </p>
-          <Link
-            to="/speaking/apply"
-            className="bg-white text-[#F97316] px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-block"
-          >
-            Apply to Speak
-          </Link>
+          ) : (
+            <div className="text-center max-w-2xl mx-auto">
+              <p className="text-xl text-gray-700">
+                We’re curating an amazing lineup of {selectedCategory.toLowerCase()}. Check back soon for
+                updates.
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>
