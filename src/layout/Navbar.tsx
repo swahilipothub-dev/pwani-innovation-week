@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
-
+// this is the fix on push request
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`static top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[70] transition-all duration-300 ${
         scrolled ? 'bg-white/90 shadow-md backdrop-blur-md' : 'bg-transparent'
       }`}
     >
@@ -212,10 +212,10 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Nav Button */}
-          <div className="md:hidden">
+          <div className="md:hidden relative z-[80]">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-[#F97316] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#F97316]"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-[#F97316] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#F97316] bg-white/90 backdrop-blur-sm"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -226,9 +226,19 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="static inset-0 z-40 bg-black/40 md:hidden">
+        <div className="fixed inset-0 z-[60] bg-black/40 md:hidden">
           <div className="absolute top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg rounded-b-xl animate-slideDown">
-            <div className="flex flex-col px-6 pt-6 pb-8 space-y-4">
+            {/* Close button positioned at top right */}
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-[#F97316] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#F97316] bg-white/90 backdrop-blur-sm"
+                aria-label="Close menu"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex flex-col px-6 pb-8 space-y-4">
               <Link
                 to="/"
                 onClick={() => setIsOpen(false)}

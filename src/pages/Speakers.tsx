@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
 import {Briefcase, Globe, Users} from 'lucide-react';
 
+
+// const keynoteSpeakers = [
+//   { image: '/images/keynotespeakers/DR Kevit Desai.png' },
+//   { image: '/images/keynotespeakers/Governor.png' },
+//   { image: '/images/keynotespeakers/Kalkidan Mulugeta.png' },
+//   { image: '/images/keynotespeakers/Mahmoud Noor.png' },
+//   { image: '/images/keynotespeakers/Peter Maddens.png' },
+  
+// ]
+
 type Speaker = {
   image: string;
   name?: string;
@@ -12,6 +22,12 @@ const keynoteSpeakers: Speaker[] = [
   {image: '/images/keynotespeakers/Kalkidan Mulugeta.png'},
   {image: '/images/keynotespeakers/Mahmoud Noor.png'},
   {image: '/images/keynotespeakers/Peter Maddens.png'},
+  { image: '/images/keynotespeakers/Alex Chesosi.png' },
+  { image: '/images/keynotespeakers/Canon Chris Kinaynjui.png' },
+  { image: '/images/keynotespeakers/H.E Amb Arnaud Suquet.png' },
+  { image: '/images/keynotespeakers/Kennedy Miheso.png' },
+  { image: '/images/keynotespeakers/Prof  Abdulrazak Shaukat.png' },
+
 ];
 
 const speakerCategories: Record<string, Speaker[]> = {
