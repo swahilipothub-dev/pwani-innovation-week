@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
+import {clsx} from 'clsx';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
-// this is the fix on push request
+// this is the fix when
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropDownengage, setDropDownEngage] = useState(false);
+  const [dropDownExperiences, setDropDownExperiences] = useState(false);
+  const [dropDownPastEvents, setDropDownPastEvents] = useState(false);
 
+  const handleDropEngageBtn = ()=>{
+    setDropDownEngage((prevValue)=>!prevValue);
+  }
+
+  const handleDropExperiencesBtn = ()=>{
+    setDropDownExperiences((prevValue)=>!prevValue);
+  }
+
+  const handleDropPastEventsBtn = ()=>{
+    setDropDownPastEvents((prevValue)=>!prevValue);
+  }
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -227,9 +242,9 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 z-[60] bg-black/40 md:hidden">
-          <div className="absolute top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg rounded-b-xl animate-slideDown">
+          <div className="absolute top-0 left-0 right-0 max-h-[90vh] bg-white/95 backdrop-blur-md shadow-lg rounded-b-xl animate-slideDown flex flex-col">
             {/* Close button positioned at top right */}
-            <div className="flex justify-end p-4">
+            <div className="flex justify-end p-4 flex-shrink-0">
               <button
                 onClick={() => setIsOpen(false)}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-800 hover:text-[#F97316] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#F97316] bg-white/90 backdrop-blur-sm"
@@ -238,85 +253,126 @@ const Navbar = () => {
                 <X size={24} />
               </button>
             </div>
-            <div className="flex flex-col px-6 pb-8 space-y-4">
-              <Link
+            {/* Scrollable content area */}
+            <div className="flex-1 overflow-y-auto px-6 pb-8 mobile-menu-scroll">
+              <div className="flex flex-col space-y-4">
+              <NavLink
                 to="/"
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+                className={({ isActive }) => 
+                  `text-lg font-semibold px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white bg-[#F97316] shadow-lg shadow-[#F97316]/30' 
+                      : 'text-gray-800 hover:text-[#F97316] hover:bg-orange-50 hover:shadow-md hover:shadow-[#F97316]/20'
+                  }`
+                }
               >
                 Home
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/about"
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+                className={({ isActive }) => 
+                  `text-lg font-semibold px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white bg-[#F97316] shadow-lg shadow-[#F97316]/30' 
+                      : 'text-gray-800 hover:text-[#F97316] hover:bg-orange-50 hover:shadow-md hover:shadow-[#F97316]/20'
+                  }`
+                }
               >
                 About
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/schedule"
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+                className={({ isActive }) => 
+                  `text-lg font-semibold px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white bg-[#F97316] shadow-lg shadow-[#F97316]/30' 
+                      : 'text-gray-800 hover:text-[#F97316] hover:bg-orange-50 hover:shadow-md hover:shadow-[#F97316]/20'
+                  }`
+                }
               >
                 Schedule
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/speakers"
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+                className={({ isActive }) => 
+                  `text-lg font-semibold px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white bg-[#F97316] shadow-lg shadow-[#F97316]/30' 
+                      : 'text-gray-800 hover:text-[#F97316] hover:bg-orange-50 hover:shadow-md hover:shadow-[#F97316]/20'
+                  }`
+                }
               >
                 Speakers
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/tickets"
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-semibold text-gray-800 hover:text-[#F97316] transition-colors"
+                className={({ isActive }) => 
+                  `text-lg font-semibold px-4 py-3 rounded-lg transition-all duration-300 ${
+                    isActive 
+                      ? 'text-white bg-[#F97316] shadow-lg shadow-[#F97316]/30' 
+                      : 'text-gray-800 hover:text-[#F97316] hover:bg-orange-50 hover:shadow-md hover:shadow-[#F97316]/20'
+                  }`
+                }
               >
                 Tickets
-              </Link>
+              </NavLink>
 
               <div>
-                <p className="text-sm font-semibold text-gray-500 mb-2">Engage</p>
-                <div className="flex flex-col space-y-2 pl-2">
+                <button 
+                  onClick={handleDropEngageBtn}
+                  className="w-full bg-gradient-to-r from-[#F97316] to-[#EA580C] text-white px-4 py-3 rounded-lg shadow-lg shadow-[#F97316]/30 mb-4 hover:brightness-110 transition-all duration-300 flex items-center justify-between"
+                >
+                  <h3 className="text-lg font-semibold">Engage</h3>
+                  <ChevronDown 
+                    className={`h-5 w-5 transition-transform duration-300 ${dropDownengage ? 'rotate-180' : ''}`} 
+                  />
+                </button>
+
+                <div className={clsx(dropDownengage ? "block": "hidden", "flex flex-col space-y-2 pl-4")}>
                   <Link
                     to="/speaking/apply"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     Apply to Speak
                   </Link>
                     <Link
                       to="/experience"
                       onClick={() => setIsOpen(false)}
-                      className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                      className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                     >
                       Experience
                     </Link>
                   <Link
                     to="/vendors"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     Vendor Application
                   </Link>
                   <Link
                     to="/exhibitors"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     Exhibitor Application
                   </Link>
                   <Link
                     to="/contact"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     Contact / Inquiries
                   </Link>
                   <Link
                     to="/engage"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     Engage Overview
                   </Link>
@@ -324,35 +380,52 @@ const Navbar = () => {
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-gray-500 mb-2">Experiences</p>
-                <div className="flex flex-col space-y-2 pl-2">
-                  <Link to="/hackathon" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Hackathon</Link>
-                  <Link to="/plenary-sessions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Plenary Sessions</Link>
-                  <Link to="/workshops" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Workshops</Link>
-                  <Link to="/panel-discussions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Panel Discussions</Link>
-                  <Link to="/networking-events" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Networking Events</Link>
-                  <Link to="/exhibitions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] transition-colors">Exhibitions</Link>
+                <button 
+                  onClick={handleDropExperiencesBtn}
+                  className="w-full bg-gradient-to-r from-[#F97316] to-[#EA580C] text-white px-4 py-3 rounded-lg shadow-lg shadow-[#F97316]/30 mb-4 hover:brightness-110 transition-all duration-300 flex items-center justify-between"
+                >
+                  <h3 className="text-lg font-semibold">Experiences</h3>
+                  <ChevronDown 
+                    className={`h-5 w-5 transition-transform duration-300 ${dropDownExperiences ? 'rotate-180' : ''}`} 
+                  />
+                </button>
+                <div className={clsx(dropDownExperiences ? "block": "hidden", "flex flex-col space-y-2 pl-4")}>
+                  <Link to="/hackathon" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Hackathon</Link>
+                  <Link to="/plenary-sessions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Plenary Sessions</Link>
+                  <Link to="/workshops" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Workshops</Link>
+                  <Link to="/panel-discussions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Panel Discussions</Link>
+                  <Link to="/networking-events" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Networking Events</Link>
+                  <Link to="/exhibitions" onClick={() => setIsOpen(false)} className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20">Exhibitions</Link>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-gray-500 mb-2">Past Events</p>
-                <div className="flex flex-col space-y-2 pl-2">
+                <button 
+                  onClick={handleDropPastEventsBtn}
+                  className="w-full bg-gradient-to-r from-[#F97316] to-[#EA580C] text-white px-4 py-3 rounded-lg shadow-lg shadow-[#F97316]/30 mb-4 hover:brightness-110 transition-all duration-300 flex items-center justify-between"
+                >
+                  <h3 className="text-lg font-semibold">Past Events</h3>
+                  <ChevronDown 
+                    className={`h-5 w-5 transition-transform duration-300 ${dropDownPastEvents ? 'rotate-180' : ''}`} 
+                  />
+                </button>
+                <div className={clsx(dropDownPastEvents ? "block": "hidden", "flex flex-col space-y-2 pl-4")}>
                   <Link
                     to="/piw-2023"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     PIW 2023
                   </Link>
                   <Link
                     to="/piw-2024"
                     onClick={() => setIsOpen(false)}
-                    className="text-base text-gray-700 hover:text-[#F97316] transition-colors"
+                    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300 hover:shadow-md hover:shadow-[#F97316]/20"
                   >
                     PIW 2024
                   </Link>
                 </div>
+              </div>
               </div>
             </div>
           </div>
@@ -367,6 +440,21 @@ const Navbar = () => {
         }
         .animate-slideDown {
           animation: slideDown 0.3s ease;
+        }
+        /* Custom scrollbar for mobile menu */
+        .mobile-menu-scroll::-webkit-scrollbar {
+          width: 6px;
+        }
+        .mobile-menu-scroll::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 3px;
+        }
+        .mobile-menu-scroll::-webkit-scrollbar-thumb {
+          background: #F97316;
+          border-radius: 3px;
+        }
+        .mobile-menu-scroll::-webkit-scrollbar-thumb:hover {
+          background: #EA580C;
         }
       `}</style>
     </nav>
