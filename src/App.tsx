@@ -99,10 +99,10 @@ const App = () => (
               path='registration/internal/management-team'
               element={<ManagementTeam />}
             />  */}
-            {/* <Route
+            <Route
               path='registration/internal/mentee'
-              element={<Mentee />}
-            /> */}
+              element={<Mentee />
+            />
             <Route path='/piw-2023' element={<PIW2023 />} />
             <Route path='/piw-2024' element={<PIW2024 />} />
             <Route path='*' element={<NotFound />} />
