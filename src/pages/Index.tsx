@@ -9,7 +9,6 @@ const Index = () => {
     <div className="min-h-screen">
       <Hero/>
       <About/>
-      {/* <Objectives /> */}
       <ThematicAreas/>
     </div>
   );

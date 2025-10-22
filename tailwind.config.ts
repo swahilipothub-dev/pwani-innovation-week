@@ -128,8 +128,8 @@ export default {
 				'pulse-light': 'pulse-light 4s ease-in-out infinite'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				display: ['Montserrat', 'sans-serif']
+				sans: ['Quicksand', 'sans-serif'],
+				display: ['Quicksand', 'sans-serif']
 			}
 		}
 	},
