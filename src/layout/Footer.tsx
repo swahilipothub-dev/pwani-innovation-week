@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#F97316] text-white">
       <div className="section-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div>
             <div className="mb-6">
               <img src='/piw_logo.png' height={30} width={200} />
@@ -73,6 +73,18 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/exhibitions" className="text-white/80 hover:text-white hover:underline transition-colors">Exhibitions</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-6">Past Events</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/piw-2023" className="text-white/80 hover:text-white hover:underline transition-colors">PIW 2023</Link>
+              </li>
+              <li>
+                <Link to="/piw-2024" className="text-white/80 hover:text-white hover:underline transition-colors">PIW 2024</Link>
               </li>
             </ul>
           </div>

@@ -28,6 +28,7 @@ import ManagementTeam from './pages/ManagementTeam.tsx'
 import Mentee from './pages/Mentee.tsx'
 import Experience from './pages/Experience.tsx'
 import CallForContentCreators from './pages/CallForContentCreators.tsx'
+import ScrollToTop from '@/components/ScrollToTop.tsx'
 
 const queryClient = new QueryClient()
 
@@ -37,6 +38,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Layout>
           <Routes>
             <Route path='/' element={<Index />} />
