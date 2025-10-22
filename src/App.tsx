@@ -1,15 +1,8 @@
 import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from '@/layout/Layout'
 import Index from './pages/Index'
 import About from './pages/About'
@@ -48,61 +41,21 @@ const App = () => (
           <Routes>
             <Route path='/' element={<Index />} />
             <Route path='/about' element={<About />} />
-            <Route
-              path='/schedule'
-              element={<Schedule />}
-            />
-            <Route
-              path='/speakers'
-              element={<Speakers />}
-            />
+            <Route path='/schedule' element={<Schedule />} />
+            <Route path='/speakers' element={<Speakers />} />
             <Route path='/tickets' element={<Tickets />} />
-            <Route
-              path='/speaking/apply'
-              element={<SpeakerApplicationForm />}
-            />
+            <Route path='/speaking/apply' element={<SpeakerApplicationForm />} />
             <Route path='/engage' element={<Engage />} />
-            <Route
-              path='/experience'
-              element={<Experience />}
-            />
-            <Route
-              path='/call-for-content-creators'
-              element={<CallForContentCreators />}
-            />
+            <Route path='/experience' element={<Experience />} />
+            <Route path='/call-for-content-creators' element={<CallForContentCreators />} />
             <Route path='/vendors' element={<Vendors />} />
-            <Route
-              path='/workshops'
-              element={<Workshops />}
-            />
-            <Route
-              path='/panel-discussions'
-              element={<PanelDiscussions />}
-            />
-            <Route
-              path='/networking-events'
-              element={<NetworkingEvents />}
-            />
-            <Route
-              path='/exhibitions'
-              element={<Exhibitions />}
-            />
-            <Route
-              path='/exhibitors'
-              element={<Exhibitors />}
-            />
-            <Route
-              path='registration/internal/volunteer'
-              element={<Volunteer />}
-            /> 
-            {/* <Route
-              path='registration/internal/management-team'
-              element={<ManagementTeam />}
-            />  */}
-            <Route
-              path='registration/internal/mentee'
-              element={<Mentee />
-            />
+            <Route path='/workshops' element={<Workshops />} />
+            <Route path='/panel-discussions' element={<PanelDiscussions />} />
+            <Route path='/networking-events' element={<NetworkingEvents />} />
+            <Route path='/exhibitions' element={<Exhibitions />} />
+            <Route path='/exhibitors' element={<Exhibitors />} />
+            <Route path='registration/internal/volunteer' element={<Volunteer />} /> 
+            <Route path='registration/internal/mentee' element={<Mentee />} />
             <Route path='/piw-2023' element={<PIW2023 />} />
             <Route path='/piw-2024' element={<PIW2024 />} />
             <Route path='*' element={<NotFound />} />
