@@ -17,6 +17,8 @@ const Objectives = () => {
                 src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86"
                 alt="Innovation landscape" 
                 className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="p-6">
@@ -46,6 +48,8 @@ const Objectives = () => {
                 src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb"
                 alt="Coastal ecosystem" 
                 className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="p-6">
@@ -68,6 +72,8 @@ const Objectives = () => {
                 src="https://images.unsplash.com/photo-1501854140801-50d01698950b"
                 alt="Coastal region aerial view" 
                 className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="p-6">

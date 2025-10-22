@@ -34,7 +34,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex-shrink-0 bg-[#F97316] rounded-md p-1">
-            <img src="/piw_logo.png" alt="PIW Logo" className="h-10 w-auto" />
+            <img
+              src="/piw_logo.png"
+              alt="PIW Logo"
+              className="h-10 w-auto"
+              loading="eager"
+              decoding="async"
+            />
           </Link>
 
           {/* Desktop Nav */}

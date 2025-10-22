@@ -78,6 +78,8 @@ const PIW2023 = () => {
               src="/images/DSC_5601.jpg"
               alt="PIW 2023 Event"
               className="w-full h-96 md:h-[500px] object-cover"
+              loading="eager"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             <div className="absolute bottom-8 left-8 text-white">
@@ -149,11 +151,15 @@ const PIW2023 = () => {
                 src="/images/J26A0003 (1).jpg"
                 alt="PIW 2023 Innovation"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 src="/images/DSC_5665.jpg"
                 alt="PIW 2023 Venue"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -198,11 +204,15 @@ const PIW2023 = () => {
                 src="/images/DSC_5674.jpg"
                 alt="PIW 2023 Session"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 src="/images/DSC_8833.jpg"
                 alt="PIW 2023 Networking"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="space-y-6">
@@ -210,11 +220,15 @@ const PIW2023 = () => {
                 src="/images/J26A9713.jpg"
                 alt="PIW 2023 Exhibition"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 src="/images/IMG-176.jpg"
                 alt="PIW 2023 Workshop"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="space-y-6">
@@ -222,11 +236,15 @@ const PIW2023 = () => {
                 src="/images/IMG-145.jpg"
                 alt="PIW 2023 Panel"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 src="/images/Z50_4804.jpg"
                 alt="PIW 2023 Awards"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

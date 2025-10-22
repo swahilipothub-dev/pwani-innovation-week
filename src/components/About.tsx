@@ -31,6 +31,8 @@ const About = () => {
                 src="/images/breakfast-nbi/4.jpg"
                 alt="Innovation hackathon" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
@@ -38,6 +40,8 @@ const About = () => {
                 src="/images/breakfast-nbi/5.jpg"
                 alt="Panel discussions" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
@@ -45,6 +49,8 @@ const About = () => {
                 src="/images/breakfast-nbi/6.jpg"
                 alt="Plenary sessions" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
@@ -52,6 +58,8 @@ const About = () => {
                 src="/images/breakfast-nbi/7.jpg"
                 alt="Networking events" 
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -64,6 +72,8 @@ const About = () => {
                 src="/images/breakfast-nbi/0.jpg"
                 alt="Hackathon" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="relative z-10">
@@ -80,6 +90,8 @@ const About = () => {
                 src="/images/breakfast-nbi/1.jpg"
                 alt="Panel Sessions" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="relative z-10">
@@ -96,6 +108,8 @@ const About = () => {
                 src="/images/breakfast-nbi/2.jpg"
                 alt="Plenary Sessions" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="relative z-10">
@@ -112,6 +126,8 @@ const About = () => {
                 src="/images/breakfast-nbi/3.jpg"
                 alt="Networking" 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="relative z-10">

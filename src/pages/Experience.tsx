@@ -116,7 +116,14 @@ const Experience: React.FC = () => {
                 <p className="text-gray-700 mb-6">{current.description}</p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {current.images.map((src, idx) => (
-                    <img key={idx} src={src} alt={`${current.title} ${idx+1}`} className="rounded-lg object-cover w-full h-36 md:h-40"/>
+                    <img
+                      key={idx}
+                      src={src}
+                      alt={`${current.title} ${idx + 1}`}
+                      className="rounded-lg object-cover w-full h-36 md:h-40"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ))}
                 </div>
               </CardContent>
@@ -167,6 +174,5 @@ const Experience: React.FC = () => {
 };
 
 export default Experience;
-
 
 

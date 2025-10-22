@@ -10,7 +10,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div>
             <div className="mb-6">
-              <img src='/piw_logo.png' height={30} width={200} />
+              <img
+                src='/piw_logo.png'
+                height={30}
+                width={200}
+                alt="Pwani Innovation Week logo"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <p className="text-white/80 mb-6">
               Pwani Innovation Week 2025 <br />

@@ -114,13 +114,6 @@ const Hero = () => {
               >
                 Get Tickets <ArrowRight size={20} />
               </Link>
-
-              {/*<a*/}
-              {/*  href="#about"*/}
-              {/*  className="border-2 border-[#F97316] text-[#F97316] hover:bg-[#F97316] hover:text-white px-8 py-4 rounded-md text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"*/}
-              {/*>*/}
-              {/*  Learn More*/}
-              {/*</a>*/}
             </div>
 
             {/* Countdown Display - Responsive for Mobile */}
@@ -171,7 +164,13 @@ const Hero = () => {
                     key={index}
                     className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
                   >
-                    <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="w-full h-full object-cover"
+                      loading={index === currentSlide ? 'eager' : 'lazy'}
+                      decoding="async"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   </div>
                 ))}

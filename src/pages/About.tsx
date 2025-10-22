@@ -147,6 +147,8 @@ const About = () => {
                   src="/images/image1 (3).jpg"
                   alt="PIW 2025 participants"
                   className="w-full h-auto"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#F97316]/20 to-transparent"></div>
               </div>
@@ -164,6 +166,8 @@ const About = () => {
                   src="/images/A26I8176.JPG"
                   alt="Breaking down the theme"
                   className="w-full h-auto"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F97316]/10"></div>
               </div>

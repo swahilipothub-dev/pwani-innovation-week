@@ -96,6 +96,8 @@ const PIW2024 = () => {
               src="/images/Z50_5583.jpg"
               alt="PIW 2024 Event"
               className="w-full h-96 md:h-[500px] object-cover"
+              loading="eager"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             <div className="absolute bottom-8 left-8 text-white">
@@ -169,11 +171,15 @@ const PIW2024 = () => {
                 src="/images/DSC_5019.jpg"
                 alt="PIW 2024 Cross-border"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 src="/images/Z50_5527.jpg"
                 alt="PIW 2024 Culture"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -230,6 +236,8 @@ const PIW2024 = () => {
                     src={moment.image}
                     alt={moment.title}
                     className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>

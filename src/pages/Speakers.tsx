@@ -139,6 +139,8 @@ const Speakers = () => {
                     src={speaker.image}
                     alt={`${speakerLabel(speaker.category)} ${idx + 1}`}
                     className="w-full h-auto object-cover speaker-card-image"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               ))}

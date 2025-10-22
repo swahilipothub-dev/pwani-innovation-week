@@ -8,6 +8,8 @@ const CallForContentCreators = () => {
           src="/content.jpg"
           alt="Content creator capturing Pwani Innovation Week moments"
           className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50" />
         <div className="relative z-10 max-w-3xl px-6 text-center text-white">
@@ -55,6 +57,8 @@ const CallForContentCreators = () => {
                   src="/content.jpg"
                   alt="Content creator working during Pwani Innovation Week"
                   className="h-full w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 hidden h-24 w-24 rounded-full bg-[#F97316]/20 blur-2xl md:block" />
