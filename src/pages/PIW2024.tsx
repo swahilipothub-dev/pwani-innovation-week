@@ -63,10 +63,10 @@ const PIW2024 = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <Badge className="mb-4 bg-[#F97316] text-white px-4 py-2 text-lg">
@@ -75,10 +75,10 @@ const PIW2024 = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="gradient-text">PIW 2024</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 dark:text-gray-300">
               "The Pwani We Desire: Youth, Culture, Peace and Innovation in the Decade of Action"
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-lg text-gray-700">
+            <div className="flex flex-wrap justify-center gap-6 text-lg text-gray-700 dark:text-gray-300">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-[#F97316]"/>
                 <span>October 28 - November 1, 2024</span>
@@ -109,7 +109,7 @@ const PIW2024 = () => {
       </section>
 
       {/* Statistics */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             PIW 2024 <span className="gradient-text">Impact</span>
@@ -118,13 +118,13 @@ const PIW2024 = () => {
             {highlights.map((stat, index) => (
               <div
                 key={index}
-                className="text-center p-6 rounded-2xl bg-gradient-to-br from-[#F97316]/10 to-blue-50 card-hover animate-slide-up"
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-[#F97316]/10 to-blue-50 card-hover animate-slide-up dark:from-slate-900 dark:to-slate-800"
                 style={{animationDelay: `${index * 100}ms`}}
               >
                 <div className="text-3xl md:text-4xl font-bold text-[#F97316] mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-gray-600 font-medium dark:text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -132,27 +132,27 @@ const PIW2024 = () => {
       </section>
 
       {/* About PIW 2024 */}
-      <section className="py-16">
+      <section className="py-16 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
                 About <span className="gradient-text">PIW 2024</span>
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 mb-6 dark:text-gray-300">
                 The 5th edition of Pwani Innovation Week marked a historic milestone by expanding beyond
                 Kenya's borders to include Tanzania. Themed "The Pwani We Desire: Youth, Culture, Peace
                 and Innovation in the Decade of Action," PIW 2024 emphasized the power of regional collaboration
                 in driving sustainable development.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-gray-600 mb-8 dark:text-gray-300">
                 This groundbreaking edition fostered meaningful cross-border partnerships, celebrated
                 coastal cultures, and positioned youth as key drivers of innovation and peace-building
                 in the region. The event successfully demonstrated how shared challenges can become
                 opportunities for collective growth.
               </p>
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800">Key Themes:</h3>
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Key Themes:</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {themes.map((theme, index) => (
                     <Badge
@@ -187,7 +187,7 @@ const PIW2024 = () => {
       </section>
 
       {/* Key Achievements */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Breakthrough <span className="gradient-text">Achievements</span>
@@ -196,15 +196,15 @@ const PIW2024 = () => {
             {achievements.map((achievement, index) => (
               <Card
                 key={index}
-                className="p-6 text-center card-hover animate-scale-in"
+                className="p-6 text-center card-hover animate-scale-in bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800"
                 style={{animationDelay: `${index * 150}ms`}}
               >
                 <CardContent className="p-0">
                   <div className="bg-[#F97316] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <achievement.icon className="h-8 w-8 text-white"/>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3">{achievement.title}</h3>
-                  <p className="text-gray-600">{achievement.description}</p>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">{achievement.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{achievement.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -213,7 +213,7 @@ const PIW2024 = () => {
       </section>
 
       {/* Key Moments */}
-      <section className="py-16">
+      <section className="py-16 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Memorable <span className="gradient-text">Moments</span>
@@ -228,8 +228,8 @@ const PIW2024 = () => {
                 style={{animationDelay: `${index * 200}ms`}}
               >
                 <div className={index % 2 === 1 ? 'md:col-start-2' : ''}>
-                  <h3 className="text-2xl font-bold mb-4">{moment.title}</h3>
-                  <p className="text-lg text-gray-600 leading-relaxed">{moment.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{moment.title}</h3>
+                  <p className="text-lg text-gray-600 leading-relaxed dark:text-gray-300">{moment.description}</p>
                 </div>
                 <div className={index % 2 === 1 ? 'md:col-start-1' : ''}>
                   <img

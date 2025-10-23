@@ -45,10 +45,10 @@ const PIW2023 = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-orange-50 transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 animate-fade-in">
             <Badge className="mb-4 bg-[#F97316] text-white px-4 py-2 text-lg">
@@ -57,10 +57,10 @@ const PIW2023 = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="gradient-text">PIW 2023</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8 dark:text-gray-300">
               "Catalyzing Innovation & Entrepreneurship in Coastal Kenya"
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-lg text-gray-700">
+            <div className="flex flex-wrap justify-center gap-6 text-lg text-gray-700 dark:text-gray-300">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-[#F97316]"/>
                 <span>October 23-27, 2023</span>
@@ -91,7 +91,7 @@ const PIW2023 = () => {
       </section>
 
       {/* Statistics */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             PIW 2023 <span className="gradient-text">By Numbers</span>
@@ -100,13 +100,13 @@ const PIW2023 = () => {
             {highlights.map((stat, index) => (
               <div
                 key={index}
-                className="text-center p-6 rounded-2xl bg-gradient-to-br from-[#F97316]/10 to-blue-50 card-hover animate-slide-up"
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-[#F97316]/10 to-blue-50 card-hover animate-slide-up dark:from-slate-900 dark:to-slate-800"
                 style={{animationDelay: `${index * 100}ms`}}
               >
                 <div className="text-3xl md:text-4xl font-bold text-[#F97316] mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-gray-600 font-medium dark:text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -114,25 +114,25 @@ const PIW2023 = () => {
       </section>
 
       {/* About PIW 2023 */}
-      <section className="py-16">
+      <section className="py-16 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
                 About <span className="gradient-text">PIW 2023</span>
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 mb-6 dark:text-gray-300">
                 The 4th edition of Pwani Innovation Week focused on catalyzing innovation and entrepreneurship
                 in coastal Kenya. The event brought together young entrepreneurs, investors, policymakers,
                 and development partners to explore opportunities in the blue economy, digital transformation,
                 and sustainable development.
               </p>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-gray-600 mb-8 dark:text-gray-300">
                 PIW 2023 served as a platform for knowledge sharing, networking, and showcasing innovative
                 solutions that address local challenges while creating economic opportunities for coastal communities.
               </p>
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-800">Key Focus Areas:</h3>
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Key Focus Areas:</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {keyTopics.map((topic, index) => (
                     <Badge
@@ -167,7 +167,7 @@ const PIW2023 = () => {
       </section>
 
       {/* Key Achievements */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Key <span className="gradient-text">Achievements</span>
@@ -176,15 +176,15 @@ const PIW2023 = () => {
             {achievements.map((achievement, index) => (
               <Card
                 key={index}
-                className="p-6 text-center card-hover animate-scale-in"
+                className="p-6 text-center card-hover animate-scale-in bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800"
                 style={{animationDelay: `${index * 150}ms`}}
               >
                 <CardContent className="p-0">
                   <div className="bg-[#F97316] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <achievement.icon className="h-8 w-8 text-white"/>
                   </div>
-                  <h3 className="text-lg font-semibold mb-3">{achievement.title}</h3>
-                  <p className="text-gray-600">{achievement.description}</p>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">{achievement.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300">{achievement.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -193,7 +193,7 @@ const PIW2023 = () => {
       </section>
 
       {/* Event Gallery */}
-      <section className="py-16">
+      <section className="py-16 transition-colors duration-300 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Event <span className="gradient-text">Gallery</span>

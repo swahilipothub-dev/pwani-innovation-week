@@ -20,29 +20,29 @@ const ticketEvents = [
 
 const Tickets = () => {
   return (
-    <div className="min-h-screen">
-      <section className="pt-24 pb-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white text-center relative">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white text-center relative transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="section-container">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 dark:text-white">
             Tickets & Registration
           </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8 dark:text-gray-300">
             Choose your ticket type for the PIW 2025 experience.
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white transition-colors duration-300 dark:bg-slate-950">
         <div className="section-container">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {ticketEvents.map((ticket) => (
-              <Card key={ticket.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+              <Card key={ticket.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800">
                 <CardHeader className="text-center pb-4">
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-orange-500"></div>
-                  <CardTitle className="text-2xl font-bold text-gray-800 mb-2">
+                  <CardTitle className="text-2xl font-bold text-gray-800 mb-2 dark:text-white">
                     {ticket.name}
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-base">
+                  <CardDescription className="text-gray-600 text-base dark:text-gray-300">
                     {ticket.description}
                   </CardDescription>
                 </CardHeader>

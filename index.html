@@ -19,12 +19,25 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@swahilipothub" />
+    <script>
+      (function() {
+        const storageKey = 'piw-theme';
+        const stored = window.localStorage.getItem(storageKey);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored === 'light' || stored === 'dark'
+          ? stored
+          : (prefersDark ? 'dark' : 'light');
+
+        const root = document.documentElement;
+        root.classList.remove('light', 'dark');
+        root.classList.add(theme);
+        root.style.colorScheme = theme;
+      })();
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

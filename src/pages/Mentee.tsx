@@ -90,27 +90,27 @@ const Mentee = () => {
     formData.cohort;
 
   return (
-    <div className="min-h-screen">
-      <section className="pt-24 pb-20 bg-gradient-to-br from-indigo-50 via-indigo-100/50 to-white text-center relative">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-indigo-50 via-indigo-100/50 to-white text-center relative transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="section-container">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 dark:text-white">
             Mentee Registration
           </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8 dark:text-gray-300">
             Join as a mentee and get guidance from experienced mentors at PIW 2025.
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white transition-colors duration-300 dark:bg-slate-950">
         <div className="section-container">
           <div className="max-w-2xl mx-auto">
-            <Card className="shadow-lg">
+            <Card className="shadow-lg bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800">
               <CardHeader className="text-center">
-                <CardTitle className="text-3xl font-bold text-gray-800 mb-2">
+                <CardTitle className="text-3xl font-bold text-gray-800 mb-2 dark:text-white">
                   Mentee Application
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 dark:text-gray-300">
                   Fill out the form below to apply as a mentee
                 </CardDescription>
               </CardHeader>
@@ -121,7 +121,7 @@ const Mentee = () => {
                     <h3 className="text-2xl font-bold text-green-600 mb-2">
                       Application Submitted Successfully!
                     </h3>
-                    <p className="text-gray-600 mb-6">
+                    <p className="text-gray-600 mb-6 dark:text-gray-300">
                       Thank you for your interest in becoming a mentee. We'll be in touch soon.
                     </p>
                     <Button 
@@ -135,7 +135,7 @@ const Mentee = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="first_name">First Name *</Label>
+                        <Label htmlFor="first_name" className="dark:text-gray-200">First Name *</Label>
                         <Input
                           id="first_name"
                           type="text"
@@ -146,7 +146,7 @@ const Mentee = () => {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last_name">Last Name *</Label>
+                        <Label htmlFor="last_name" className="dark:text-gray-200">Last Name *</Label>
                         <Input
                           id="last_name"
                           type="text"
@@ -159,7 +159,7 @@ const Mentee = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
+                      <Label htmlFor="email" className="dark:text-gray-200">Email Address *</Label>
                       <Input
                         id="email"
                         type="email"
@@ -171,7 +171,7 @@ const Mentee = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone_number">Phone Number *</Label>
+                      <Label htmlFor="phone_number" className="dark:text-gray-200">Phone Number *</Label>
                       <Input
                         id="phone_number"
                         type="tel"
@@ -184,7 +184,7 @@ const Mentee = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="gender">Gender *</Label>
+                        <Label htmlFor="gender" className="dark:text-gray-200">Gender *</Label>
                         <Select
                           value={formData.gender}
                           onValueChange={(value) => handleInputChange('gender', value)}
@@ -200,7 +200,7 @@ const Mentee = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="subcounty">Subcounty *</Label>
+                        <Label htmlFor="subcounty" className="dark:text-gray-200">Subcounty *</Label>
                         <Select
                           value={formData.subcounty}
                           onValueChange={(value) => handleInputChange('subcounty', value)}
@@ -221,7 +221,7 @@ const Mentee = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="mentor">Case Manager(Mentor) *</Label>
+                        <Label htmlFor="mentor" className="dark:text-gray-200">Case Manager(Mentor) *</Label>
                         <Select
                           value={formData.mentor}
                           onValueChange={(value) => handleInputChange('mentor', value)}
@@ -240,7 +240,7 @@ const Mentee = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="cohort">Cohort *</Label>
+                        <Label htmlFor="cohort" className="dark:text-gray-200">Cohort *</Label>
                         <Select
                           value={formData.cohort}
                           onValueChange={(value) => handleInputChange('cohort', value)}

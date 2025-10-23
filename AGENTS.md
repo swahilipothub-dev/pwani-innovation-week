@@ -21,3 +21,6 @@ Recent commits favor short, lowercase summaries (for example: `tickets link`, `v
 
 ## Environment & Configuration Tips
 Environment variables consumed by the frontend should be defined with a `VITE_` prefix in `.env` or `.env.local`. Update deployment settings through `vercel.json` when changing routes or headers. When adding new data sources, centralize API clients under `src/lib` to keep configuration discoverable.
+
+Do Not delete any files
+Do not create any new media file unless asked to

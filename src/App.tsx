@@ -24,11 +24,12 @@ import Inquiries from '@/pages/Inquiries.tsx'
 import Schedule from './pages/Schedule.tsx'
 import Exhibitors from './pages/Exhibitors.tsx'
 import Volunteer from './pages/Volunteer.tsx'
-import ManagementTeam from './pages/ManagementTeam.tsx'
+// import ManagementTeam from './pages/ManagementTeam.tsx'
 import Mentee from './pages/Mentee.tsx'
 import Experience from './pages/Experience.tsx'
 import CallForContentCreators from './pages/CallForContentCreators.tsx'
 import ScrollToTop from '@/components/ScrollToTop.tsx'
+import { ThemeProvider } from '@/context/ThemeContext.tsx'
 
 const queryClient = new QueryClient()
 
@@ -37,33 +38,31 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Layout>
-          <Routes>
-            <Route path='/' element={<Index />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/schedule' element={<Schedule />} />
-            <Route path='/speakers' element={<Speakers />} />
-            <Route path='/tickets' element={<Tickets />} />
-            <Route path='/speaking/apply' element={<SpeakerApplicationForm />} />
-            <Route path='/engage' element={<Engage />} />
-            <Route path='/experience' element={<Experience />} />
-            <Route path='/call-for-content-creators' element={<CallForContentCreators />} />
-            <Route path='/vendors' element={<Vendors />} />
-            <Route path='/workshops' element={<Workshops />} />
-            <Route path='/panel-discussions' element={<PanelDiscussions />} />
-            <Route path='/networking-events' element={<NetworkingEvents />} />
-            <Route path='/exhibitions' element={<Exhibitions />} />
-            <Route path='/exhibitors' element={<Exhibitors />} />
-            <Route path='registration/internal/volunteer' element={<Volunteer />} /> 
-            <Route path='registration/internal/mentee' element={<Mentee />} />
-            <Route path='/piw-2023' element={<PIW2023 />} />
-            <Route path='/piw-2024' element={<PIW2024 />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Layout>
+            <Routes>
+              <Route path='/' element={<Index />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/schedule' element={<Schedule />} />
+              <Route path='/speakers' element={<Speakers />} />
+              <Route path='/tickets' element={<Tickets />} />
+              <Route path='/engage' element={<Engage />} />
+              <Route path='/experience' element={<Experience />} />
+              <Route path='/call-for-content-creators' element={<CallForContentCreators />} />
+              <Route path='/workshops' element={<Workshops />} />
+              <Route path='/panel-discussions' element={<PanelDiscussions />} />
+              <Route path='/networking-events' element={<NetworkingEvents />} />
+              <Route path='/exhibitors' element={<Exhibitors />} />
+              <Route path='registration/internal/mentee' element={<Mentee />} />
+              <Route path='/piw-2023' element={<PIW2023 />} />
+              <Route path='/piw-2024' element={<PIW2024 />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
 )

@@ -101,7 +101,19 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased transition-colors duration-300;
+  }
+
+  .reveal-init {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    will-change: opacity, transform;
+  }
+
+  .reveal-active {
+    opacity: 1;
+    transform: translateY(0);
   }
   
   h1, h2, h3, h4, h5, h6 {

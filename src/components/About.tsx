@@ -4,18 +4,18 @@ import { ArrowRight } from 'lucide-react';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-white transition-colors duration-300 dark:bg-slate-950">
       <div className="section-container">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Pwani Innovation Week</h2>
-          <div className="w-24 h-1 bg-ocean mx-auto"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">About Pwani Innovation Week</h2>
+          <div className="w-24 h-1 bg-ocean mx-auto dark:bg-[#F97316]"></div>
         </div>
         <div className="grid gap-16 lg:grid-cols-[1.05fr_1fr] items-center max-w-6xl mx-auto">
           <div className="lg:max-w-xl mx-auto text-center lg:text-left">
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-gray-700 leading-relaxed dark:text-gray-300">
               Pwani Innovation Week is the coast’s flagship gathering where youth, founders, investors, and policy shapers co-create solutions for resilient coastal economies.
             </p>
-            <ul className="mt-6 space-y-3 text-gray-700">
+            <ul className="mt-6 space-y-3 text-gray-700 dark:text-gray-300">
               <li className="flex items-start gap-2">
                 <span className="mt-1 h-2 w-2 rounded-full bg-[#F97316]" />
                 <span>Sixth edition focused on youth agency, innovation, and sustainability.</span>

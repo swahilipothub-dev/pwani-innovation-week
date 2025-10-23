@@ -340,18 +340,6 @@ const Schedule = () => {
           </div>
         </div>
       </section>
-
-      <section className="py-20 bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
-        <div className="section-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Join Us?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Register now to secure your spot at Pwani Innovation Week 2025 and be part of the coastal transformation.
-          </p>
-          <button className="bg-white text-[#F97316] px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-            Register Now
-          </button>
-        </div>
-      </section>
     </div>
   );
 };

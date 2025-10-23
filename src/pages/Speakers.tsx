@@ -80,8 +80,8 @@ const Speakers = () => {
     category.endsWith('s') ? category.slice(0, -1) : category;
 
   return (
-    <div className="min-h-screen">
-      <div className="pt-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <div className="pt-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white relative overflow-hidden transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="absolute top-0 left-0 w-full h-full">
           <div
             className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -91,11 +91,11 @@ const Speakers = () => {
 
         <div className="section-container py-20 relative z-10">
           <div className="text-center animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 dark:text-white">
               Event <span className="gradient-text">Speakers</span>
             </h1>
             <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8 dark:text-gray-300">
               Inspiring leaders, innovators, and changemakers driving coastal transformation
             </p>
             
@@ -103,7 +103,7 @@ const Speakers = () => {
         </div>
       </div>
 
-      <section className="py-12 bg-gray-50 border-b">
+      <section className="py-12 bg-gray-50 border-b transition-colors duration-300 dark:bg-slate-950 dark:border-slate-800">
         <div className="section-container">
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
@@ -113,7 +113,7 @@ const Speakers = () => {
                 className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                   selectedCategory === category
                     ? 'bg-[#F97316] text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md dark:bg-slate-900 dark:text-gray-200 dark:hover:bg-slate-800'
                 }`}
               >
                 {category}
@@ -123,9 +123,9 @@ const Speakers = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white transition-colors duration-300 dark:from-slate-950 dark:to-slate-900">
         <div className="section-container">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800 dark:text-white">
             {currentHeading}
           </h2>
           {speakersInView.length > 0 ? (
@@ -133,7 +133,7 @@ const Speakers = () => {
               {speakersInView.map((speaker, idx) => (
                 <div
                   key={`${speaker.category}-${idx}`}
-                  className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300"
+                  className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 dark:bg-slate-900"
                 >
                   <img
                     src={speaker.image}
@@ -147,7 +147,7 @@ const Speakers = () => {
             </div>
           ) : (
             <div className="text-center max-w-2xl mx-auto">
-              <p className="text-xl text-gray-700">
+              <p className="text-xl text-gray-700 dark:text-gray-300">
                 We’re curating an amazing lineup of {selectedCategory.toLowerCase()}. Check back soon for
                 updates.
               </p>

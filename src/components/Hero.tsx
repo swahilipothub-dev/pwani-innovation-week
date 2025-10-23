@@ -66,11 +66,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center bg-gradient-to-br from-orange-50 via-orange-100/50 to-white overflow-hidden pt-20">
+    <div className="relative min-h-screen flex items-center bg-gradient-to-br from-orange-50 via-orange-100/50 to-white overflow-hidden pt-20 dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl animate-pulse-bg"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse-bg"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-orange-100/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl animate-pulse-bg dark:bg-orange-500/10"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse-bg dark:bg-orange-400/10"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-orange-100/10 to-transparent rounded-full blur-3xl dark:from-slate-800/20"></div>
       </div>
 
       <div className="section-container relative z-10">
@@ -85,7 +85,7 @@ const Hero = () => {
               </div>
 
               <div className="animate-fade-in delay-300">
-                <p className="text-xl md:text-2xl font-medium text-gray-700 mt-6">
+                <p className="text-xl md:text-2xl font-medium text-gray-700 mt-6 dark:text-gray-200">
                   {slides[currentSlide].subtitle}
                 </p>
               </div>
@@ -93,6 +93,9 @@ const Hero = () => {
               <div className="animate-fade-in delay-500">
                 <p className="text-lg md:text-xl text-[#F97316] font-medium mt-4">
                   27th - 31st October 2025 • Mombasa, Kenya
+                </p>
+                <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
+                  {slides[currentSlide].description}
                 </p>
               </div>
             </div>
@@ -114,7 +117,7 @@ const Hero = () => {
 
             {/* Countdown Display */}
             <div className="mt-6 flex justify-center">
-              <div className="flex items-center gap-6 rounded-full border border-[#F97316]/30 bg-white/70 px-6 py-4 shadow-sm backdrop-blur">
+              <div className="flex items-center gap-6 rounded-full border border-[#F97316]/20 bg-white/70 px-6 py-4 shadow-sm backdrop-blur dark:bg-slate-900/60 dark:border-[#F97316]/30">
                 {[
                   { label: "Days", value: countdown.days },
                   { label: "Hours", value: countdown.hours },
@@ -123,11 +126,32 @@ const Hero = () => {
                     <span className="text-3xl md:text-4xl font-semibold text-[#F97316]">
                       {item.value.toString().padStart(2, '0')}
                     </span>
-                    <span className="text-xs uppercase tracking-wide text-gray-500 mt-1">
+                    <span className="text-xs uppercase tracking-wide text-gray-500 mt-1 dark:text-gray-400">
                       {item.label}
                     </span>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div ref={ref} className="pt-8 border-t border-orange-200 dark:border-orange-500/30">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className={`text-center transition-all duration-700 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
+                  <p className="text-4xl font-bold text-[#F97316]">2,000+</p>
+                  <p className="text-gray-600 font-medium dark:text-gray-300">Participants</p>
+                </div>
+                <div className={`text-center transition-all duration-700 delay-300 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
+                  <p className="text-4xl font-bold text-[#F97316]">5</p>
+                  <p className="text-gray-600 font-medium dark:text-gray-300">Days</p>
+                </div>
+                <div className={`text-center transition-all duration-700 delay-500 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
+                  <p className="text-4xl font-bold text-[#F97316]">28</p>
+                  <p className="text-gray-600 font-medium dark:text-gray-300">Sessions</p>
+                </div>
+                <div className={`text-center transition-all duration-700 delay-700 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
+                  <p className="text-4xl font-bold text-[#F97316]">10</p>
+                  <p className="text-gray-600 font-medium dark:text-gray-300">Keynote Speakers</p>
+                </div>
               </div>
             </div>
           </div>
