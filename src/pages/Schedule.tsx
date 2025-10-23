@@ -185,26 +185,26 @@ const Schedule = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="pt-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white relative overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <div className="pt-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white relative overflow-hidden transition-colors duration-300 dark:from-slate-950 dark:via-slate-900/50 dark:to-slate-950">
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-orange-200/20 rounded-full blur-2xl"></div>
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl dark:bg-purple-500/10"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-orange-200/20 rounded-full blur-2xl dark:bg-orange-400/10"></div>
         </div>
         <div className="section-container py-20 relative z-10">
           <div className="text-center animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 dark:text-white">
               Event <span className="gradient-text">Schedule</span>
             </h1>
             <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto dark:text-gray-300">
               Five days of innovation, collaboration, and transformation • October 27-31, 2025
             </p>
           </div>
         </div>
       </div>
 
-      <section className="py-12 bg-white border-b">
+      <section className="py-12 bg-white border-b transition-colors duration-300 dark:bg-slate-950 dark:border-slate-800">
         <div className="section-container">
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             {groupedSchedules.map(({day, date}, index) => {
@@ -218,7 +218,7 @@ const Schedule = () => {
                   className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
                     selectedDay === dayNumber
                       ? 'bg-[#F97316] text-white shadow-lg'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
+                      : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md dark:bg-slate-900 dark:text-gray-200 dark:hover:bg-slate-800'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -240,7 +240,7 @@ const Schedule = () => {
                   className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
                     selectedTrack === track
                       ? 'bg-[#F97316] text-white shadow-md'
-                      : 'bg-orange-50 text-orange-700 hover:bg-orange-100'
+                      : 'bg-orange-50 text-orange-700 hover:bg-orange-100 dark:bg-slate-800 dark:text-orange-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   <Filter className="w-3 h-3 inline mr-1" />
@@ -252,12 +252,12 @@ const Schedule = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white transition-colors duration-300 dark:from-slate-950 dark:to-slate-900">
         <div className="section-container">
           <div className="max-w-4xl mx-auto">
             <div className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedDayTitle}</h2>
-              <p className="text-gray-600">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2 dark:text-white">{selectedDayTitle}</h2>
+              <p className="text-gray-600 dark:text-gray-300">
                 {filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''} planned
               </p>
             </div>
@@ -266,7 +266,7 @@ const Schedule = () => {
               {filteredSessions.map((session, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1 animate-fade-in"
+                  className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1 animate-fade-in dark:bg-slate-900 dark:border-slate-800"
                   style={{animationDelay: `${index * 150}ms`}}
                 >
                   <div className="p-6">
@@ -283,30 +283,30 @@ const Schedule = () => {
                           )}
                         </div>
 
-                        <h3 className="text-xl lg:text-2xl font-bold text-gray-800 mb-2">{session.title}</h3>
+                        <h3 className="text-xl lg:text-2xl font-bold text-gray-800 mb-2 dark:text-white">{session.title}</h3>
 
-                        <p className="text-gray-600 mb-4">
+                        <p className="text-gray-600 mb-4 dark:text-gray-300">
                           {session.description?.trim() ? session.description : 'Session details will be announced soon.'}
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <Clock className="w-4 h-4 mr-2 text-[#F97316]" />
                             {formatTimeRange(session.start_time, session.end_time)}
                           </div>
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <MapPin className="w-4 h-4 mr-2 text-[#F97316]" />
                             {session.venue?.trim() || 'Venue TBA'}
                           </div>
-                          <div className="flex items-center text-gray-600">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
                             <Users className="w-4 h-4 mr-2 text-[#F97316]" />
                             {session.speakers?.length ? session.speakers.join(', ') : 'Speakers TBA'}
                           </div>
                         </div>
 
                         {session.moderator && (
-                          <div className="mt-3 text-sm text-gray-600">
-                            Moderator: <span className="font-medium text-gray-700">{session.moderator}</span>
+                          <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+                            Moderator: <span className="font-medium text-gray-700 dark:text-gray-100">{session.moderator}</span>
                           </div>
                         )}
                       </div>
@@ -320,21 +320,21 @@ const Schedule = () => {
 
             {filteredSessions.length === 0 && (
               <div className="text-center py-12">
-                <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                  <Calendar className="w-12 h-12 text-gray-400" />
+                <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center dark:bg-slate-800">
+                  <Calendar className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">No sessions found</h3>
-                <p className="text-gray-500">Try selecting a different day or track filter.</p>
+                <h3 className="text-xl font-semibold text-gray-600 mb-2 dark:text-gray-300">No sessions found</h3>
+                <p className="text-gray-500 dark:text-gray-400">Try selecting a different day or track filter.</p>
               </div>
             )}
 
             {!groupedSchedules.length && (
               <div className="text-center py-12">
-                <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                  <Calendar className="w-12 h-12 text-gray-400" />
+                <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center dark:bg-slate-800">
+                  <Calendar className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">Schedule coming soon</h3>
-                <p className="text-gray-500">We will publish the program as soon as it is ready.</p>
+                <h3 className="text-xl font-semibold text-gray-600 mb-2 dark:text-gray-300">Schedule coming soon</h3>
+                <p className="text-gray-500 dark:text-gray-400">We will publish the program as soon as it is ready.</p>
               </div>
             )}
           </div>
