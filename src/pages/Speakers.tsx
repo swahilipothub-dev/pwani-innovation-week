@@ -2,15 +2,6 @@ import React, {useState} from 'react';
 import {Briefcase, Globe, Users} from 'lucide-react';
 
 
-// const keynoteSpeakers = [
-//   { image: '/images/keynotespeakers/DR Kevit Desai.png' },
-//   { image: '/images/keynotespeakers/Governor.png' },
-//   { image: '/images/keynotespeakers/Kalkidan Mulugeta.png' },
-//   { image: '/images/keynotespeakers/Mahmoud Noor.png' },
-//   { image: '/images/keynotespeakers/Peter Maddens.png' },
-  
-// ]
-
 type Speaker = {
   image: string;
   name?: string;
@@ -32,6 +23,7 @@ const keynoteSpeakers: Speaker[] = [
 
 const speakerCategories: Record<string, Speaker[]> = {
   'Keynote Speakers': keynoteSpeakers,
+  // These are intentionally empty to demonstrate the "No sessions found" message
   'Panel Experts': [],
   'Workshop Leaders': [],
 };
@@ -66,6 +58,8 @@ if (typeof window !== 'undefined') {
 const Speakers = () => {
   const categories = ['All', ...Object.keys(speakerCategories)];
   const [selectedCategory, setSelectedCategory] = useState('All');
+  
+  // Combine speakers from selected category, adding the category label
   const speakersInView =
     selectedCategory === 'All'
       ? Object.entries(speakerCategories).flatMap(([category, speakers]) =>
@@ -75,9 +69,13 @@ const Speakers = () => {
           ...speaker,
           category: selectedCategory,
         }));
+        
   const currentHeading = selectedCategory === 'All' ? 'All Speakers' : selectedCategory;
   const speakerLabel = (category: string) =>
     category.endsWith('s') ? category.slice(0, -1) : category;
+
+  // This check is now only used to determine if we render the *list or the message*.
+  const hasSpeakersInView = speakersInView.length > 0;
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -98,7 +96,6 @@ const Speakers = () => {
             <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8 dark:text-gray-300">
               Inspiring leaders, innovators, and changemakers driving coastal transformation
             </p>
-            
           </div>
         </div>
       </div>
@@ -123,12 +120,13 @@ const Speakers = () => {
         </div>
       </section>
 
+      {/* Main Speakers Section - Always visible after the filters */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-white transition-colors duration-300 dark:from-slate-950 dark:to-slate-900">
         <div className="section-container">
           <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800 dark:text-white">
             {currentHeading}
           </h2>
-          {speakersInView.length > 0 ? (
+          {hasSpeakersInView ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {speakersInView.map((speaker, idx) => (
                 <div
@@ -146,9 +144,10 @@ const Speakers = () => {
               ))}
             </div>
           ) : (
+            // Placeholder message when a category is selected but has no speakers
             <div className="text-center max-w-2xl mx-auto">
               <p className="text-xl text-gray-700 dark:text-gray-300">
-                We’re curating an amazing lineup of {selectedCategory.toLowerCase()}. Check back soon for
+                We’re curating an amazing lineup of **{selectedCategory.toLowerCase()}**. Check back soon for
                 updates.
               </p>
             </div>
