@@ -55,7 +55,6 @@ const App = () => (
               <Route path='/panel-discussions' element={<PanelDiscussions />} />
               <Route path='/networking-events' element={<NetworkingEvents />} />
               <Route path='/exhibitors' element={<Exhibitors />} />
-              <Route path='registration/internal/mentee' element={<Mentee />} />
               <Route path='/piw-2023' element={<PIW2023 />} />
               <Route path='/piw-2024' element={<PIW2024 />} />
               <Route path='*' element={<NotFound />} />
