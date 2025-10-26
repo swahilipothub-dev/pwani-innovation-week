@@ -18,7 +18,6 @@ const keynoteSpeakers: Speaker[] = [
   { image: '/images/keynotespeakers/H.E Amb Arnaud Suquet.png' },
   { image: '/images/keynotespeakers/Kennedy Miheso.png' },
   { image: '/images/keynotespeakers/Prof  Abdulrazak Shaukat.png' },
-
 ];
 
 const speakerCategories: Record<string, Speaker[]> = {

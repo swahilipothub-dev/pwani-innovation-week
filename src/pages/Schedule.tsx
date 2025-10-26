@@ -35,6 +35,7 @@ interface ScheduleItem {
   end_time?: string;
   moderator?: string;
   type?: string;
+  session_rsvp_link?: string | null;
 }
 
 const TRACK_COLORS: Record<string, string> = {
@@ -61,6 +62,19 @@ const getSpeakerDisplayText = (speaker: Speaker) => {
   if (hasMeaningfulText(speaker.organization)) return speaker.organization!.trim();
   if (hasMeaningfulText(speaker.speakerType)) return speaker.speakerType!.trim();
   return '';
+};
+
+const getSafeUrl = (value?: string | null) => {
+  if (!hasMeaningfulText(value)) return undefined;
+  const trimmed = value!.trim();
+  const candidate = /^(https?:)?\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  try {
+    // Validate URL structure
+    const url = new URL(candidate);
+    return url.href;
+  } catch {
+    return undefined;
+  }
 };
 
 const safeFormatDate = (date?: string, formatString = 'MMM d') => {
@@ -108,6 +122,7 @@ const Schedule = () => {
   const [activeSpeaker, setActiveSpeaker] = useState<{speaker: Speaker; session: ScheduleItem} | null>(null);
 
   const closeSpeakerModal = () => setActiveSpeaker(null);
+  const activeSpeakerRsvpLink = activeSpeaker ? getSafeUrl(activeSpeaker.session.session_rsvp_link) : undefined;
 
   const {
     data: schedules = [],
@@ -326,6 +341,7 @@ const Schedule = () => {
                   .filter((name): name is string => !!name)
                   .join(', ');
                 const isPanelSession = session.type?.trim().toLowerCase() === 'panel';
+                const rsvpLink = getSafeUrl(session.session_rsvp_link);
                 return (
                   <div
                     // Use 'id' or '_id' for a stable key, falling back to index if necessary
@@ -387,6 +403,20 @@ const Schedule = () => {
                               </div>
                             )}
                           </div>
+
+                          {rsvpLink && (
+                            <div className="mt-5">
+                              <a
+                                href={rsvpLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 rounded-full border border-[#F97316] px-4 py-2 text-sm font-semibold text-[#F97316] transition-all hover:bg-[#F97316] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F97316] dark:border-[#F97316]/80 dark:text-orange-300 dark:hover:bg-[#F97316]/90 dark:hover:text-white"
+                              >
+                                Reserve your spot
+                                <ArrowUpRight className="h-4 w-4" />
+                              </a>
+                            </div>
+                          )}
 
                           {session.moderator && (
                             <div className="mt-4 text-sm text-gray-600 dark:text-gray-300 border border-dashed border-gray-200 rounded-xl px-4 py-3 dark:border-slate-700">
@@ -557,6 +587,20 @@ const Schedule = () => {
                     )}
                   </div>
                 </div>
+
+                {activeSpeakerRsvpLink && (
+                  <div className="flex justify-end">
+                    <a
+                      href={activeSpeakerRsvpLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#F97316] px-5 py-2 text-sm font-semibold text-[#F97316] shadow-sm transition-all hover:bg-[#F97316] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F97316] dark:border-[#F97316]/70 dark:text-orange-300 dark:hover:bg-[#F97316]/80 dark:hover:text-white"
+                    >
+                      Reserve your spot
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                )}
 
                 <div className="text-right">
                   <button
