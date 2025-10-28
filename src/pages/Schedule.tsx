@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {format, parseISO} from 'date-fns';
 import {ArrowUpRight, Calendar, Clock, Filter, Loader2, MapPin, RefreshCcw, Users, X} from 'lucide-react';
@@ -116,6 +116,48 @@ const getSpeakerInitials = (name?: string | null) => {
   return matches.join('') || 'SP';
 };
 
+const EVENT_TIMEZONE_OFFSET_MINUTES = 3 * 60; // UTC+3 (Africa/Nairobi)
+
+const toEventTimestamp = (date?: string, time?: string, useEndOfDayFallback = false) => {
+  if (!date) return undefined;
+  const [yearStr, monthStr, dayStr] = date.split('-');
+  if (!yearStr || !monthStr || !dayStr) return undefined;
+
+  const year = Number(yearStr);
+  const month = Number(monthStr);
+  const day = Number(dayStr);
+
+  if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day)) return undefined;
+
+  let hours = 0;
+  let minutes = 0;
+
+  if (time && hasMeaningfulText(time)) {
+    const [hoursStr, minutesStr] = time.split(':');
+    const parsedHours = Number(hoursStr);
+    const parsedMinutes = Number(minutesStr);
+    if (!Number.isNaN(parsedHours)) hours = parsedHours;
+    if (!Number.isNaN(parsedMinutes)) minutes = parsedMinutes;
+  } else if (useEndOfDayFallback) {
+    hours = 23;
+    minutes = 59;
+  }
+
+  const utcTimestamp = Date.UTC(year, month - 1, day, hours, minutes);
+  return utcTimestamp - EVENT_TIMEZONE_OFFSET_MINUTES * 60 * 1000;
+};
+
+const isDayInPast = (date?: string) => {
+  const timestamp = toEventTimestamp(date, undefined, true);
+  if (timestamp === undefined) return false;
+  return timestamp < Date.now();
+};
+
+const getSessionReferenceTimestamp = (session: ScheduleItem) => {
+  const timeReference = session.end_time || session.start_time;
+  return toEventTimestamp(session.date, timeReference, true);
+};
+
 const Schedule = () => {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedTrack, setSelectedTrack] = useState('All');
@@ -156,14 +198,18 @@ const Schedule = () => {
     });
     return Array.from(groups.values())
       .sort((a, b) => a.day - b.day)
-      .map((group) => ({
-        ...group,
-        sessions: [...group.sessions].sort((a, b) => {
-          const aStart = a.start_time || '';
-          const bStart = b.start_time || '';
-          return aStart.localeCompare(bStart);
-        }),
-      }));
+      .map((group, index) => {
+        const displayDay = group.day > 0 ? group.day : index + 1;
+        return {
+          ...group,
+          displayDay,
+          sessions: [...group.sessions].sort((a, b) => {
+            const aStart = a.start_time || '';
+            const bStart = b.start_time || '';
+            return aStart.localeCompare(bStart);
+          }),
+        };
+      });
   }, [schedules]);
 
   const trackFilters = useMemo(() => {
@@ -176,13 +222,65 @@ const Schedule = () => {
 
   const showTrackFilters = groupedSchedules.length > 0 && trackFilters.length > 0;
 
+  const pastDayMap = useMemo(() => {
+    const map = new Map<number, boolean>();
+    groupedSchedules.forEach((group) => {
+      const dayNumber = group.displayDay;
+      const dayIsPast = isDayInPast(group.date) || dayNumber === 1;
+      map.set(dayNumber, dayIsPast);
+      if (group.day !== dayNumber) {
+        map.set(group.day, dayIsPast);
+      }
+    });
+    return map;
+  }, [groupedSchedules]);
+
+  const computeIsSessionPast = useCallback(
+    (session: ScheduleItem) => {
+      const referenceTimestamp = getSessionReferenceTimestamp(session);
+      if (referenceTimestamp !== undefined) {
+        return referenceTimestamp < Date.now();
+      }
+      if (typeof session.day === 'number') {
+        return pastDayMap.get(session.day) ?? false;
+      }
+      if (selectedDay !== null) {
+        return pastDayMap.get(selectedDay) ?? false;
+      }
+      return false;
+    },
+    [pastDayMap, selectedDay],
+  );
+
   useEffect(() => {
     if (!groupedSchedules.length) {
       setSelectedDay(null);
       return;
     }
-    if (selectedDay === null || !groupedSchedules.some((group) => group.day === selectedDay)) {
-      setSelectedDay(groupedSchedules[0].day);
+
+    const hasSelectedDay = selectedDay !== null && groupedSchedules.some((group) => group.displayDay === selectedDay);
+    if (hasSelectedDay) return;
+
+    const now = Date.now();
+    const eventNow = new Date(now + EVENT_TIMEZONE_OFFSET_MINUTES * 60 * 1000);
+    const year = eventNow.getUTCFullYear();
+    const month = String(eventNow.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(eventNow.getUTCDate()).padStart(2, '0');
+    const todayKey = `${year}-${month}-${day}`;
+
+    const todayGroup = groupedSchedules.find((group) => group.date?.startsWith(todayKey));
+    const upcomingGroup = groupedSchedules.find((group) => {
+      const groupTimestamp = toEventTimestamp(group.date, undefined, true);
+      return groupTimestamp !== undefined && groupTimestamp >= now;
+    });
+    const fallbackGroup = groupedSchedules[0];
+    const candidates = [todayGroup, upcomingGroup, fallbackGroup].filter(
+      (group): group is (typeof groupedSchedules)[number] => !!group,
+    );
+    const targetGroup = candidates.find((group) => !isDayInPast(group.date)) || candidates[0];
+
+    if (targetGroup) {
+      setSelectedDay(targetGroup.displayDay);
     }
   }, [groupedSchedules, selectedDay]);
 
@@ -201,7 +299,7 @@ const Schedule = () => {
 
   const sessionsForDay = useMemo(() => {
     if (selectedDay === null) return [];
-    const targetDay = groupedSchedules.find((group) => group.day === selectedDay);
+    const targetDay = groupedSchedules.find((group) => group.displayDay === selectedDay);
     return targetDay?.sessions ?? [];
   }, [groupedSchedules, selectedDay]);
 
@@ -212,11 +310,9 @@ const Schedule = () => {
 
   const selectedDayTitle = useMemo(() => {
     if (selectedDay === null) return 'Schedule';
-    const target = groupedSchedules.find((group) => group.day === selectedDay);
+    const target = groupedSchedules.find((group) => group.displayDay === selectedDay);
     if (!target) return 'Schedule';
-    if (target.day && target.day > 0) return `Day ${target.day} Schedule`;
-    const index = groupedSchedules.indexOf(target);
-    return `Day ${index + 1} Schedule`;
+    return `Day ${target.displayDay} Schedule`;
   }, [groupedSchedules, selectedDay]);
 
   if (isLoading) {
@@ -271,24 +367,33 @@ const Schedule = () => {
       <section className="py-12 bg-white border-b transition-colors duration-300 dark:bg-slate-950 dark:border-slate-800">
         <div className="section-container">
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {groupedSchedules.map(({day, date}, index) => {
-              const dayNumber = typeof day === 'number' ? day : 0;
-              const dayLabel = dayNumber > 0 ? `Day ${dayNumber}` : `Day ${index + 1}`;
+            {groupedSchedules.map(({displayDay, day, date}, index) => {
+              const dayNumber = displayDay;
+              const dayLabel = `Day ${dayNumber}`;
               const shortDate = safeFormatDate(date);
+              const isPastDay = pastDayMap.get(dayNumber) ?? false;
+              const isSelected = selectedDay === dayNumber;
+              const baseClasses = 'px-6 py-3 rounded-full font-semibold transition-all duration-300';
+              const interactionClasses = isPastDay ? '' : ' transform hover:scale-105';
+              const stateClasses = isSelected
+                ? isPastDay
+                  ? 'bg-gray-200 text-gray-500 border border-gray-200 shadow-inner dark:bg-slate-800 dark:text-gray-300 dark:border-slate-700'
+                  : 'bg-[#F97316] text-white shadow-lg'
+                : isPastDay
+                ? 'bg-gray-100 text-gray-400 border border-gray-200 shadow-none dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700'
+                : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md dark:bg-slate-900 dark:text-gray-200 dark:hover:bg-slate-800';
               return (
                 <button
-                  key={`day-${dayNumber}-${index}`}
+                  key={`day-${dayNumber}-${index}-${day}`}
                   onClick={() => setSelectedDay(dayNumber)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    selectedDay === dayNumber
-                      ? 'bg-[#F97316] text-white shadow-lg'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md dark:bg-slate-900 dark:text-gray-200 dark:hover:bg-slate-800'
-                  }`}
+                  aria-pressed={isSelected}
+                  className={`${baseClasses}${interactionClasses} ${stateClasses}`}
                 >
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     {dayLabel}
                     {shortDate && <span className="text-sm opacity-75">{shortDate}</span>}
+                    {isPastDay && <span className="text-xs uppercase tracking-wide text-gray-400">Past</span>}
                   </div>
                 </button>
               );
@@ -342,17 +447,22 @@ const Schedule = () => {
                   .join(', ');
                 const isPanelSession = session.type?.trim().toLowerCase() === 'panel';
                 const rsvpLink = getSafeUrl(session.session_rsvp_link);
+                const sessionIsPast = computeIsSessionPast(session);
+                const cardClasses = sessionIsPast
+                  ? 'relative rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden transition-all duration-500 opacity-70 animate-fade-in dark:bg-slate-900/70 dark:border-slate-800'
+                  : 'relative rounded-2xl border border-gray-100 bg-white overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-1 animate-fade-in dark:bg-slate-900 dark:border-slate-800';
                 return (
                   <div
                     // Use 'id' or '_id' for a stable key, falling back to index if necessary
                     key={session.id || session._id || index}
-                    className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1 animate-fade-in dark:bg-slate-900 dark:border-slate-800"
+                    className={cardClasses}
+                    data-past={sessionIsPast || undefined}
                     style={{animationDelay: `${index * 150}ms`}}
                   >
                     <div className="p-6">
                       <div className="flex flex-col lg:flex-row gap-6">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
+                          <div className="flex flex-wrap items-center gap-3 mb-3">
                             <div className={`px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${getTrackColor(session.track?.name)}`}>
                               {session.track?.name || 'Track TBA'}
                             </div>
@@ -360,6 +470,11 @@ const Schedule = () => {
                               <div className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-gray-200">
                                 {session.type}
                               </div>
+                            )}
+                            {sessionIsPast && (
+                              <span className="ml-auto rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:bg-slate-800 dark:text-gray-400">
+                                Past session
+                              </span>
                             )}
                           </div>
 
@@ -404,7 +519,7 @@ const Schedule = () => {
                             )}
                           </div>
 
-                          {rsvpLink && (
+                          {rsvpLink && !sessionIsPast && (
                             <div className="mt-5">
                               <a
                                 href={rsvpLink}

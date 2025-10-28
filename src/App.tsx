@@ -29,6 +29,7 @@ import Mentee from './pages/Mentee.tsx'
 import Experience from './pages/Experience.tsx'
 import CallForContentCreators from './pages/CallForContentCreators.tsx'
 import ScrollToTop from '@/components/ScrollToTop.tsx'
+import Day1Gallery from './pages/Day1Gallery.tsx'
 import { ThemeProvider } from '@/context/ThemeContext.tsx'
 
 const queryClient = new QueryClient()
@@ -57,6 +58,7 @@ const App = () => (
               <Route path='/exhibitors' element={<Exhibitors />} />
               <Route path='/piw-2023' element={<PIW2023 />} />
               <Route path='/piw-2024' element={<PIW2024 />} />
+              <Route path='/gallery/day-1' element={<Day1Gallery />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Layout>

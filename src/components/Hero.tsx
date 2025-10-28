@@ -19,19 +19,19 @@ const Hero = () => {
     {
       title: "Pwani Innovation Week 2025",
       subtitle: "Pwani Re-imagined: Youth Agency, Innovation & Sustainability of Coastal Economies",
-      image: "/images/breakfast-nbi/1.jpg",
+      image: "/images/day1/0V6A0304.jpg",
       description: "A Pwani-led and youth-driven annual convening for sustainable coastal development."
     },
     {
       title: "Youth at the Center",
       subtitle: "Empowering young changemakers to shape the future of coastal economies",
-      image: "/images/breakfast-nbi/3.jpg",
+      image: "/images/day1/PGT Intro.jpg",
       description: "Building a resilient and youthful workforce through innovation and entrepreneurship."
     },
     {
       title: "Innovation & Sustainability",
       subtitle: "Harnessing technology and creativity for coastal transformation",
-      image: "/images/breakfast-nbi/5.jpg",
+      image: "/images/day1/TR7_0255.jpg",
       description: "Creating localized solutions for sustainable growth in Kenya's coast."
     }
   ];
@@ -44,7 +44,7 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    const targetDate = new Date('2025-10-27T00:00:00');
+    const targetDate = new Date('2025-10-31T18:00:00+03:00');
     const updateCountdown = () => {
       const now = new Date();
       const distance = targetDate.getTime() - now.getTime();
@@ -66,14 +66,20 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center bg-gradient-to-br from-orange-50 via-orange-100/50 to-white overflow-hidden pt-20 dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950">
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+    <div className="relative min-h-screen flex items-center overflow-hidden pt-20">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
+        aria-hidden="true"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-50/90 via-white/85 to-white/95 dark:from-slate-950/90 dark:via-slate-900/80 dark:to-slate-950/90 backdrop-blur-sm"></div>
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-10">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl animate-pulse-bg dark:bg-orange-500/10"></div>
         <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse-bg dark:bg-orange-400/10"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-orange-100/10 to-transparent rounded-full blur-3xl dark:from-slate-800/20"></div>
       </div>
 
-      <div className="section-container relative z-10">
+      <div className="section-container relative z-20">
         <div className="flex flex-col items-center gap-12 text-center">
           <div className="w-full max-w-3xl space-y-8">
             <div className="space-y-4">
@@ -133,6 +139,9 @@ const Hero = () => {
                 ))}
               </div>
             </div>
+            <p className="mt-4 inline-flex items-center rounded-full border border-[#F97316]/30 bg-white/80 px-6 py-2 text-xs font-bold uppercase tracking-[0.24em] text-[#F97316] shadow-sm backdrop-blur dark:border-[#F97316]/50 dark:bg-slate-900/70 dark:text-orange-200">
+              to Pwani Gat Talent
+            </p>
 
             <div ref={ref} className="pt-8 border-t border-orange-200 dark:border-orange-500/30">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
