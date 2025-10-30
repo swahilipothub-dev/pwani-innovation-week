@@ -30,6 +30,8 @@ import Experience from './pages/Experience.tsx'
 import CallForContentCreators from './pages/CallForContentCreators.tsx'
 import ScrollToTop from '@/components/ScrollToTop.tsx'
 import Day1Gallery from './pages/Day1Gallery.tsx'
+import Day2Gallery from './pages/Day2Gallery.tsx'
+import Day3Gallery from './pages/Day3Gallery.tsx'
 import { ThemeProvider } from '@/context/ThemeContext.tsx'
 
 const queryClient = new QueryClient()
@@ -59,6 +61,8 @@ const App = () => (
               <Route path='/piw-2023' element={<PIW2023 />} />
               <Route path='/piw-2024' element={<PIW2024 />} />
               <Route path='/gallery/day-1' element={<Day1Gallery />} />
+              <Route path='/gallery/day-2' element={<Day2Gallery />} />
+              <Route path='/gallery/day-3' element={<Day3Gallery />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </Layout>

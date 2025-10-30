@@ -17,22 +17,25 @@ const Hero = () => {
 
   const slides = [
     {
-      title: "Pwani Innovation Week 2025",
-      subtitle: "Pwani Re-imagined: Youth Agency, Innovation & Sustainability of Coastal Economies",
-      image: "/images/day1/0V6A0304.jpg",
-      description: "A Pwani-led and youth-driven annual convening for sustainable coastal development."
+      title: "Pwani Got Talent 2025",
+      subtitle: "Showcasing the coast's brightest performers on one electric stage",
+      image: "/images/day2/A26I4046.jpg",
+      description:
+        "Pwani Got Talent 2025 is scheduled to take place on 31st October 2025 from 6:00 PM, bringing together emerging and established performers from across the Coast region for an energetic evening of music, dance, spoken word, and creative showcases."
     },
     {
-      title: "Youth at the Center",
-      subtitle: "Empowering young changemakers to shape the future of coastal economies",
-      image: "/images/day1/PGT Intro.jpg",
-      description: "Building a resilient and youthful workforce through innovation and entrepreneurship."
+      title: "Coastal Creativity Live",
+      subtitle: "Experience music, dance, spoken word, comedy, and fashion from rising stars",
+      image: "/images/day2/A26I3531.jpg",
+      description:
+        "Discover fresh talent as finalists light up the stage with diverse acts that celebrate the spirit and culture of the coast."
     },
     {
-      title: "Innovation & Sustainability",
-      subtitle: "Harnessing technology and creativity for coastal transformation",
-      image: "/images/day1/TR7_0255.jpg",
-      description: "Creating localized solutions for sustainable growth in Kenya's coast."
+      title: "A Night of Community",
+      subtitle: "Connect with partners, audiences, and mentors powering the creative economy",
+      image: "/images/day2/TR7_1054.jpg",
+      description:
+        "Celebrate collaborations that unlock opportunities for artists, creatives, and cultural entrepreneurs across the region."
     }
   ];
 
@@ -98,7 +101,7 @@ const Hero = () => {
 
               <div className="animate-fade-in delay-500">
                 <p className="text-lg md:text-xl text-[#F97316] font-medium mt-4">
-                  27th - 31st October 2025 • Mombasa, Kenya
+                  31st October 2025 • Starts 6:00 PM • Mombasa, Kenya
                 </p>
                 <p className="text-lg text-gray-600 mt-4 dark:text-gray-300">
                   {slides[currentSlide].description}
@@ -140,7 +143,7 @@ const Hero = () => {
               </div>
             </div>
             <p className="mt-4 inline-flex items-center rounded-full border border-[#F97316]/30 bg-white/80 px-6 py-2 text-xs font-bold uppercase tracking-[0.24em] text-[#F97316] shadow-sm backdrop-blur dark:border-[#F97316]/50 dark:bg-slate-900/70 dark:text-orange-200">
-              to Pwani Gat Talent
+              to Pwani Got Talent
             </p>
 
             <div ref={ref} className="pt-8 border-t border-orange-200 dark:border-orange-500/30">
