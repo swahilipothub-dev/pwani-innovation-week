@@ -5,12 +5,6 @@ import { ExternalLink } from 'lucide-react';
 
 const ticketEvents = [
   {
-    id: 'piw',
-    name: 'Pwani Innovation Week Tickets',
-    description: 'Secure your spot for the flagship innovation gathering in the coast region.',
-    link: 'https://apps.little.africa/events/pwani-innovation-week',
-  },
-  {
     id: 'pgt',
     name: 'Pwani Gat Talent',
     description: 'Join the celebration of coastal talent and creativity. Book your ticket today.',
