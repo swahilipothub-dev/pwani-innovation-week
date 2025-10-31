@@ -116,12 +116,6 @@ const Hero = () => {
               >
                 Get Tickets <ArrowRight size={20} />
               </Link>
-              <Link
-                to="/schedule"
-                className="border-2 border-[#F97316] text-[#F97316] hover:bg-[#F97316] hover:text-white px-8 py-4 rounded-md text-lg font-semibold flex items-center gap-2 transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                View Schedule
-              </Link>
             </div>
 
             {/* Countdown Display */}
