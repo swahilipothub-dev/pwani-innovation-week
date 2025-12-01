@@ -1,0 +1,66 @@
+<h2>Users</h2>
+<button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">Add user</button>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(user => { %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td>
+          <form method="POST" action="/admin/users/<%= user._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+
+<!-- Create User Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" action="/admin/users">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createUserModalLabel">Add New User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input required name="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+              <input required name="phone_number" class="form-control" placeholder="Phone Number (Start with +254)" type="tel">
+            </div>
+            <div class="col-md-6">
+              <input required name="password" class="form-control" placeholder="Password" type="password">
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" name="is_admin" type="checkbox">
+                <label class="form-check-label">Is Admin</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

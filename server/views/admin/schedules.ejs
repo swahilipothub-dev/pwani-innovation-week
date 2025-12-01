@@ -1,0 +1,544 @@
+<!-- views/admin/schedules.ejs -->
+<% 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const trackLabels = new Set();
+  const typeLabels = new Set();
+  const dayNumbers = new Set();
+
+  let upcomingCount = 0;
+  let todayCount = 0;
+
+  const groupedSchedules = {};
+
+  schedules.forEach(schedule => {
+    const trackName = schedule.track && schedule.track.name ? schedule.track.name : 'Unassigned';
+    trackLabels.add(trackName);
+
+    if (schedule.type) {
+      typeLabels.add(schedule.type);
+    }
+    if (schedule.day) {
+      dayNumbers.add(schedule.day);
+    }
+
+    const scheduleDate = schedule.date ? new Date(schedule.date) : null;
+    let bucketKey = 'unscheduled';
+
+    if (scheduleDate && !Number.isNaN(scheduleDate.valueOf())) {
+      const normalized = new Date(scheduleDate);
+      normalized.setHours(0, 0, 0, 0);
+      bucketKey = normalized.toISOString().split('T')[0];
+
+      if (normalized.getTime() === today.getTime()) {
+        todayCount += 1;
+      }
+      if (normalized.getTime() >= today.getTime()) {
+        upcomingCount += 1;
+      }
+    }
+
+    if (!groupedSchedules[bucketKey]) {
+      groupedSchedules[bucketKey] = [];
+    }
+    groupedSchedules[bucketKey].push(schedule);
+  });
+
+  const sortedDateKeys = Object.keys(groupedSchedules).sort((a, b) => {
+    if (a === 'unscheduled') return 1;
+    if (b === 'unscheduled') return -1;
+    return new Date(a) - new Date(b);
+  });
+
+  const totalSessions = schedules.length;
+  const uniqueTrackCount = trackLabels.size;
+  const uniqueTypeCount = typeLabels.size;
+  const speakerTypeChoices = typeof speakerTypeOptions !== 'undefined'
+    ? speakerTypeOptions
+    : ['Keynote Speaker', 'Guest Speaker', 'Regular'];
+%>
+
+<style>
+  .schedule-header {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+    border-radius: 1rem;
+    color: #fff;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .schedule-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 55%);
+    pointer-events: none;
+  }
+  .schedule-metric-card {
+    border-radius: 0.85rem;
+    border: 1px solid rgba(13, 110, 253, 0.08);
+    box-shadow: 0 0.75rem 1.5rem -1rem rgba(13, 110, 253, 0.7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .schedule-metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 3rem -1.5rem rgba(13, 110, 253, 0.85);
+  }
+  .schedule-day-section {
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem 1.5rem;
+    background: #fff;
+    box-shadow: 0 1.25rem 2.5rem -2rem rgba(10, 30, 70, 0.4);
+  }
+  .schedule-day-header h4 {
+    margin: 0;
+    font-weight: 600;
+  }
+  .schedule-card {
+    border-radius: 1rem;
+    border: 1px solid rgba(13, 110, 253, 0.12);
+    border-left: 4px solid #0d6efd;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .schedule-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1.25rem 2.5rem -1.75rem rgba(13, 110, 253, 0.45);
+    border-color: #0b5ed7;
+  }
+  .schedule-badge {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .schedule-time-pill {
+    background: rgba(13, 110, 253, 0.08);
+    border-radius: 50px;
+    padding: 0.35rem 0.8rem;
+    font-weight: 600;
+    color: #0d6efd;
+    font-size: 0.85rem;
+  }
+  .schedule-empty {
+    border-radius: 1rem;
+    border: 2px dashed rgba(108, 117, 125, 0.4);
+  }
+  .filter-toolbar .form-control,
+  .filter-toolbar .form-select {
+    border-radius: 0.75rem;
+  }
+  .filter-toolbar button {
+    border-radius: 0.75rem;
+  }
+
+</style>
+
+<div class="container py-4">
+  <div class="schedule-header mb-4">
+    <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-4">
+      <div>
+        <p class="text-uppercase fw-semibold mb-2 opacity-75">Programme Management</p>
+        <h1 class="display-5 fw-bold mb-2">Schedule Overview</h1>
+        <p class="lead mb-0 opacity-75">
+          Track upcoming sessions, manage speakers, and keep the programme flowing seamlessly.
+        </p>
+      </div>
+      <div class="d-flex flex-column flex-sm-row gap-2">
+        <button class="btn btn-light btn-lg" data-bs-toggle="collapse" data-bs-target="#filters">
+          <i class="fas fa-sliders-h me-2"></i>Filters
+        </button>
+        <a class="btn btn-outline-light btn-lg" href="/admin/schedules/new">
+          <i class="fas fa-plus me-2"></i>Add Schedule
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="schedule-metric-card bg-white p-3 h-100">
+        <p class="text-uppercase text-muted fw-semibold small mb-2">Total Sessions</p>
+        <h3 class="fw-bold mb-0"><%= totalSessions %></h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="schedule-metric-card bg-white p-3 h-100">
+        <p class="text-uppercase text-muted fw-semibold small mb-2">Upcoming</p>
+        <h3 class="fw-bold mb-0"><%= upcomingCount %></h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="schedule-metric-card bg-white p-3 h-100">
+        <p class="text-uppercase text-muted fw-semibold small mb-2">Tracks</p>
+        <h3 class="fw-bold mb-0"><%= uniqueTrackCount %></h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="schedule-metric-card bg-white p-3 h-100">
+        <p class="text-uppercase text-muted fw-semibold small mb-2">Session Types</p>
+        <h3 class="fw-bold mb-0"><%= uniqueTypeCount %></h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapse show mb-4" id="filters">
+    <div class="filter-toolbar card border-0 shadow-sm">
+      <div class="card-body">
+        <form class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label text-muted small text-uppercase">Search</label>
+            <input type="text" id="scheduleSearch" class="form-control form-control-lg" placeholder="Search by title, speaker, venue..." />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small text-uppercase">Track</label>
+            <select id="scheduleTrack" class="form-select form-select-lg">
+              <option value="">All tracks</option>
+              <% tracks.forEach(track => { %>
+                <option value="<%= track._id.toString() %>"><%= track.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted small text-uppercase">Session Type</label>
+            <select id="scheduleType" class="form-select form-select-lg">
+              <option value="">All types</option>
+              <% Array.from(typeLabels).sort().forEach(type => { %>
+                <option value="<%= type %>"><%= type %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label text-muted small text-uppercase">Day</label>
+            <select id="scheduleDay" class="form-select form-select-lg">
+              <option value="">Any day</option>
+              <% Array.from(dayNumbers).sort((a, b) => a - b).forEach(day => { %>
+                <option value="<%= day %>">Day <%= day %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-12 d-flex justify-content-end gap-2">
+            <button type="button" id="resetScheduleFilters" class="btn btn-outline-secondary">
+              <i class="fas fa-undo me-2"></i>Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="scheduleList" class="d-flex flex-column gap-4">
+    <% sortedDateKeys.forEach(dateKey => { 
+         const sessionsForDay = groupedSchedules[dateKey].slice().sort((a, b) => {
+           const startA = a.start_time || '';
+           const startB = b.start_time || '';
+           return startA.localeCompare(startB);
+         });
+         const firstSchedule = sessionsForDay[0];
+         const firstScheduleDate = firstSchedule && firstSchedule.date ? new Date(firstSchedule.date) : null;
+         const hasValidDate = firstScheduleDate && !Number.isNaN(firstScheduleDate.valueOf());
+         const friendlyDate = !hasValidDate
+           ? 'Unscheduled Sessions'
+           : firstScheduleDate.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+         const dayLabel = firstSchedule && firstSchedule.day ? `Day ${firstSchedule.day}` : 'No day assigned';
+         const dayBadgeClass = (() => {
+           if (!hasValidDate) return 'bg-secondary';
+           const normalized = new Date(firstScheduleDate);
+           normalized.setHours(0, 0, 0, 0);
+           if (normalized.getTime() < today.getTime()) return 'bg-secondary';
+           if (normalized.getTime() === today.getTime()) return 'bg-warning text-dark';
+           return 'bg-success';
+         })();
+    %>
+      <section class="schedule-day-section" data-schedule-day>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3 schedule-day-header">
+          <div>
+            <h4 class="mb-1"><%= friendlyDate %></h4>
+            <span class="badge schedule-badge <%= dayBadgeClass %>">
+              <%= dayLabel %>
+            </span>
+          </div>
+          <span class="text-muted small text-uppercase fw-semibold">
+            <%= sessionsForDay.length %> session<%= sessionsForDay.length === 1 ? '' : 's' %>
+          </span>
+        </div>
+
+        <div class="row g-3">
+          <% sessionsForDay.forEach(schedule => {
+               const track = schedule.track || {};
+               const trackId = track._id ? track._id.toString() : '';
+               const trackName = track && track.name ? track.name : 'Unassigned';
+               const speakerEntries = (schedule.speakers || []).map(speaker => {
+                 if (!speaker) return null;
+                 if (typeof speaker === 'string') return { name: speaker };
+                 return speaker;
+               }).filter(Boolean);
+               const speakerNames = speakerEntries.map(entry => entry.name).filter(Boolean);
+               const speakerList = speakerNames.join(', ');
+               const speakerSearchTokens = speakerEntries
+                 .map(entry => [entry.name, entry.title, entry.organization, entry.speakerType]
+                   .filter(Boolean)
+                   .join(' '))
+                 .filter(Boolean)
+                 .join(' ');
+               const scheduleDate = schedule.date ? new Date(schedule.date) : null;
+               const isoDate = scheduleDate && !Number.isNaN(scheduleDate.valueOf())
+                 ? scheduleDate.toISOString().split('T')[0]
+                 : '';
+               const dayNumber = schedule.day ? String(schedule.day) : '';
+               const type = schedule.type || 'Session';
+               const moderator = schedule.moderator || '';
+               const rsvpLink = schedule.session_rsvp_link || '';
+
+               let statusLabel = 'Upcoming';
+               let statusClass = 'text-bg-success';
+
+               if (!scheduleDate || Number.isNaN(scheduleDate.valueOf())) {
+                 statusLabel = 'Unscheduled';
+                 statusClass = 'text-bg-secondary';
+               } else {
+                 const normalized = new Date(scheduleDate);
+                 normalized.setHours(0, 0, 0, 0);
+                 if (normalized.getTime() < today.getTime()) {
+                   statusLabel = 'Past';
+                   statusClass = 'text-bg-secondary';
+                 } else if (normalized.getTime() === today.getTime()) {
+                   statusLabel = 'Today';
+                   statusClass = 'text-bg-warning text-dark';
+                 }
+               }
+
+               const searchTokens = [
+                 schedule.title,
+                 trackName,
+                 speakerList,
+                 speakerSearchTokens,
+                 schedule.venue,
+                 rsvpLink,
+                 type,
+                 moderator
+               ]
+               .filter(Boolean)
+               .join(' ')
+               .toLowerCase();
+          %>
+            <div class="col-12 col-lg-6" 
+                 data-schedule-card="true"
+                 data-track="<%= trackId %>"
+                 data-type="<%= type %>"
+                 data-day="<%= dayNumber %>"
+                 data-date="<%= isoDate %>"
+                 data-search="<%- (searchTokens || '').replace(/\"/g, '&quot;') %>">
+              <article class="card schedule-card h-100">
+                <div class="card-body d-flex flex-column gap-3">
+                  <div class="d-flex flex-wrap gap-2 align-items-center">
+                    <span class="badge schedule-badge text-bg-primary"><%= trackName %></span>
+                    <span class="badge schedule-badge text-bg-light text-dark border"><%= type %></span>
+                    <span class="badge schedule-badge <%= statusClass %>"><%= statusLabel %></span>
+                  </div>
+
+                  <div>
+                    <h5 class="fw-bold mb-1 text-break"><%= schedule.title %></h5>
+                    <% if (schedule.description) { %>
+                      <p class="text-muted mb-0 small text-break"><%= schedule.description %></p>
+                    <% } %>
+                  </div>
+
+                  <div class="d-flex flex-column gap-2 text-muted small">
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="fas fa-clock text-primary"></i>
+                      <span class="schedule-time-pill"><%= schedule.start_time %> - <%= schedule.end_time %></span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="fas fa-map-marker-alt text-danger"></i>
+                      <span><%= schedule.venue || 'Venue TBA' %></span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="fas fa-user-friends text-success"></i>
+                      <span><%= speakerList || 'Speakers TBA' %></span>
+                    </div>
+                    <% if (moderator) { %>
+                      <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-user-tie text-info"></i>
+                        <span>Moderator: <%= moderator %></span>
+                      </div>
+                    <% } %>
+                    <% if (rsvpLink) { %>
+                      <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-link text-warning"></i>
+                        <a href="<%= rsvpLink %>" target="_blank" rel="noopener" class="text-decoration-none">RSVP</a>
+                      </div>
+                    <% } %>
+                  </div>
+
+                  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-auto">
+                    <small class="text-muted">
+                      Updated <%= new Date(schedule.updatedAt).toLocaleString() %>
+                    </small>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewSchedule-<%= schedule._id %>">
+                        Quick View
+                      </button>
+                      <a href="/admin/schedules/<%= schedule._id %>" class="btn btn-outline-secondary">Edit</a>
+                      <form method="POST" action="/admin/schedules/<%= schedule._id %>?_method=DELETE" onsubmit="return confirm('Delete this schedule?')">
+                        <button class="btn btn-outline-danger">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="modal fade" id="viewSchedule-<%= schedule._id %>" tabindex="-1" aria-labelledby="viewScheduleLabel-<%= schedule._id %>" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="viewScheduleLabel-<%= schedule._id %>"><%= schedule.title %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="card h-100 border shadow-sm">
+                          <div class="card-body">
+                            <h6 class="text-muted text-uppercase small mb-3">Session</h6>
+                            <p><strong>Title:</strong> <%= schedule.title %></p>
+                            <p><strong>Track:</strong> <%= trackName %></p>
+                            <p><strong>Day:</strong> <%= schedule.day || 'N/A' %></p>
+                            <p><strong>Type:</strong> <%= type %></p>
+                            <% if (schedule.description) { %>
+                              <p><strong>Description:</strong> <%= schedule.description %></p>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="card h-100 border shadow-sm">
+                          <div class="card-body">
+                            <h6 class="text-muted text-uppercase small mb-3">Details</h6>
+                            <p><strong>Venue:</strong> <%= schedule.venue || 'Venue TBA' %></p>
+                            <p><strong>Date:</strong> <%= scheduleDate ? scheduleDate.toDateString() : 'N/A' %></p>
+                            <p><strong>Time:</strong> <%= schedule.start_time %> - <%= schedule.end_time %></p>
+                            <p><strong>Moderator:</strong> <%= moderator || 'TBA' %></p>
+                            <p><strong>RSVP:</strong>
+                              <% if (rsvpLink) { %>
+                                <a href="<%= rsvpLink %>" target="_blank" rel="noopener">RSVP Link</a>
+                              <% } else { %>
+                                <span class="text-muted">Not provided</span>
+                              <% } %>
+                            </p>
+                            <p><strong>Speakers:</strong></p>
+                            <% if (!speakerEntries.length) { %>
+                              <p class="text-muted">TBA</p>
+                            <% } else { %>
+                              <ul class="list-unstyled mb-0">
+                                <% speakerEntries.forEach(entry => { %>
+                                  <li class="mb-2">
+                                    <strong><%= entry.name || 'Unnamed' %></strong>
+                                    <% if (entry.title) { %>
+                                      <span class="text-muted"> — <%= entry.title %></span>
+                                    <% } %>
+                                    <% if (entry.organization) { %>
+                                      <div class="text-muted small"><%= entry.organization %></div>
+                                    <% } %>
+                                    <% if (entry.speakerType) { %>
+                                      <span class="badge bg-light text-dark mt-1"><%= entry.speakerType %></span>
+                                    <% } %>
+                                  </li>
+                                <% }); %>
+                              </ul>
+                            <% } %>
+                            <hr>
+                            <p class="small text-muted mb-1">Created: <%= new Date(schedule.createdAt).toLocaleString() %></p>
+                            <p class="small text-muted mb-0">Updated: <%= new Date(schedule.updatedAt).toLocaleString() %></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="/admin/schedules/<%= schedule._id %>" class="btn btn-outline-primary">Edit</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+    <% }) %>
+  </div>
+
+  <div id="scheduleEmptyState" class="schedule-empty d-none text-center py-5 px-3 mt-4">
+    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light mb-3" style="width: 72px; height: 72px;">
+      <i class="fas fa-calendar-times fa-2x text-secondary"></i>
+    </div>
+    <h5 class="fw-semibold">No sessions match your filters</h5>
+    <p class="text-muted mb-0">Try adjusting search terms or removing filters to see more results.</p>
+  </div>
+
+  <div class="d-flex justify-content-end mt-4">
+    <a href="/admin" class="btn btn-outline-secondary">
+      <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+    </a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('scheduleSearch');
+    const trackSelect = document.getElementById('scheduleTrack');
+    const typeSelect = document.getElementById('scheduleType');
+    const daySelect = document.getElementById('scheduleDay');
+    const resetButton = document.getElementById('resetScheduleFilters');
+
+    const cardNodes = Array.from(document.querySelectorAll('[data-schedule-card]'));
+    const daySections = Array.from(document.querySelectorAll('[data-schedule-day]'));
+    const emptyState = document.getElementById('scheduleEmptyState');
+
+    function applyFilters() {
+      const query = (searchInput?.value || '').trim().toLowerCase();
+      const track = trackSelect?.value || '';
+      const type = typeSelect?.value || '';
+      const day = daySelect?.value || '';
+
+      let visibleCards = 0;
+
+      cardNodes.forEach(card => {
+        const matchesQuery = !query || (card.dataset.search || '').includes(query);
+        const matchesTrack = !track || card.dataset.track === track;
+        const matchesType = !type || card.dataset.type === type;
+        const matchesDay = !day || card.dataset.day === day;
+
+        const shouldShow = matchesQuery && matchesTrack && matchesType && matchesDay;
+        card.style.display = shouldShow ? '' : 'none';
+
+        if (shouldShow) visibleCards += 1;
+      });
+
+      daySections.forEach(section => {
+        const hasVisible = Array.from(section.querySelectorAll('[data-schedule-card]')).some(card => card.style.display !== 'none');
+        section.style.display = hasVisible ? '' : 'none';
+      });
+
+      if (emptyState) {
+        emptyState.classList.toggle('d-none', visibleCards !== 0);
+      }
+    }
+
+    function resetFilters() {
+      if (searchInput) searchInput.value = '';
+      if (trackSelect) trackSelect.value = '';
+      if (typeSelect) typeSelect.value = '';
+      if (daySelect) daySelect.value = '';
+      applyFilters();
+    }
+
+    if (searchInput) searchInput.addEventListener('input', applyFilters);
+    if (trackSelect) trackSelect.addEventListener('change', applyFilters);
+    if (typeSelect) typeSelect.addEventListener('change', applyFilters);
+    if (daySelect) daySelect.addEventListener('change', applyFilters);
+    if (resetButton) resetButton.addEventListener('click', resetFilters);
+
+    applyFilters();
+  });
+</script>

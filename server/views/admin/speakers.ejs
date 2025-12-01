@@ -1,0 +1,306 @@
+<div class="container py-3">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="mb-0">Speakers</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSpeakerModal">Add Speaker</button>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row g-2">
+        <div class="col-md-4">
+          <input type="text" id="speakerSearch" class="form-control" placeholder="Search name, email, phone">
+        </div>
+        <div class="col-md-4">
+          <select id="filterThematic" class="form-select">
+            <option value="">Filter: Thematic Area</option>
+            <option value="Sustainable Coastal">Sustainable Coastal</option>
+            <option value="Youth Agency">Youth Agency</option>
+            <option value="Digital Track">Digital Track</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select id="filterSessionType" class="form-select">
+            <option value="">Filter: Session Type</option>
+            <option value="Keynote Address">Keynote Address</option>
+            <option value="Panel Discussions">Panel Discussions</option>
+            <option value="Workshops">Workshops</option>
+            <option value="Masterclass">Masterclass</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle" id="speakersTable">
+      <thead class="table-light">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Thematic Area</th>
+          <th>Session</th>
+          <th>Delivery</th>
+          <th>Is Accepted?</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% speakers.forEach(speaker => { %>
+          <tr data-name="<%= (speaker.first_name + ' ' + speaker.last_name).toLowerCase() %>"
+              data-email="<%= (speaker.email || '').toLowerCase() %>"
+              data-phone="<%= (speaker.phone_number || '').toLowerCase() %>"
+              data-thematic="<%= speaker.thematic_area %>"
+              data-sessiontype="<%= speaker.session_type %>">
+            <td><strong><%= speaker.first_name %> <%= speaker.last_name %></strong></td>
+            <td><%= speaker.email %></td>
+            <td><%= speaker.phone_number %></td>
+            <td>
+              <% if (speaker.thematic_area === 'Sustainable Coastal') { %>
+                <span class="badge text-bg-success"><%= speaker.thematic_area %></span>
+              <% } else if (speaker.thematic_area === 'Youth Agency') { %>
+                <span class="badge text-bg-primary"><%= speaker.thematic_area %></span>
+              <% } else { %>
+                <span class="badge text-bg-info"><%= speaker.thematic_area %></span>
+              <% } %>
+            </td>
+            <td><span class="badge text-bg-secondary"><%= speaker.session_type %></span></td>
+            <td><span class="badge text-bg-dark"><%= speaker.delivery_type %></span></td>
+            <td>
+              <% if (speaker.is_accepted) { %>
+                <span class="badge text-bg-success">Yes</span>
+              <% } else { %>
+                <span class="badge text-bg-danger">No</span>
+              <% } %>
+            </td>
+            <td class="text-end">
+              <div class="d-flex gap-2 justify-content-end btn-group">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewSpeaker-<%= speaker._id %>">View</button>
+                <form method="POST" action="/admin/speakers/<%= speaker._id %>/toggle-acceptance">
+                  <button class="btn btn-sm <%= speaker.is_accepted ? 'btn-warning' : 'btn-success' %>">
+                    <%= speaker.is_accepted ? 'Mark Unaccepted' : 'Mark Accepted' %>
+                  </button>
+                </form>
+                <form method="POST" action="/admin/speakers/<%= speaker._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')">
+                  <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          <div class="modal fade" id="viewSpeaker-<%= speaker._id %>" tabindex="-1" aria-labelledby="viewSpeakerLabel-<%= speaker._id %>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewSpeakerLabel-<%= speaker._id %>">Speaker Details — <%= speaker.first_name %> <%= speaker.last_name %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row g-3">
+                    <div class="col-lg-4">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h6 class="text-muted mb-3">Contact</h6>
+                          <div class="mb-2"><span class="fw-semibold">Email:</span> <%= speaker.email %></div>
+                          <div class="mb-2"><span class="fw-semibold">Phone:</span> <%= speaker.phone_number %></div>
+                          <div class="mb-2"><span class="fw-semibold">Country:</span> <%= speaker.country %></div>
+                          <div class="mb-2"><span class="fw-semibold">Location:</span> <%= speaker.location %></div>
+                          <div class="mb-2"><span class="fw-semibold">Gender:</span> <%= speaker.gender %></div>
+                          <hr>
+                          <h6 class="text-muted mb-3">Consent</h6>
+                          <div class="mb-2">
+                            <span class="badge <%= speaker.agree_terms ? 'text-bg-success' : 'text-bg-danger' %>">Terms: <%= speaker.agree_terms ? 'Yes' : 'No' %></span>
+                          </div>
+                          <div>
+                            <span class="badge <%= speaker.agree_communications ? 'text-bg-success' : 'text-bg-danger' %>">Comms: <%= speaker.agree_communications ? 'Yes' : 'No' %></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge text-bg-primary"><%= speaker.thematic_area %></span>
+                            <span class="badge text-bg-secondary"><%= speaker.session_type %></span>
+                            <span class="badge text-bg-dark"><%= speaker.delivery_type %></span>
+                            <span class="badge text-bg-info"><%= speaker.target_type %></span>
+                            <span class="badge text-bg-warning text-dark"><%= speaker.target_audience %></span>
+                            <span class="badge text-bg-success"><%= speaker.audience_engagement %></span>
+                          </div>
+                          <h5 class="mb-2"><%= speaker.session_title %></h5>
+                          <p class="mb-0"><%= speaker.session_description %></p>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="mb-2"><span class="fw-semibold">First Name:</span> <%= speaker.first_name %></div>
+                              <div class="mb-2"><span class="fw-semibold">Middle Name:</span> <%= speaker.middle_name || '—' %></div>
+                              <div class="mb-2"><span class="fw-semibold">Last Name:</span> <%= speaker.last_name %></div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="mb-2"><span class="fw-semibold">Created:</span> <%= new Date(speaker.createdAt).toLocaleString() %></div>
+                              <div class="mb-2"><span class="fw-semibold">Updated:</span> <%= new Date(speaker.updatedAt).toLocaleString() %></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="/admin/schedules?speaker=<%= speaker._id %>" class="btn btn-outline-primary">Create Schedule</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+</div>
+
+<script>
+  const q = document.getElementById('speakerSearch');
+  const ft = document.getElementById('filterThematic');
+  const fs = document.getElementById('filterSessionType');
+  const rows = Array.from(document.querySelectorAll('#speakersTable tbody tr'));
+  function applyFilters() {
+    const term = (q.value || '').toLowerCase().trim();
+    const thematic = ft.value;
+    const sessionType = fs.value;
+    rows.forEach(r => {
+      const matchText = r.dataset.name.includes(term) || r.dataset.email.includes(term) || r.dataset.phone.includes(term);
+      const matchThematic = !thematic || r.dataset.thematic === thematic;
+      const matchSession = !sessionType || r.dataset.sessiontype === sessionType;
+      r.style.display = matchText && matchThematic && matchSession ? '' : 'none';
+    });
+  }
+  q.addEventListener('input', applyFilters);
+  ft.addEventListener('change', applyFilters);
+  fs.addEventListener('change', applyFilters);
+</script>
+
+<div class="modal fade" id="createSpeakerModal" tabindex="-1" aria-labelledby="createSpeakerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form method="POST" action="/admin/speakers">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createSpeakerModalLabel">Add New Speaker</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input required name="first_name" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="last_name" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="col-md-6">
+              <input name="middle_name" class="form-control" placeholder="Middle Name">
+            </div>
+            <div class="col-md-6">
+              <select required name="gender" class="form-select">
+                <option value="">Gender</option>
+                <option>male</option>
+                <option>female</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <input required name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+              <input required name="phone_number" class="form-control" placeholder="Phone Number">
+            </div>
+            <div class="col-md-6">
+              <input required name="country" class="form-control" placeholder="Country">
+            </div>
+            <div class="col-md-6">
+              <select required name="location" class="form-select">
+                <option value="">Location</option>
+                <option>kenya - coast</option>
+                <option>kenya - others</option>
+                <option>other</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="thematic_area" class="form-select">
+                <option value="">Thematic Area</option>
+                <option>Sustainable Coastal</option>
+                <option>Youth Agency</option>
+                <option>Digital Track</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="session_type" class="form-select">
+                <option value="">Session Type</option>
+                <option>Keynote Address</option>
+                <option>Panel Discussions</option>
+                <option>Workshops</option>
+                <option>Masterclass</option>
+              </select>
+            </div>
+            <div class="col-md-12">
+              <input required name="session_title" class="form-control" placeholder="Session Title">
+            </div>
+            <div class="col-md-12">
+              <textarea required name="session_description" class="form-control" placeholder="Session Description" rows="4"></textarea>
+            </div>
+            <div class="col-md-6">
+              <select required name="target_audience" class="form-select">
+                <option value="">Target Audience</option>
+                <option>experience</option>
+                <option>beginners</option>
+                <option>amateur</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="target_type" class="form-select">
+                <option value="">Target Type</option>
+                <option>technical</option>
+                <option>non-technical</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="audience_engagement" class="form-select">
+                <option value="">Audience Engagement</option>
+                <option>Q and A</option>
+                <option>Demo</option>
+                <option>Presentations</option>
+                <option>Skit</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="delivery_type" class="form-select">
+                <option value="">Delivery Type</option>
+                <option>physical</option>
+                <option>virtual - live</option>
+                <option>virtual - prerecorded</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" name="agree_terms" type="checkbox" required id="agree_terms">
+                <label class="form-check-label" for="agree_terms">Agree to Terms</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="agree_communications" type="checkbox" required id="agree_comms">
+                <label class="form-check-label" for="agree_comms">Agree to Communications</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Speaker</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

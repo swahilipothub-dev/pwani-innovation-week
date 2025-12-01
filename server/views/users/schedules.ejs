@@ -1,0 +1,53 @@
+<h2>Schedules</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Track</th>
+      <th>Speakers</th>
+      <th>Venue</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>RSVP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% schedules.forEach(schedule => { %>
+      <tr>
+        <td>
+          <a href="/users/schedules/<%= schedule._id %>" class="text-decoration-none">
+            <%= schedule.title %>
+          </a>
+        </td>
+        <td><%= schedule.track ? schedule.track.name : 'Unassigned' %></td>
+        <td>
+          <% 
+            const speakerEntries = (schedule.speakers || []).map(speaker => {
+              if (!speaker) return null;
+              if (typeof speaker === 'string') return { name: speaker };
+              return speaker;
+            }).filter(Boolean);
+            const speakerNames = speakerEntries.map(entry => entry.name).filter(Boolean);
+          %>
+          <% if (speakerNames.length) { %>
+            <%= speakerNames.join(', ') %>
+          <% } else { %>
+            <span class="text-muted">TBA</span>
+          <% } %>
+        </td>
+        <td><%= schedule.venue || 'TBD' %></td>
+        <td><%= new Date(schedule.date).toDateString() %></td>
+        <td><%= schedule.start_time %> - <%= schedule.end_time %></td>
+        <td>
+          <% if (schedule.session_rsvp_link) { %>
+            <a href="<%= schedule.session_rsvp_link %>" target="_blank" rel="noopener">RSVP</a>
+          <% } else { %>
+            <span class="text-muted">N/A</span>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/users" class="btn btn-outline-secondary">Back to Dashboard</a>

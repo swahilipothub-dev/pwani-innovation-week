@@ -1,0 +1,13 @@
+
+  <h1>Uploaded Images</h1>
+  <div>
+    <% if (images.length > 0) { %>
+      <% images.forEach(img => { %>
+        <div style="margin:10px; display:inline-block;">
+          <img src="<%= img.url %>" width="150" /><br/>
+          <small>Uploaded by: <%= img.uploadedBy %></small>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No images uploaded yet.</p>
+    <% } %>

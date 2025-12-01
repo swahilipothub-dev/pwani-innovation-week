@@ -1,0 +1,336 @@
+<!-- views/admin/schedule-view.ejs -->
+<% const trackId = schedule.track ? schedule.track._id.toString() : ''; %>
+<% const speakerEntries = (schedule.speakers || []).map(speaker => {
+     if (!speaker) return null;
+     if (typeof speaker === 'string') return { name: speaker };
+     return speaker;
+   }).filter(Boolean); %>
+<% const speakerTypeChoices = typeof speakerTypeOptions !== 'undefined'
+     ? speakerTypeOptions
+     : ['Keynote Speaker', 'Guest Speaker', 'Regular']; %>
+
+<div class="container py-3">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="mb-0">Edit Schedule</h2>
+    <div class="d-flex gap-2">
+      <a href="/admin/schedules" class="btn btn-outline-secondary">Back</a>
+      <form method="POST" action="/admin/schedules/<%= schedule._id %>?_method=DELETE" onsubmit="return confirm('Delete this schedule?')">
+        <button class="btn btn-outline-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" action="/admin/schedules/edit/<%= schedule._id %>">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" value="<%= schedule.title %>" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Day</label>
+                <input type="number" name="day" min="1" class="form-control" value="<%= schedule.day %>" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Date</label>
+                <input type="date" name="date" class="form-control" value="<%= schedule.date.toISOString().split('T')[0] %>" required>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <label class="form-label">Track</label>
+                <select name="track" class="form-select" required>
+                  <% tracks.forEach(track => { %>
+                    <option value="<%= track._id %>" <%= track._id.toString() === trackId ? 'selected' : '' %>><%= track.name %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Session Type</label>
+                <select name="type" class="form-select">
+                  <% ['Session','Panel','Workshop','Opening','Lunch','Closing','Ceremony','Entertainment'].forEach(t => { %>
+                    <option value="<%= t %>" <%= schedule.type === t ? 'selected' : '' %>><%= t %></option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                  <label class="form-label mb-0">Speakers</label>
+                  <button type="button" class="btn btn-sm btn-outline-primary" id="addScheduleSpeaker">
+                    Add Speaker
+                  </button>
+                </div>
+                <div id="scheduleSpeakersList" class="d-flex flex-column gap-3 mt-2">
+                  <% if (!speakerEntries.length) { %>
+                    <div class="alert alert-secondary small mb-0" data-speaker-empty>
+                      Use "Add Speaker" to include speaker details.
+                    </div>
+                  <% } %>
+                  <% speakerEntries.forEach((speaker, index) => { %>
+                    <div class="card border rounded p-3" data-speaker-entry>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Speaker <span data-speaker-number><%= index + 1 %></span></h6>
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-remove-speaker>&times;</button>
+                      </div>
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="form-label">Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="speakers[<%= index %>][name]"
+                            value="<%= speaker.name || '' %>"
+                            required>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Title / Role</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="speakers[<%= index %>][title]"
+                            value="<%= speaker.title || '' %>">
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Speaker Type</label>
+                          <select
+                            name="speakers[<%= index %>][speakerType]"
+                            class="form-select">
+                            <option value="">Select speaker type</option>
+                            <% speakerTypeChoices.forEach(type => { %>
+                              <option value="<%= type %>" <%= speaker.speakerType === type ? 'selected' : '' %>><%= type %></option>
+                            <% }) %>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label">Organization / Company</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="speakers[<%= index %>][organization]"
+                            value="<%= speaker.organization || '' %>">
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %>
+                </div>
+                <template id="scheduleSpeakerTemplate">
+                  <div class="card border rounded p-3" data-speaker-entry>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="mb-0">Speaker <span data-speaker-number></span></h6>
+                      <button type="button" class="btn btn-sm btn-outline-danger" data-remove-speaker>&times;</button>
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="speakers[__INDEX__][name]"
+                          required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Title / Role</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="speakers[__INDEX__][title]">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Speaker Type</label>
+                        <select
+                          name="speakers[__INDEX__][speakerType]"
+                          class="form-select">
+                          <option value="">Select speaker type</option>
+                          <% speakerTypeChoices.forEach(type => { %>
+                            <option
+                              value="<%= type %>"
+                              <%= type === speakerTypeChoices[speakerTypeChoices.length - 1] ? 'selected' : '' %>>
+                              <%= type %>
+                            </option>
+                          <% }) %>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Organization / Company</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="speakers[__INDEX__][organization]">
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Moderator</label>
+                <input type="text" name="moderator" class="form-control" value="<%= schedule.moderator || '' %>">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Session RSVP Link <span class="text-muted small">(optional)</span></label>
+                <input
+                  type="url"
+                  name="session_rsvp_link"
+                  class="form-control"
+                  value="<%= schedule.session_rsvp_link || '' %>"
+                  placeholder="https://example.com/rsvp">
+              </div>
+            </div>
+
+            <div class="mb-3 mt-3">
+              <label class="form-label">Venue</label>
+              <input type="text" name="venue" class="form-control" value="<%= schedule.venue || '' %>">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea name="description" class="form-control" rows="3"><%= schedule.description || '' %></textarea>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">Start Time</label>
+                <input type="time" name="start_time" class="form-control" value="<%= schedule.start_time %>" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">End Time</label>
+                <input type="time" name="end_time" class="form-control" value="<%= schedule.end_time %>" required>
+              </div>
+            </div>
+
+            <div class="mt-3 d-flex gap-2">
+              <button class="btn btn-primary">Update Schedule</button>
+              <a href="/admin/schedules" class="btn btn-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-muted mb-3">Summary</h6>
+          <p><strong>Title:</strong> <%= schedule.title %></p>
+          <p><strong>Track:</strong> <%= schedule.track ? schedule.track.name : 'Unassigned' %></p>
+          <p><strong>Day:</strong> Day <%= schedule.day %></p>
+          <p><strong>Speakers:</strong></p>
+          <% if (!speakerEntries.length) { %>
+            <p class="text-muted">TBA</p>
+          <% } else { %>
+            <ul class="list-unstyled mb-3">
+              <% speakerEntries.forEach(speaker => { %>
+                <li>
+                  <strong><%= speaker.name || 'Unnamed' %></strong>
+                  <% if (speaker.title) { %>
+                    <span class="text-muted"> — <%= speaker.title %></span>
+                  <% } %>
+                  <% if (speaker.organization) { %>
+                    <div class="text-muted small"><%= speaker.organization %></div>
+                  <% } %>
+                  <% if (speaker.speakerType) { %>
+                    <div class="badge bg-light text-dark mt-1"><%= speaker.speakerType %></div>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          <% } %>
+          <p><strong>Moderator:</strong> <%= schedule.moderator || 'TBA' %></p>
+          <p><strong>Venue:</strong> <%= schedule.venue || 'TBD' %></p>
+          <p><strong>RSVP:</strong>
+            <% if (schedule.session_rsvp_link) { %>
+              <a href="<%= schedule.session_rsvp_link %>" target="_blank" rel="noopener">RSVP Link</a>
+            <% } else { %>
+              <span class="text-muted">Not provided</span>
+            <% } %>
+          </p>
+          <p><strong>Date:</strong> <%= new Date(schedule.date).toDateString() %></p>
+          <p><strong>Time:</strong> <%= schedule.start_time %> - <%= schedule.end_time %></p>
+          <p><strong>Type:</strong> <%= schedule.type %></p>
+          <% if (schedule.description) { %>
+            <p><strong>Description:</strong> <%= schedule.description %></p>
+          <% } %>
+          <hr>
+          <p class="small text-muted">Created: <%= new Date(schedule.createdAt).toLocaleString() %></p>
+          <p class="small text-muted">Updated: <%= new Date(schedule.updatedAt).toLocaleString() %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const speakersList = document.getElementById('scheduleSpeakersList');
+    const addSpeakerButton = document.getElementById('addScheduleSpeaker');
+    const template = document.getElementById('scheduleSpeakerTemplate');
+
+    if (!speakersList || !addSpeakerButton || !template) {
+      return;
+    }
+
+    const getEntries = () => Array.from(speakersList.querySelectorAll('[data-speaker-entry]'));
+
+    const ensureEmptyState = () => {
+      const entries = getEntries();
+      const existingEmpty = speakersList.querySelector('[data-speaker-empty]');
+
+      if (!entries.length && !existingEmpty) {
+        const empty = document.createElement('div');
+        empty.className = 'alert alert-secondary small mb-0';
+        empty.dataset.speakerEmpty = '';
+        empty.textContent = 'Use "Add Speaker" to include speaker details.';
+        speakersList.appendChild(empty);
+      } else if (entries.length && existingEmpty) {
+        existingEmpty.remove();
+      }
+    };
+
+    const reindexSpeakers = () => {
+      getEntries().forEach((entry, index) => {
+        entry.querySelectorAll('[name]').forEach((input) => {
+          if (!input.name) return;
+          if (input.name.includes('__INDEX__')) {
+            input.name = input.name.replace(/__INDEX__/g, index);
+          } else {
+            input.name = input.name.replace(/\[\d+\]/g, `[${index}]`);
+          }
+        });
+
+        const counter = entry.querySelector('[data-speaker-number]');
+        if (counter) {
+          counter.textContent = index + 1;
+        }
+      });
+
+      ensureEmptyState();
+    };
+
+    addSpeakerButton.addEventListener('click', () => {
+      const fragment = template.content.cloneNode(true);
+      speakersList.appendChild(fragment);
+      reindexSpeakers();
+    });
+
+    speakersList.addEventListener('click', (event) => {
+      const target = event.target.closest('[data-remove-speaker]');
+      if (!target) {
+        return;
+      }
+
+      const entry = target.closest('[data-speaker-entry]');
+      if (entry) {
+        entry.remove();
+        reindexSpeakers();
+      }
+    });
+
+    reindexSpeakers();
+  });
+</script>

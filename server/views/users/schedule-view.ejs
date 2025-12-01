@@ -1,0 +1,78 @@
+<% const trackName = schedule.track ? schedule.track.name : 'Unassigned'; %>
+<% const speakerEntries = (schedule.speakers || []).map(speaker => {
+     if (!speaker) return null;
+     if (typeof speaker === 'string') return { name: speaker };
+     return speaker;
+   }).filter(Boolean); %>
+
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0"><%= schedule.title %></h2>
+    <a href="/users/schedules" class="btn btn-outline-secondary">Back</a>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Session Overview</h5>
+          <p><strong>Track:</strong> <%= trackName %></p>
+          <p><strong>Speakers:</strong></p>
+          <% if (!speakerEntries.length) { %>
+            <p class="text-muted">TBA</p>
+          <% } else { %>
+            <ul class="list-unstyled">
+              <% speakerEntries.forEach(entry => { %>
+                <li class="mb-2">
+                  <strong><%= entry.name || 'Unnamed' %></strong>
+                  <% if (entry.title) { %>
+                    <span class="text-muted"> — <%= entry.title %></span>
+                  <% } %>
+                  <% if (entry.organization) { %>
+                    <div class="text-muted small"><%= entry.organization %></div>
+                  <% } %>
+                  <% if (entry.speakerType) { %>
+                    <span class="badge bg-light text-dark mt-1"><%= entry.speakerType %></span>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          <% } %>
+          <% if (schedule.moderator) { %>
+            <p><strong>Moderator:</strong> <%= schedule.moderator %></p>
+          <% } %>
+          <p><strong>Type:</strong> <%= schedule.type %></p>
+          <p><strong>Day:</strong> Day <%= schedule.day %></p>
+          <% if (schedule.description) { %>
+            <p><strong>Description:</strong> <%= schedule.description %></p>
+          <% } %>
+          <p><strong>RSVP:</strong>
+            <% if (schedule.session_rsvp_link) { %>
+              <a href="<%= schedule.session_rsvp_link %>" target="_blank" rel="noopener">RSVP Link</a>
+            <% } else { %>
+              <span class="text-muted">Not provided</span>
+            <% } %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Logistics</h5>
+          <p><strong>Date:</strong> <%= new Date(schedule.date).toDateString() %></p>
+          <p><strong>Time:</strong> <%= schedule.start_time %> - <%= schedule.end_time %></p>
+          <p><strong>Venue:</strong> <%= schedule.venue || 'TBD' %></p>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <p class="small text-muted mb-0">Created: <%= new Date(schedule.createdAt).toLocaleString() %></p>
+          <p class="small text-muted mb-0">Updated: <%= new Date(schedule.updatedAt).toLocaleString() %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

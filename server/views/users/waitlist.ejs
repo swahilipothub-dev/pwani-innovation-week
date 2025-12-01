@@ -1,0 +1,20 @@
+<h2>Waitlist</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% waitlist.forEach(entry => { %>
+      <tr>
+        <td><%= entry.first_name %> <%= entry.last_name %></td>
+        <td><%= entry.email %></td>
+        <td><%= entry.phone_number %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/users" class="btn btn-outline-secondary">Back to Dashboard</a>

@@ -1,0 +1,49 @@
+{
+  "name": "piw-express",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
+    "seed:admin": "node config/commands/seedAdmin.js",
+    "seed:model": "node config/commands/seedModel.js",
+    "seed:waitlist": "node config/commands/seedModel.js --model waitlist",
+    "seed:vendors": "node config/commands/seedModel.js --model vendors",
+    "seed:inquiries": "node config/commands/seedModel.js --model inquiries",
+    "seed:exhibitors": "node config/commands/seedModel.js --model exhibitors",
+    "seed:speakers": "node config/commands/seedModel.js --model speakers",
+    "seed:tickets": "node config/commands/seedModel.js --model tickets"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "africastalking": "^0.7.7",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csv-parse": "^5.5.2",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-rate-limit": "^8.0.1",
+    "jest": "^30.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
+    "mongodb-memory-server": "^10.2.0",
+    "mongoose": "^8.17.2",
+    "multer": "^2.0.0",
+    "papaparse": "^5.4.1",
+    "pdfkit": "^0.15.0",
+    "resend": "^6.0.2",
+    "uploadthing": "^7.7.4",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

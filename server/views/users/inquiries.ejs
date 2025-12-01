@@ -1,0 +1,24 @@
+<h2>Inquiries</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Type</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% inquiries.forEach(inquiry => { %>
+      <tr>
+        <td><%= inquiry.first_name %> <%= inquiry.last_name %></td>
+        <td><%= inquiry.email %></td>
+        <td><%= inquiry.phone_number %></td>
+        <td><%= inquiry.inquiry_type %></td>
+        <td><%= inquiry.message_title %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/users" class="btn btn-outline-secondary">Back to Dashboard</a>

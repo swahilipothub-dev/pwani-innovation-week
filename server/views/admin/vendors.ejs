@@ -1,0 +1,199 @@
+<div class="container py-3">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="mb-0">Vendors</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVendorModal">Add Vendor</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Business</th>
+          <th>Type</th>
+          <th>Accepted</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% vendors.forEach(vendor => { %>
+          <tr>
+            <td><strong><%= vendor.first_name %> <%= vendor.last_name %></strong></td>
+            <td><%= vendor.email %></td>
+            <td><%= vendor.business_name %></td>
+            <td>
+              <% if (vendor.vendor_type === 'food') { %>
+                <span class="badge text-bg-success">Food</span>
+              <% } else if (vendor.vendor_type === 'drinks') { %>
+                <span class="badge text-bg-info">Drinks</span>
+              <% } else { %>
+                <span class="badge text-bg-warning text-dark">Food & Drinks</span>
+              <% } %>
+            </td>
+            <td>
+              <% if (vendor.is_accepted) { %>
+                <span class="badge text-bg-primary">Yes</span>
+              <% } else { %>
+                <span class="badge text-bg-secondary">No</span>
+              <% } %>
+            </td>
+            <td class="text-end">
+              <div class="btn-group">
+                <button class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewVendorModal-<%= vendor._id %>">View</button>
+                <form method="POST" action="/admin/vendors/<%= vendor._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')" style="display:inline;">
+                  <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          <!-- View Vendor Modal -->
+          <div class="modal fade" id="viewVendorModal-<%= vendor._id %>" tabindex="-1" aria-labelledby="viewVendorModalLabel-<%= vendor._id %>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewVendorModalLabel-<%= vendor._id %>">Vendor Details — <%= vendor.business_name %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h6 class="text-muted mb-3">Contact</h6>
+                          <p><strong>Name:</strong> <%= vendor.first_name %> <%= vendor.last_name %></p>
+                          <p><strong>Email:</strong> <%= vendor.email %></p>
+                          <p><strong>Phone:</strong> <%= vendor.phone_number %></p>
+                          <hr>
+                          <h6 class="text-muted mb-3">Business Contact</h6>
+                          <p><strong>Business Phone:</strong> <%= vendor.business_phone %></p>
+                          <p><strong>Business Email:</strong> <%= vendor.business_email %></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h6 class="text-muted mb-3">Business Info</h6>
+                          <p><strong>Name:</strong> <%= vendor.business_name %></p>
+                          <p><strong>Address:</strong> <%= vendor.business_address %></p>
+                          <p><strong>Type:</strong> <%= vendor.vendor_type %></p>
+                          <p><strong>Registered:</strong> <%= vendor.is_registered ? 'Yes' : 'No' %></p>
+                          <p><strong>Accepted:</strong> <%= vendor.is_accepted ? 'Yes' : 'No' %></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <h6 class="text-muted mb-3">Description</h6>
+                          <p><%= vendor.business_description %></p>
+                          <hr>
+                          <h6 class="text-muted mb-3">Consent</h6>
+                          <p><strong>Agreed to Terms:</strong>
+                            <span class="badge <%= vendor.agree_terms ? 'text-bg-success' : 'text-bg-danger' %>">
+                              <%= vendor.agree_terms ? 'Yes' : 'No' %>
+                            </span>
+                          </p>
+                          <p><strong>Agreed to Communications:</strong>
+                            <span class="badge <%= vendor.agree_communications ? 'text-bg-success' : 'text-bg-danger' %>">
+                              <%= vendor.agree_communications ? 'Yes' : 'No' %>
+                            </span>
+                          </p>
+                          <p class="small text-muted">Created: <%= new Date(vendor.createdAt).toLocaleString() %> | Updated: <%= new Date(vendor.updatedAt).toLocaleString() %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+</div>
+
+<!-- Create Vendor Modal -->
+<div class="modal fade" id="createVendorModal" tabindex="-1" aria-labelledby="createVendorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form method="POST" action="/admin/vendors">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createVendorModalLabel">Add New Vendor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input required name="first_name" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="last_name" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+              <input required name="phone_number" class="form-control" placeholder="Phone Number">
+            </div>
+            <div class="col-md-6">
+              <input required name="business_name" class="form-control" placeholder="Business Name">
+            </div>
+            <div class="col-md-6">
+              <input name="business_address" class="form-control" placeholder="Business Address">
+            </div>
+            <div class="col-md-6">
+              <input name="business_phone" class="form-control" placeholder="Business Phone">
+            </div>
+            <div class="col-md-6">
+              <input name="business_email" class="form-control" placeholder="Business Email">
+            </div>
+            <div class="col-md-12">
+              <textarea required name="business_description" class="form-control" rows="3" placeholder="Business Description"></textarea>
+            </div>
+            <div class="col-md-6">
+              <select required name="vendor_type" class="form-select">
+                <option value="">Vendor Type</option>
+                <option>food</option>
+                <option>drinks</option>
+                <option>food and drinks</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <div class="form-check mt-2">
+                <input class="form-check-input" name="is_registered" type="checkbox" id="is_registered">
+                <label class="form-check-label" for="is_registered">Business Registered</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="is_accepted" type="checkbox" id="is_accepted">
+                <label class="form-check-label" for="is_accepted">Accepted</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" name="agree_terms" type="checkbox" required id="agree_terms_vendor">
+                <label class="form-check-label" for="agree_terms_vendor">Agree to Terms</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="agree_communications" type="checkbox" required id="agree_comms_vendor">
+                <label class="form-check-label" for="agree_comms_vendor">Agree to Communications</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Vendor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

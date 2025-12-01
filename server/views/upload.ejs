@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Image</title>
+</head>
+<body>
+  <h1>Upload Image</h1>
+  
+  <input type="file" id="fileInput" accept="image/*" />
+  <button id="uploadBtn">Upload</button>
+
+  <div id="preview"></div>
+
+  <script>
+    document.getElementById("uploadBtn").addEventListener("click", async () => {
+      const fileInput = document.getElementById("fileInput");
+      if (!fileInput.files.length) {
+        alert("Please select a file first");
+        return;
+      }
+
+      const file = fileInput.files[0];
+
+      // Step 1: request a signed upload URL from backend
+      const res = await fetch("/api/uploadthing/imageUploader", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          files: [{ name: file.name, size: file.size, type: file.type }]
+        })
+      });
+
+      const { data } = await res.json();
+      const uploadUrl = data[0].url; // signed URL for direct upload
+
+      // Step 2: upload file directly to UploadThing
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        body: file,
+        headers: { "Content-Type": file.type }
+      });
+
+      if (uploadRes.ok) {
+        // Step 3: save file reference in MongoDB
+        const uploadedFileUrl = uploadUrl.split("?")[0]; // clean URL
+        const uploadedKey = uploadedFileUrl.split("/").pop();
+
+        await fetch("/api/images", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: uploadedFileUrl, key: uploadedKey, uploadedBy: "user123" })
+        });
+
+        document.getElementById("preview").innerHTML =
+          `<p>Uploaded!</p><img src="${uploadedFileUrl}" width="200"/>`;
+      } else {
+        alert("Upload failed");
+      }
+    });
+  </script>
+</body>
+</html>

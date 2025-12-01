@@ -1,0 +1,99 @@
+<h2>Volunteers</h2>
+<button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createVolunteerModal">Add Volunteer</button>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>National ID</th>
+      <th>Department</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% volunteers.forEach(volunteer => { %>
+      <tr>
+        <td><%= volunteer.name %></td>
+        <td><%= volunteer.gender %></td>
+        <td><%= volunteer.email %></td>
+        <td><%= volunteer.phone_number %></td>
+        <td><%= volunteer.id_number %></td>
+        <td><%= volunteer.department %></td>
+        <td><%= volunteer.role %></td>
+        <td>
+          <form method="POST" action="/admin/volunteers/<%= volunteer._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+
+<!-- Create volunteer Modal -->
+<div class="modal fade" id="createVolunteerModal" tabindex="-1" aria-labelledby="createVolunteerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" action="/admin/volunteers">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createVolunteerModalLabel">Add New Volunteer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input required name="name" class="form-control" placeholder="Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="id_number" class="form-control" placeholder="National ID" type="text">
+            </div>
+            <div class="col-md-6">
+              <input required name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+              <input required name="phone_number" class="form-control" placeholder="Phone Number (e.g. +254...)" type="tel">
+            </div>
+            <div class="col-md-6">
+              <select required name="department" class="form-select">
+                <option value="" disabled selected>Select Department</option>
+                <option value="Registration">Registration</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Tech">Tech</option>
+                <option value="Catering">Catering</option>
+                <option value="Security">Security</option>
+                <option value="Cleaners">Cleaners</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <select required name="gender" class="form-select">
+                <option value="" disabled selected>Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <input required name="role" class="form-control" placeholder="Role (e.g. Team Lead, Assistant)">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Volunteer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% if (error) { %>
+  <script>alert("Failed to Create Volunteer. Try Again with correct details.");</script>
+<% } %>
+
+<% if (success) { %>
+  <script>alert("Volunteer created successfully!");</script>
+<% } %>

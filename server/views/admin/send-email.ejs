@@ -1,0 +1,32 @@
+<div class="container">
+    <h2 class="mb-4">Send an Email</h2>
+
+    <form action="/email/send-email" method="POST">
+      <div class="mb-3">
+        <label for="to" class="form-label">To</label>
+        <input type="email" name="to" id="to" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="cc" class="form-label">CC</label>
+        <input type="email" name="cc" id="cc" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" name="subject" id="subject" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="text" class="form-label">Message (Plain Text)</label>
+        <textarea name="text" id="text" class="form-control" rows="4" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="html" class="form-label">Message (HTML) (Optional)</label>
+        <textarea name="html" id="html" class="form-control" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send Email</button>
+    </form>
+  </div>

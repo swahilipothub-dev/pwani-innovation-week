@@ -1,0 +1,55 @@
+<h2>Vendors</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Business</th>
+      <th>Type</th>
+      <th>Accepted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% vendors.forEach(vendor => { %>
+      <tr>
+        <td><%= vendor.first_name %> <%= vendor.last_name %></td>
+        <td><%= vendor.email %></td>
+        <td><%= vendor.business_name %></td>
+        <td><%= vendor.vendor_type %></td>
+        <td><%= vendor.is_accepted ? 'Yes' : 'No' %></td>
+      </tr>
+
+      <!-- View Vendor Modal -->
+      <div class="modal fade" id="viewVendorModal-<%= vendor._id %>" tabindex="-1" aria-labelledby="viewVendorModalLabel-<%= vendor._id %>" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="viewVendorModalLabel-<%= vendor._id %>">Vendor Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Name:</strong> <%= vendor.first_name %> <%= vendor.last_name %></p>
+              <p><strong>Email:</strong> <%= vendor.email %></p>
+              <p><strong>Phone:</strong> <%= vendor.phone_number %></p>
+              <p><strong>Business Name:</strong> <%= vendor.business_name %></p>
+              <p><strong>Business Address:</strong> <%= vendor.business_address %></p>
+              <p><strong>Business Phone:</strong> <%= vendor.business_phone %></p>
+              <p><strong>Business Email:</strong> <%= vendor.business_email %></p>
+              <p><strong>Business Description:</strong><br> <%= vendor.business_description %></p>
+              <p><strong>Vendor Type:</strong> <%= vendor.vendor_type %></p>
+              <p><strong>Business Registered:</strong> <%= vendor.is_registered ? 'Yes' : 'No' %></p>
+              <p><strong>Accepted:</strong> <%= vendor.is_accepted ? 'Yes' : 'No' %></p>
+              <p><strong>Agreed to Terms:</strong> <%= vendor.agree_terms ? 'Yes' : 'No' %></p>
+              <p><strong>Agreed to Communications:</strong> <%= vendor.agree_communications ? 'Yes' : 'No' %></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </tbody>
+</table>
+
+<a href="/users" class="btn btn-outline-secondary">Back to Dashboard</a>
