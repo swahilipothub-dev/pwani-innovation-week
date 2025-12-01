@@ -1,78 +1,36 @@
-# Pwani Innovation Week
-This repository hosts the source code for the Pwani Innovation Week website (React + Vite + Tailwind).
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Overview
-Pwani Innovation Week is an initiative for networking, collaboration, and showcasing cutting‑edge ideas. This codebase powers the public website UI.
+## Getting Started
 
-## Setup and Run
-- Clone: `git clone https://github.com/swahilipothub-dev/pwani-innovation-week`
-- Enter: `cd pwani-innovation-week`
-- Install: `npm install`
-- Dev server: `npm run dev` then open `http://localhost:8080`
-- Build: `npm run build`
-- Preview build: `npm run preview`
+First, run the development server:
 
-## URLs
-
-Key environments
-
-| Name | URL | Notes |
-| ---- | --- | ----- |
-| Live Site | https://www.pwaniinnovationweek.com/ | Public website |
-| Admin | https://admin.pwaniinnovationweek.com/ | Admin login and dashboards |
-| Local Dev | http://localhost:3000 | Vite dev server |
-
-Site navigation (paths)
-
-| Label | Path | Description |
-| ----- | ---- | ----------- |
-| Home | `/` | Landing page |
-| About | `/about` | About the event |
-| Speakers | `/speakers` | Speakers listing |
-| Tickets | `/tickets` | Ticket info or link |
-| Engage | `/engage` | Ways to participate |
-| Experiences | `/experiences` | Activities and tracks |
-| Past Events | `/past-events` | Previous years overview |
-
-## Project Structure
-Top‑level layout
-
-```
-public/               # Static assets
-src/                  # Application source
-  components/         # Reusable components
-  layout/             # App layout (Navbar, Footer, etc.)
-  pages/              # Route pages
-.github/workflows/    # CI workflows
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Scripts
-- `npm run dev` — start dev server
-- `npm run build` — production build
-- `npm run preview` — preview built app
-- `npm run lint` — lint codebase
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Contribution Workflow
-We enforce branch/PR policy via a GitHub Action:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- All pull requests must target `stagging`.
-- Only `stagging` may open a PR into `main` (release step).
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Recommended flow
+## Learn More
 
-- Create your branch from `stagging`: `git checkout -b feature/your-change origin/stagging`
-- Push and open a PR with base `stagging`.
-- After approval and merge to `stagging`, open a release PR from `stagging` → `main`.
+To learn more about Next.js, take a look at the following resources:
 
-Additional guidelines
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- Keep PRs focused and small; include a clear description and screenshots if UI changes.
-- Ensure `npm run build` succeeds locally before requesting review.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Technologies
-- React 18, TypeScript, Vite
-- Tailwind CSS, shadcn/ui
-- ESLint, PostCSS, Radix UI
+## Deploy on Vercel
 
-## License
-MIT
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
