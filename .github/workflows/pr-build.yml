@@ -1,19 +1,22 @@
-name: Vite Build Check
+name: PR Checks
 
 on:
   push:
     branches:
       - main
-      - master
+      - stagging
   pull_request:
     branches:
       - main
-      - master
+      - stagging
 
 jobs:
-  vite-build:
+  client:
+    name: Client lint & build
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: client
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,9 +25,39 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: client/package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build project
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
         run: npm run build
+
+  server:
+    name: Server tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        env:
+          JWT_SECRET: secret
+        run: npm test
