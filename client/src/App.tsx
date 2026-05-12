@@ -17,6 +17,7 @@ import NetworkingEvents from './pages/NetworkingEvents'
 import Exhibitions from './pages/Exhibitions'
 import PIW2023 from './pages/PIW2023'
 import PIW2024 from './pages/PIW2024'
+import PIW2026 from './pages/PIW2026'
 import SpeakerApplicationForm from '@/pages/SpeakerApplicationForm.tsx'
 import Tickets from '@/pages/Tickets.tsx'
 import Vendors from '@/pages/Vendors.tsx'
@@ -33,6 +34,7 @@ import Day1Gallery from './pages/Day1Gallery.tsx'
 import Day2Gallery from './pages/Day2Gallery.tsx'
 import Day3Gallery from './pages/Day3Gallery.tsx'
 import { ThemeProvider } from '@/context/ThemeContext.tsx'
+import Hero from './components/Hero.tsx'
 
 const queryClient = new QueryClient()
 
@@ -60,6 +62,7 @@ const App = () => (
               <Route path='/exhibitors' element={<Exhibitors />} />
               <Route path='/piw-2023' element={<PIW2023 />} />
               <Route path='/piw-2024' element={<PIW2024 />} />
+              <Route path='/piw-2026' element={<PIW2026 />} />
               <Route path='/gallery/day-1' element={<Day1Gallery />} />
               <Route path='/gallery/day-2' element={<Day2Gallery />} />
               <Route path='/gallery/day-3' element={<Day3Gallery />} />

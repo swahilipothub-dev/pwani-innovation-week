@@ -220,6 +220,12 @@ const Navbar = () => {
                         PIW 2024
                       </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem>
+      <Link to="/" className="block w-full text-gray-800 hover:text-[#F97316]">PIW 2025</Link>
+    </DropdownMenuItem>
+    <DropdownMenuItem>
+      <Link to="/piw-2026" className="block w-full text-gray-400 cursor-not-allowed italic">PIW 2026 (Coming Soon)</Link>
+    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -424,6 +430,17 @@ const Navbar = () => {
                   >
                     PIW 2024
                   </Link>
+
+                  <Link
+    to="/"
+    onClick={() => setIsOpen(false)}
+    className="text-base text-gray-700 hover:text-[#F97316] hover:bg-orange-50 px-3 py-2 rounded-lg transition-all duration-300"
+  >
+    PIW 2025
+  </Link>
+  <span className="text-base text-gray-400 italic px-3 py-2">
+    PIW 2026 (Coming Soon)
+  </span>
                 </div>
               </div>
               </div>

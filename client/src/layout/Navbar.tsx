@@ -76,6 +76,17 @@ const Navbar = () => {
                 >
                   Tickets
                 </Link>
+                <div className="relative group">
+  <button className="text-base font-medium text-gray-800 hover:text-[#F97316] dark:text-gray-100 flex items-center gap-1">
+    Past Events
+  </button>
+  <div className="absolute hidden group-hover:block w-48 bg-white dark:bg-slate-800 shadow-xl rounded-md mt-2 py-2 border border-gray-100 dark:border-slate-700">
+    <Link to="/piw-2023" className="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-slate-700">PIW 2023</Link>
+    <Link to="/piw-2024" className="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-slate-700">PIW 2024</Link>
+    <Link to="/" className="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-slate-700">PIW 2025</Link>
+    <Link to="/piw-2026" className="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-slate-700">PIW 2026</Link>
+  </div>
+</div>
                 <button
                   onClick={toggleTheme}
                   className="inline-flex items-center justify-center rounded-md border border-transparent bg-white/60 p-2 text-gray-700 transition-colors duration-300 hover:bg-white dark:bg-slate-900/60 dark:text-gray-200 dark:hover:bg-slate-800"
@@ -143,6 +154,15 @@ const Navbar = () => {
               >
                 Tickets
               </Link>
+              <div className="pt-4 border-t border-gray-100 dark:border-slate-800">
+    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Past Events</p>
+    <div className="grid grid-cols-2 gap-2">
+      <Link to="/piw-2023" onClick={() => setIsOpen(false)} className="text-sm text-gray-600 dark:text-gray-400 hover:text-[#F97316]">2023</Link>
+      <Link to="/piw-2024" onClick={() => setIsOpen(false)} className="text-sm text-gray-600 dark:text-gray-400 hover:text-[#F97316]">2024</Link>
+      <Link to="/" onClick={() => setIsOpen(false)} className="text-sm font-bold text-[#F97316]">2025 (Live)</Link>
+      <Link to="/piw-2026" onClick={() => setIsOpen(false)} className="text-sm text-gray-600 dark:text-gray-400 hover:text-[#F97316]">2026</Link>
+    </div>
+  </div>
               <button
                 onClick={() => {
                   toggleTheme();
