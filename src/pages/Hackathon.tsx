@@ -1,12 +1,12 @@
 import React from 'react';
-import {Award} from 'lucide-react';
+import { Award } from 'lucide-react';
 
 const Hackathon = () => {
   return (
     <div className="min-h-screen">
       <main className="section-container pt-32">
         <div className="max-w-4xl mx-auto text-center">
-          <Award className="w-16 h-16 mx-auto text-[#F97316] mb-6"/>
+          <Award className="w-16 h-16 mx-auto text-[#F97316] mb-6" />
           <h1 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Hackathon</h1>
           <p className="text-lg text-gray-600 mb-8">
             Join our intensive coding competition where innovative minds come together to solve real-world
@@ -25,7 +25,7 @@ const Hackathon = () => {
           </div>
         </div>
       </main>
-      ¬ </div>
+    </div>
   );
 };
 
