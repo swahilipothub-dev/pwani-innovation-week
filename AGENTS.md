@@ -1,26 +1,23 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `client/`: Vite + React + TypeScript + Tailwind. Source in `src/` (`components/`, `pages/`, `layout/`, `context/`, `data/`), static assets in `public/`, build output in `dist/`.
-- `server/`: Express 5 + EJS + MongoDB. Entrypoint `app.js`; routers in `routes/`, schemas in `models/`, helpers in `utils/`, middleware in `middleware/`, templates in `views/`, static files in `public/`, tests in `tests/`, and API references in `openapi/`.
+The app is a Vite + React + TypeScript project. Runtime code lives in `src`, with feature pages under `src/pages`, shared layouts in `src/layout`, and reusable UI in `src/components`. Hooks and utilities reside in `src/hooks` and `src/lib`. Static assets are served from `public`, while Tailwind and PostCSS configuration sits in `tailwind.config.ts` and `postcss.config.js`. Deployment-ready artifacts are generated into `dist` after builds.
 
 ## Build, Test, and Development Commands
-- Frontend: `cd client && npm install && npm run dev` (Vite dev server), `npm run build` (production), `npm run preview` (serve bundle), `npm run lint` (ESLint 9 for TS/JS/TSX).
-- Backend: `cd server && npm install && npm run dev` (nodemon), `npm start` (prod run), `npm test` (Jest + Supertest with in-memory Mongo). Seed defaults with `npm run seed:admin` or other `seed:*` scripts.
+- `npm run dev` launches the local Vite server with hot reload at `http://localhost:5173`.
+- `npm run build` produces an optimized production bundle in `dist`.
+- `npm run build:dev` mirrors `build` but keeps development mode toggles to inspect non-minified output.
+- `npm run lint` runs ESLint using `eslint.config.js` and the TypeScript-aware rules.
+- `npm run preview` serves the latest build locally for smoke testing before shipping.
 
 ## Coding Style & Naming Conventions
-- TypeScript/JavaScript with 2-space indentation and ESM modules. Prefer functional React components/hooks; `PascalCase` for components/files, `camelCase` elsewhere. Client imports can use the `@/` alias to `src`.
-- Tailwind is utility-first; keep class lists ordered by layout → color → state. Backend handlers should stay small, async/await-based, and offload shared logic to `utils/`.
-- Run `npm run lint` in `client` before PRs; the server relies on reviewer checks, so keep formatting consistent.
+Use TypeScript with React functional components and hooks. Prefer PascalCase for components (`TicketCard.tsx`), camelCase for variables and functions, and kebab-case for file names inside `public`. Follow the Tailwind-first styling approach—compose utility classes in `.tsx` files and extend tokens in `tailwind.config.ts`. Keep indentation at two spaces and let your editor auto-format via ESLint and the project TypeScript configuration.
 
 ## Testing Guidelines
-- Server tests live in `server/tests` as `*.test.js`. Use Jest + Supertest; favor in-memory Mongo (default) over external services.
-- Cover new routes, validation failures, and RBAC branches. Keep fixtures minimal and name tests descriptively (e.g., `should reject unauthenticated ticket creation`). Frontend has no tests—call out risky UI logic when opening PRs.
+No automated tests are wired up yet. Before introducing new tests, agree on a stack (Vitest + React Testing Library is compatible with Vite) and place specs alongside components as `<Component>.test.tsx`. Run linting before submitting to catch type and style regressions, and use `npm run preview` for manual regression passes until automated coverage targets are defined.
 
 ## Commit & Pull Request Guidelines
-- History shows short, present-tense subjects (`restructure to monorepo`, `hero`); follow that tone and keep each commit scoped.
-- Target PRs to `stagging`; releases go `stagging` → `main`. Include purpose, linked issue, and screenshots for UI. Validate `client` build and `server` tests (plus seeds if used) before requesting review.
+Recent commits favor short, lowercase summaries (for example: `tickets link`, `volunteer`). Keep messages under 50 characters, use the imperative mood, and bundle related changes only. For pull requests, include a concise summary, link any relevant issues or tickets, list manual verification steps (dev server, preview, lint), and attach screenshots or recordings when updating UI screens. Request at least one review before merging and confirm Vercel preview links render as expected.
 
-## Security & Configuration Tips
-- Never commit `.env` files or secrets. The server needs `MONGO_URI`, `JWT_SECRET`, and UploadThing/Resend keys—store them locally or in your secret manager.
-- Set `ALLOWED_ORIGINS` for admin endpoints, and rotate credentials created by `seed:admin` outside local development.
+## Environment & Configuration Tips
+Environment variables consumed by the frontend should be defined with a `VITE_` prefix in `.env` or `.env.local`. Update deployment settings through `vercel.json` when changing routes or headers. When adding new data sources, centralize API clients under `src/lib` to keep configuration discoverable.
