@@ -1,0 +1,85 @@
+<h2>Inquiries</h2>
+<button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createInquiryModal">Add Inquiry</button>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Type</th>
+      <th>Message</th>
+      <th>Resolved</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% inquiries.forEach(inquiry => { %>
+      <tr>
+        <td><%= inquiry.first_name %> <%= inquiry.last_name %></td>
+        <td><%= inquiry.email %></td>
+        <td><%= inquiry.phone_number %></td>
+        <td><%= inquiry.inquiry_type %></td>
+        <td><%= inquiry.message_title %></td>
+        <td>
+          <% if (inquiry.is_resolved) { %>
+            <span class="badge bg-success">Resolved</span>
+          <% } else { %>
+            <span class="badge bg-warning text-dark">Pending</span>
+          <% } %>
+        </td>
+        <td class="d-flex gap-2">
+          <form method="POST" action="/admin/inquiries/<%= inquiry._id %>/toggle-resolved">
+            <button class="btn btn-sm <%= inquiry.is_resolved ? 'btn-warning' : 'btn-success' %>">
+              <%= inquiry.is_resolved ? 'Unresolve' : 'Resolve' %>
+            </button>
+          </form>
+
+          <form method="POST" action="/admin/inquiries/<%= inquiry._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+
+<!-- Create Inquiry Modal -->
+<div class="modal fade" id="createInquiryModal" tabindex="-1" aria-labelledby="createInquiryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/admin/inquiries">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createInquiryModalLabel">Add Inquiry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input required name="first_name" class="form-control mb-2" placeholder="First Name">
+          <input required name="last_name" class="form-control mb-2" placeholder="Last Name">
+          <input required name="email" type="email" class="form-control mb-2" placeholder="Email">
+          <input required name="phone_number" class="form-control mb-2" placeholder="Phone Number">
+          <input required name="message_title" class="form-control mb-2" placeholder="Message Title">
+          <textarea required name="message" class="form-control mb-2" placeholder="Message"></textarea>
+          <select required name="inquiry_type" class="form-control mb-2">
+            <option value="">Inquiry Type</option>
+            <option>sponsorship</option>
+            <option>participation</option>
+            <option>general</option>
+          </select>
+          <div class="form-check">
+            <input class="form-check-input" name="agree_terms" type="checkbox" required>
+            <label class="form-check-label">Agree to Terms</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" name="agree_communications" type="checkbox" required>
+            <label class="form-check-label">Agree to Communications</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,572 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PIW-2025 Express API",
+    "version": "2.0.0",
+    "description": "APIs for Pwani Innovation Week Express app."
+  },
+  "servers": [
+    { "url": "http://localhost:3000", "description": "Local" }
+  ],
+  "tags": [
+    { "name": "Auth" },
+    { "name": "Speakers" },
+    { "name": "Vendors" },
+    { "name": "Exhibitors" },
+    { "name": "Waitlist" },
+    { "name": "Inquiries" },
+    { "name": "Schedules" },
+    { "name": "Volunteers" },
+    { "name": "Images" },
+    { "name": "Email" },
+    { "name": "Ticket Types" },
+    { "name": "Attendees" }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Login page",
+        "responses": { "200": { "description": "HTML login page" } }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login (sets JWT cookie)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": { "type": "object", "additionalProperties": true }
+            },
+            "application/json": {
+              "schema": { "type": "object", "additionalProperties": true }
+            }
+          }
+        },
+        "responses": { "302": { "description": "Redirect to /admin or /users" } }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get current user",
+        "responses": { "200": { "description": "User JSON" }, "401": { "description": "Unauthorized" } }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout (clear cookie)",
+        "responses": { "302": { "description": "Redirect to /" } }
+      }
+    },
+    "/api/speakers": {
+      "post": {
+        "tags": ["Speakers"],
+        "summary": "Create speaker",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/speakers/delete/{id}": {
+      "post": {
+        "tags": ["Speakers"],
+        "summary": "Delete speaker (redirects)",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "302": { "description": "Redirect to /admin/speakers" } }
+      }
+    },
+    "/api/vendors": {
+      "post": {
+        "tags": ["Vendors"],
+        "summary": "Create vendor",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/exhibitors": {
+      "post": {
+        "tags": ["Exhibitors"],
+        "summary": "Create exhibitor",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/waitlist": {
+      "get": {
+        "tags": ["Waitlist"],
+        "summary": "List waitlist entries",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "List" } }
+      },
+      "post": {
+        "tags": ["Waitlist"],
+        "summary": "Create waitlist entry",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/waitlist/{id}": {
+      "get": {
+        "tags": ["Waitlist"],
+        "summary": "Get waitlist entry",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Entry" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["Waitlist"],
+        "summary": "Delete waitlist entry",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/api/inquiries": {
+      "post": {
+        "tags": ["Inquiries"],
+        "summary": "Create inquiry",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/schedules": {
+      "get": {
+        "tags": ["Schedules"],
+        "summary": "List schedules",
+        "parameters": [ { "name": "date", "in": "query", "schema": { "type": "string", "format": "date" } } ],
+        "responses": {
+          "200": {
+            "description": "List",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ScheduleItem" }
+                }
+              }
+            }
+          },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/volunteers": {
+      "post": {
+        "tags": ["Volunteers"],
+        "summary": "Create volunteer",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Validation error" } }
+      }
+    },
+    "/api/images": {
+      "get": {
+        "tags": ["Images"],
+        "summary": "List images",
+        "responses": { "200": { "description": "List" } }
+      },
+      "post": {
+        "tags": ["Images"],
+        "summary": "Save uploaded image reference",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "properties": { "url": {"type":"string"}, "key": {"type":"string"}, "uploadedBy": {"type":"string"} }, "required": ["url","key"], "additionalProperties": false } } } },
+        "responses": { "201": { "description": "Created" }, "500": { "description": "Server error" } }
+      }
+    },
+    "/api/images/gallery": {
+      "get": {
+        "tags": ["Images"],
+        "summary": "Rendered gallery page",
+        "responses": { "200": { "description": "HTML page" } }
+      }
+    },
+    "/email/test-email": {
+      "get": {
+        "tags": ["Email"],
+        "summary": "Send a test email (Resend)",
+        "responses": { "200": { "description": "Success JSON" }, "500": { "description": "Error" } }
+      }
+    },
+    "/email/send-email": {
+      "post": {
+        "tags": ["Email"],
+        "summary": "Send email (admin only)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object", "additionalProperties": true } } } },
+        "responses": { "200": { "description": "Success" }, "500": { "description": "Error" } }
+      }
+    },
+    "/api/ticket-types": {
+      "get": {
+        "tags": ["Ticket Types"],
+        "summary": "List ticket types",
+        "description": "Returns all configured ticket types. Defaults are auto-seeded (Early Bird, Regular, VIP) if the collection is empty.",
+        "responses": {
+          "200": {
+            "description": "Array of ticket types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "name": { "type": "string", "example": "Early Bird" },
+                      "amount": { "type": "number", "example": 4999 },
+                      "description": { "type": "string", "nullable": true },
+                      "payment_link": { "type": "string", "nullable": true },
+                      "createdAt": { "type": "string", "format": "date-time" },
+                      "updatedAt": { "type": "string", "format": "date-time" }
+                    },
+                    "required": ["_id", "name", "amount", "createdAt", "updatedAt"]
+                  }
+                }
+              }
+            }
+          },
+          "500": { "description": "Failed to fetch ticket types" }
+        }
+      }
+    },
+    "/api/attendees/management": {
+      "post": {
+        "tags": ["Attendees"],
+        "summary": "Create management team attendee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": { "type": "string" },
+                  "middle_name": { "type": "string" },
+                  "last_name": { "type": "string" },
+                  "phone_number": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "gender": {
+                    "type": "string",
+                    "enum": ["male", "female"]
+                  },
+                  "department": {
+                    "type": "string",
+                    "enum": [
+                      "tech",
+                      "creatives",
+                      "communications",
+                      "hr and admin",
+                      "case management",
+                      "swahilipotfm",
+                      "heritage",
+                      "hospitality"
+                    ]
+                  },
+                  "subcounty": {
+                    "type": "string",
+                    "enum": [
+                      "nyali",
+                      "mvita",
+                      "likoni",
+                      "changamwe",
+                      "jomvu",
+                      "kisauni",
+                      "other"
+                    ]
+                  }
+                },
+                "required": ["first_name", "last_name", "phone_number", "email", "gender", "department", "subcounty"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/attendees/volunteers": {
+      "post": {
+        "tags": ["Attendees"],
+        "summary": "Create volunteer attendee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": { "type": "string" },
+                  "middle_name": { "type": "string" },
+                  "last_name": { "type": "string" },
+                  "phone_number": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "gender": {
+                    "type": "string",
+                    "enum": ["male", "female"]
+                  },
+                  "id_number": { "type": "string" },
+                  "subcounty": {
+                    "type": "string",
+                    "enum": [
+                      "nyali",
+                      "mvita",
+                      "likoni",
+                      "changamwe",
+                      "jomvu",
+                      "kisauni",
+                      "other"
+                    ]
+                  }
+                },
+                "required": ["first_name", "last_name", "phone_number", "email", "gender", "id_number", "subcounty"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/attendees/mentees": {
+      "post": {
+        "tags": ["Attendees"],
+        "summary": "Create mentee attendee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": { "type": "string" },
+                  "middle_name": { "type": "string" },
+                  "last_name": { "type": "string" },
+                  "phone_number": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "gender": {
+                    "type": "string",
+                    "enum": ["male", "female"]
+                  },
+                  "subcounty": {
+                    "type": "string",
+                    "enum": [
+                      "nyali",
+                      "mvita",
+                      "likoni",
+                      "changamwe",
+                      "jomvu",
+                      "kisauni",
+                      "other"
+                    ]
+                  },
+                  "mentor": {
+                    "type": "string",
+                    "enum": [
+                      "Joshua Nyongesa",
+                      "Suad Abdulnassir Said",
+                      "Catherine Mwololo",
+                      "Caroline Kageha Saziru",
+                      "Joshua Sagawa",
+                      "Cynthia Imali Ambehi",
+                      "Irene Kadenyi",
+                      "Mark Ombacho",
+                      "Hassan Mohammed",
+                      "Iris Natasha Ayuma",
+                      "Vivian Edwick Ochieng",
+                      "Brian Bii kipkoech",
+                      "Gabriel Mwanzia",
+                      "Seth Mutie",
+                      "Maryam Juma",
+                      "Sally Ageyo Chavanji",
+                      "Kibibi Riziki",
+                      "Fatime Suleman",
+                      "Lilian njeri",
+                      "Rukia Awor",
+                      "Susan otieno",
+                      "Swabrina Mohamed Mapenzi",
+                      "Abdalla shuaib",
+                      "Alphonse Odhiambo",
+                      "Omar Mctito Ndegwa",
+                      "Mwanaharusi Juma",
+                      "Abubakar Mohamed",
+                      "Fatuma Mohamed",
+                      "Dorcas Mutemi",
+                      "Rahma Nuhu",
+                      "Kulthum Mohamed",
+                      "Wilfred Gambo",
+                      "Khalid Ali",
+                      "Rahma Nelima Salim",
+                      "Chiro Tunje",
+                      "Collins Shake",
+                      "Amida Said",
+                      "Teddy Nyenze Ndei",
+                      "Happy mak-osewe",
+                      "Humphrey Ndurya Chirudi",
+                      "Athman Rissasi Said",
+                      "Wycliff Okatch Nyaundo",
+                      "Salma Salim Hamid",
+                      "Aisha Juma M'zani",
+                      "Frank Dendla",
+                      "Laki Ali Mwabugu",
+                      "Maryam Faisal",
+                      "Tanim Suleiman",
+                      "Sarah Achola",
+                      "Linah Mulongo",
+                      "Juma Ali Mwakaadzango",
+                      "Aisha Athman Juma",
+                      "Ramadhan Tanariva",
+                      "William Swaleh",
+                      "Bakari Kudoka",
+                      "Mary Mulunga Mwachiti",
+                      "Omari Bakari Beya",
+                      "Hafsa Meali Mwakanyenze",
+                      "Omar Mazera Ngedzo",
+                      "Getrude Shiyuka",
+                      "Halima Hamisi Kingi",
+                      "Mumba Masudi Bomu",
+                      "Salma Ali Abdallah",
+                      "Erick Simon",
+                      "Josephine kivendi",
+                      "Hassan kalama",
+                      "Lilian juma",
+                      "Amos wangige",
+                      "Frascisca Okoth",
+                      "Charity Khavakaluha",
+                      "Faith Kambua",
+                      "Priscah Kimani",
+                      "Shamim Hadazah",
+                      "Maimuna Mohammed",
+                      "Diana Awuor",
+                      "Ali Abdallah Ali",
+                      "Vigilance Shighi Msiko",
+                      "Elvis Mdari Mwaivu",
+                      "Nuru Juma",
+                      "Saadia mohamed",
+                      "Doctor Ogallo",
+                      "Amina kassim",
+                      "Zipporah njoki",
+                      "Omar faissally",
+                      "Sharon kabibi",
+                      "Erick Lenjo",
+                      "Rozina Njeri Mtua",
+                      "Mwanamgeni Suleiman",
+                      "Pauline Akuku Okoya",
+                      "Zainab Maganga",
+                      "Steven Odami",
+                      "Ian Mgainga",
+                      "Ahlam Wahid Ahmed",
+                      "Collins Raria",
+                      "Fatma Yahya",
+                      "Khadija Riziki Amani",
+                      "Kriss Ford",
+                      "Firdaus Ahmed",
+                      "Zainab Bilal",
+                      "Prize Unda Riziki",
+                      "Umi Sadik Shee",
+                      "Nuru Mahmoud",
+                      "Owen Odhiambo",
+                      "Ummi Said Omar",
+                      "Amina Hassan",
+                      "Emelda Okulu",
+                      "Asya Ahmed",
+                      "Vumbi Ali"
+                    ]
+                  },
+                  "cohort": {
+                    "type": "string",
+                    "enum": [
+                      "cohort 2",
+                      "cohort 3",
+                      "cohort 4"
+                    ]
+                  }
+                },
+                "required": ["first_name", "last_name", "phone_number", "email", "gender", "subcounty", "mentor", "cohort"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ScheduleSpeaker": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": ["string", "null"] },
+          "title": { "type": ["string", "null"] },
+          "speakerType": {
+            "type": ["string", "null"],
+            "enum": ["Keynote Speaker", "Guest Speaker", "Regular", null]
+          },
+          "organization": { "type": ["string", "null"] }
+        }
+      },
+      "ScheduleTrack": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "slug": { "type": ["string", "null"] },
+          "description": { "type": ["string", "null"] }
+        },
+        "required": ["id", "_id", "name"]
+      },
+      "ScheduleItem": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "id": { "type": "string" },
+          "title": { "type": ["string", "null"] },
+          "description": { "type": ["string", "null"] },
+          "session_rsvp_link": { "type": ["string", "null"], "format": "uri" },
+          "day": { "type": ["integer", "null"] },
+          "date": { "type": ["string", "null"], "format": "date-time" },
+          "start_time": { "type": ["string", "null"] },
+          "end_time": { "type": ["string", "null"] },
+          "moderator": { "type": ["string", "null"] },
+          "venue": { "type": ["string", "null"] },
+          "type": { "type": ["string", "null"] },
+          "speakers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ScheduleSpeaker" }
+          },
+          "track": {
+            "oneOf": [
+              { "$ref": "#/components/schemas/ScheduleTrack" },
+              { "type": "null" }
+            ]
+          },
+          "createdAt": { "type": ["string", "null"], "format": "date-time" },
+          "updatedAt": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "required": ["_id", "id", "title", "start_time", "end_time", "speakers"]
+      }
+    }
+  }
+}

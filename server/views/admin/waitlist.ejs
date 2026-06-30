@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Waitlist</h2>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createWaitlistModal">
+      <i class="fas fa-plus"></i> Add Entry
+    </button>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <a href="/admin/waitlist/export/csv" class="btn btn-outline-primary">
+      <i class="fas fa-file-csv me-1"></i> Export CSV
+    </a>
+    <a href="/admin/waitlist/export/pdf" class="btn btn-outline-primary">
+      <i class="fas fa-file-pdf me-1"></i> Export PDF
+    </a>
+  </div>
+
+  <!-- Search -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="input-group">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by name, email, or phone...">
+        <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Waitlist Table -->
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Date Added</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="waitlistTableBody">
+            <% waitlist.forEach(entry => { %>
+              <tr>
+                <td><%= entry.first_name %> <%= entry.last_name %></td>
+                <td><%= entry.email %></td>
+                <td><%= entry.phone_number %></td>
+                <td><%= entry.date_added %></td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEntryModal" data-entry-id="<%= entry._id %>">
+                    <i class="fas fa-eye"></i> View
+                  </button>
+                  <form method="POST" action="/admin/waitlist/<%= entry._id %>?_method=DELETE" onsubmit="return confirm('Delete this entry?')">
+                    <button class="btn btn-sm btn-danger">
+                      <i class="fas fa-trash"></i> Delete
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <nav class="p-3 border-top" id="paginationContainer">
+        <!-- Will be populated by JavaScript -->
+      </nav>
+    </div>
+  </div>
+
+  <a href="/admin" class="btn btn-outline-secondary mt-3">
+    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+  </a>
+</div>
+
+<!-- View Entry Modal -->
+<div class="modal fade" id="viewEntryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title">Waitlist Entry Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="entryDetails">
+        <div class="text-center">
+          <div class="spinner-border text-primary my-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Waitlist Modal -->
+<div class="modal fade" id="createWaitlistModal" tabindex="-1" aria-labelledby="createWaitlistModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="/admin/waitlist">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createWaitlistModalLabel">Add Waitlist Entry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input required name="first_name" class="form-control mb-2" placeholder="First Name">
+          <input required name="last_name" class="form-control mb-2" placeholder="Last Name">
+          <input required name="email" type="email" class="form-control mb-2" placeholder="Email">
+          <input required name="phone_number" class="form-control mb-2" placeholder="Phone Number">
+          <div class="form-check">
+            <input class="form-check-input" name="agree_terms" type="checkbox" required>
+            <label class="form-check-label">Agree to Terms</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" name="agree_communications" type="checkbox" required>
+            <label class="form-check-label">Agree to Communications</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="container py-3">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="mb-0">Exhibitors</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createExhibitorModal">Add Exhibitor</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Business</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% exhibitors.forEach(exhibitor => { %>
+          <tr>
+            <td><strong><%= exhibitor.first_name %> <%= exhibitor.last_name %></strong></td>
+            <td><%= exhibitor.email %></td>
+            <td><%= exhibitor.business_name %></td>
+            <td>
+              <a href="#" data-bs-toggle="modal" data-bs-target="#viewExhibitorModal-<%= exhibitor._id %>">
+                <% if (exhibitor.business_description) { %>
+                  <%= exhibitor.business_description.length > 50 
+                      ? exhibitor.business_description.substring(0, 50) + '...' 
+                      : exhibitor.business_description %>
+                <% } else { %>
+                  <span class="text-muted">No description</span>
+                <% } %>
+              </a>
+            </td>
+            <td>
+              <% if (exhibitor.status === 'approved') { %>
+                <span class="badge text-bg-primary">Approved</span>
+              <% } else if (exhibitor.status === 'pending') { %>
+                <span class="badge text-bg-secondary">Pending</span>
+              <% } else { %>
+                <span class="badge text-bg-danger">Rejected</span>
+              <% } %>
+            </td>
+            <td class="d-flex gap-2 justify-content-end">
+              <form method="POST" action="/admin/exhibitors/<%= exhibitor._id %>/toggle-status">
+                <button class="btn btn-sm <%= exhibitor.status === 'approved' ? 'btn-warning' : 'btn-success' %>">
+                  <%= exhibitor.status === 'approved' ? 'Reject' : 'Approve' %>
+                </button>
+              </form>
+              <form method="POST" action="/admin/exhibitors/<%= exhibitor._id %>?_method=DELETE" onsubmit="return confirm('Delete this exhibitor?')">
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+
+          <!-- View Exhibitor Modal -->
+          <div class="modal fade" id="viewExhibitorModal-<%= exhibitor._id %>" tabindex="-1" aria-labelledby="viewExhibitorModalLabel-<%= exhibitor._id %>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewExhibitorModalLabel-<%= exhibitor._id %>">
+                    Exhibitor Details — <%= exhibitor.business_name %>
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p><strong>Name:</strong> <%= exhibitor.first_name %> <%= exhibitor.last_name %></p>
+                  <p><strong>Email:</strong> <%= exhibitor.email %></p>
+                  <p><strong>Phone:</strong> <%= exhibitor.phone_number %></p>
+                  <p><strong>Business:</strong> <%= exhibitor.business_name %></p>
+                  <p><strong>Description:</strong> <%= exhibitor.business_description %></p>
+                  <p><strong>Status:</strong> <%= exhibitor.status %></p>
+                  <hr>
+                  <p><strong>Agreed to Terms:</strong>
+                    <span class="badge <%= exhibitor.agree_terms ? 'text-bg-success' : 'text-bg-danger' %>">
+                      <%= exhibitor.agree_terms ? 'Yes' : 'No' %>
+                    </span>
+                  </p>
+                  <p><strong>Agreed to Communications:</strong>
+                    <span class="badge <%= exhibitor.agree_communications ? 'text-bg-success' : 'text-bg-danger' %>">
+                      <%= exhibitor.agree_communications ? 'Yes' : 'No' %>
+                    </span>
+                  </p>
+                  <p class="small text-muted">
+                    Created: <%= new Date(exhibitor.createdAt).toLocaleString() %> | 
+                    Updated: <%= new Date(exhibitor.updatedAt).toLocaleString() %>
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/admin" class="btn btn-outline-secondary">Back to Dashboard</a>
+</div>
+
+<!-- Create Exhibitor Modal -->
+<div class="modal fade" id="createExhibitorModal" tabindex="-1" aria-labelledby="createExhibitorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <form method="POST" action="/admin/exhibitors">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createExhibitorModalLabel">Add New Exhibitor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input required name="first_name" class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="last_name" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="col-md-6">
+              <input required name="email" type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+              <input required name="phone_number" class="form-control" placeholder="Phone Number">
+            </div>
+            <div class="col-md-12">
+              <input required name="business_name" class="form-control" placeholder="Business Name">
+            </div>
+            <div class="col-12">
+              <textarea required name="business_description" class="form-control" rows="3" placeholder="Business Description"></textarea>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" name="agree_terms" type="checkbox" required id="agree_terms_vendor">
+                <label class="form-check-label" for="agree_terms_vendor">Agree to Terms</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name="agree_communications" type="checkbox" required id="agree_comms_vendor">
+                <label class="form-check-label" for="agree_comms_vendor">Agree to Communications</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Exhibitor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

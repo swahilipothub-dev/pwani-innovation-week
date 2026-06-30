@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Admin Dashboard</h1>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card text-bg-primary h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Speakers</h5>
+          <p class="display-6 fw-bold"><%= speakerCount %></p>
+          <a href="/admin/speakers" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-secondary h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Vendors</h5>
+          <p class="display-6 fw-bold"><%= vendorCount %></p>
+          <a href="/admin/vendors" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-success h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Waitlist</h5>
+          <p class="display-6 fw-bold"><%= waitlistCount %></p>
+          <a href="/admin/waitlist" class="btn btn-light btn-sm">View</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-warning h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Inquiries</h5>
+          <p class="display-6 fw-bold"><%= inquiryCount %></p>
+          <a href="/admin/inquiries" class="btn btn-light btn-sm">Review</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-dark h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Schedules</h5>
+          <p class="display-6 fw-bold"><%= scheduleCount %></p>
+          <a href="/admin/schedules" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-dark h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Users</h5>
+          <p class="display-6 fw-bold"><%= userCount %></p>
+          <a href="/admin/users" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-dark h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Exhibitors</h5>
+          <p class="display-6 fw-bold"><%= exhibitorCount %></p>
+          <a href="/admin/exhibitors" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-info h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Ticket Types</h5>
+          <p class="display-6 fw-bold"><%= ticketTypeCount %></p>
+          <a href="/admin/tickets" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-primary h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Management Team</h5>
+          <p class="display-6 fw-bold"><%= managementAttendeeCount %></p>
+          <a href="/admin/attendees/management" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-success h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Volunteers</h5>
+          <p class="display-6 fw-bold"><%= volunteerAttendeeCount %></p>
+          <a href="/admin/attendees/volunteers" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-warning h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title text-dark">Mentees</h5>
+          <p class="display-6 fw-bold text-dark"><%= menteeAttendeeCount %></p>
+          <a href="/admin/attendees/mentees" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-dark h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Speakers (Attendees)</h5>
+          <p class="display-6 fw-bold"><%= speakerAttendeeCount %></p>
+          <a href="/admin/attendees/speakers" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card text-bg-secondary h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Delegates</h5>
+          <p class="display-6 fw-bold"><%= delegateAttendeeCount %></p>
+          <a href="/admin/attendees/delegates" class="btn btn-light btn-sm">Manage</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

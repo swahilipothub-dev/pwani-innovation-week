@@ -1,0 +1,22 @@
+<h2>Speakers</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Thematic Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% speakers.forEach(speaker => { %>
+      <tr>
+        <td><%= speaker.first_name %> <%= speaker.last_name %></td>
+        <td><%= speaker.email %></td>
+        <td><%= speaker.phone_number %></td>
+        <td><%= speaker.thematic_area %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<a href="/users" class="btn btn-outline-secondary">Back to Dashboard</a>
