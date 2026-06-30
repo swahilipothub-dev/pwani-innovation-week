@@ -24,6 +24,7 @@ import NetworkingEvents from './pages/NetworkingEvents'
 import Exhibitions from './pages/Exhibitions'
 import PIW2023 from './pages/PIW2023'
 import PIW2024 from './pages/PIW2024'
+import PIW2025 from './pages/PIW2025'
 import SpeakerApplicationForm from '@/pages/SpeakerApplicationForm.tsx'
 import Tickets from '@/pages/Tickets.tsx'
 import Vendors from '@/pages/Vendors.tsx'
@@ -62,6 +63,7 @@ const App = () => (
               element={<SpeakerApplicationForm />}
             />
             <Route path='/engage' element={<Engage />} />
+            <Route path='/contact' element={<Inquiries />} />
             <Route
               path='/experience'
               element={<Experience />}
@@ -88,13 +90,21 @@ const App = () => (
               element={<Exhibitions />}
             />
             <Route
+              path='/hackathon'
+              element={<Hackathon />}
+            />
+            <Route
+              path='/plenary-sessions'
+              element={<PlenarySessions />}
+            />
+            <Route
               path='/exhibitors'
               element={<Exhibitors />}
             />
             <Route
               path='registration/internal/volunteer'
               element={<Volunteer />}
-            /> 
+            />
             {/* <Route
               path='registration/internal/management-team'
               element={<ManagementTeam />}
@@ -105,6 +115,7 @@ const App = () => (
             /> */}
             <Route path='/piw-2023' element={<PIW2023 />} />
             <Route path='/piw-2024' element={<PIW2024 />} />
+            <Route path='/piw-2025' element={<PIW2025 />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </Layout>

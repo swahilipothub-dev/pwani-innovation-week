@@ -56,41 +56,7 @@ const About = () => {
         </div>
       </div>
 
-      {/* Concept Note Section */}
-      <section className="py-20 bg-white border-t border-orange-100">
-        <div className="section-container">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <div className="flex justify-center mb-6">
-              <div
-                className="w-16 h-16 bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-full flex items-center justify-center">
-                <FileText className="text-white w-8 h-8"/>
-              </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-              Concept Note
-            </h2>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              Pwani Innovation Week (PIW) is a regional platform igniting transformation at the Kenyan coast by bringing
-              together youth, innovators, creatives, and ecosystem actors to shape a resilient, inclusive, and
-              future-ready coastal economy. As we mark the 6th edition, PIW 2025 builds on this legacy, placing young
-              people at the center of co-creation and systemic innovation across vital sectors such as tourism,
-              fisheries, and the blue economy.
-            </p>
-
-            {/* Download Button */}
-            <a
-              href="/files/PIW 2025 CONCEPT NOTE (1).pdf"
-              download
-              className="inline-flex items-center px-6 py-3 bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold rounded-xl transition-colors duration-300 shadow-lg"
-            >
-              <FileText className="w-5 h-5 mr-2"/>
-              Download Concept Note
-            </a>
-          </div>
-        </div>
-      </section>
-
+      
 
       {/* Features Grid */}
       <section className="py-20 bg-white">
@@ -201,6 +167,7 @@ const About = () => {
         </div>
       </section>
 
+      
       {/* Achievements Section */}
       <section className="py-20 bg-gradient-to-br from-[#F97316]/5 to-orange-100/30">
         <div className="section-container">
@@ -227,6 +194,42 @@ const About = () => {
           </div>
         </div>
       </section>
+
+       {/* Concept Note Section */}
+      <section className="py-20 bg-white border-t border-orange-100">
+        <div className="section-container">
+          <div className="max-w-4xl mx-auto text-center animate-fade-in">
+            <div className="flex justify-center mb-6">
+              <div
+                className="w-16 h-16 bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-full flex items-center justify-center">
+                <FileText className="text-white w-8 h-8"/>
+              </div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+              Concept Note
+            </h2>
+            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
+            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+              Pwani Innovation Week (PIW) is a regional platform igniting transformation at the Kenyan coast by bringing
+              together youth, innovators, creatives, and ecosystem actors to shape a resilient, inclusive, and
+              future-ready coastal economy. As we mark the 6th edition, PIW 2025 builds on this legacy, placing young
+              people at the center of co-creation and systemic innovation across vital sectors such as tourism,
+              fisheries, and the blue economy.
+            </p>
+
+            {/* Download Button */}
+            <a
+              href="/files/PIW 2025 CONCEPT NOTE (1).pdf"
+              download
+              className="inline-flex items-center px-6 py-3 bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold rounded-xl transition-colors duration-300 shadow-lg"
+            >
+              <FileText className="w-5 h-5 mr-2"/>
+              Download Concept Note
+            </a>
+          </div>
+        </div>
+      </section>
+
 
     </div>
   );

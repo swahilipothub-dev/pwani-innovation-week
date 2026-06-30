@@ -1,3 +1,30 @@
+manu
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "noImplicitAny": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "noUnusedLocals": true,
+    "strictNullChecks": true
+  }
+}
 {
   "files": [],
   "references": [
@@ -17,3 +44,4 @@
     "strictNullChecks": false
   }
 }
+main
