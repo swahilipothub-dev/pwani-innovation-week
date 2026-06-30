@@ -20,9 +20,9 @@ jobs:
           BASE="${{ github.base_ref }}"
           HEAD="${{ github.head_ref }}"
 
-          # Allow PRs targeting 'stagging', 'manu', or 'main'
-          if [ "$BASE" = "stagging" ] || [ "$BASE" = "manu" ]; then
-            echo "OK: PR targets '$BASE'."
+          # Allow PRs targeting 'stagging'
+          if [ "$BASE" = "stagging" ]; then
+            echo "OK: PR targets 'stagging'."
             exit 0
           fi
 
@@ -37,5 +37,5 @@ jobs:
             fi
           fi
 
-          echo "ERROR: PRs must target 'stagging' or 'manu', or target 'main' only when coming from 'stagging'."
+          echo "ERROR: PRs must target 'stagging', or target 'main' only when coming from 'stagging'."
           exit 1
