@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, MapPin, Calendar } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar, Sparkles, PartyPopper } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { Link } from "react-router-dom";
 
@@ -61,14 +61,43 @@ const Hero = () => {
             {/* ── LEFT: copy ── */}
             <div className="w-full lg:w-1/2 space-y-8">
 
-              {/* Anniversary badge */}
-              <div className="inline-flex items-center gap-3 bg-white/8 border border-white/15 rounded-full px-5 py-2.5 backdrop-blur-sm">
-                <span className="text-[#F97316] font-black text-2xl leading-none">10</span>
-                <div className="w-px h-5 bg-white/25" />
-                <span className="text-white/80 text-xs font-semibold tracking-widest uppercase">
-                  Swahilipot Hub Foundation · 2016 – 2026
-                </span>
+              {/* Anniversary badge — 10-year celebration */}
+              <div className="relative inline-flex">
+                {/* animated glow ring */}
+                <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-yellow-400 via-[#F97316] to-yellow-400 opacity-60 blur-sm animate-[spin_4s_linear_infinite]" />
+                <div className="relative inline-flex items-center gap-3 bg-[#0d1f3c] border border-yellow-400/30 rounded-2xl px-5 py-3 backdrop-blur-sm overflow-hidden">
+                  {/* shimmer sweep */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_2.5s_ease-in-out_infinite]" />
+                  <PartyPopper className="w-5 h-5 text-yellow-400 flex-shrink-0 animate-[wiggle_1s_ease-in-out_infinite]" />
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
+                      <span className="font-black text-sm bg-gradient-to-r from-yellow-300 via-[#F97316] to-yellow-300 bg-clip-text text-transparent uppercase tracking-widest">
+                        Celebrating 10 Years
+                      </span>
+                      <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
+                    </div>
+                    <span className="text-white/55 text-[10px] font-semibold tracking-[0.2em] uppercase">
+                      Swahilipot Hub Foundation · 2016 – 2026
+                    </span>
+                  </div>
+                  <span className="font-black text-4xl leading-none bg-gradient-to-b from-yellow-200 to-[#F97316] bg-clip-text text-transparent flex-shrink-0">
+                    10
+                  </span>
+                </div>
               </div>
+
+              <style>{`
+                @keyframes shimmer {
+                  0%   { transform: translateX(-100%); }
+                  60%  { transform: translateX(200%); }
+                  100% { transform: translateX(200%); }
+                }
+                @keyframes wiggle {
+                  0%, 100% { transform: rotate(-6deg); }
+                  50%      { transform: rotate(6deg); }
+                }
+              `}</style>
 
               {/* Headline */}
               <div className="space-y-1">

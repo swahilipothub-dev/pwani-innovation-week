@@ -38,6 +38,7 @@ const pastEventLinks = [
   { label: "PIW 2023", to: "/piw-2023" },
   { label: "PIW 2024", to: "/piw-2024" },
   { label: "PIW 2025", to: "/piw-2025" },
+  { label: "PIW 2026", to: "/piw-2026" },
 ];
 
 const navLinkCls = "text-sm font-medium text-gray-700 hover:text-[#F97316] transition-colors duration-200";
@@ -123,9 +124,6 @@ const Navbar = () => {
                     <Link to={l.to} className={dropItemCls}>{l.label}</Link>
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuItem className="rounded-lg px-3 py-2 cursor-not-allowed" disabled>
-                  <span className="text-sm text-gray-400 italic">PIW 2026 (Coming Soon)</span>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -215,7 +213,6 @@ const Navbar = () => {
                         {l.label}
                       </Link>
                     ))}
-                    <span className="block px-4 py-2.5 text-sm text-gray-400 italic">PIW 2026 (Coming Soon)</span>
                   </div>
                 </div>
               </div>
