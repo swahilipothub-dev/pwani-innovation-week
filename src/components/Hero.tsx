@@ -49,7 +49,6 @@ const Hero = () => {
 
   return (
     <>
-      {/* ── HERO ───────────────────────────────────────────── */}
       <section className="relative min-h-screen bg-[#0a1628] flex items-center overflow-hidden">
         {/* subtle right glow */}
         <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-[#F97316]/10 to-transparent pointer-events-none" />
