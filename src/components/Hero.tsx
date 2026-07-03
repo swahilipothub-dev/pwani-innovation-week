@@ -1,213 +1,189 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const images = [
+  "/images/breakfast-nbi/1.jpg",
+  "/images/breakfast-nbi/3.jpg",
+  "/images/breakfast-nbi/5.jpg",
+];
+
+const stats = [
+  { value: "10,000+", label: "Expected Attendees" },
+  { value: "5", label: "Days of Programming" },
+  { value: "4", label: "Swahilipot Dialogues" },
+  { value: "5", label: "Sectoral Pre-Conferences" },
+];
+
+const countdown_items = ["Days", "Hrs", "Min", "Sec"] as const;
 
 const Hero = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-
-  const slides = [
-    {
-      title: "Pwani Innovation Week 2025",
-      subtitle: "Pwani Re-imagined: Youth Agency, Innovation & Sustainability of Coastal Economies",
-      image: "/images/breakfast-nbi/1.jpg",
-      description: "A Pwani-led and youth-driven annual convening for sustainable coastal development."
-    },
-    {
-      title: "Youth at the Center",
-      subtitle: "Empowering young changemakers to shape the future of coastal economies",
-      image: "/images/breakfast-nbi/3.jpg",
-      description: "Building a resilient and youthful workforce through innovation and entrepreneurship."
-    },
-    {
-      title: "Innovation & Sustainability",
-      subtitle: "Harnessing technology and creativity for coastal transformation",
-      image: "/images/breakfast-nbi/5.jpg",
-      description: "Creating localized solutions for sustainable growth in Kenya's coast."
-    }
-  ];
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    const timer = setInterval(() => setCurrentSlide((p) => (p + 1) % images.length), 6000);
     return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
-    const targetDate = new Date('2025-10-27T00:00:00');
-    const updateCountdown = () => {
-      const now = new Date();
-      const distance = targetDate.getTime() - now.getTime();
-
-      if (distance < 0) {
-        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      setCountdown({ days, hours, minutes, seconds });
+    const target = new Date('2026-10-26T00:00:00').getTime();
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) { setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
+      setCountdown({
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      });
     };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
   }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
 
   return (
-    <div className="relative min-h-screen flex items-center bg-gradient-to-br from-orange-50 via-orange-100/50 to-white overflow-hidden pt-20">
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-200/20 rounded-full blur-3xl animate-pulse-bg"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse-bg"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-orange-100/10 to-transparent rounded-full blur-3xl"></div>
-      </div>
+    <>
+      {/* ── HERO ───────────────────────────────────────────── */}
+      <section className="relative min-h-screen bg-[#0a1628] flex items-center overflow-hidden">
+        {/* subtle right glow */}
+        <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-[#F97316]/10 to-transparent pointer-events-none" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="section-container relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          <div className="lg:w-1/2 space-y-8">
-            <div className="space-y-4">
-              <div className="animate-fade-in">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight">
-                  <span className="gradient-text">{slides[currentSlide].title.split(' ').slice(0, 2).join(' ')}</span>
-                  <span className="block text-[#F97316] mt-2">{slides[currentSlide].title.split(' ').slice(2).join(' ')}</span>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+            {/* ── LEFT: copy ── */}
+            <div className="w-full lg:w-1/2 space-y-8">
+
+              {/* Anniversary badge */}
+              <div className="inline-flex items-center gap-3 bg-white/8 border border-white/15 rounded-full px-5 py-2.5 backdrop-blur-sm">
+                <span className="text-[#F97316] font-black text-2xl leading-none">10</span>
+                <div className="w-px h-5 bg-white/25" />
+                <span className="text-white/80 text-xs font-semibold tracking-widest uppercase">
+                  Swahilipot Hub Foundation · 2016 – 2026
+                </span>
+              </div>
+
+              {/* Headline */}
+              <div className="space-y-1">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-none tracking-tight">
+                  Pwani<br />
+                  Innovation<br />
+                  <span className="text-[#F97316]">Week 2026</span>
                 </h1>
-              </div>
-
-              <div className="animate-fade-in delay-300">
-                <p className="text-xl md:text-2xl font-medium text-gray-700 mt-6">
-                  {slides[currentSlide].subtitle}
+                <p className="pt-4 text-sm sm:text-base text-white/50 font-semibold uppercase tracking-[0.2em]">
+                  The Week the Coast Takes the Stage
                 </p>
               </div>
 
-              <div className="animate-fade-in delay-500">
-                <p className="text-lg md:text-xl text-[#F97316] font-medium mt-4">
-                  27th - 31st October 2025 • Mombasa, Kenya
-                </p>
-                <p className="text-lg text-gray-600 mt-4">
-                  {slides[currentSlide].description}
-                </p>
+              {/* Date + Location */}
+              <div className="flex flex-wrap gap-5">
+                <div className="flex items-center gap-2 text-white/70">
+                  <Calendar className="w-4 h-4 text-[#F97316] flex-shrink-0" />
+                  <span className="text-sm font-semibold">26 – 30 October 2026</span>
+                </div>
+                <div className="flex items-center gap-2 text-white/70">
+                  <MapPin className="w-4 h-4 text-[#F97316] flex-shrink-0" />
+                  <span className="text-sm font-semibold">Mombasa, Kenya</span>
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-wrap gap-4 mt-8 animate-fade-in delay-700">
-              <Link
-                to="/tickets"
-                className="bg-[#F97316] hover:bg-[#EA580C] text-white px-8 py-4 rounded-md text-lg font-semibold flex items-center gap-2 transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Get Tickets <ArrowRight size={20} />
-              </Link>
+              {/* Countdown */}
+              <div>
+                <p className="text-xs text-white/35 uppercase tracking-widest mb-3 font-semibold">
+                  Countdown to PIW 2026
+                </p>
+                <div className="flex gap-3">
+                  {countdown_items.map((label, i) => (
+                    <div key={label} className="text-center">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center">
+                        <span className="text-2xl sm:text-3xl font-black text-[#F97316]">
+                          {String(countdownValues[i]).padStart(2, '0')}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-white/35 mt-2 font-semibold uppercase tracking-widest">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-              {/*<a*/}
-              {/*  href="#about"*/}
-              {/*  className="border-2 border-[#F97316] text-[#F97316] hover:bg-[#F97316] hover:text-white px-8 py-4 rounded-md text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"*/}
-              {/*>*/}
-              {/*  Learn More*/}
-              {/*</a>*/}
-            </div>
-
-            {/* Countdown Display - Responsive for Mobile */}
-            <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center max-w-xs sm:max-w-md mx-auto w-full">
-              {[
-                { label: "Days", value: countdown.days },
-                { label: "Hours", value: countdown.hours },
-                { label: "Minutes", value: countdown.minutes },
-                { label: "Seconds", value: countdown.seconds },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white border-2 sm:border-4 border-[#F97316] rounded-xl p-3 sm:p-4 shadow-lg flex flex-col items-center justify-center min-w-[70px]"
+              {/* CTA */}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link
+                  to="/tickets"
+                  className="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-3.5 rounded-lg text-sm font-bold transition-all duration-200 hover:shadow-xl hover:shadow-[#F97316]/25 hover:-translate-y-0.5"
                 >
-                  <p className="text-2xl sm:text-4xl font-extrabold text-[#F97316]">{item.value}</p>
-                  <p className="text-xs sm:text-sm font-semibold text-gray-600 uppercase">{item.label}</p>
-                </div>
-              ))}
-            </div>
-
-            <div ref={ref} className="pt-8 border-t border-orange-200">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div className={`text-center transition-all duration-700 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
-                  <p className="text-4xl font-bold text-[#F97316]">2,000+</p>
-                  <p className="text-gray-600 font-medium">Participants</p>
-                </div>
-                <div className={`text-center transition-all duration-700 delay-300 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
-                  <p className="text-4xl font-bold text-[#F97316]">5</p>
-                  <p className="text-gray-600 font-medium">Days</p>
-                </div>
-                <div className={`text-center transition-all duration-700 delay-500 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
-                  <p className="text-4xl font-bold text-[#F97316]">28</p>
-                  <p className="text-gray-600 font-medium">Sessions</p>
-                </div>
-                <div className={`text-center transition-all duration-700 delay-700 ${inView ? 'animate-count-up' : 'opacity-0'}`}>
-                  <p className="text-4xl font-bold text-[#F97316]">10</p>
-                  <p className="text-gray-600 font-medium">Keynote Speakers</p>
-                </div>
+                  Register Interest <ArrowRight size={16} />
+                </Link>
+                <Link
+                  to="/about"
+                  className="inline-flex items-center gap-2 border border-white/20 hover:border-white/40 text-white/80 hover:text-white px-7 py-3.5 rounded-lg text-sm font-semibold transition-all duration-200"
+                >
+                  Learn More
+                </Link>
               </div>
             </div>
-          </div>
 
-          <div className="lg:w-1/2 relative">
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                {slides.map((slide, index) => (
-                  <div
-                    key={index}
-                    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-110'}`}
-                  >
-                    <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  </div>
+            {/* ── RIGHT: image slider ── */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/60">
+                {images.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt="PIW 2026"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+                  />
                 ))}
-
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-300"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-full transition-all duration-300"
-                >
-                  <ChevronRight size={24} />
-                </button>
-
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {slides.map((_, index) => (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                {/* dots */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {images.map((_, i) => (
                     <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide ? 'bg-white' : 'bg-white/50'}`}
+                      key={i}
+                      onClick={() => setCurrentSlide(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-white w-6' : 'bg-white/40 w-1.5'}`}
                     />
                   ))}
                 </div>
               </div>
 
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-[#F97316]/20 rounded-full blur-xl animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-orange-300/30 rounded-full blur-lg animate-pulse delay-1000"></div>
+              {/* pull quote */}
+              <blockquote className="p-5 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
+                <p className="text-white/65 text-sm leading-relaxed italic">
+                  "Swahilipot's single most powerful platform — a national media moment, an investment showcase, and a community celebration, all in one week."
+                </p>
+              </blockquote>
             </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATS STRIP ─────────────────────────────────────── */}
+      <div ref={ref} className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {stats.map((s, i) => (
+              <div
+                key={i}
+                className={`text-center py-8 px-6 border-r border-gray-100 last:border-r-0 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <p className="text-3xl lg:text-4xl font-black text-[#F97316]">{s.value}</p>
+                <p className="text-xs text-gray-500 font-semibold mt-1 uppercase tracking-wide">{s.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

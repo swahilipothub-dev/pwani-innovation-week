@@ -2,126 +2,91 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
+const activities = [
+  {
+    label: "Hackathons",
+    color: "text-[#F97316]",
+    border: "border-[#F97316]/30",
+    bg: "bg-[#F97316]/5",
+    body: "Driving digital transformation by providing tech solutions to local challenges facing coastal communities.",
+  },
+  {
+    label: "Impact-led Sessions",
+    color: "text-[#0EA5E9]",
+    border: "border-[#0EA5E9]/30",
+    bg: "bg-[#0EA5E9]/5",
+    body: "Well-curated daily sessions facilitated and driven by leaders across multiple industries.",
+  },
+  {
+    label: "Keynote Addresses",
+    color: "text-[#9b87f5]",
+    border: "border-[#9b87f5]/30",
+    bg: "bg-[#9b87f5]/5",
+    body: "Engaging keynotes by renowned players across different sectors driving transformative change.",
+  },
+  {
+    label: "Utamaduni Village",
+    color: "text-[#22C55E]",
+    border: "border-[#22C55E]/30",
+    bg: "bg-[#22C55E]/5",
+    body: "Experience a rich celebration of coastal cultures at the Utamaduni Village — what it truly means to be Pwani.",
+  },
+];
+
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-white">
-      <div className="section-container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Pwani Innovation Week</h2>
-          <div className="w-24 h-1 bg-ocean mx-auto"></div>
-        </div>
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2">
-            <p className="text-lg text-gray-700 leading-relaxed">
-              PIW is a Pwani-led and youth-driven annual convening that has become a point of convergence for youth, entrepreneurs, investors, creatives, and changemakers to co-create localized solutions for sustainable growth in Kenya's coast.
+    <section id="about" className="bg-gray-50 border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+        {/* ── Intro ─────────────────────────────────── */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start mb-16">
+          <div className="lg:w-1/2 space-y-6">
+            <div>
+              <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">About PIW 2026</p>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
+                Pwani Innovation Week 2026
+              </h2>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              PIW 2026 is the most significant edition of Pwani Innovation Week to date — coinciding with the 10th anniversary of Swahilipot Hub Foundation. It is a Pwani-led and youth-driven convening that brings together entrepreneurs, investors, creatives, government, and changemakers to co-create localized solutions for sustainable growth on Kenya's coast.
             </p>
-            <p className="text-lg text-gray-700 leading-relaxed mt-6">
-              The event, which is entering its 6th edition, has over the years transitioned to fit the entrepreneurial and innovation ecosystem of Pwani squarely. This has turned it into a much-awaited annual forum that addresses emerging needs of the region by advocating for synergy-led discourses.
+            <p className="text-gray-600 leading-relaxed">
+              Hosted in Mombasa from <strong className="text-gray-800">26 – 30 October 2026</strong>, this edition marks a decade of impact under the theme of the Coast taking the national stage — a media moment, an investment showcase, and a community celebration, all in one week.
             </p>
-            <a
-              href="/about"
-              className="inline-block mt-6 px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition-colors duration-300"
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 text-[#F97316] font-semibold text-sm hover:gap-3 transition-all duration-200"
             >
-              Read More
-            </a>
+              Learn more about PIW 2026 <ArrowRight size={16} />
+            </Link>
           </div>
-          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-            <div className="overflow-hidden rounded-lg">
-              <img 
-                src="/images/breakfast-nbi/4.jpg"
-                alt="Innovation hackathon" 
-                className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="overflow-hidden rounded-lg">
-              <img 
-                src="/images/breakfast-nbi/5.jpg"
-                alt="Panel discussions" 
-                className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="overflow-hidden rounded-lg">
-              <img 
-                src="/images/breakfast-nbi/6.jpg"
-                alt="Plenary sessions" 
-                className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="overflow-hidden rounded-lg">
-              <img 
-                src="/images/breakfast-nbi/7.jpg"
-                alt="Networking events" 
-                className="w-full h-64 object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
+
+          <div className="lg:w-1/2 grid grid-cols-2 gap-3">
+            {[4, 5, 6, 7].map((n) => (
+              <div key={n} className="overflow-hidden rounded-xl aspect-square">
+                <img
+                  src={`/images/breakfast-nbi/${n}.jpg`}
+                  alt="PIW event"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ))}
           </div>
         </div>
-        
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm card-hover relative overflow-hidden">
-            <div className="absolute inset-0 opacity-20">
-              <img 
-                src="/images/breakfast-nbi/0.jpg"
-                alt="Hackathon" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="text-coral text-3xl font-bold mb-2">Hackathons</div>
-              <p className="text-gray-700">
-                Driving digital transformations by providing digital solutions to local problems facing coastal communities.
-              </p>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm card-hover relative overflow-hidden">
-            <div className="absolute inset-0 opacity-20">
-              <img 
-                src="/images/breakfast-nbi/1.jpg"
-                alt="Panel Sessions" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="text-ocean text-3xl font-bold mb-2">Impact-led Sessions</div>
-              <p className="text-gray-700">
-                Well-curated daily sessions facilitated and driven by leaders across multiple industries.
-              </p>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm card-hover relative overflow-hidden">
-            <div className="absolute inset-0 opacity-20">
-              <img 
-                src="/images/breakfast-nbi/2.jpg"
-                alt="Plenary Sessions" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="text-purple text-3xl font-bold mb-2">Keynote Addresses</div>
-              <p className="text-gray-700">
-                Engaging keynotes by renowned players across different sectors driving transformative change.
-              </p>
-            </div>
-          </div>
-          
-          <div className="bg-gray-50 p-6 rounded-lg shadow-sm card-hover relative overflow-hidden">
-            <div className="absolute inset-0 opacity-20">
-              <img 
-                src="/images/breakfast-nbi/3.jpg"
-                alt="Networking" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="relative z-10">
-              <div className="text-leaf text-3xl font-bold mb-2">Utamaduni Village</div>
-              <p className="text-gray-700">
-                Enjoy a touch of coastal cultures at the Utamaduni village and experience what it means to be Pwani.
-              </p>
-            </div>
+
+        {/* ── Activities ────────────────────────────── */}
+        <div>
+          <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mb-6">What to Expect</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {activities.map((a) => (
+              <div key={a.label} className={`rounded-2xl border ${a.border} ${a.bg} p-6 hover:shadow-md transition-shadow`}>
+                <p className={`text-lg font-black mb-2 ${a.color}`}>{a.label}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">{a.body}</p>
+              </div>
+            ))}
           </div>
         </div>
+
       </div>
     </section>
   );
