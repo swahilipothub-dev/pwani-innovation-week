@@ -1,79 +1,65 @@
-
 import React from 'react';
 import { Waves, Smartphone, Users } from 'lucide-react';
-import { Globe, UsersRound, Laptop } from 'lucide-react';
+
+const tracks = [
+  {
+    icon: <Waves className="w-6 h-6 text-[#0EA5E9]" />,
+    iconBg: "bg-[#0EA5E9]/10",
+    accent: "border-t-[#0EA5E9]",
+    tag: "Track 01",
+    tagColor: "text-[#0EA5E9]",
+    title: "Sustainable Coastal Economies",
+    body: "Explores opportunities for youth and women within sustainable coastal economies — specifically in aquaculture, Cultural & Creative Industries, and the tourism value chain. Encompasses Blue Economy, Marine Resources, and Climate Action.",
+  },
+  {
+    icon: <Smartphone className="w-6 h-6 text-[#22C55E]" />,
+    iconBg: "bg-[#22C55E]/10",
+    accent: "border-t-[#22C55E]",
+    tag: "Track 02",
+    tagColor: "text-[#22C55E]",
+    title: "Digital Transformation",
+    body: "Empowers coastal communities to harness digital technologies for problem-solving and economic advancement. From mobile apps and AI to blockchain, participants explore how tech can disrupt traditional models and unlock new opportunities.",
+  },
+  {
+    icon: <Users className="w-6 h-6 text-[#9b87f5]" />,
+    iconBg: "bg-[#9b87f5]/10",
+    accent: "border-t-[#9b87f5]",
+    tag: "Track 03",
+    tagColor: "text-[#9b87f5]",
+    title: "Youth Agency",
+    body: "Celebrates Pwani youth as agents of change, policy influencers, and culture shapers. Highlights their roles in leadership, civic engagement, and social innovation, while emphasizing mental health and well-being as essential for sustained impact.",
+  },
+];
 
 const ThematicAreas = () => {
   return (
-    <section id="themes" className="py-20 bg-white">
-      <div className="section-container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Areas of Focus (Tracks)</h2>
-          <div className="w-24 h-1 bg-purple mx-auto"></div>
+    <section id="themes" className="bg-white border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+        <div className="max-w-2xl mb-14">
+          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Areas of Focus</p>
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">Thematic Tracks</h2>
+          <p className="mt-4 text-gray-500">
+            Three interconnected areas that anchor the PIW 2026 programme — each designed to move the Coast's most pressing conversations from dialogue into action.
+          </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-blue-50 rounded-xl p-8 transition-transform duration-300 hover:translate-y-[-5px]">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="p-3 bg-ocean/20 rounded-lg">
-                <Waves className="text-ocean h-8 w-8" />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tracks.map((track) => (
+            <div
+              key={track.title}
+              className={`bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} p-8 hover:shadow-lg transition-shadow duration-300`}
+            >
+              <div className={`w-12 h-12 rounded-xl ${track.iconBg} flex items-center justify-center mb-5`}>
+                {track.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-800">Sustainable Coastal Economies</h3>
+              <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${track.tagColor}`}>{track.tag}</p>
+              <h3 className="text-lg font-black text-gray-900 mb-3 leading-snug">{track.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{track.body}</p>
             </div>
-            <p className="text-gray-700">
-              Explores opportunities for youth and women within sustainable coastal economies, specifically in aquaculture, Cultural & Creative Industries (CCIs), and tourism value chain. Encompasses Blue Economy, Marine Resources, and Climate Action themes.
-              This track, a follow-up to
-              discussions at PIW2024,
-              explores opportunities for
-              youth and women within
-              Sustainable Coastal
-              Economies, specifically in
-              aquaculture (including young
-              mothers in fish, emerging
-              sectors like rging trends in
-              seaweed and fish farming),
-              the Cultural & Creative
-              Industries (CCIs), and the
-              tourism value chain.
-            </p>
-          </div>
-          
-          <div className="bg-green-50 rounded-xl p-8 transition-transform duration-300 hover:translate-y-[-5px]">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="p-3 bg-leaf/20 rounded-lg">
-                <Smartphone className="text-leaf h-8 w-8" />
-                <Laptop className="text-leaf h-8 w-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Digital Transformation</h3>
-            </div>
-            <p className="text-gray-700">
-              Empowers coastal communities to harness digital technologies for problem-solving and economic advancement. From mobile apps and AI to blockchain, exploring how tech can disrupt traditional models and unlock new opportunities in the digital gig economy.
-              This track empowers coastal
-              communities to harness
-              digital technologies for
-              problem-solving and
-              economic advancement.
-              From mobile apps and AI to
-              cloud services and
-              blockchain, participants will
-              explore how tech can disrupt
-              traditional models and unlock
-              new opportunities.
-            </p>
-          </div>
-          
-          <div className="bg-purple-50 rounded-xl p-8 transition-transform duration-300 hover:translate-y-[-5px]">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="p-3 bg-purple/20 rounded-lg">
-                <Users className="text-purple h-8 w-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Youth Agency</h3>
-            </div>
-            <p className="text-gray-700">
-              Celebrates Pwani youth as agents of change, policy influencers, and culture shapers. Highlights their roles in leadership, civic engagement, and social innovation while emphasizing mental health and well-being as essential for sustained impact.
-            </p>
-          </div>
+          ))}
         </div>
+
       </div>
     </section>
   );

@@ -1,235 +1,169 @@
 import React from 'react';
-import {Award, Calendar, FileText, Globe, MapPin, Target, Users} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Calendar, MapPin, Radio, Users, Handshake, TrendingUp } from 'lucide-react';
+
+const pillars = [
+  {
+    icon: <Radio className="w-6 h-6 text-white" />,
+    bg: "bg-[#0EA5E9]",
+    title: "A National Media Moment",
+    body: "Live broadcast coverage, daily press summaries, and a dedicated hashtag campaign reaching audiences nationwide.",
+  },
+  {
+    icon: <Users className="w-6 h-6 text-white" />,
+    bg: "bg-[#F97316]",
+    title: "An Audience Aggregator",
+    body: "Thousands of delegates, exhibitors, and attendees converge in one place — the largest tech and innovation gathering on the Kenyan coast.",
+  },
+  {
+    icon: <Handshake className="w-6 h-6 text-white" />,
+    bg: "bg-[#9b87f5]",
+    title: "A Partnership Showcase",
+    body: "Government, corporates, and development partners present side by side — forging alliances that outlast the week.",
+  },
+  {
+    icon: <TrendingUp className="w-6 h-6 text-white" />,
+    bg: "bg-[#22C55E]",
+    title: "An Investment Platform",
+    body: "Deal Rooms and Pwani Accelerate connect vetted coastal entrepreneurs with investors and capital providers.",
+  },
+];
 
 const About = () => {
-  const features = [
-    {
-      icon: MapPin,
-      title: "Coastal Focus",
-      description: "Dedicated to transforming Kenya's coastal economies through innovation"
-    },
-    {
-      icon: Calendar,
-      title: "6th Edition",
-      description: "Building on years of successful innovation and collaboration"
-    },
-    {
-      icon: Users,
-      title: "Youth-Driven",
-      description: "Empowering young changemakers as partners, not beneficiaries"
-    },
-    {
-      icon: Target,
-      title: "Impact-Focused",
-      description: "Creating sustainable solutions for real coastal challenges"
-    }
-  ];
-
-  const achievements = [
-    {number: "2,000+", label: "Participants Annually", icon: Users},
-    {number: "50+", label: "Partner Organizations", icon: Globe},
-    {number: "28", label: "Innovation Sessions", icon: Target},
-    {number: "6", label: "Years of Impact", icon: Award}
-  ];
-
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="pt-20 bg-gradient-to-br from-orange-50 via-orange-100/50 to-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div
-            className="absolute top-1/4 right-1/4 w-64 h-64 bg-orange-200/30 rounded-full blur-3xl animate-pulse"></div>
-          <div
-            className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-orange-300/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        </div>
+    <div className="min-h-screen bg-white">
 
-        <div className="section-container py-20 relative z-10">
-          <div className="text-center animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-              About <span className="gradient-text">PIW 2025</span>
-            </h1>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Pwani Innovation Week: Where coastal transformation meets youth innovation
-            </p>
+      {/* ── Header ───────────────────────────────────────── */}
+      <div className="bg-[#0a1628] pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-4">About</p>
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-5 leading-tight">
+            Pwani Innovation<br />Week 2026
+          </h1>
+          <p className="text-white/60 text-lg max-w-2xl mb-8">
+            The Week the Coast Takes the Stage — celebrating a decade of Swahilipot Hub Foundation and the Coast's most powerful annual platform.
+          </p>
+          <div className="flex flex-wrap gap-5 text-sm text-white/70">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#F97316]" />
+              <span>26 – 30 October 2026</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#F97316]" />
+              <span>Mombasa, Kenya</span>
+            </div>
           </div>
         </div>
       </div>
 
-      
-
-      {/* Features Grid */}
-      <section className="py-20 bg-white">
-        <div className="section-container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="text-center p-6 rounded-xl bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 animate-fade-in"
-                style={{animationDelay: `${index * 200}ms`}}
-              >
-                <div
-                  className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-full flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="w-8 h-8 text-white"/>
-                </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
+      {/* ── Swahilipot @10 Banner ────────────────────────── */}
+      <div className="bg-[#F97316]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <span className="text-white font-black text-4xl leading-none">10</span>
+            <div className="w-px h-10 bg-white/30" />
+            <div>
+              <p className="text-white font-bold text-sm">Swahilipot Hub Foundation Anniversary</p>
+              <p className="text-orange-100 text-xs">Transformed Youth · Thriving Communities · 2016 – 2026</p>
+            </div>
           </div>
+          <Link
+            to="/tickets"
+            className="inline-flex items-center gap-2 bg-white text-[#F97316] font-bold text-sm px-5 py-2.5 rounded-lg hover:bg-orange-50 transition-colors duration-200 flex-shrink-0"
+          >
+            Register Interest <ArrowRight size={16} />
+          </Link>
         </div>
-      </section>
+      </div>
 
-      {/* About Content */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="section-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-            <div className="animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-                A Platform for <span className="text-[#F97316]">Coastal Innovation</span>
+      {/* ── What is PIW 2026 ─────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+          <div className="lg:w-1/2 space-y-6">
+            <div>
+              <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Overview</p>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
+                What is Pwani Innovation Week?
               </h2>
-              <div className="space-y-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  PIW is a Pwani-led and youth-driven annual convening that has become a point of convergence for youth,
-                  entrepreneurs, investors, creatives, and changemakers to co-create localized solutions for sustainable
-                  growth in Kenya's coast.
-                </p>
-                <div className="bg-white p-6 rounded-xl shadow-lg border-l-4 border-[#F97316]">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    The event, which is entering its 6th edition, has over the years transitioned to fit the
-                    entrepreneurial and innovation ecosystem of Pwani squarely.
-                  </p>
-                </div>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  This has turned it into a much-awaited annual forum that addresses emerging needs of the region by
-                  advocating for synergy-led discourses.
-                </p>
-              </div>
             </div>
-            <div className="relative animate-fade-in delay-300">
-              <div
-                className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                <img
-                  src="/images/image1 (3).jpg"
-                  alt="PIW 2025 participants"
-                  className="w-full h-auto"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#F97316]/20 to-transparent"></div>
-              </div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-orange-200/50 rounded-full blur-xl"></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-orange-300/40 rounded-full blur-lg"></div>
-            </div>
-          </div>
-
-          {/* Theme Breakdown */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 relative animate-fade-in">
-              <div
-                className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                <img
-                  src="/images/A26I8176.JPG"
-                  alt="Breaking down the theme"
-                  className="w-full h-auto"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F97316]/10"></div>
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2 animate-fade-in delay-300">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-                Breaking Down the <span className="text-[#F97316]">Theme</span>
-              </h2>
-              <div className="space-y-6">
-                <div className="bg-gradient-to-r from-[#F97316]/10 to-transparent p-6 rounded-xl">
-                  <h3 className="text-xl font-bold text-[#F97316] mb-3">Pwani Re-imagined</h3>
-                  <p className="text-gray-700">
-                    Objectifies a future-oriented transformation of the coastal economies, driving resilience and
-                    prosperity through new growth pathways.
-                  </p>
-                </div>
-                <div className="bg-gradient-to-r from-orange-100/50 to-transparent p-6 rounded-xl">
-                  <h3 className="text-xl font-bold text-[#F97316] mb-3">Youth Agency</h3>
-                  <p className="text-gray-700">
-                    Recognizing young people as active agents of change, empowering them to shape their futures and
-                    contribute meaningfully to society.
-                  </p>
-                </div>
-                <div className="bg-gradient-to-r from-[#F97316]/10 to-transparent p-6 rounded-xl">
-                  <h3 className="text-xl font-bold text-[#F97316] mb-3">Innovation & Sustainability</h3>
-                  <p className="text-gray-700">
-                    Introducing new ideas, methods, and services to enhance efficiency across tourism, fisheries, and
-                    agriculture sectors.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-      {/* Achievements Section */}
-      <section className="py-20 bg-gradient-to-br from-[#F97316]/5 to-orange-100/30">
-        <div className="section-container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Our Impact in Numbers</h2>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto"></div>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <div
-                key={index}
-                className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 animate-fade-in"
-                style={{animationDelay: `${index * 150}ms`}}
-              >
-                <div
-                  className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-full flex items-center justify-center">
-                  <achievement.icon className="w-8 h-8 text-white"/>
-                </div>
-                <p className="text-4xl font-bold text-[#F97316] mb-2">{achievement.number}</p>
-                <p className="text-gray-600 font-medium">{achievement.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-       {/* Concept Note Section */}
-      <section className="py-20 bg-white border-t border-orange-100">
-        <div className="section-container">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <div className="flex justify-center mb-6">
-              <div
-                className="w-16 h-16 bg-gradient-to-br from-[#F97316] to-[#EA580C] rounded-full flex items-center justify-center">
-                <FileText className="text-white w-8 h-8"/>
-              </div>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-              Concept Note
-            </h2>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              Pwani Innovation Week (PIW) is a regional platform igniting transformation at the Kenyan coast by bringing
-              together youth, innovators, creatives, and ecosystem actors to shape a resilient, inclusive, and
-              future-ready coastal economy. As we mark the 6th edition, PIW 2025 builds on this legacy, placing young
-              people at the center of co-creation and systemic innovation across vital sectors such as tourism,
-              fisheries, and the blue economy.
+            <p className="text-gray-600 leading-relaxed">
+              PIW is a Pwani-led and youth-driven annual convening that has become a point of convergence for youth, entrepreneurs, investors, creatives, and changemakers — co-creating localized solutions for sustainable growth in Kenya's coast.
             </p>
+            <p className="text-gray-600 leading-relaxed">
+              PIW 2026 is the most significant edition to date, coinciding with the <strong className="text-gray-800">10th anniversary of Swahilipot Hub Foundation</strong>. It is simultaneously a national media moment, an investment showcase, and a community celebration — all in one week.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              The five-day convention will feature Swahilipot Dialogues, Sectoral Pre-Conferences, Deal Rooms, Pwani Accelerate, and close with a Grand Concert at Mama Ngina Waterfront — the most visible single moment of the year.
+            </p>
+          </div>
 
-            {/* Download Button */}
-            <a
-              href="/files/PIW 2025 CONCEPT NOTE (1).pdf"
-              download
-              className="inline-flex items-center px-6 py-3 bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold rounded-xl transition-colors duration-300 shadow-lg"
-            >
-              <FileText className="w-5 h-5 mr-2"/>
-              Download Concept Note
-            </a>
+          <div className="lg:w-1/2 grid grid-cols-2 gap-3">
+            {[1, 3, 5, 4].map((n) => (
+              <div key={n} className="overflow-hidden rounded-xl aspect-square">
+                <img
+                  src={`/images/breakfast-nbi/${n}.jpg`}
+                  alt="PIW event"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* ── Four Pillars ─────────────────────────────────── */}
+      <section className="bg-gray-50 border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3 text-center">Why PIW 2026</p>
+          <h2 className="text-3xl font-black text-gray-900 text-center mb-10">Four Pillars of Impact</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {pillars.map((p) => (
+              <div key={p.title} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md transition-shadow">
+                <div className={`w-11 h-11 rounded-xl ${p.bg} flex items-center justify-center mb-4`}>{p.icon}</div>
+                <h3 className="text-base font-bold text-gray-900 mb-2">{p.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Event Stats ──────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-10 text-center">Expected Impact</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { value: "10,000+", label: "Expected Attendees" },
+            { value: "5", label: "Days of Programming" },
+            { value: "4", label: "Swahilipot Dialogues" },
+            { value: "5", label: "Sectoral Pre-Conferences" },
+          ].map((s) => (
+            <div key={s.label} className="text-center p-6 rounded-2xl bg-orange-50 border border-orange-100">
+              <p className="text-3xl md:text-4xl font-black text-[#F97316] mb-1">{s.value}</p>
+              <p className="text-gray-500 text-sm font-medium">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────────── */}
+      <section className="bg-[#0a1628] mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-2xl max-w-7xl lg:mx-auto">
+        <div className="px-8 sm:px-12 py-14 text-center">
+          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-4">Be Part of History</p>
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-4">
+            Join Us at PIW 2026
+          </h2>
+          <p className="text-white/60 max-w-xl mx-auto mb-8 text-sm leading-relaxed">
+            The 10th anniversary edition of Swahilipot Hub Foundation. October 2026, Mombasa — the week the Coast takes the stage.
+          </p>
+          <Link
+            to="/tickets"
+            className="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white font-bold px-7 py-3.5 rounded-lg transition-all duration-200 hover:shadow-xl hover:shadow-[#F97316]/25"
+          >
+            Register Interest <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
 
     </div>
   );
