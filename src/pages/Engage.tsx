@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {ArrowRight, Clock, Code, Map, MapPin, Mic, Palette, Star, Trophy, Users} from 'lucide-react';
 import {Link} from "react-router-dom";
+import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
 const Engage = () => {
   const [activeTab, setActiveTab] = useState('sessions');
+  const heroRef = useScrollReveal();
+  const ctaRef = useScrollReveal();
 
   const engagementTypes = [
     {
@@ -136,13 +139,13 @@ const Engage = () => {
             className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-teal-300/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="section-container py-20 relative z-10">
-          <div className="text-center animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+        <div ref={heroRef.ref} className="section-container py-20 relative z-10">
+          <div className="text-center">
+            <h1 style={fadeUp(heroRef.inView, 0)} className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
               How to <span className="gradient-text">Engage</span>
             </h1>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <div style={scaleIn(heroRef.inView, 120)} className="w-24 h-1 bg-[#F97316] mx-auto mb-6" />
+            <p style={fadeUp(heroRef.inView, 220)} className="text-xl text-gray-700 max-w-3xl mx-auto">
               Multiple ways to participate, learn, and contribute to coastal transformation
             </p>
           </div>
@@ -336,12 +339,12 @@ const Engage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
+      <section ref={ctaRef.ref} className="py-20 bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white">
         <div className="section-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 style={fadeUp(ctaRef.inView, 0)} className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Engage?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+          <p style={fadeUp(ctaRef.inView, 100)} className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Choose your engagement level and join us in transforming coastal economies through innovation.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

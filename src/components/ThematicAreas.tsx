@@ -1,5 +1,6 @@
 import React from 'react';
 import { Waves, Smartphone, Users } from 'lucide-react';
+import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
 const tracks = [
   {
@@ -32,22 +33,26 @@ const tracks = [
 ];
 
 const ThematicAreas = () => {
+  const heading = useScrollReveal();
+  const cards = useScrollReveal();
+
   return (
     <section id="themes" className="bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        <div className="max-w-2xl mb-14">
-          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Areas of Focus</p>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">Thematic Tracks</h2>
-          <p className="mt-4 text-gray-500">
+        <div ref={heading.ref} className="max-w-2xl mb-14">
+          <p style={fadeUp(heading.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Areas of Focus</p>
+          <h2 style={fadeUp(heading.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">Thematic Tracks</h2>
+          <p style={fadeUp(heading.inView, 200)} className="mt-4 text-gray-500">
             Three interconnected areas that anchor the PIW 2026 programme — each designed to move the Coast's most pressing conversations from dialogue into action.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {tracks.map((track) => (
+        <div ref={cards.ref} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tracks.map((track, i) => (
             <div
               key={track.title}
+              style={scaleIn(cards.inView, i * 120)}
               className={`bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} p-8 hover:shadow-lg transition-shadow duration-300`}
             >
               <div className={`w-12 h-12 rounded-xl ${track.iconBg} flex items-center justify-center mb-5`}>

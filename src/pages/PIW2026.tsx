@@ -8,7 +8,7 @@ function useScrollReveal(threshold = 0.15) {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      ([entry]) => { setVisible(entry.isIntersecting); },
       { threshold }
     );
     observer.observe(el);
@@ -17,20 +17,14 @@ function useScrollReveal(threshold = 0.15) {
   return { ref, visible };
 }
 
-const fadeUp = (visible: boolean, delay = 0) =>
-  `transition-all duration-700 ease-out ${delay ? `delay-[${delay}ms]` : ''} ${
-    visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-  }`;
+const fadeUp = (visible: boolean) =>
+  `transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`;
 
-const fadeLeft = (visible: boolean, delay = 0) =>
-  `transition-all duration-700 ease-out ${delay ? `delay-[${delay}ms]` : ''} ${
-    visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-  }`;
+const fadeLeft = (visible: boolean) =>
+  `transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`;
 
-const fadeRight = (visible: boolean, delay = 0) =>
-  `transition-all duration-700 ease-out ${delay ? `delay-[${delay}ms]` : ''} ${
-    visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-  }`;
+const fadeRight = (visible: boolean) =>
+  `transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`;
 
 const PIW2026 = () => {
   const heroImg = useScrollReveal();
@@ -50,7 +44,7 @@ const PIW2026 = () => {
   ];
 
   const statCards = [
-    { number: "3,000+", label: "Participants" },
+    { number: "5,000+", label: "Expected Attendees" },
     { number: "60+", label: "Partner Organizations" },
     { number: "30+", label: "Innovation Sessions" },
     { number: "20+", label: "Startups Pitching" },
@@ -212,7 +206,7 @@ const PIW2026 = () => {
               By positioning youth as active partners rather than just beneficiaries, PIW 2026 aims to catalyze a future-ready and inclusive economy rooted in the unique cultural and natural wealth of the Pwani region.
             </p>
           </div>
-          <div className={`space-y-4 ${fadeRight(about.visible, 150)}`}>
+          <div className={`space-y-4 ${fadeRight(about.visible)}`} style={{ transitionDelay: '150ms' }}>
             <img src="/images/A21I1152.jpg" alt="PIW 2026 Innovation" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
             <img src="/images/2C0A1199.jpg" alt="PIW 2026 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
           </div>
@@ -227,7 +221,7 @@ const PIW2026 = () => {
               <img src="/images/A26I8176.JPG" alt="PIW 2026 Theme" className="w-full h-80 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F97316]/10" />
             </div>
-            <div className={fadeRight(theme.visible, 150)}>
+            <div className={fadeRight(theme.visible)} style={{ transitionDelay: '150ms' }}>
               <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">The Theme</p>
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8">Breaking Down the Theme</h2>
               <div className="space-y-5">
