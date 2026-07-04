@@ -38,7 +38,7 @@ const pastEventLinks = [
   { label: "PIW 2023", to: "/piw-2023" },
   { label: "PIW 2024", to: "/piw-2024" },
   { label: "PIW 2025", to: "/piw-2025" },
-  { label: "PIW 2026", to: "/piw-2026" },
+  // { label: "PIW 2026", to: "/piw-2026" },
 ];
 
 const navLinkCls = "text-sm font-medium text-gray-700 hover:text-[#F97316] transition-colors duration-200";
@@ -90,10 +90,10 @@ const Navbar = () => {
               <DropdownMenuTrigger className={dropTriggerCls}>
                 Engage <ChevronDown className="w-3.5 h-3.5" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white shadow-lg border border-gray-100 rounded-xl z-50 min-w-[200px] p-1">
+              <DropdownMenuContent sideOffset={8} className="bg-white shadow-xl border border-gray-100 rounded-xl z-[80] min-w-[220px] p-1">
                 {engageLinks.map((l) => (
                   <DropdownMenuItem key={l.to} className="rounded-lg hover:bg-orange-50 px-3 py-2">
-                    <Link to={l.to} className={dropItemCls}>{l.label}</Link>
+                    <Link to={l.to} className={`${dropItemCls} whitespace-nowrap`}>{l.label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -104,10 +104,10 @@ const Navbar = () => {
               <DropdownMenuTrigger className={dropTriggerCls}>
                 Experiences <ChevronDown className="w-3.5 h-3.5" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white shadow-lg border border-gray-100 rounded-xl z-50 min-w-[200px] p-1">
+              <DropdownMenuContent sideOffset={8} className="bg-white shadow-xl border border-gray-100 rounded-xl z-[80] min-w-[220px] p-1">
                 {experienceLinks.map((l) => (
                   <DropdownMenuItem key={l.to} className="rounded-lg hover:bg-orange-50 px-3 py-2">
-                    <Link to={l.to} className={dropItemCls}>{l.label}</Link>
+                    <Link to={l.to} className={`${dropItemCls} whitespace-nowrap`}>{l.label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -118,10 +118,10 @@ const Navbar = () => {
               <DropdownMenuTrigger className={dropTriggerCls}>
                 Past Events <ChevronDown className="w-3.5 h-3.5" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white shadow-lg border border-gray-100 rounded-xl z-50 min-w-[160px] p-1">
+              <DropdownMenuContent sideOffset={8} className="bg-white shadow-xl border border-gray-100 rounded-xl z-[80] min-w-[180px] p-1">
                 {pastEventLinks.map((l) => (
                   <DropdownMenuItem key={l.to} className="rounded-lg hover:bg-orange-50 px-3 py-2">
-                    <Link to={l.to} className={dropItemCls}>{l.label}</Link>
+                    <Link to={l.to} className={`${dropItemCls} whitespace-nowrap`}>{l.label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>

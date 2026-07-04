@@ -3,6 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import {format, parseISO} from 'date-fns';
 import {Calendar, Clock, Filter, Loader2, MapPin, RefreshCcw, Users} from 'lucide-react';
 import {API_ENDPOINTS} from '@/lib/config';
+import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
 interface ScheduleTrack {
   _id?: string;
@@ -68,6 +69,8 @@ const formatTimeRange = (start?: string, end?: string) => {
 const Schedule = () => {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedTrack, setSelectedTrack] = useState('All');
+  const heroRef = useScrollReveal();
+  const sessionsRef = useScrollReveal();
 
   const {
     data: schedules = [],
@@ -191,14 +194,14 @@ const Schedule = () => {
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-orange-200/20 rounded-full blur-2xl"></div>
         </div>
-        <div className="section-container py-20 relative z-10">
-          <div className="text-center animate-fade-in">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+        <div ref={heroRef.ref} className="section-container py-20 relative z-10">
+          <div className="text-center">
+            <h1 style={fadeUp(heroRef.inView, 0)} className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
               Event <span className="gradient-text">Schedule</span>
             </h1>
-            <div className="w-24 h-1 bg-[#F97316] mx-auto mb-6"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Five days of innovation, collaboration, and transformation • October 27-31, 2025
+            <div style={scaleIn(heroRef.inView, 120)} className="w-24 h-1 bg-[#F97316] mx-auto mb-6" />
+            <p style={fadeUp(heroRef.inView, 220)} className="text-xl text-gray-700 max-w-3xl mx-auto">
+              Five days of innovation, collaboration, and transformation • October 26–30, 2026
             </p>
           </div>
         </div>
@@ -255,9 +258,9 @@ const Schedule = () => {
       <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="section-container">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedDayTitle}</h2>
-              <p className="text-gray-600">
+            <div ref={sessionsRef.ref} className="mb-8 text-center">
+              <h2 style={fadeUp(sessionsRef.inView, 0)} className="text-3xl font-bold text-gray-800 mb-2">{selectedDayTitle}</h2>
+              <p style={fadeUp(sessionsRef.inView, 100)} className="text-gray-600">
                 {filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''} planned
               </p>
             </div>

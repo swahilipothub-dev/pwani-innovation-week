@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, MapPin, Calendar, Sparkles, PartyPopper } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar, PartyPopper } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { Link } from "react-router-dom";
 
 const images = [
-  "/images/breakfast-nbi/1.jpg",
-  "/images/breakfast-nbi/3.jpg",
-  "/images/breakfast-nbi/5.jpg",
+  "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.09.50.jpeg",
+  "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.55.jpeg",
+  "/images/piw-2026/WhatsApp Image 2026-06-30 at 14.02.22.jpeg",
 ];
 
 const stats = [
-  { value: "10,000+", label: "Expected Attendees" },
+  { value: "5,000+", label: "Expected Attendees" },
   { value: "5", label: "Days of Programming" },
   { value: "4", label: "Swahilipot Dialogues" },
   { value: "5", label: "Sectoral Pre-Conferences" },
@@ -49,54 +49,82 @@ const Hero = () => {
 
   return (
     <>
-      <section className="relative min-h-screen bg-[#0a1628] flex items-center overflow-hidden">
-        {/* subtle right glow */}
-        <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-[#F97316]/10 to-transparent pointer-events-none" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#F97316]/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative min-h-screen flex items-center overflow-hidden">
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+        {/* ── Background image slideshow ── */}
+        {images.map((src, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+
+        {/* dark overlay so text stays legible */}
+        <div className="absolute inset-0 bg-[#0a1628]/80" />
+        {/* subtle orange right glow */}
+        <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-[#F97316]/10 to-transparent pointer-events-none" />
+
+        {/* slide dots — bottom centre */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-white w-6' : 'bg-white/40 w-1.5'}`}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
-            {/* ── LEFT: copy ── */}
-            <div className="w-full lg:w-1/2 space-y-8">
+            {/* ── copy ── */}
+            <div className="w-full lg:max-w-2xl space-y-8">
 
-              {/* Anniversary badge — 10-year celebration */}
-              <div className="relative inline-flex">
-                {/* animated glow ring */}
-                <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-yellow-400 via-[#F97316] to-yellow-400 opacity-60 blur-sm animate-[spin_4s_linear_infinite]" />
-                <div className="relative inline-flex items-center gap-3 bg-[#0d1f3c] border border-yellow-400/30 rounded-2xl px-5 py-3 backdrop-blur-sm overflow-hidden">
-                  {/* shimmer sweep */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_2.5s_ease-in-out_infinite]" />
-                  <PartyPopper className="w-5 h-5 text-yellow-400 flex-shrink-0 animate-[wiggle_1s_ease-in-out_infinite]" />
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
-                      <span className="font-black text-sm bg-gradient-to-r from-yellow-300 via-[#F97316] to-yellow-300 bg-clip-text text-transparent uppercase tracking-widest">
-                        Celebrating 10 Years
-                      </span>
-                      <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
-                    </div>
-                    <span className="text-white/55 text-[10px] font-semibold tracking-[0.2em] uppercase">
-                      Swahilipot Hub Foundation · 2016 – 2026
-                    </span>
-                  </div>
-                  <span className="font-black text-4xl leading-none bg-gradient-to-b from-yellow-200 to-[#F97316] bg-clip-text text-transparent flex-shrink-0">
-                    10
+              {/* Anniversary badge */}
+              <div className="relative inline-block">
+                <div className="inline-flex items-center gap-2.5 bg-yellow-400/10 border border-yellow-400/30 rounded-full px-4 py-2">
+                  <PartyPopper className="w-4 h-4 text-yellow-400 animate-[wiggle_1.4s_ease-in-out_infinite] flex-shrink-0" />
+                  <span className="text-yellow-300 font-bold text-sm tracking-wide">
+                    Celebrating 10 Years — Swahilipot Hub Foundation
                   </span>
+                  <span className="font-black text-yellow-400 text-sm">2016–2026</span>
                 </div>
+
+                {/* dripping sparks */}
+                <span className="spark" style={{left:'8%',  color:'#facc15', fontSize:'14px', animationDelay:'0s',   animationDuration:'1.6s'}}>★</span>
+                <span className="spark" style={{left:'22%', color:'#F97316', fontSize:'11px', animationDelay:'0.4s', animationDuration:'1.9s'}}>✦</span>
+                <span className="spark" style={{left:'38%', color:'#fde68a', fontSize:'16px', animationDelay:'0.8s', animationDuration:'1.5s'}}>★</span>
+                <span className="spark" style={{left:'54%', color:'#F97316', fontSize:'12px', animationDelay:'0.2s', animationDuration:'2.0s'}}>✦</span>
+                <span className="spark" style={{left:'68%', color:'#facc15', fontSize:'15px', animationDelay:'1.0s', animationDuration:'1.7s'}}>★</span>
+                <span className="spark" style={{left:'82%', color:'#fde68a', fontSize:'11px', animationDelay:'0.6s', animationDuration:'1.4s'}}>✦</span>
+                <span className="spark" style={{left:'93%', color:'#F97316', fontSize:'13px', animationDelay:'0.3s', animationDuration:'1.8s'}}>★</span>
               </div>
 
               <style>{`
-                @keyframes shimmer {
-                  0%   { transform: translateX(-100%); }
-                  60%  { transform: translateX(200%); }
-                  100% { transform: translateX(200%); }
-                }
                 @keyframes wiggle {
-                  0%, 100% { transform: rotate(-6deg); }
-                  50%      { transform: rotate(6deg); }
+                  0%, 100% { transform: rotate(-10deg); }
+                  50%      { transform: rotate(10deg); }
+                }
+                @keyframes drip {
+                  0%   { opacity: 0;    transform: translateY(0px)  scale(0.5) rotate(0deg); }
+                  15%  { opacity: 1; }
+                  60%  { opacity: 0.9;  transform: translateY(30px) scale(1.2) rotate(180deg); }
+                  100% { opacity: 0;    transform: translateY(52px) scale(0.7) rotate(360deg); }
+                }
+                .spark {
+                  position: absolute;
+                  top: 100%;
+                  pointer-events: none;
+                  animation: drip ease-in infinite;
+                  user-select: none;
+                  filter: drop-shadow(0 0 4px currentColor);
+                  line-height: 1;
                 }
               `}</style>
+
 
               {/* Headline */}
               <div className="space-y-1">
@@ -156,38 +184,6 @@ const Hero = () => {
                   Learn More
                 </Link>
               </div>
-            </div>
-
-            {/* ── RIGHT: image slider ── */}
-            <div className="w-full lg:w-1/2 space-y-4">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl shadow-black/60">
-                {images.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt="PIW 2026"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-                  />
-                ))}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
-                {/* dots */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentSlide(i)}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'bg-white w-6' : 'bg-white/40 w-1.5'}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* pull quote */}
-              <blockquote className="p-5 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
-                <p className="text-white/65 text-sm leading-relaxed italic">
-                  "Swahilipot's single most powerful platform — a national media moment, an investment showcase, and a community celebration, all in one week."
-                </p>
-              </blockquote>
             </div>
 
           </div>

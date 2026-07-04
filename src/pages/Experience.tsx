@@ -2,6 +2,7 @@ import React, {useMemo, useState} from 'react';
 import {PlayCircle, Ticket, Video, Images} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
+import { useScrollReveal, fadeUp } from '@/hooks/useScrollReveal';
 
 type ExperienceKey = 'boat' | 'food' | 'bike' | 'workout';
 
@@ -9,6 +10,7 @@ const EXPERIENCE_PRICE_LABEL = 'Ksh 2,000.00';
 
 const Experience: React.FC = () => {
   const [selected, setSelected] = useState<ExperienceKey>('boat');
+  const heroRef = useScrollReveal();
 
   const experiences = useMemo(() => ({
     boat: {
@@ -71,9 +73,9 @@ const Experience: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="pt-24 pb-12 bg-gradient-to-br from-orange-50 via-white to-emerald-50">
-        <div className="section-container text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">Experience</h1>
-          <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">Choose an activity to explore photos, videos, and grab your ticket.</p>
+        <div ref={heroRef.ref} className="section-container text-center">
+          <h1 style={fadeUp(heroRef.inView, 0)} className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">Experience</h1>
+          <p style={fadeUp(heroRef.inView, 120)} className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">Choose an activity to explore photos, videos, and grab your ticket.</p>
         </div>
       </section>
 
