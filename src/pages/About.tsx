@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, MapPin, Radio, Users, Handshake, TrendingUp } from 'lucide-react';
 import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
+import EditionsTimeline from '@/components/EditionsTimeline';
 
 const pillars = [
   {
@@ -143,6 +144,8 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      <EditionsTimeline />
 
       {/* ── Four Pillars ─────────────────────────────────── */}
       <section className="bg-gray-50 border-y border-gray-100">
