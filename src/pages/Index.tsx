@@ -4,11 +4,13 @@ import About from '@/components/About';
 // import Objectives from '@/components/Objectives';
 import ThematicAreas from '@/components/ThematicAreas';
 import PIW2026Highlights from '@/components/PIW2026Highlights';
+import DecadeAndBeyond from '@/components/DecadeAndBeyond';
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Hero/>
+      <DecadeAndBeyond/>
       <PIW2026Highlights/>
       <About/>
       {/* <Objectives /> */}
