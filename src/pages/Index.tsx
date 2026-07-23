@@ -5,6 +5,7 @@ import About from '@/components/About';
 import ThematicAreas from '@/components/ThematicAreas';
 import PIW2026Highlights from '@/components/PIW2026Highlights';
 import DecadeAndBeyond from '@/components/DecadeAndBeyond';
+import ThemeBreakdown from '@/components/ThemeBreakdown';
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <Hero/>
       <DecadeAndBeyond/>
       <PIW2026Highlights/>
+      <ThemeBreakdown />
       <About/>
       {/* <Objectives /> */}
       <ThematicAreas/>

@@ -201,7 +201,7 @@ const Schedule = () => {
             </h1>
             <div style={scaleIn(heroRef.inView, 120)} className="w-24 h-1 bg-[#F97316] mx-auto mb-6" />
             <p style={fadeUp(heroRef.inView, 220)} className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Five days of innovation, collaboration, and transformation • October 26–30, 2026
+              Six days of innovation, collaboration, and transformation • October 26–31, 2026
             </p>
           </div>
         </div>

@@ -20,6 +20,7 @@ const tracks = [
     tagColor: "text-[#22C55E]",
     title: "Digital Transformation",
     body: "Empowers coastal communities to harness digital technologies for problem-solving and economic advancement. From mobile apps and AI to blockchain, participants explore how tech can disrupt traditional models and unlock new opportunities.",
+    image: "/images/DSC_5674.jpg",
   },
   {
     icon: <Users className="w-6 h-6 text-[#9b87f5]" />,
@@ -53,14 +54,22 @@ const ThematicAreas = () => {
             <div
               key={track.title}
               style={scaleIn(cards.inView, i * 120)}
-              className={`bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} p-8 hover:shadow-lg transition-shadow duration-300`}
+              className={`overflow-hidden bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} hover:shadow-lg transition-shadow duration-300`}
             >
-              <div className={`w-12 h-12 rounded-xl ${track.iconBg} flex items-center justify-center mb-5`}>
-                {track.icon}
+              {track.image && (
+                <div className="relative h-36 overflow-hidden">
+                  <img src={track.image} alt="Digital Transformation workshop" className="h-full w-full object-cover transition-transform duration-700 hover:scale-110" />
+                  <div className="absolute inset-0 bg-[#0a1628]/25" />
+                </div>
+              )}
+              <div className="p-8">
+                <div className={`w-12 h-12 rounded-xl ${track.iconBg} flex items-center justify-center mb-5`}>
+                  {track.icon}
+                </div>
+                <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${track.tagColor}`}>{track.tag}</p>
+                <h3 className="text-lg font-black text-gray-900 mb-3 leading-snug">{track.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{track.body}</p>
               </div>
-              <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${track.tagColor}`}>{track.tag}</p>
-              <h3 className="text-lg font-black text-gray-900 mb-3 leading-snug">{track.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{track.body}</p>
             </div>
           ))}
         </div>

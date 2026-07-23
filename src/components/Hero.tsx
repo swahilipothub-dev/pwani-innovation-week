@@ -4,14 +4,14 @@ import { useInView } from 'react-intersection-observer';
 import { Link } from "react-router-dom";
 
 const images = [
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.09.50.jpeg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.55.jpeg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 14.02.22.jpeg",
+  { src: "/images/new/download (7).jpg", effect: "zoom-out" },
+  { src: "/images/new/download (9).jpg", effect: "pan-left" },
+  { src: "/images/new/download (2).jpg", effect: "drift-up" },
 ];
 
 const stats = [
   { value: "5,000+", label: "Expected Attendees" },
-  { value: "5", label: "Days of Programming" },
+  { value: "6", label: "Days of Programming" },
   { value: "4", label: "Swahilipot Dialogues" },
   { value: "5", label: "Sectoral Pre-Conferences" },
 ];
@@ -52,12 +52,16 @@ const Hero = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden">
 
         {/* ── Background image slideshow ── */}
-        {images.map((src, i) => (
+        {images.map((image, i) => (
           <div
             key={i}
             className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}
           >
-            <img src={src} alt="" className="w-full h-full object-cover" />
+            <img
+              src={image.src}
+              alt=""
+              className={`w-full h-full object-cover ${i === currentSlide ? `hero-slide-${image.effect}` : 'hero-slide-reset'}`}
+            />
           </div>
         ))}
 
@@ -134,7 +138,10 @@ const Hero = () => {
                   <span className="text-[#F97316]">Week 2026</span>
                 </h1>
                 <p className="pt-4 text-sm sm:text-base text-white/50 font-semibold uppercase tracking-[0.2em]">
-                  The Week the Coast Takes the Stage
+                  A Decade and Beyond · Youth, Innovation &amp; Coastal Futures
+                </p>
+                <p className="max-w-xl pt-4 text-base leading-relaxed text-white/80 sm:text-lg">
+                  Ten years of Swahilipot and the next chapter for Pwani&apos;s innovation ecosystem.
                 </p>
               </div>
 
@@ -142,7 +149,7 @@ const Hero = () => {
               <div className="flex flex-wrap gap-5">
                 <div className="flex items-center gap-2 text-white/70">
                   <Calendar className="w-4 h-4 text-[#F97316] flex-shrink-0" />
-                  <span className="text-sm font-semibold">26 – 30 October 2026</span>
+                  <span className="text-sm font-semibold">26 – 31 October 2026</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/70">
                   <MapPin className="w-4 h-4 text-[#F97316] flex-shrink-0" />
@@ -189,6 +196,50 @@ const Hero = () => {
           </div>
         </div>
       </section>
+
+      <style>{`
+        @keyframes hero-zoom-out {
+          from { transform: scale(1.12); }
+          to { transform: scale(1); }
+        }
+        @keyframes hero-pan-left {
+          from { transform: scale(1.1) translateX(2%); }
+          to { transform: scale(1.1) translateX(-2%); }
+        }
+        @keyframes hero-drift-up {
+          from { transform: scale(1.1) translateY(2%); }
+          to { transform: scale(1.1) translateY(-2%); }
+        }
+        @keyframes hero-tilt-in {
+          from { transform: scale(1.13) rotate(1deg); }
+          to { transform: scale(1) rotate(0deg); }
+        }
+        .hero-slide-zoom-out {
+          animation: hero-zoom-out 6s ease-out both;
+        }
+        .hero-slide-pan-left {
+          animation: hero-pan-left 6s ease-in-out both;
+        }
+        .hero-slide-drift-up {
+          animation: hero-drift-up 6s ease-in-out both;
+        }
+        .hero-slide-tilt-in {
+          animation: hero-tilt-in 6s ease-out both;
+        }
+        .hero-slide-reset {
+          transform: scale(1.12);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-slide-zoom-out,
+          .hero-slide-pan-left,
+          .hero-slide-drift-up,
+          .hero-slide-tilt-in,
+          .hero-slide-reset {
+            animation: none;
+            transform: scale(1);
+          }
+        }
+      `}</style>
 
       {/* ── STATS STRIP ─────────────────────────────────────── */}
       <div ref={ref} className="bg-white border-b border-gray-100">

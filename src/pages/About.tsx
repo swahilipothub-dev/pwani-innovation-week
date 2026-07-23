@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, MapPin, Radio, Users, Handshake, TrendingUp } from 'lucide-react';
-import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
+import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 import EditionsTimeline from '@/components/EditionsTimeline';
 
 const pillars = [
@@ -60,7 +60,7 @@ const About = () => {
           <div style={fadeUp(header.inView, 300)} className="flex flex-wrap gap-5 text-sm text-white/70">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-[#F97316]" />
-              <span>26 – 30 October 2026</span>
+              <span>26 – 31 October 2026</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#F97316]" />
@@ -115,7 +115,7 @@ const About = () => {
                 PIW 2026 is the most significant edition to date, coinciding with the <strong className="text-white">10th anniversary of Swahilipot Hub Foundation</strong>. It is simultaneously a national media moment, an investment showcase, and a community celebration — all in one week.
               </p>
               <p style={fadeUp(overview.inView, 360)} className="text-white/75 leading-relaxed">
-                The five-day convention will feature Swahilipot Dialogues, Sectoral Pre-Conferences, Deal Rooms, Pwani Accelerate, and close with a Grand Concert at Mama Ngina Waterfront — the most visible single moment of the year.
+                The six-day convention will feature Swahilipot Dialogues, Sectoral Pre-Conferences, Deal Rooms, Pwani Accelerate, and close with a Grand Concert at Mama Ngina Waterfront — the most visible single moment of the year.
               </p>
             </div>
 
@@ -170,7 +170,7 @@ const About = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { value: "5,000+", label: "Expected Attendees" },
-            { value: "5", label: "Days of Programming" },
+            { value: "6", label: "Days of Programming" },
             { value: "4", label: "Swahilipot Dialogues" },
             { value: "5", label: "Sectoral Pre-Conferences" },
           ].map((s, i) => (

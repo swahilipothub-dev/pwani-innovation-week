@@ -36,16 +36,16 @@ const activities = [
 
 const stats = [
   { value: "5,000+", label: "Expected Attendees" },
-  { value: "5", label: "Days" },
+  { value: "6", label: "Days" },
   { value: "7th", label: "Edition" },
   { value: "10", label: "Years of Impact" },
 ];
 
 const images = [
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.jpeg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.35.jpeg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.18.08.jpeg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 20.14.01.jpeg",
+  "/images/A21I1862.jpg",
+  "/images/A26I5421.jpg",
+  "/images/A26I5516.jpg",
+  "/images/A26I7052.jpg",
 ];
 
 const About = () => {
@@ -77,7 +77,7 @@ const About = () => {
               PIW 2026 is the most significant edition of Pwani Innovation Week to date — coinciding with the <strong className="text-gray-800">10th anniversary of Swahilipot Hub Foundation</strong>. A Pwani-led, youth-driven convening bringing together entrepreneurs, investors, creatives, government, and changemakers.
             </p>
             <p style={fadeUp(copy.inView, 280)} className="text-gray-500 leading-relaxed">
-              Hosted in Mombasa from <strong className="text-gray-700">26 – 30 October 2026</strong>, this edition marks a decade of impact — a national media moment, an investment showcase, and a community celebration, all in one week.
+              Hosted in Mombasa from <strong className="text-gray-700">26 – 31 October 2026</strong>, this edition marks a decade of impact — a national media moment, an investment showcase, and a community celebration, all in one week.
             </p>
 
             {/* Stats row */}

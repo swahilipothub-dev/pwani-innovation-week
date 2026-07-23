@@ -133,7 +133,7 @@ const PIW2026 = () => {
       {/* ── Hero image ───────────────────────────────────── */}
       <div ref={heroImg.ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div className={`relative rounded-2xl overflow-hidden shadow-2xl ${fadeUp(heroImg.visible)}`}>
-          <img src="/images/0V6A0066.jpg" alt="PIW 2026 Event" className="w-full h-80 md:h-[480px] object-cover" />
+          <img src="/images/DSC_5674.jpg" alt="PIW 2026 technology workshop" className="w-full h-80 md:h-[480px] object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-8 left-8 text-white">
             <h3 className="text-2xl font-bold mb-1">A Week of Innovation</h3>
@@ -207,7 +207,7 @@ const PIW2026 = () => {
             </p>
           </div>
           <div className={`space-y-4 ${fadeRight(about.visible)}`} style={{ transitionDelay: '150ms' }}>
-            <img src="/images/A21I1152.jpg" alt="PIW 2026 Innovation" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+            <img src="/images/DSC_5674.jpg" alt="PIW 2026 technology workshop" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
             <img src="/images/2C0A1199.jpg" alt="PIW 2026 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
           </div>
         </div>

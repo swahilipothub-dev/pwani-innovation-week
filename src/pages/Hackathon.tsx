@@ -8,10 +8,13 @@ const Hackathon = () => {
     <div className="min-h-screen">
       <main className="section-container pt-32">
         <div ref={content.ref} className="max-w-4xl mx-auto text-center">
-          <div style={scaleIn(content.inView, 0)} className="w-16 h-16 mx-auto mb-6">
+          <div style={fadeUp(content.inView, 0)} className="mb-8 overflow-hidden rounded-2xl shadow-xl">
+            <img src="/images/DSC_5674.jpg" alt="Pwani Innovation Week hackathon workshop" className="h-64 w-full object-cover md:h-96" />
+          </div>
+          <div style={scaleIn(content.inView, 120)} className="w-16 h-16 mx-auto mb-6">
             <Award className="w-full h-full text-[#F97316]" />
           </div>
-          <h1 style={fadeUp(content.inView, 80)} className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Hackathon</h1>
+          <h1 style={fadeUp(content.inView, 180)} className="text-4xl md:text-5xl font-bold mb-6 gradient-text">Hackathon</h1>
           <p style={fadeUp(content.inView, 160)} className="text-lg text-gray-600 mb-8">
             Join our intensive coding competition where innovative minds come together to solve real-world
             challenges. Experience 48 hours of coding, mentorship, and the opportunity to showcase your
