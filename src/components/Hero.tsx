@@ -7,6 +7,7 @@ const images = [
   { src: "/images/new/download (7).jpg", effect: "zoom-out" },
   { src: "/images/new/download (9).jpg", effect: "pan-left" },
   { src: "/images/new/download (2).jpg", effect: "drift-up" },
+  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg", effect: "tilt-in" },
 ];
 
 const stats = [
