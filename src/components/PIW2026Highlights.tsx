@@ -1,7 +1,48 @@
-import { Radio, Users, Handshake, TrendingUp, Music } from 'lucide-react';
+import { useState } from 'react';
+import { CalendarDays, Radio, Users, Handshake, TrendingUp, Music } from 'lucide-react';
 import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
 
+const programmeDays = [
+  {
+    day: 'Day 1',
+    title: 'Monday · Arrivals & Opening',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['Delegate registration and Decade Exhibition opening.', 'Alumni Homecoming session.', 'Opening Culture Night.'],
+  },
+  {
+    day: 'Day 2',
+    title: 'Tuesday · Sectoral Sessions',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['Official opening ceremony.', 'Parallel track sessions across all five themes.', 'Innovation Labs and Utamaduni Village open.', 'SPH Decade Impact Report launch ceremony.'],
+  },
+  {
+    day: 'Day 3',
+    title: 'Wednesday · Deal Rooms',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['Deals Den pitch competition.', 'Pwani Accelerate investor showcase.', 'Hackathons continue.', 'Investor roundtables and one-on-one matchmaking.', 'Fireside Chats.'],
+  },
+  {
+    day: 'Day 4',
+    title: 'Thursday · Policy & Partnership',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['East African Coastline Forum.', 'Pwani Innovation Agenda 2036 co-creation plenary.', 'Coastal Innovation Declaration adoption.', 'County Government bilateral meetings.', 'Field Tours.'],
+  },
+  {
+    day: 'Day 5',
+    title: 'Friday · Synthesis & Closing',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['Hackathon finals and awards ceremony.', 'Track wrap-up sessions.', 'Grand Closing Concert at Mama Ngina Waterfront.'],
+  },
+  {
+    day: 'Day 6',
+    title: 'Saturday · Pwani Got Talent (PGT)',
+    accent: 'from-[#5420b5] to-[#3f1598]',
+    activities: ['The ultimate creative arts showcase.'],
+  },
+];
+
 const PIW2026Highlights = () => {
+  const [selectedDay, setSelectedDay] = useState(0);
   const video    = useScrollReveal();
   const whatHead = useScrollReveal();
   const whatCards= useScrollReveal();
@@ -30,48 +71,49 @@ const PIW2026Highlights = () => {
 
       {/* ── WHAT IS PIW ─────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div ref={whatHead.ref} className="max-w-2xl mb-14">
+        <div ref={whatHead.ref} className="max-w-2xl mb-10">
           <p style={fadeUp(whatHead.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">About the Event</p>
           <h2 style={fadeUp(whatHead.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
             What is Pwani Innovation Week?
           </h2>
           <p style={fadeUp(whatHead.inView, 200)} className="mt-4 text-gray-500 text-lg">
-            The Coast's most concentrated gathering of changemakers — built for impact that outlasts the week.
+            The Coast&apos;s most concentrated gathering of changemakers — built for impact that outlasts the week. Select a day to explore the programme.
           </p>
         </div>
 
-        <div ref={whatCards.ref} className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Radio className="w-5 h-5 text-[#0EA5E9]" />,
-              color: "bg-[#0EA5E9]",
-              light: "bg-[#0EA5E9]/8 border-[#0EA5E9]/20",
-              title: "A National Media Moment",
-              body: "Live broadcast coverage, daily press summaries, and a dedicated hashtag campaign reaching audiences across Kenya.",
-            },
-            {
-              icon: <Users className="w-5 h-5 text-[#F97316]" />,
-              color: "bg-[#F97316]",
-              light: "bg-[#F97316]/8 border-[#F97316]/20",
-              title: "An Audience Aggregator",
-              body: "Thousands of delegates, exhibitors, and attendees converge in one place — the largest tech and innovation gathering on the Kenyan coast.",
-            },
-            {
-              icon: <Handshake className="w-5 h-5 text-[#9b87f5]" />,
-              color: "bg-[#9b87f5]",
-              light: "bg-[#9b87f5]/8 border-[#9b87f5]/20",
-              title: "A Partnership Showcase",
-              body: "Government, corporates, and development partners present side by side — forging alliances that outlast the week itself.",
-            },
-          ].map((card, i) => (
-            <div key={card.title} style={scaleIn(whatCards.inView, i * 120)} className={`rounded-2xl border p-8 ${card.light} transition-shadow hover:shadow-md`}>
-              <div className={`w-10 h-10 rounded-xl ${card.color} flex items-center justify-center mb-5`}>
-                {card.icon}
+        <div ref={whatCards.ref} className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2">
+            {programmeDays.map((programmeDay, index) => (
+              <button
+                key={programmeDay.day}
+                type="button"
+                onClick={() => setSelectedDay(index)}
+                style={scaleIn(whatCards.inView, index * 80)}
+                className={`group relative min-h-28 overflow-hidden rounded-2xl p-4 text-left text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${selectedDay === index ? `bg-gradient-to-br ${programmeDay.accent} ring-2 ring-[#F97316] ring-offset-2` : 'bg-[#0a1628]'}`}
+              >
+                <span className="absolute -right-3 -top-5 text-6xl font-black text-white/10 transition-transform duration-300 group-hover:rotate-12">{index + 1}</span>
+                <CalendarDays className="relative mb-3 h-5 w-5 text-[#FDBA74]" />
+                <span className="relative block text-xs font-black uppercase tracking-widest text-[#FDBA74]">{programmeDay.day}</span>
+                <span className="relative mt-1 block text-sm font-bold leading-tight">{programmeDay.title.split(' · ')[1]}</span>
+              </button>
+            ))}
+          </div>
+
+          <div style={fadeRight(whatCards.inView, 180)} className="relative overflow-hidden rounded-3xl bg-[#5420b5] p-7 text-white shadow-xl sm:p-10">
+            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[22px] border-white/10" />
+            <div className="relative">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FDBA74]">{programmeDays[selectedDay].day}</p>
+              <h3 className="mt-2 max-w-xl text-2xl font-black leading-tight sm:text-3xl">{programmeDays[selectedDay].title}</h3>
+              <div className="mt-7 grid gap-4 sm:grid-cols-2">
+                {programmeDays[selectedDay].activities.map((activity, index) => (
+                  <div key={activity} className="flex gap-3 rounded-xl border border-white/15 bg-white/10 p-4 transition-colors hover:bg-white/15">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-xs font-black">{String(index + 1).padStart(2, '0')}</span>
+                    <p className="text-sm leading-relaxed text-white/90">{activity}</p>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">{card.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{card.body}</p>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
@@ -173,7 +215,7 @@ const PIW2026Highlights = () => {
               Innovation Week closes the way the Coast does best — with music, on the water's edge.
             </p>
             <p className="text-white/60 text-sm leading-relaxed max-w-xl">
-              The five-day convention closes with a public concert at the Mama Ngina Waterfront, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
+              The six-day convention closes with a public concert at the Mama Ngina Waterfront, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
             </p>
           </div>
           <div style={scaleIn(concert.inView, 200)} className="flex-shrink-0 bg-[#F97316] rounded-2xl px-8 py-7 text-center">

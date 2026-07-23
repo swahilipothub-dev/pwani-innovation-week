@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ArrowRight, Clock, Code, Map, MapPin, Mic, Palette, Star, Trophy, Users} from 'lucide-react';
+import {ArrowRight, CalendarDays, Clock, Code, Handshake, Map, MapPin, Mic, MessageCircle, Palette, PartyPopper, Star, Trophy, Users} from 'lucide-react';
 import {Link} from "react-router-dom";
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
@@ -11,52 +11,94 @@ const Engage = () => {
   const engagementTypes = [
     {
       title: 'Keynote Addresses',
-      description: 'Engaging keynotes by renowned players across different sectors in public and private service at the head of transformative change',
+      description: 'Engaging keynotes by renowned players across public and private sectors at the forefront of transformative change.',
       icon: Mic,
       color: 'from-blue-500 to-blue-600',
       features: ['Industry Leaders', 'Transformative Insights', 'Q&A Sessions'],
-      sessions: '10+ Keynotes'
+      sessions: '10+ Keynotes',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg',
     },
     {
       title: 'Impact-led Sessions',
-      description: 'Well-curated daily sessions facilitated and driven by leaders across multiple industries',
+      description: 'Well-curated daily sessions facilitated by leaders across multiple industries, connecting enterprise and technology to policy, finance, and the creative economy.',
       icon: Users,
       color: 'from-green-500 to-green-600',
       features: ['Expert Facilitators', 'Interactive Discussions', 'Actionable Insights'],
-      sessions: '28+ Sessions'
+      sessions: '28+ Sessions',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg',
     },
     {
       title: 'Hackathons',
-      description: 'Driving digital transformations by providing digital solutions to local problems',
+      description: 'Three 72-hour hackathons driving digital and physical innovation for coastal challenges across the Blue, Green, and Creative Economies.',
       icon: Code,
       color: 'from-purple-500 to-purple-600',
       features: ['72-hour Challenge', 'Mentorship Support', 'Prize Pool'],
-      sessions: '3-day Event'
+      sessions: '3 Hackathons',
+      image: '/images/DSC_5674.jpg',
     },
     {
       title: 'Field Tours',
-      description: 'This year\'s edition will include field tours, driven by young tour guides trained at Swahilipot Hub Foundation\'s Mombasa Tourism Innovation Lab',
+      description: 'Immersive tours of coastal innovation hubs, blue economy enterprises, and community-led projects guided by young tour guides trained at the Mombasa Tourism Innovation Lab.',
       icon: Map,
       color: 'from-orange-500 to-orange-600',
       features: ['Local Guides', 'Innovation Hubs', 'Cultural Sites'],
-      sessions: '5+ Tours'
+      sessions: '5+ Tours',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.jpeg',
     },
     {
       title: 'Exhibitions',
-      description: 'Mashinani entrepreneurs and partners exhibit and amplify their work, reaching various audiences across the week',
+      description: 'Mashinani entrepreneurs, alumni enterprises, and partners exhibit and amplify their work throughout the week, opening the innovation ecosystem to the public.',
       icon: Trophy,
       color: 'from-red-500 to-red-600',
       features: ['Local Entrepreneurs', 'Product Showcase', 'Network Building'],
-      sessions: '50+ Exhibitors'
+      sessions: '50+ Exhibitors',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.jpeg',
     },
     {
       title: 'Utamaduni Village',
-      description: 'Enjoy a touch of coastal cultures at the Utamaduni village, and get a feel of what it means to be Pwani',
+      description: 'Experience the Coast through heritage, cuisine, traditional arts, and the stories that make Pwani a signature place to call home.',
       icon: Palette,
       color: 'from-pink-500 to-pink-600',
       features: ['Cultural Performances', 'Traditional Crafts', 'Local Cuisine'],
-      sessions: 'All Week'
-    }
+      sessions: 'All Week',
+      image: '/images/new/download (2).jpg',
+    },
+    {
+      title: 'Deals Den',
+      description: 'A high-stakes pitch competition connecting coastal startups directly to angel investors, impact funds, and venture capital.',
+      icon: Handshake,
+      color: 'from-cyan-500 to-cyan-600',
+      features: ['Investor Matchmaking', 'Startup Pitches', 'Capital Access'],
+      sessions: 'KES 5M+ Target',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.09.50.jpeg',
+    },
+    {
+      title: 'Fireside Chats',
+      description: 'Intimate conversations between thought leaders and practitioners, creating space for honest dialogue on the real challenges and opportunities facing the coastal economy.',
+      icon: MessageCircle,
+      color: 'from-amber-500 to-amber-600',
+      features: ['Honest Conversations', 'Expert Voices', 'Community Wisdom'],
+      sessions: 'Curated Talks',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.jpeg',
+    },
+    {
+      title: 'Pre-Event Engagements',
+      description: 'County-level conversations held in Mombasa, Kilifi, Kwale, and Lamu in the weeks before PIW to ensure every coastal voice helps shape the main event.',
+      icon: CalendarDays,
+      color: 'from-indigo-500 to-indigo-600',
+      features: ['County Dialogues', 'Local Priorities', 'Community Voices'],
+      sessions: '4 Counties',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg',
+    },
+    {
+      title: 'Fun & Culture Nights',
+      description: 'Complement the programme with Pwani creative arts, music, and entertainment, culminating in Pwani Got Talent and the Grand Closing Concert at Mama Ngina Waterfront.',
+      icon: PartyPopper,
+      color: 'from-fuchsia-500 to-fuchsia-600',
+      features: ['Live Music', 'Pwani Got Talent', 'Closing Concert'],
+      sessions: 'Evenings',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.jpeg',
+    },
   ];
 
   const goals = [
@@ -196,13 +238,21 @@ const Engage = () => {
                     className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group animate-fade-in"
                     style={{animationDelay: `${index * 150}ms`}}
                   >
-                    <div className={`h-2 bg-gradient-to-r ${type.color}`}></div>
-                    <div className="p-6">
-                      <div
-                        className={`w-16 h-16 mb-4 bg-gradient-to-br ${type.color} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <type.icon className="w-8 h-8 text-white"/>
+                    <div className="relative h-44 overflow-hidden">
+                      <img
+                        src={type.image}
+                        alt={`${type.title} at Pwani Innovation Week`}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-t ${type.color} opacity-65 mix-blend-multiply`}></div>
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
+                        <div className={`flex h-14 w-14 rotate-[-6deg] items-center justify-center rounded-2xl bg-gradient-to-br ${type.color} shadow-xl transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110`}>
+                          <type.icon className="h-7 w-7 text-white" />
+                        </div>
+                        <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-black uppercase tracking-wider text-gray-800">{type.sessions}</span>
                       </div>
-
+                    </div>
+                    <div className="p-6">
                       <h3 className="text-xl font-bold text-gray-800 mb-3">{type.title}</h3>
                       <p className="text-gray-700 mb-4 leading-relaxed">{type.description}</p>
 
@@ -216,7 +266,7 @@ const Engage = () => {
                       </div>
 
                       <div className="flex items-center justify-between">
-                        <span className="text-[#F97316] font-semibold text-sm">{type.sessions}</span>
+                        <span className="text-[#F97316] font-semibold text-sm">Explore this mode</span>
                         <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#F97316] transition-colors"/>
                       </div>
                     </div>

@@ -51,7 +51,7 @@ const Tickets = () => {
           <h2 style={fadeUp(heading.inView, 0)} className="text-3xl md:text-4xl font-bold mb-4">Get Your Tickets</h2>
           <div style={scaleIn(heading.inView, 120)} className="w-24 h-1 bg-ocean mx-auto" />
           <p style={fadeUp(heading.inView, 200)} className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-            Join over 3,000 delegates for five days of innovation, learning, and networking.
+            Join over 3,000 delegates for six days of innovation, learning, and networking.
             Secure your place at Pwani Innovation Week 2026 today.
           </p>
         </div>

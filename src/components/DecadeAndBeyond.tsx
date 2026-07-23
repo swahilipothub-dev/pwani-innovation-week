@@ -28,13 +28,13 @@ const economies = [
 ];
 
 const gallery = [
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 11.57.02.jpeg", label: "Hackathons & Tech", span: "sm:col-span-2 sm:row-span-2" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg", label: "Keynote Sessions", span: "" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg", label: "Investor Deal Rooms", span: "" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.jpeg", label: "Utamaduni Village", span: "" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.07.jpeg", label: "Youth Innovators", span: "" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.09.jpeg", label: "Panel Discussions", span: "sm:col-span-2" },
-  { src: "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.jpeg", label: "The Grand Concert", span: "" },
+  { src: "/images/A21I1862.jpg", label: "Hackathons & Tech", span: "sm:col-span-2 sm:row-span-2" },
+  { src: "/images/A26I5421.jpg", label: "Keynote Sessions", span: "" },
+  { src: "/images/A26I5516.jpg", label: "Investor Deal Rooms", span: "" },
+  { src: "/images/new/download (2).jpg", label: "Utamaduni Village", span: "" },
+  { src: "/images/DSC_5052.jpg", label: "Youth Innovators", span: "" },
+  { src: "/images/DSC_5665.jpg", label: "Panel Discussions", span: "sm:col-span-2" },
+  { src: "/images/DSC_8833.jpg", label: "The Grand Concert", span: "" },
 ];
 
 const stats = [
@@ -45,7 +45,7 @@ const stats = [
 ];
 
 const DecadeAndBeyond = () => {
-  const intro = useScrollReveal();
+  const executiveSummary = useScrollReveal();
   const econHead = useScrollReveal();
   const econCards = useScrollReveal();
   const agenda = useScrollReveal();
@@ -61,22 +61,47 @@ const DecadeAndBeyond = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
 
-        {/* ── INTRO ─────────────────────────────────── */}
-        <div ref={intro.ref} className="max-w-3xl mx-auto text-center mb-20">
-          <span style={fadeUp(intro.inView, 0)} className="inline-flex items-center gap-2 bg-[#F97316]/10 text-[#F97316] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-5">
-            <Sparkles className="w-3.5 h-3.5" /> 2016 – 2026 · A Decade of Impact
-          </span>
-          <h2 style={fadeUp(intro.inView, 100)} className="text-4xl md:text-5xl font-black text-gray-900 leading-tight mb-6">
-            A Decade and Beyond:<br />
-            <span className="text-[#F97316]">Youth, Innovation &amp; Coastal Futures</span>
-          </h2>
-          <p style={fadeUp(intro.inView, 200)} className="text-gray-600 text-lg leading-relaxed">
-            Pwani Innovation Week is a Pwani-led, youth-driven annual convening — the premier gathering for youth, entrepreneurs, investors, creatives, and changemakers co-creating localised solutions for sustainable growth along Kenya's coast and across the East African coastline.
-          </p>
-          <p style={fadeUp(intro.inView, 280)} className="mt-4 text-gray-500 leading-relaxed">
-            Now in its 7th edition, PIW 2026 coincides with the <strong className="text-gray-800">Swahilipot Hub Foundation's 10th Anniversary</strong>. This milestone edition celebrates a decade of impact while charting the next ten years of coastal transformation.
-          </p>
-        </div>
+        {/* ── EXECUTIVE SUMMARY ────────────────────── */}
+        <section ref={executiveSummary.ref} className="mb-24">
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+            <div>
+              <p style={fadeUp(executiveSummary.inView, 0)} className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-[#F97316]">
+                2016 – 2026 · A Decade of Impact
+              </p>
+              <h2 style={fadeUp(executiveSummary.inView, 100)} className="mb-6 max-w-3xl font-serif text-3xl font-bold italic leading-tight text-gray-900 sm:text-4xl">
+                A Decade and Beyond: Youth, Innovation &amp; Coastal Futures
+              </h2>
+              <p style={fadeUp(executiveSummary.inView, 180)} className="text-base leading-relaxed text-gray-600">
+                Pwani Innovation Week (PIW) is a Pwani-led, youth-driven annual convening that has become the premier point of convergence for youth, entrepreneurs, investors, creatives, and changemakers to co-create localised solutions for sustainable growth along Kenya&apos;s coast and across the East African coastline. Now entering its 7th edition, PIW has evolved to fit the entrepreneurial and innovation ecosystem of Pwani squarely, addressing emerging regional needs through synergy-led discourse, action-oriented programming, and a relentless focus on coastal youth as the primary architects of change.
+              </p>
+            </div>
+
+            <div style={fadeRight(executiveSummary.inView, 180)} className="relative overflow-hidden rounded-2xl bg-[#F97316] p-7 text-white shadow-xl sm:p-9">
+              <div className="absolute -right-12 -top-12 h-36 w-36 rounded-full border-[18px] border-white/15" />
+              <p className="relative text-sm leading-relaxed text-white/95">
+                Building on the momentum of PIW 2025, the 2026 edition deepens the Blue Economy, Green Economy, and Creative Economy tracks; expands East African coastline participation; and introduces a landmark new activity, the co-creation and public launch of the Pwani Innovation Agenda 2026–2036, a ten-year roadmap for coastal economic transformation.
+              </p>
+              <div className="relative mt-7 h-0.5 w-full bg-white/80" />
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <p style={fadeLeft(executiveSummary.inView, 260)} className="text-base leading-relaxed text-gray-600">
+              The 2026 edition arrives at a uniquely defining moment: it marks Swahilipot Hub Foundation&apos;s 10th Anniversary (2016–2026), a decade of transforming youth potential into enterprise, civic agency, and creative power along the Kenyan coast. Under the theme “A Decade and Beyond: Youth, Innovation &amp; Coastal Futures,” PIW 2026 holds two stories in equal tension: a celebration of ten years of institutional staying power, and a declaration that everything built over a decade is a foundation, not a finish line.
+            </p>
+            <div style={scaleIn(executiveSummary.inView, 260)} className="grid grid-cols-2 gap-4">
+              <img src="/images/image1 (3).jpg" alt="PIW cultural performance" className="h-48 w-full rounded-2xl object-cover shadow-lg sm:h-60" />
+              <img src="/images/image2.jpg" alt="PIW community showcase" className="mt-8 h-48 w-full rounded-2xl object-cover shadow-lg sm:h-60" />
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.jpg" alt="Pwani Innovation Week participants" className="h-64 w-full rounded-2xl object-cover shadow-lg sm:h-72" />
+            <p style={fadeRight(executiveSummary.inView, 340)} className="text-base leading-relaxed text-gray-600">
+              PIW 2026 will convene 2,500+ participants across six days, delivering five thematic tracks, a flagship Deals Den investment showcase, three innovation hackathons, Utamaduni cultural village showcase, field tours, cross-border dialogues, and Pwani Got Talent (PGT), the Grand Closing Concert that brings together the best creative voices in the region.
+            </p>
+          </div>
+        </section>
 
         {/* ── ECONOMY PILLARS ──────────────────────── */}
         <div ref={econHead.ref} className="text-center max-w-2xl mx-auto mb-12">
@@ -105,7 +130,7 @@ const DecadeAndBeyond = () => {
         {/* ── AGENDA 2026-2036 CALLOUT ─────────────── */}
         <div ref={agenda.ref} style={fadeUp(agenda.inView)} className="relative rounded-3xl bg-[#0a1628] overflow-hidden mb-24">
           <div className="absolute inset-0 opacity-20">
-            <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.18.08.jpeg" alt="" className="w-full h-full object-cover" />
+            <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.35.jpeg" alt="" className="w-full h-full object-cover" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628] via-[#0a1628]/95 to-[#0a1628]/70" />
           <div className="relative z-10 px-8 sm:px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center gap-8">

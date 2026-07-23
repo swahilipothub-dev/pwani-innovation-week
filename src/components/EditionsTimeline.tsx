@@ -15,34 +15,34 @@ const editions = [
   {
     n: "2nd", year: "2020", tag: "Special Edition",
     title: "Digital-First",
-    body: "A digital-first format during the pandemic, keeping the community connected when it mattered most.",
+    body: "Adapted format during the pandemic period; digital-first convening maintained the coastal innovation community when in-person gathering was not possible.",
   },
   {
     n: "3rd", year: "2021", tag: "",
     title: "Back In Person",
-    body: "A successful return to in-person format, with expanded reach across coastal counties.",
+    body: "Re-established in-person convening and continued growing the platform's reach across coastal counties.",
   },
   {
     n: "4th", year: "2023", tag: "Sailing Beyond Borders",
     title: "Sailing Beyond Borders",
-    body: "12 plenaries, 30 keynote speakers, and 3 hackathons brought together over 1,200 participants.",
+    body: "12 plenary sessions, 30 keynote speakers, and 3 hackathons brought together more than 1,200 participants in a stronger regional conversation.",
     stat: "1,200+ participants",
   },
   {
     n: "5th", year: "2024", tag: "The Pwani We Desire",
     title: "The Pwani We Desire",
-    body: "The first cross-border collaboration — with Tanga Yetu, Tanzania — drew 2,000+ participants.",
+    body: "The Pwani We Desire: Youth, Culture, Peace and Innovation in the Decade of Action featured 10 plenary sessions, 28 keynote speakers, 4 workshops, and 20 innovation showcases. It also marked PIW's first cross-border collaboration with Tanga Yetu, Tanzania.",
     stat: "2,000+ participants",
   },
   {
     n: "6th", year: "2025", tag: "Pwani Re-Imagined",
     title: "Pwani Re-Imagined",
-    body: "Deepened Blue, Green & Creative Economy tracks, and introduced the Deals Den and Pwani Accelerate.",
+    body: "Pwani Re-Imagined: Youth Agency, Innovation & Sustainability of Coastal Economies deepened the Blue, Green, and Creative Economy tracks; expanded East African coastline participation; and introduced Deals Den and Pwani Accelerate.",
   },
   {
     n: "7th", year: "2026", tag: "A Decade and Beyond",
     title: "A Decade and Beyond",
-    body: "The Swahilipot Hub 10th Anniversary milestone edition, launching the Pwani Innovation Agenda 2026–2036.",
+    body: "The Swahilipot Hub 10th Anniversary milestone edition, launching the Pwani Innovation Agenda 2026–2036 and bringing the next chapter of coastal innovation into focus.",
     stat: "Targeting 2,500+ participants",
     current: true,
   },
@@ -53,22 +53,28 @@ const EditionsTimeline = () => {
   const rowRef = useScrollReveal({ threshold: 0.08 });
 
   return (
-    <section className="bg-white border-y border-gray-100 overflow-hidden">
+    <section className="relative overflow-hidden border-y border-gray-100 bg-[#120b24]">
+      <img
+        src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.11.jpeg"
+        alt="Pwani Innovation Week cultural performance"
+        className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+      />
+      <div className="absolute inset-0 bg-[#120b24]/65" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         <div ref={head.ref} className="max-w-2xl mx-auto text-center mb-16">
-          <p style={fadeUp(head.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Our Journey</p>
-          <h2 style={fadeUp(head.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
+          <p style={fadeUp(head.inView, 0)} className="text-xs text-[#FDBA74] font-bold uppercase tracking-widest mb-3">Our Journey</p>
+          <h2 style={fadeUp(head.inView, 100)} className="text-3xl md:text-4xl font-black text-white leading-tight">
             PIW Through the Editions
           </h2>
-          <p style={fadeUp(head.inView, 200)} className="mt-4 text-gray-500 leading-relaxed">
+          <p style={fadeUp(head.inView, 200)} className="mt-4 text-white/65 leading-relaxed">
             From an experimental gathering in 2018 to a decade-defining, region-spanning convention — each edition has evolved to meet the coast's entrepreneurial and innovation needs, strengthening cross-border collaboration along the way.
           </p>
         </div>
 
         <div ref={rowRef.ref} className="relative">
           {/* center spine — desktop only */}
-          <div className="hidden lg:block absolute left-1/2 top-2 bottom-2 w-px bg-gray-200 -translate-x-1/2" />
+          <div className="hidden lg:block absolute left-1/2 top-2 bottom-2 w-px bg-[#F97316]/60 -translate-x-1/2" />
 
           <div className="space-y-6 lg:space-y-0">
             {editions.map((e, i) => {
@@ -89,7 +95,7 @@ const EditionsTimeline = () => {
                     className={`w-full lg:w-[46%] group relative rounded-2xl border p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
                       e.current
                         ? 'bg-[#0a1628] border-[#F97316]/40 shadow-lg shadow-[#F97316]/10'
-                        : 'bg-white border-gray-200 hover:border-[#F97316]/30'
+                        : 'bg-[#5420b5]/95 border-[#8b5cf6]/40 hover:border-[#F97316]'
                     }`}
                   >
                     {e.current && (
@@ -103,15 +109,15 @@ const EditionsTimeline = () => {
                         {e.n}
                       </div>
                       <div>
-                        <p className={`text-xs font-bold uppercase tracking-widest ${e.current ? 'text-[#F97316]' : 'text-gray-400'}`}>
+                          <p className={`text-xs font-bold uppercase tracking-widest ${e.current ? 'text-[#F97316]' : 'text-purple-200'}`}>
                           {e.n} Edition{e.tag === 'Special Edition' ? ` · ${e.tag}` : ''}
                         </p>
-                        <p className={`text-lg font-black ${e.current ? 'text-white' : 'text-gray-900'}`}>{e.year}</p>
+                        <p className={`text-lg font-black ${e.current ? 'text-white' : 'text-white'}`}>{e.year}</p>
                       </div>
                     </div>
 
-                    <h3 className={`text-base font-bold mb-2 ${e.current ? 'text-white' : 'text-gray-900'}`}>{e.title}</h3>
-                    <p className={`text-sm leading-relaxed ${e.current ? 'text-white/60' : 'text-gray-500'}`}>{e.body}</p>
+                    <h3 className={`text-base font-bold mb-2 ${e.current ? 'text-white' : 'text-white'}`}>{e.title}</h3>
+                    <p className={`text-sm leading-relaxed ${e.current ? 'text-white/70' : 'text-purple-100/85'}`}>{e.body}</p>
 
                     {e.stat && (
                       <span className={`inline-block mt-4 text-xs font-bold px-3 py-1.5 rounded-full ${e.current ? 'bg-white/10 text-orange-300' : 'bg-orange-50 text-[#F97316]'}`}>

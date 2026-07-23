@@ -2,7 +2,7 @@ import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
 const stats = [
   { value: "3,000+", label: "Delegates" },
-  { value: "5", label: "Days" },
+  { value: "6", label: "Days" },
   { value: "12+", label: "Sessions" },
   { value: "50+", label: "Speakers" },
 ];
