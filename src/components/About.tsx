@@ -55,7 +55,7 @@ const About = () => {
   const activitiesRef = useScrollReveal();
 
   return (
-    <section id="about" className="bg-white">
+    <section id="about" className="bg-gray-50">
 
       {/* ── Main content ──────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">

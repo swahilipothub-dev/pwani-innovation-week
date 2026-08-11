@@ -4,7 +4,7 @@ import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 const Exhibitions = () => {
   const content = useScrollReveal();
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <main className="section-container pt-32">
         <div ref={content.ref} className="max-w-4xl mx-auto text-center">
           <div style={fadeUp(content.inView, 0)} className="mb-8 overflow-hidden rounded-2xl shadow-xl">

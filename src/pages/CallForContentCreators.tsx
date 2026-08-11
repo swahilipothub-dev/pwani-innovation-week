@@ -2,7 +2,7 @@ import React from 'react'
 
 const CallForContentCreators = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-24">
         <img
           src="/content.jpg"

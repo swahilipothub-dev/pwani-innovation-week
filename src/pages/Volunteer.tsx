@@ -89,7 +89,7 @@ const Volunteer = () => {
     formData.subcounty;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 via-blue-100/50 to-white text-center relative">
         <div className="section-container">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
