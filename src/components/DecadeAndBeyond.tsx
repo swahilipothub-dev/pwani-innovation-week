@@ -54,10 +54,10 @@ const DecadeAndBeyond = () => {
   const galleryGrid = useScrollReveal();
 
   return (
-    <section className="relative bg-[#fbf9f6] overflow-hidden">
+    <section className="relative bg-[#fbf9f6] overflow-hidden border-y border-[#f1ece4]">
       {/* decorative background glows */}
-      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#F97316]/10 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#0EA5E9]/10 blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#F97316]/8 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-[#0EA5E9]/8 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
 
@@ -76,7 +76,7 @@ const DecadeAndBeyond = () => {
               </p>
             </div>
 
-            <div style={fadeRight(executiveSummary.inView, 180)} className="relative overflow-hidden rounded-2xl bg-[#F97316] p-7 text-white shadow-xl sm:p-9">
+            <div style={fadeRight(executiveSummary.inView, 180)} className="relative overflow-hidden rounded-2xl bg-[#F97316] p-7 text-white shadow-[0_16px_36px_rgba(2,8,23,0.16)] sm:p-9">
               <div className="absolute -right-12 -top-12 h-36 w-36 rounded-full border-[18px] border-white/15" />
               <p className="relative text-sm leading-relaxed text-white/95">
                 Building on the momentum of PIW 2025, the 2026 edition deepens the Blue Economy, Green Economy, and Creative Economy tracks; expands East African coastline participation; and introduces a landmark new activity, the co-creation and public launch of the Pwani Innovation Agenda 2026–2036, a ten-year roadmap for coastal economic transformation.
@@ -90,13 +90,13 @@ const DecadeAndBeyond = () => {
               The 2026 edition arrives at a uniquely defining moment: it marks Swahilipot Hub Foundation&apos;s 10th Anniversary (2016–2026), a decade of transforming youth potential into enterprise, civic agency, and creative power along the Kenyan coast. Under the theme “A Decade and Beyond: Youth, Innovation &amp; Coastal Futures,” PIW 2026 holds two stories in equal tension: a celebration of ten years of institutional staying power, and a declaration that everything built over a decade is a foundation, not a finish line.
             </p>
             <div style={scaleIn(executiveSummary.inView, 260)} className="grid grid-cols-2 gap-4">
-              <img src="/images/image1 (3).jpg" alt="PIW cultural performance" className="h-48 w-full rounded-2xl object-cover shadow-lg sm:h-60" />
-              <img src="/images/image2.jpg" alt="PIW community showcase" className="mt-8 h-48 w-full rounded-2xl object-cover shadow-lg sm:h-60" />
+              <img src="/images/image1 (3).jpg" alt="PIW cultural performance" className="h-48 w-full rounded-2xl object-cover shadow-[0_14px_28px_rgba(2,8,23,0.12)] sm:h-60" />
+              <img src="/images/image2.jpg" alt="PIW community showcase" className="mt-8 h-48 w-full rounded-2xl object-cover shadow-[0_14px_28px_rgba(2,8,23,0.12)] sm:h-60" />
             </div>
           </div>
 
           <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.jpg" alt="Pwani Innovation Week participants" className="h-64 w-full rounded-2xl object-cover shadow-lg sm:h-72" />
+            <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.jpg" alt="Pwani Innovation Week participants" className="h-64 w-full rounded-2xl object-cover shadow-[0_14px_28px_rgba(2,8,23,0.12)] sm:h-72" />
             <p style={fadeRight(executiveSummary.inView, 340)} className="text-base leading-relaxed text-gray-600">
               PIW 2026 will convene 2,500+ participants across six days, delivering five thematic tracks, a flagship Deals Den investment showcase, three innovation hackathons, Utamaduni cultural village showcase, field tours, cross-border dialogues, and Pwani Got Talent (PGT), the Grand Closing Concert that brings together the best creative voices in the region.
             </p>
@@ -116,9 +116,9 @@ const DecadeAndBeyond = () => {
             <div
               key={e.title}
               style={scaleIn(econCards.inView, i * 120)}
-              className={`group rounded-2xl border p-8 ${e.light} transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5`}
+              className={`group rounded-2xl border p-8 ${e.light} shadow-[0_10px_24px_rgba(2,8,23,0.05)] transition-all duration-300 hover:shadow-[0_16px_32px_rgba(2,8,23,0.08)]`}
             >
-              <div className={`w-12 h-12 rounded-xl ${e.color} flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
+              <div className={`w-12 h-12 rounded-xl ${e.color} flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105`}>
                 {e.icon}
               </div>
               <h4 className="text-lg font-bold text-gray-900 mb-3">{e.title}</h4>
@@ -148,7 +148,7 @@ const DecadeAndBeyond = () => {
             </div>
             <Link
               to="/about"
-              className="flex-shrink-0 inline-flex items-center gap-2 bg-white hover:bg-orange-50 text-[#0a1628] font-bold text-sm px-6 py-3.5 rounded-lg transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+              className="flex-shrink-0 inline-flex items-center gap-2 bg-white hover:bg-orange-50 text-[#0a1628] font-bold text-sm px-6 py-3.5 rounded-lg transition-all duration-200 shadow-[0_10px_24px_rgba(2,8,23,0.16)] whitespace-nowrap"
             >
               Read the Agenda <ArrowRight size={16} />
             </Link>
@@ -161,7 +161,7 @@ const DecadeAndBeyond = () => {
             <div
               key={s.label}
               style={scaleIn(statsRow.inView, i * 90)}
-              className="text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              className="text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-all duration-300"
             >
               <div className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#F97316]/10 text-[#F97316] mb-3">
                 {s.icon}
@@ -185,7 +185,7 @@ const DecadeAndBeyond = () => {
             <div
               key={g.label}
               style={scaleIn(galleryGrid.inView, i * 90)}
-              className={`gallery-card group relative overflow-hidden rounded-2xl shadow-md cursor-pointer ${g.span}`}
+              className={`gallery-card group relative overflow-hidden rounded-2xl shadow-[0_14px_30px_rgba(2,8,23,0.12)] ring-1 ring-black/5 cursor-pointer ${g.span}`}
             >
               <img
                 src={g.src}
@@ -206,10 +206,10 @@ const DecadeAndBeyond = () => {
 
       <style>{`
         .gallery-shine {
-          background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
-          background-size: 200% 200%;
-          background-position: -100% -100%;
-          transition: background-position 0.8s ease;
+          background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%);
+          background-size: 220% 220%;
+          background-position: -110% -110%;
+          transition: background-position 0.9s ease;
           pointer-events: none;
         }
         .gallery-card:hover .gallery-shine {

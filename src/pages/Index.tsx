@@ -9,7 +9,7 @@ import ThemeBreakdown from '@/components/ThemeBreakdown';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#fcfcfd]">
       <Hero/>
       <DecadeAndBeyond/>
       <PIW2026Highlights/>

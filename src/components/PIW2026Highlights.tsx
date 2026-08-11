@@ -52,11 +52,11 @@ const PIW2026Highlights = () => {
   const concert  = useScrollReveal();
 
   return (
-    <div className="bg-white">
+    <div className="bg-gradient-to-b from-white to-[#fffdf9]">
 
       {/* ── MOTION GRAPHIC ──────────────────────────────── */}
-      <div ref={video.ref} style={scaleIn(video.inView)} className="max-w-2xl mx-auto px-4 sm:px-6 pt-14 pb-6">
-        <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
+      <div ref={video.ref} style={scaleIn(video.inView)} className="max-w-2xl mx-auto px-4 sm:px-6 pt-16 pb-8">
+        <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_45px_rgba(2,8,23,0.2)] ring-1 ring-gray-200">
           <div className="absolute top-4 left-4 z-10 flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-3 py-1.5">
             <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse" />
             <span className="text-white text-xs font-semibold tracking-widest uppercase">PIW 2026</span>
@@ -70,7 +70,7 @@ const PIW2026Highlights = () => {
       </div>
 
       {/* ── WHAT IS PIW ─────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <div ref={whatHead.ref} className="max-w-2xl mb-10">
           <p style={fadeUp(whatHead.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">About the Event</p>
           <h2 style={fadeUp(whatHead.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
@@ -89,7 +89,7 @@ const PIW2026Highlights = () => {
                 type="button"
                 onClick={() => setSelectedDay(index)}
                 style={scaleIn(whatCards.inView, index * 80)}
-                className={`group relative min-h-28 overflow-hidden rounded-2xl p-4 text-left text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${selectedDay === index ? `bg-gradient-to-br ${programmeDay.accent} ring-2 ring-[#F97316] ring-offset-2` : 'bg-[#0a1628]'}`}
+                className={`group relative min-h-28 overflow-hidden rounded-2xl p-4 text-left text-white shadow-[0_10px_24px_rgba(2,8,23,0.12)] transition-all duration-300 hover:shadow-[0_16px_28px_rgba(2,8,23,0.16)] ${selectedDay === index ? `bg-gradient-to-br ${programmeDay.accent} ring-2 ring-[#F97316] ring-offset-2` : 'bg-[#0a1628]'}`}
               >
                 <span className="absolute -right-3 -top-5 text-6xl font-black text-white/10 transition-transform duration-300 group-hover:rotate-12">{index + 1}</span>
                 <CalendarDays className="relative mb-3 h-5 w-5 text-[#FDBA74]" />
@@ -99,7 +99,7 @@ const PIW2026Highlights = () => {
             ))}
           </div>
 
-          <div style={fadeRight(whatCards.inView, 180)} className="relative overflow-hidden rounded-3xl bg-[#5420b5] p-7 text-white shadow-xl sm:p-10">
+          <div style={fadeRight(whatCards.inView, 180)} className="relative overflow-hidden rounded-3xl bg-[#5420b5] p-7 text-white shadow-[0_16px_36px_rgba(2,8,23,0.2)] sm:p-10">
             <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[22px] border-white/10" />
             <div className="relative">
               <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FDBA74]">{programmeDays[selectedDay].day}</p>
@@ -134,7 +134,7 @@ const PIW2026Highlights = () => {
             </div>
 
             <div className="lg:w-3/5 space-y-5">
-              <div style={fadeRight(dialogues.inView, 150)} className="bg-white rounded-2xl border border-gray-200 p-7 hover:shadow-md transition-shadow">
+              <div style={fadeRight(dialogues.inView, 150)} className="bg-white rounded-2xl border border-gray-200 p-7 shadow-[0_10px_24px_rgba(2,8,23,0.06)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.1)] transition-shadow">
                 <div className="flex items-start gap-5">
                   <div className="w-10 h-10 rounded-xl bg-[#0EA5E9] text-white text-sm font-black flex items-center justify-center flex-shrink-0">01</div>
                   <div>
@@ -146,7 +146,7 @@ const PIW2026Highlights = () => {
                 </div>
               </div>
 
-              <div style={fadeRight(dialogues.inView, 280)} className="bg-white rounded-2xl border border-gray-200 p-7 hover:shadow-md transition-shadow">
+              <div style={fadeRight(dialogues.inView, 280)} className="bg-white rounded-2xl border border-gray-200 p-7 shadow-[0_10px_24px_rgba(2,8,23,0.06)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.1)] transition-shadow">
                 <div className="flex items-start gap-5">
                   <div className="w-10 h-10 rounded-xl bg-[#F97316] text-white text-sm font-black flex items-center justify-center flex-shrink-0">02</div>
                   <div>
@@ -168,7 +168,7 @@ const PIW2026Highlights = () => {
       </section>
 
       {/* ── DEAL ROOMS & CAPITAL ────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <div ref={dealHead.ref} className="max-w-2xl mb-14">
           <p style={fadeUp(dealHead.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Investment & Growth</p>
           <h2 style={fadeUp(dealHead.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">
@@ -183,7 +183,7 @@ const PIW2026Highlights = () => {
         </div>
 
         <div ref={dealCards.ref} className="grid md:grid-cols-2 gap-6">
-          <div style={fadeLeft(dealCards.inView, 0)} className="rounded-2xl bg-[#0EA5E9]/6 border border-[#0EA5E9]/20 p-8 hover:shadow-md transition-shadow">
+          <div style={fadeLeft(dealCards.inView, 0)} className="rounded-2xl bg-[#0EA5E9]/6 border border-[#0EA5E9]/20 p-8 shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-shadow">
             <div className="w-11 h-11 rounded-xl bg-[#0EA5E9] flex items-center justify-center mb-5">
               <Handshake className="w-5 h-5 text-white" />
             </div>
@@ -193,7 +193,7 @@ const PIW2026Highlights = () => {
             </p>
           </div>
 
-          <div style={fadeRight(dealCards.inView, 150)} className="rounded-2xl bg-[#F97316]/6 border border-[#F97316]/20 p-8 hover:shadow-md transition-shadow">
+          <div style={fadeRight(dealCards.inView, 150)} className="rounded-2xl bg-[#F97316]/6 border border-[#F97316]/20 p-8 shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-shadow">
             <div className="w-11 h-11 rounded-xl bg-[#F97316] flex items-center justify-center mb-5">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
@@ -206,7 +206,7 @@ const PIW2026Highlights = () => {
       </section>
 
       {/* ── GRAND CONCERT ───────────────────────────────── */}
-      <section ref={concert.ref} className="mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-2xl bg-[#0a1628] overflow-hidden max-w-7xl lg:mx-auto">
+      <section ref={concert.ref} className="mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-2xl bg-[#0a1628] overflow-hidden max-w-7xl lg:mx-auto shadow-[0_20px_45px_rgba(2,8,23,0.2)]">
         <div style={fadeUp(concert.inView)} className="px-8 sm:px-12 py-14 flex flex-col md:flex-row items-start md:items-center gap-10">
           <div className="flex-1">
             <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-4">Closing Night</p>

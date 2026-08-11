@@ -27,13 +27,13 @@ const ThemeBreakdown = () => {
   const theme = useScrollReveal();
 
   return (
-    <section ref={theme.ref} className="relative overflow-hidden bg-[#eef4ff] py-20">
+    <section ref={theme.ref} className="relative overflow-hidden bg-[#eef4ff] py-20 md:py-24 border-y border-[#d9e5f7]">
       <div className="absolute inset-0">
         <img src="/images/new/download (5).jpg" alt="" className="h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-[#eef4ff]/85" />
       </div>
-      <div className="pointer-events-none absolute -right-24 top-10 h-64 w-64 rounded-full border-[28px] border-[#F97316]/10" />
-      <div className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-[#38a6df]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 top-10 h-64 w-64 rounded-full border-[28px] border-[#F97316]/8" />
+      <div className="pointer-events-none absolute -left-20 bottom-0 h-56 w-56 rounded-full bg-[#38a6df]/8 blur-3xl" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 max-w-3xl">
           <p style={fadeUp(theme.inView, 0)} className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#F97316]">The idea behind 2026</p>
@@ -50,7 +50,7 @@ const ThemeBreakdown = () => {
             <article
               key={item.title}
               style={index % 2 === 0 ? fadeLeft(theme.inView, 100 + index * 90) : fadeRight(theme.inView, 100 + index * 90)}
-              className={`group grid gap-6 border-l-4 px-6 py-7 transition-transform duration-300 hover:translate-x-2 sm:grid-cols-[220px_1fr] sm:items-center sm:px-10 ${item.tone}`}
+              className={`group grid gap-6 rounded-2xl border border-l-4 px-6 py-7 shadow-[0_10px_24px_rgba(2,8,23,0.05)] transition-all duration-300 hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] sm:grid-cols-[220px_1fr] sm:items-center sm:px-10 ${item.tone}`}
             >
               <h3 className="text-2xl font-black italic leading-tight sm:text-3xl">{item.title}</h3>
               <p className="max-w-4xl text-sm leading-relaxed text-gray-700 sm:text-base">{item.body}</p>

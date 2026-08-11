@@ -38,7 +38,7 @@ const ThematicAreas = () => {
   const cards = useScrollReveal();
 
   return (
-    <section id="themes" className="bg-white border-t border-gray-100">
+    <section id="themes" className="bg-gradient-to-b from-white to-[#f8fbff] border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         <div ref={heading.ref} className="max-w-2xl mb-14">
@@ -54,7 +54,7 @@ const ThematicAreas = () => {
             <div
               key={track.title}
               style={scaleIn(cards.inView, i * 120)}
-              className={`overflow-hidden bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} hover:shadow-lg transition-shadow duration-300`}
+              className={`overflow-hidden bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-shadow duration-300`}
             >
               {track.image && (
                 <div className="relative h-36 overflow-hidden">
