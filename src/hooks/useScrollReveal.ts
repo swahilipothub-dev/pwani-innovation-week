@@ -6,7 +6,7 @@ interface Options {
 }
 
 export function useScrollReveal(options: Options = {}) {
-  const { threshold = 0.15, triggerOnce = false } = options;
+  const { threshold = 0.15, triggerOnce = true } = options;
   const { ref, inView } = useInView({ threshold, triggerOnce });
   return { ref, inView };
 }

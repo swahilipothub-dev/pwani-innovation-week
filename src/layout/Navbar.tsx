@@ -13,7 +13,7 @@ import {
 const navLinks = [
   { label: "About", to: "/about" },
   { label: "Schedule", to: "/schedule" },
-  { label: "Speakers", to: "/speakers" },
+  // { label: "Speakers", to: "/speakers" },
 ];
 
 const engageLinks = [
@@ -134,7 +134,7 @@ const Navbar = () => {
               to="/tickets"
               className="bg-[#F97316] hover:bg-[#EA580C] text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#F97316]/25"
             >
-              Register
+              Buy Tickets 2026
             </Link>
           </div>
 
@@ -223,7 +223,7 @@ const Navbar = () => {
                   onClick={close}
                   className="block w-full text-center bg-[#F97316] hover:bg-[#EA580C] text-white font-bold py-3.5 rounded-xl transition-colors duration-200"
                 >
-                  Register for PIW 2026
+                  Buy Tickets 2026
                 </Link>
               </div>
             </div>

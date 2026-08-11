@@ -95,7 +95,7 @@ const Speakers = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Other sections omitted for brevity */}
 
       {/* Speaker Application Form */}

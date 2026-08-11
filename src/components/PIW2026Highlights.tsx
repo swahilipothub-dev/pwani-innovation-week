@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarDays, Radio, Users, Handshake, TrendingUp, Music } from 'lucide-react';
+import { CalendarDays, Radio, Users, Handshake, TrendingUp, Music, Mic, Zap, MapPin, Theater } from 'lucide-react';
 import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
 
 const programmeDays = [
@@ -35,7 +35,7 @@ const programmeDays = [
   },
   {
     day: 'Day 6',
-    title: 'Saturday · Pwani Got Talent (PGT)',
+    title: 'Saturday · Pwani Gat Talent (PGT)',
     accent: 'from-[#5420b5] to-[#3f1598]',
     activities: ['The ultimate creative arts showcase.'],
   },
@@ -205,27 +205,111 @@ const PIW2026Highlights = () => {
         </div>
       </section>
 
-      {/* ── GRAND CONCERT ───────────────────────────────── */}
-      <section ref={concert.ref} className="mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-2xl bg-[#0a1628] overflow-hidden max-w-7xl lg:mx-auto">
-        <div style={fadeUp(concert.inView)} className="px-8 sm:px-12 py-14 flex flex-col md:flex-row items-start md:items-center gap-10">
-          <div className="flex-1">
-            <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-4">Closing Night</p>
-            <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-4">The Grand Concert</h2>
-            <p className="text-[#F97316] font-semibold text-sm mb-4">
-              Innovation Week closes the way the Coast does best — with music, on the water's edge.
-            </p>
-            <p className="text-white/60 text-sm leading-relaxed max-w-xl">
-              The six-day convention closes with a public concert at the Mama Ngina Waterfront, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
-            </p>
-          </div>
-          <div style={scaleIn(concert.inView, 200)} className="flex-shrink-0 bg-[#F97316] rounded-2xl px-8 py-7 text-center">
-            <div className="flex items-center gap-3 mb-2">
-              <Music className="w-6 h-6 text-white/80" />
+      {/* ── PWANI GAT TALENT: CLOSING NIGHT ─────────────── */}
+      <section ref={concert.ref} className="mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-3xl overflow-hidden max-w-7xl lg:mx-auto">
+        {/* Bold solid background with accent */}
+        <div className="relative bg-[#1a1a2e] overflow-hidden">
+          {/* Graffiti-style background elements */}
+          <svg className="absolute inset-0 w-full h-full opacity-10" preserveAspectRatio="none">
+            <defs>
+              <pattern id="graffiti-dots" x="40" y="40" width="80" height="80" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="4" fill="#F97316"/>
+              </pattern>
+              <pattern id="graffiti-lines" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="100" y2="100" stroke="#F97316" strokeWidth="2"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#graffiti-dots)"/>
+            <polyline points="0,300 200,250 400,300 600,200 800,300 1000,150" stroke="#F97316" strokeWidth="3" fill="none" opacity="0.3"/>
+          </svg>
+
+          {/* Top accent bar */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-[#F97316]" />
+          
+          {/* Decorative corner graphic */}
+          <div className="absolute -top-20 -right-20 w-64 h-64 border-4 border-[#F97316] rounded-full opacity-10" />
+          <div className="absolute -bottom-32 -left-32 w-96 h-96 border-4 border-[#F97316] rounded-full opacity-10" />
+          
+          <div className="relative z-10 px-8 sm:px-12 py-16 md:py-20 flex flex-col md:flex-row items-start md:items-center gap-12 md:gap-16">
+            {/* Left content */}
+            <div style={fadeLeft(concert.inView)} className="flex-1 text-white">
+              {/* Graffiti-style label */}
+              <div className="inline-block mb-4 relative">
+                <div className="absolute -inset-2 border-2 border-[#F97316] rounded-lg transform -rotate-1 opacity-50"></div>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F97316] relative pl-1 py-1 flex items-center gap-2">
+                  <Mic className="w-4 h-4" />
+                  Closing Night
+                </div>
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl md:text-5xl font-black leading-tight mb-6 relative">
+                <span className="relative inline-block">
+                  Pwani Gat Talent
+                  {/* Underline doodle effect */}
+                  <svg className="absolute -bottom-2 left-0 w-full h-4" viewBox="0 0 300 20" preserveAspectRatio="none">
+                    <path d="M 0,10 Q 25,5 50,10 T 100,10 T 150,10 T 200,10 T 250,10 T 300,10" stroke="#F97316" strokeWidth="2" fill="none"/>
+                  </svg>
+                </span>
+              </h2>
+              
+              <p className="text-lg md:text-xl font-bold text-[#F97316] mb-4">
+                The Coast's Premier Creative Arts Showcase
+              </p>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-6 max-w-xl">
+                At the iconic Coast Gymkhana Club Ground, the Coast's brightest creative voices take the stage. From emerging artists to established performers, Pwani Gat Talent is where innovation meets artistry. It's the moment the entire region comes together to celebrate the creative spirit that defines our coast.
+              </p>
+              
+              <div className="flex flex-wrap gap-3">
+                <div className="bg-[#F97316] rounded-full px-5 py-2.5 inline-flex items-center gap-2 relative hover:shadow-lg transition-all hover:-translate-y-1">
+                  <Music className="w-4 h-4 text-white" />
+                  <span className="text-sm font-bold text-white">Live Music</span>
+                  <div className="absolute -inset-1 border border-[#F97316] rounded-full opacity-0 group-hover:opacity-20"></div>
+                </div>
+                <div className="border-2 border-[#F97316] rounded-full px-5 py-2.5 inline-flex items-center gap-2 relative hover:bg-[#F97316]/10 transition-all hover:-translate-y-1">
+                  <Theater className="w-4 h-4 text-white" />
+                  <span className="text-sm font-bold text-white">Performances</span>
+                </div>
+                <div className="border-2 border-[#F97316] rounded-full px-5 py-2.5 inline-flex items-center gap-2 relative hover:bg-[#F97316]/10 transition-all hover:-translate-y-1">
+                  <Zap className="w-4 h-4 text-white" />
+                  <span className="text-sm font-bold text-white">Waterfront Vibes</span>
+                </div>
+              </div>
             </div>
-            <p className="text-4xl font-black text-white">5,000+</p>
-            <p className="text-orange-200 text-xs font-semibold mt-1 uppercase tracking-wide">
-              Expected concert attendees<br />at Mama Ngina Waterfront
-            </p>
+
+            {/* Right side - Stats cards */}
+            <div style={scaleIn(concert.inView, 200)} className="flex-shrink-0 w-full md:w-auto">
+              <div className="grid grid-cols-2 gap-4 md:gap-5">
+                {/* Artists performing */}
+                <div className="bg-[#F97316] rounded-2xl px-6 py-7 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105 relative group">
+                  {/* Graffiti tag effect */}
+                  <div className="absolute -top-2 -right-2 w-8 h-8 border-2 border-white rounded-full opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                  <p className="text-4xl md:text-5xl font-black text-white">10+</p>
+                  <p className="text-white/90 text-xs font-bold uppercase tracking-wider mt-2">Artists &amp;</p>
+                  <p className="text-white/90 text-xs font-bold uppercase tracking-wider">Performers</p>
+                </div>
+
+                {/* Attendees */}
+                <div className="bg-[#F97316] rounded-2xl px-6 py-7 text-center hover:shadow-lg transition-all duration-300 transform hover:scale-105 relative group">
+                  {/* Graffiti tag effect */}
+                  <div className="absolute -bottom-2 -left-2 w-8 h-8 border-2 border-white rounded-full opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                  <p className="text-4xl md:text-5xl font-black text-white">5,000+</p>
+                  <p className="text-white/90 text-xs font-bold uppercase tracking-wider mt-2">Expected</p>
+                  <p className="text-white/90 text-xs font-bold uppercase tracking-wider">Attendees</p>
+                </div>
+
+                {/* Location */}
+                <div className="border-2 border-[#F97316] rounded-2xl px-6 py-7 text-center col-span-2 hover:bg-[#F97316]/5 transition-all duration-300 relative group">
+                  {/* Graffiti star decorations */}
+                  <div className="absolute -top-1 -left-1 text-lg opacity-30 group-hover:opacity-100 transition-opacity">★</div>
+                  <div className="absolute -top-1 -right-1 text-lg opacity-30 group-hover:opacity-100 transition-opacity">★</div>
+                  <p className="text-white font-bold text-sm md:text-base flex items-center gap-2 justify-center">
+                    <MapPin className="w-4 h-4" />
+                    Coast Gymkhana Club Ground
+                  </p>
+                  <p className="text-white/60 text-xs mt-1">Mombasa, Kenya</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

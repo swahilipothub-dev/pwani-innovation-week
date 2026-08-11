@@ -51,12 +51,12 @@ const Speakers = () => {
           </div>
 
           <div style={fadeUp(card.inView, 400)} className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
+            {/* <Link
               to="/tickets"
               className="inline-flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white text-sm font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#F97316]/25"
             >
               <Bell className="w-4 h-4" /> Register Interest
-            </Link>
+            </Link> */}
             <Link
               to="/"
               className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200"
