@@ -47,6 +47,7 @@ const Hero = () => {
   }, []);
 
   const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
+  const heroPanelClass = "bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-sm";
 
   return (
     <>
@@ -92,7 +93,7 @@ const Hero = () => {
 
               {/* Anniversary badge */}
               <div className="inline-block">
-                <div className="inline-flex items-center gap-3 bg-[#0b1b36]/72 backdrop-blur-sm shadow-[0_10px_30px_rgba(2,8,26,0.35)] rounded-sm px-4 py-2">
+                <div className={`inline-flex items-center gap-3 ${heroPanelClass} px-4 py-2`}>
                   <span className="text-white font-semibold text-xs sm:text-sm tracking-[0.08em] uppercase">
                     Celebrating 10 Years · Swahilipot Hub Foundation
                   </span>
@@ -119,11 +120,11 @@ const Hero = () => {
 
               {/* Date + Location */}
               <div className="flex flex-wrap gap-3">
-                <div className="flex items-center gap-2 text-white bg-[#0b1b36]/72 backdrop-blur-sm shadow-[0_8px_24px_rgba(2,8,26,0.30)] rounded-sm px-4 py-2">
+                <div className={`flex items-center gap-2 text-white ${heroPanelClass} px-4 py-2`}>
                   <Calendar className="w-4 h-4 text-[#fde68a] flex-shrink-0" />
                   <span className="text-sm font-semibold">26 – 31 October 2026</span>
                 </div>
-                <div className="flex items-center gap-2 text-white bg-[#0b1b36]/72 backdrop-blur-sm shadow-[0_8px_24px_rgba(2,8,26,0.30)] rounded-sm px-4 py-2">
+                <div className={`flex items-center gap-2 text-white ${heroPanelClass} px-4 py-2`}>
                   <MapPin className="w-4 h-4 text-[#fde68a] flex-shrink-0" />
                   <span className="text-sm font-semibold">Mombasa, Kenya</span>
                 </div>
@@ -137,7 +138,7 @@ const Hero = () => {
                 <div className="flex gap-3 flex-wrap">
                   {countdown_items.map((label, i) => (
                     <div key={label} className="text-center">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#0b1b36]/72 backdrop-blur-sm shadow-[0_8px_24px_rgba(2,8,26,0.30)] rounded-sm flex items-center justify-center">
+                      <div className={`w-16 h-16 sm:w-20 sm:h-20 ${heroPanelClass} flex items-center justify-center`}>
                         <span className="text-2xl sm:text-3xl font-black text-[#fde68a]">
                           {String(countdownValues[i]).padStart(2, '0')}
                         </span>
@@ -158,7 +159,7 @@ const Hero = () => {
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 bg-[#0b1b36]/72 hover:bg-[#102447] backdrop-blur-sm shadow-[0_8px_24px_rgba(2,8,26,0.30)] text-white hover:text-white px-7 py-3 text-sm font-semibold transition-colors duration-200"
+                  className="inline-flex items-center gap-2 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 hover:from-[#0d2447]/88 hover:via-[#12305d]/84 hover:to-[#4a2b12]/60 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] text-white hover:text-white rounded-sm px-7 py-3 text-sm font-semibold transition-colors duration-200"
                 >
                   Learn More
                 </Link>
