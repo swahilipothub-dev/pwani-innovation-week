@@ -6,7 +6,7 @@ const Speakers = () => {
   const card = useScrollReveal();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen page-shell bg-white">
 
       {/* Header */}
       <div className="bg-[#0a1628] pt-28 pb-16">

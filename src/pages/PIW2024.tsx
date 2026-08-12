@@ -63,7 +63,7 @@ const PIW2024 = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
+    <div className="min-h-screen page-shell bg-gradient-to-br from-blue-50 via-white to-orange-50">
 
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
