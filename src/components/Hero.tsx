@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, Calendar } from 'lucide-react';
-import { useInView } from 'react-intersection-observer';
 import { Link } from "react-router-dom";
 
 const images = [
@@ -20,7 +19,6 @@ const stats = [
 const countdown_items = ["Days", "Hrs", "Min", "Sec"] as const;
 
 const Hero = () => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [currentSlide, setCurrentSlide] = useState(0);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -28,6 +26,12 @@ const Hero = () => {
     const timer = setInterval(() => setCurrentSlide((p) => (p + 1) % images.length), 6000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const nextIndex = (currentSlide + 1) % images.length;
+    const nextImage = new Image();
+    nextImage.src = images[nextIndex];
+  }, [currentSlide]);
 
   useEffect(() => {
     const target = new Date('2026-10-26T00:00:00').getTime();
@@ -54,18 +58,17 @@ const Hero = () => {
       <section className="relative min-h-screen flex items-center overflow-hidden">
 
         {/* ── Background image slideshow ── */}
-        {images.map((src, i) => (
-          <div
-            key={i}
-            className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${i === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <img
-              src={src}
-              alt=""
-              className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-out ${i === currentSlide ? 'scale-100' : 'scale-105'}`}
-            />
-          </div>
-        ))}
+        <div className="absolute inset-0">
+          <img
+            key={images[currentSlide]}
+            src={images[currentSlide]}
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover transition-transform duration-[6000ms] ease-out scale-100"
+          />
+        </div>
 
         {/* dark + blur treatment for strong contrast and cleaner focus */}
         <div className="absolute inset-0 bg-black/86" />
@@ -171,14 +174,13 @@ const Hero = () => {
       </section>
 
       {/* ── STATS STRIP ─────────────────────────────────────── */}
-      <div ref={ref} className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {stats.map((s, i) => (
               <div
                 key={i}
-                className={`text-center py-9 px-6 border-r border-gray-100 last:border-r-0 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
+                className="text-center py-9 px-6 border-r border-gray-100 last:border-r-0"
               >
                 <p className="text-3xl lg:text-4xl font-black text-[#F97316]">{s.value}</p>
                 <p className="text-xs text-gray-500 font-semibold mt-2 uppercase tracking-wide">{s.label}</p>

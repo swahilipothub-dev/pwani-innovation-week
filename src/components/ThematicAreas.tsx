@@ -58,7 +58,7 @@ const ThematicAreas = () => {
             >
               {track.image && (
                 <div className="relative h-36 overflow-hidden">
-                  <img src={track.image} alt="Digital Transformation workshop" className="h-full w-full object-cover transition-transform duration-700 hover:scale-110" />
+                  <img src={track.image} alt="Digital Transformation workshop" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 hover:scale-110" />
                   <div className="absolute inset-0 bg-[#0a1628]/25" />
                 </div>
               )}

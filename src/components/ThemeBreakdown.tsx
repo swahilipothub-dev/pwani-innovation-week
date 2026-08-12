@@ -29,7 +29,7 @@ const ThemeBreakdown = () => {
   return (
     <section ref={theme.ref} className="relative overflow-hidden bg-[#eef4ff] py-20 md:py-24 border-y border-[#d9e5f7]">
       <div className="absolute inset-0">
-        <img src="/images/new/download (5).jpg" alt="" className="h-full w-full object-cover opacity-20" />
+        <img src="/images/new/download (5).jpg" alt="" loading="lazy" decoding="async" className="h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-[#eef4ff]/85" />
       </div>
       <div className="pointer-events-none absolute -right-24 top-10 h-64 w-64 rounded-full border-[28px] border-[#F97316]/8" />

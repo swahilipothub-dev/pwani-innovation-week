@@ -102,19 +102,19 @@ const About = () => {
 
           {/* RIGHT: image mosaic */}
           <div ref={mosaic.ref} className="w-full lg:w-1/2">
-            <div className="grid grid-cols-2 grid-rows-2 gap-3 h-[520px]">
+            <div className="grid grid-cols-2 grid-rows-2 gap-3 h-[380px] sm:h-[520px]">
               <div style={fadeLeft(mosaic.inView, 0)} className="row-span-2 overflow-hidden rounded-none shadow-[0_16px_40px_rgba(2,8,23,0.12)] ring-1 ring-black/5">
-                <img src={images[0]} alt="PIW 2026" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                <img src={images[0]} alt="PIW 2026" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
               <div style={fadeRight(mosaic.inView, 100)} className="overflow-hidden rounded-none shadow-[0_16px_40px_rgba(2,8,23,0.12)] ring-1 ring-black/5">
-                <img src={images[1]} alt="PIW 2026" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                <img src={images[1]} alt="PIW 2026" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
               <div style={fadeRight(mosaic.inView, 200)} className="grid grid-cols-2 gap-3">
                 <div className="overflow-hidden rounded-none shadow-[0_16px_40px_rgba(2,8,23,0.12)] ring-1 ring-black/5">
-                  <img src={images[2]} alt="PIW 2026" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  <img src={images[2]} alt="PIW 2026" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                 </div>
                 <div className="overflow-hidden rounded-none shadow-[0_16px_40px_rgba(2,8,23,0.12)] ring-1 ring-black/5">
-                  <img src={images[3]} alt="PIW 2026" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                  <img src={images[3]} alt="PIW 2026" loading="lazy" decoding="async" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                 </div>
               </div>
             </div>
