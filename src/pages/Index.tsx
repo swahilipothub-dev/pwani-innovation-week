@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import Hero from '@/components/Hero';
-import About from '@/components/About';
 // import Objectives from '@/components/Objectives';
-import ThematicAreas from '@/components/ThematicAreas';
-import PIW2026Highlights from '@/components/PIW2026Highlights';
-import DecadeAndBeyond from '@/components/DecadeAndBeyond';
-import ThemeBreakdown from '@/components/ThemeBreakdown';
+
+const DecadeAndBeyond = lazy(() => import('@/components/DecadeAndBeyond'));
+const PIW2026Highlights = lazy(() => import('@/components/PIW2026Highlights'));
+const ThemeBreakdown = lazy(() => import('@/components/ThemeBreakdown'));
+const About = lazy(() => import('@/components/About'));
+const ThematicAreas = lazy(() => import('@/components/ThematicAreas'));
+
+const SectionFallback = () => (
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+    <div className="h-56 border border-slate-200/80 bg-white/70 shadow-[0_10px_24px_rgba(15,23,42,0.05)] animate-pulse" />
+  </div>
+);
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen home-shell">
       <Hero/>
-      <DecadeAndBeyond/>
-      <PIW2026Highlights/>
-      <ThemeBreakdown />
-      <About/>
+      <Suspense fallback={<SectionFallback />}>
+        <DecadeAndBeyond/>
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <PIW2026Highlights/>
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <ThemeBreakdown />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <About/>
+      </Suspense>
       {/* <Objectives /> */}
-      <ThematicAreas/>
+      <Suspense fallback={<SectionFallback />}>
+        <ThematicAreas/>
+      </Suspense>
     </div>
   );
 };

@@ -39,7 +39,7 @@ const About = () => {
   const cta       = useScrollReveal();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen page-shell bg-white">
 
       {/* ── Header ───────────────────────────────────────── */}
       <div className="relative pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">

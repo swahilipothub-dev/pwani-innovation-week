@@ -70,7 +70,7 @@ const Experience: React.FC = () => {
   const current = experiences[selected];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-shell">
       {/* Hero */}
       <section className="pt-24 pb-12 bg-gradient-to-br from-orange-50 via-white to-emerald-50">
         <div ref={heroRef.ref} className="section-container text-center">

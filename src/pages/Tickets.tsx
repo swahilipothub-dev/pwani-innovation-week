@@ -1,71 +1,67 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ExternalLink } from 'lucide-react';
-
-const ticketEvents = [
-  {
-    id: 'piw',
-    name: 'Pwani Innovation Week Tickets',
-    description: 'Secure your spot for the flagship innovation gathering in the coast region.',
-    link: 'https://apps.little.africa/events/pwani-innovation-week',
-  },
-  {
-    id: 'pgt',
-    name: 'Pwani Gat Talent',
-    description: 'Join the celebration of coastal talent and creativity. Book your ticket today.',
-    link: 'https://apps.little.africa/events/pwani-gat-talent',
-  },
-];
+import { CalendarClock, Ticket, Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Tickets = () => {
   return (
-    <div className="min-h-screen">
-      <section className="pt-24 pb-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white text-center relative">
-        <div className="section-container">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            Tickets & Registration
-          </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-            Choose your ticket type for the PIW 2025 experience.
+    <div className="min-h-screen page-shell">
+      <section className="page-hero-bg pt-24 pb-20">
+        <div className="section-container text-center">
+          <p className="page-hero-kicker mb-4">PIW 2026</p>
+          <h1 className="mb-5 text-4xl font-black text-slate-900 md:text-6xl">Tickets & Registration</h1>
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600">
+            Ticket releases are not open yet. We will announce official ticket categories, dates, and access links soon.
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="pb-24">
         <div className="section-container">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {ticketEvents.map((ticket) => (
-              <Card key={ticket.id} className="relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <CardHeader className="text-center pb-4">
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-orange-500"></div>
-                  <CardTitle className="text-2xl font-bold text-gray-800 mb-2">
-                    {ticket.name}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 text-base">
-                    {ticket.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <Button 
-                    asChild
-                    className="w-full bg-gradient-to-r from-purple-600 to-orange-500 hover:from-purple-700 hover:to-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105"
-                  >
-                    <a 
-                      href={ticket.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2"
-                    >
-                      Get Ticket
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <CalendarClock className="h-5 w-5" />
+              </div>
+              <h2 className="mb-2 text-base font-black text-slate-900">Release Window</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Official timelines for PIW and Pwani Got Talent ticket drops will be published on our channels.
+              </p>
+            </article>
+
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <Ticket className="h-5 w-5" />
+              </div>
+              <h2 className="mb-2 text-base font-black text-slate-900">Ticket Types</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Pass details and eligibility will be shared once registration officially opens.
+              </p>
+            </article>
+
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <Bell className="h-5 w-5" />
+              </div>
+              <h2 className="mb-2 text-base font-black text-slate-900">Stay Updated</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Check back here and follow PIW announcements for first access when tickets go live.
+              </p>
+            </article>
           </div>
 
+          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              to="/"
+              className="inline-flex w-full items-center justify-center bg-[#F97316] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#EA580C] sm:w-auto"
+            >
+              Back to Home
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex w-full items-center justify-center border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:border-slate-400 hover:bg-white sm:w-auto"
+            >
+              Contact Organizers
+            </Link>
+          </div>
         </div>
       </section>
     </div>
