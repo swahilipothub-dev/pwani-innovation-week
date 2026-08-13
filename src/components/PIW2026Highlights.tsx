@@ -52,7 +52,7 @@ const PIW2026Highlights = () => {
   const concert  = useScrollReveal();
 
   return (
-    <div className="bg-gradient-to-b from-[#f7fafe] to-[#f2f7fd]">
+    <div className="home-section-frame bg-gradient-to-b from-[#f7fafe] to-[#f2f7fd]">
 
       {/* ── MOTION GRAPHIC ──────────────────────────────── */}
       <div ref={video.ref} style={scaleIn(video.inView)} className="max-w-2xl mx-auto px-4 sm:px-6 pt-16 pb-8">
@@ -106,7 +106,7 @@ const PIW2026Highlights = () => {
               <h3 className="mt-2 max-w-xl text-2xl font-black leading-tight sm:text-3xl">{programmeDays[selectedDay].title}</h3>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">
                 {programmeDays[selectedDay].activities.map((activity, index) => (
-                  <div key={activity} className="flex gap-3 rounded-none border border-white/20 bg-white/8 p-4 transition-colors hover:bg-white/12">
+                  <div key={activity} className="home-glass-surface flex gap-3 rounded-none p-4 transition-colors hover:bg-white/12">
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F97316] text-xs font-black">{String(index + 1).padStart(2, '0')}</span>
                     <p className="text-sm leading-relaxed text-white/90">{activity}</p>
                   </div>

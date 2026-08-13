@@ -51,7 +51,7 @@ const Hero = () => {
   }, []);
 
   const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
-  const heroPanelClass = "bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-sm";
+  const heroPanelClass = "border border-white/4 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-none";
 
   return (
     <>
@@ -74,6 +74,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/86" />
         <div className="absolute inset-0 backdrop-blur-[6px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/88 to-black/78 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#0b1f3d]/45 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/94 to-transparent pointer-events-none" />
 
         {/* slide dots — bottom centre */}
@@ -156,13 +157,13 @@ const Hero = () => {
               <div className="flex flex-wrap gap-4 pt-1">
                 <Link
                   to="/tickets"
-                  className="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-3 text-sm font-bold transition-colors duration-200"
+                  className="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-3 text-sm font-bold rounded-none transition-colors duration-200"
                 >
                   Register Interest <ArrowRight size={16} />
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 hover:from-[#0d2447]/88 hover:via-[#12305d]/84 hover:to-[#4a2b12]/60 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] text-white hover:text-white rounded-sm px-7 py-3 text-sm font-semibold transition-colors duration-200"
+                  className="inline-flex items-center gap-2 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 hover:from-[#0d2447]/88 hover:via-[#12305d]/84 hover:to-[#4a2b12]/60 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] text-white hover:text-white rounded-none px-7 py-3 text-sm font-semibold transition-colors duration-200"
                 >
                   Learn More
                 </Link>
@@ -174,16 +175,16 @@ const Hero = () => {
       </section>
 
       {/* ── STATS STRIP ─────────────────────────────────────── */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-gradient-to-b from-white to-slate-50/60 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {stats.map((s, i) => (
               <div
                 key={i}
-                className="text-center py-9 px-6 border-r border-gray-100 last:border-r-0"
+                className="text-center py-9 px-6 border-r border-slate-200/80 last:border-r-0"
               >
                 <p className="text-3xl lg:text-4xl font-black text-[#F97316]">{s.value}</p>
-                <p className="text-xs text-gray-500 font-semibold mt-2 uppercase tracking-wide">{s.label}</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{s.label}</p>
               </div>
             ))}
           </div>

@@ -38,13 +38,13 @@ const ThematicAreas = () => {
   const cards = useScrollReveal();
 
   return (
-    <section id="themes" className="bg-gradient-to-b from-[#f7fafe] to-[#eef5fd] border-t border-gray-100">
+    <section id="themes" className="home-section-frame bg-gradient-to-b from-[#f7fafe] to-[#eef5fd] border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
 
         <div ref={heading.ref} className="max-w-2xl mb-14">
           <p style={fadeUp(heading.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-[0.18em] mb-3">Areas of Focus</p>
           <h2 style={fadeUp(heading.inView, 100)} className="text-3xl md:text-4xl font-black text-gray-900 leading-tight">Thematic Tracks</h2>
-          <p style={fadeUp(heading.inView, 200)} className="mt-4 text-gray-500">
+          <p style={fadeUp(heading.inView, 200)} className="mt-4 text-slate-600 leading-relaxed">
             Three interconnected areas that anchor the PIW 2026 programme — each designed to move the Coast's most pressing conversations from dialogue into action.
           </p>
         </div>

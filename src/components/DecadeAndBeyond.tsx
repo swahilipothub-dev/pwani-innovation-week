@@ -54,7 +54,7 @@ const DecadeAndBeyond = () => {
   const galleryGrid = useScrollReveal();
 
   return (
-    <section className="relative bg-gradient-to-b from-[#f7f8fb] via-[#fbfcff] to-[#f7f9fd] overflow-hidden border-y border-[#e8edf5]">
+    <section className="home-section-frame relative bg-gradient-to-b from-[#f7f8fb] via-[#fbfcff] to-[#f7f9fd] overflow-hidden border-[#e8edf5]">
       {/* decorative background glows */}
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-none bg-[#F97316]/10 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 -left-32 w-80 h-80 rounded-none bg-[#0EA5E9]/10 blur-3xl pointer-events-none" />

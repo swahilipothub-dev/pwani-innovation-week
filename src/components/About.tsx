@@ -55,7 +55,7 @@ const About = () => {
   const activitiesRef = useScrollReveal();
 
   return (
-    <section id="about" className="bg-gradient-to-b from-[#f8fbff] to-[#f6f9fc]">
+    <section id="about" className="home-section-frame bg-gradient-to-b from-[#f8fbff] to-[#f6f9fc]">
 
       {/* ── Main content ──────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
@@ -124,7 +124,8 @@ const About = () => {
       </div>
 
       {/* ── What to Expect ───────────────────────────────── */}
-      <div className="bg-[#0a1628]">
+      <div className="relative bg-[#0a1628]">
+        <div className="absolute inset-x-0 top-0 h-px home-soft-divider" />
         <div ref={activitiesRef.ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
           <p style={fadeUp(activitiesRef.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-[0.18em] mb-10 text-center">What to Expect</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-none overflow-hidden ring-1 ring-white/10">
