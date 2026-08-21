@@ -6,31 +6,31 @@ interface Options {
 }
 
 export function useScrollReveal(options: Options = {}) {
-  const { threshold = 0.15, triggerOnce = false } = options;
+  const { threshold = 0.15, triggerOnce = true } = options;
   const { ref, inView } = useInView({ threshold, triggerOnce });
   return { ref, inView };
 }
 
-export const fadeUp = (inView: boolean, delay = 0): React.CSSProperties => ({
-  opacity: inView ? 1 : 0,
-  transform: inView ? 'translateY(0)' : 'translateY(32px)',
-  transition: `opacity 0.7s ease-out ${delay}ms, transform 0.7s ease-out ${delay}ms`,
+export const fadeUp = (_inView: boolean, _delay = 0): React.CSSProperties => ({
+  opacity: 1,
+  transform: 'none',
+  transition: 'none',
 });
 
-export const fadeLeft = (inView: boolean, delay = 0): React.CSSProperties => ({
-  opacity: inView ? 1 : 0,
-  transform: inView ? 'translateX(0)' : 'translateX(-32px)',
-  transition: `opacity 0.7s ease-out ${delay}ms, transform 0.7s ease-out ${delay}ms`,
+export const fadeLeft = (_inView: boolean, _delay = 0): React.CSSProperties => ({
+  opacity: 1,
+  transform: 'none',
+  transition: 'none',
 });
 
-export const fadeRight = (inView: boolean, delay = 0): React.CSSProperties => ({
-  opacity: inView ? 1 : 0,
-  transform: inView ? 'translateX(0)' : 'translateX(32px)',
-  transition: `opacity 0.7s ease-out ${delay}ms, transform 0.7s ease-out ${delay}ms`,
+export const fadeRight = (_inView: boolean, _delay = 0): React.CSSProperties => ({
+  opacity: 1,
+  transform: 'none',
+  transition: 'none',
 });
 
-export const scaleIn = (inView: boolean, delay = 0): React.CSSProperties => ({
-  opacity: inView ? 1 : 0,
-  transform: inView ? 'scale(1)' : 'scale(0.9)',
-  transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,
+export const scaleIn = (_inView: boolean, _delay = 0): React.CSSProperties => ({
+  opacity: 1,
+  transform: 'none',
+  transition: 'none',
 });

@@ -171,7 +171,7 @@ const Engage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-shell">
       {/* Hero Section */}
       <div className="pt-20 bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
