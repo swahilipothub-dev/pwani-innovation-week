@@ -54,7 +54,7 @@ const ThematicAreas = () => {
             <div
               key={track.title}
               style={scaleIn(cards.inView, i * 120)}
-              className={`overflow-hidden bg-white rounded-none border border-gray-200 border-t-4 ${track.accent} shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-shadow duration-300`}
+              className={`overflow-hidden bg-white rounded-2xl border border-gray-200 border-t-4 ${track.accent} shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-shadow duration-300`}
             >
               {track.image && (
                 <div className="relative h-36 overflow-hidden">
@@ -63,7 +63,7 @@ const ThematicAreas = () => {
                 </div>
               )}
               <div className="p-8">
-                <div className={`w-12 h-12 rounded-none ${track.iconBg} flex items-center justify-center mb-5`}>
+                <div className={`w-12 h-12 rounded-xl ${track.iconBg} flex items-center justify-center mb-5`}>
                   {track.icon}
                 </div>
                 <p className={`text-xs font-bold uppercase tracking-[0.18em] mb-2 ${track.tagColor}`}>{track.tag}</p>

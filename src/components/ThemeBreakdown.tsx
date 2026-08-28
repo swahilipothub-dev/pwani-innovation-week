@@ -60,7 +60,7 @@ const ThemeBreakdown = () => {
             <article
               key={item.title}
               style={index % 2 === 0 ? fadeLeft(theme.inView, 100 + index * 90) : fadeRight(theme.inView, 100 + index * 90)}
-              className={`group relative grid gap-6 overflow-hidden rounded-none border px-6 py-7 shadow-[0_12px_26px_rgba(2,8,23,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,8,23,0.10)] sm:grid-cols-[230px_1fr] sm:items-start sm:px-10 ${item.surface}`}
+              className={`group relative grid gap-6 overflow-hidden rounded-2xl border px-6 py-7 shadow-[0_12px_26px_rgba(2,8,23,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_rgba(2,8,23,0.10)] sm:grid-cols-[230px_1fr] sm:items-start sm:px-10 ${item.surface}`}
             >
               <div className={`absolute inset-x-0 top-0 h-1 ${item.stripe}`} />
               <div className="sm:pr-6 sm:border-r sm:border-black/10">

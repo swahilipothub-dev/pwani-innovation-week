@@ -51,7 +51,7 @@ const Hero = () => {
   }, []);
 
   const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
-  const heroPanelClass = "border border-white/4 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-none";
+  const heroPanelClass = "border border-white/4 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-xl";
 
   return (
     <>
@@ -96,7 +96,7 @@ const Hero = () => {
             <div className="w-full lg:max-w-2xl space-y-8">
 
               {/* Anniversary badge */}
-              <div className="inline-block">
+              <div className="inline-block hero-in hero-float" style={{ animationDelay: '0ms' }}>
                 <div className={`inline-flex items-center gap-3 ${heroPanelClass} px-4 py-2`}>
                   <span className="text-white font-semibold text-xs sm:text-sm tracking-[0.08em] uppercase">
                     Celebrating 10 Years · Swahilipot Hub Foundation
@@ -110,20 +110,20 @@ const Hero = () => {
               {/* Headline */}
               <div className="space-y-4">
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[0.92] tracking-tight">
-                  Pwani<br />
-                  Innovation<br />
-                  <span className="text-[#fdba74]">Week 2026</span>
+                  <span className="hero-in block" style={{ animationDelay: '90ms' }}>Pwani</span>
+                  <span className="hero-in block" style={{ animationDelay: '180ms' }}>Innovation</span>
+                  <span className="hero-in hero-glow block text-[#fdba74]" style={{ animationDelay: '270ms' }}>Week 2026</span>
                 </h1>
-                <p className="text-sm sm:text-base text-[#e0f2fe] font-semibold uppercase tracking-[0.14em]">
+                <p className="hero-in text-sm sm:text-base text-[#e0f2fe] font-semibold uppercase tracking-[0.14em]" style={{ animationDelay: '360ms' }}>
                   A Decade and Beyond · Youth, Innovation &amp; Coastal Futures
                 </p>
-                <p className="max-w-xl text-base leading-relaxed text-white sm:text-lg">
-                  Ten years of Swahilipot and the next chapter for Pwani&apos;s innovation ecosystem.
+                <p className="hero-in max-w-xl text-base leading-relaxed text-white sm:text-lg" style={{ animationDelay: '440ms' }}>
+                  Six days built for young innovators on the Coast — pitch for funding, learn from people building real ventures, and connect with thousands like you.
                 </p>
               </div>
 
               {/* Date + Location */}
-              <div className="flex flex-wrap gap-3">
+              <div className="hero-in flex flex-wrap gap-3" style={{ animationDelay: '520ms' }}>
                 <div className={`flex items-center gap-2 text-white ${heroPanelClass} px-4 py-2`}>
                   <Calendar className="w-4 h-4 text-[#fde68a] flex-shrink-0" />
                   <span className="text-sm font-semibold">26 – 31 October 2026</span>
@@ -135,7 +135,7 @@ const Hero = () => {
               </div>
 
               {/* Countdown */}
-              <div className="space-y-3">
+              <div className="hero-in space-y-3" style={{ animationDelay: '600ms' }}>
                 <p className="text-xs text-[#dbeafe] uppercase tracking-widest font-semibold">
                   Countdown to PIW 2026
                 </p>
@@ -154,18 +154,18 @@ const Hero = () => {
               </div>
 
               {/* CTA */}
-              <div className="flex flex-wrap gap-4 pt-1">
+              <div className="hero-in flex flex-wrap gap-4 pt-1" style={{ animationDelay: '680ms' }}>
                 <Link
                   to="/tickets"
-                  className="inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-3 text-sm font-bold rounded-none transition-colors duration-200"
+                  className="hero-pulse inline-flex items-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white px-7 py-3 text-sm font-bold rounded-lg transition-colors duration-200"
                 >
-                  Register Interest <ArrowRight size={16} />
+                  Register Interest <ArrowRight size={16} className="hero-nudge" />
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-2 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 hover:from-[#0d2447]/88 hover:via-[#12305d]/84 hover:to-[#4a2b12]/60 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] text-white hover:text-white rounded-none px-7 py-3 text-sm font-semibold transition-colors duration-200"
+                  className="inline-flex items-center gap-2 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 hover:from-[#0d2447]/88 hover:via-[#12305d]/84 hover:to-[#4a2b12]/60 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] text-white hover:text-white rounded-lg px-7 py-3 text-sm font-semibold transition-colors duration-200"
                 >
-                  Learn More
+                  See the Full Programme
                 </Link>
               </div>
             </div>
@@ -190,6 +190,47 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-in {
+          opacity: 0;
+          animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes heroFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .hero-float {
+          animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards, heroFloat 4s ease-in-out 1.2s infinite;
+        }
+        @keyframes heroGlow {
+          0%, 100% { text-shadow: 0 0 0 rgba(253, 186, 116, 0); }
+          50% { text-shadow: 0 0 22px rgba(253, 186, 116, 0.55); }
+        }
+        .hero-glow {
+          animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards, heroGlow 3.5s ease-in-out 1s infinite;
+        }
+        @keyframes heroPulseRing {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.45); }
+          50% { box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
+        }
+        .hero-pulse {
+          animation: heroPulseRing 2.6s ease-out 2s infinite;
+        }
+        @keyframes heroNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(4px); }
+        }
+        .hero-nudge {
+          animation: heroNudge 1.6s ease-in-out 2s infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-in, .hero-float, .hero-glow, .hero-pulse, .hero-nudge { animation: none; opacity: 1; }
+        }
+      `}</style>
     </>
   );
 };

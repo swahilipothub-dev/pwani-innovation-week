@@ -39,13 +39,13 @@ const Footer = () => {
                 <Link to="/" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Home</Link>
               </li>
               <li>
-                <a href="#about" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">About</a>
+                <a href="/#about" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">About</a>
               </li>
               <li>
-                <a href="#objectives" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Objectives</a>
+                <a href="/#objectives" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Objectives</a>
               </li>
               <li>
-                <a href="#themes" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Thematic Areas</a>
+                <a href="/#themes" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Thematic Areas</a>
               </li>
               {/*<li>
                 <a href="#tickets" className="text-gray-300 hover:text-[#F97316] transition-colors">Tickets</a>
