@@ -62,7 +62,7 @@ const App = () => (
             <Route path='/tickets' element={<Tickets />} />
             <Route
               path='/speaking/apply'
-              element={<ComingSoon title="Apply to Speak" description="Speaker applications will open soon. Check back for updates!" />}
+              element={<SpeakerApplicationForm />}
             />
             <Route path='/engage' element={<Engage />} />
             <Route path='/contact' element={<ComingSoon title="Contact & Inquiries" description="We're setting up our contact system. Reach out soon!" />} />
