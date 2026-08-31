@@ -90,8 +90,8 @@ const Mentee = () => {
     formData.cohort;
 
   return (
-    <div className="min-h-screen page-shell">
-      <section className="pt-24 pb-20 bg-gradient-to-br page-hero-bg text-center relative">
+    <div className="min-h-screen">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-indigo-50 via-indigo-100/50 to-white text-center relative">
         <div className="section-container">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
             Mentee Registration

@@ -6,53 +6,53 @@ import { FaXTwitter, FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa6
 const Footer = () => {
   return (
     <footer className="bg-[#F97316] text-white">
-      <div className="h-1 w-full bg-[#FDBA74]" />
-
-      <div className="section-container py-14 md:py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
-          <div className="space-y-6">
-            <img
-              src='/piw_logo.png'
-              height={30}
-              width={200}
-              alt="Pwani Innovation Week logo"
-              loading="lazy"
-              decoding="async"
-            />
-            <p className="max-w-sm text-sm leading-relaxed text-slate-200">
+      <div className="section-container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+          <div>
+            <div className="mb-6">
+              <img
+                src='/piw_logo.png'
+                height={30}
+                width={200}
+                alt="Pwani Innovation Week logo"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <p className="text-white/80 mb-6">
               Pwani Innovation Week 2025 <br />
               Pwani Re-imagined: Youth Agency, Innovation and Sustainability of Coastal Economies.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="https://x.com/pwaniinnovation" aria-label="Pwani Innovation Week on X" className="text-slate-200 transition-colors duration-200 hover:text-[#F97316]">
+            <div className="flex space-x-4">
+              <a href="https://x.com/pwaniinnovation" className="text-white/90 hover:text-white transition-colors">
                 <FaXTwitter size='25'/>
               </a>
-              <a href="https://www.instagram.com/swahilipothub/" aria-label="Pwani Innovation Week on Instagram" className="text-slate-200 transition-colors duration-200 hover:text-[#F97316]">
+              <a href="https://www.instagram.com/swahilipothub/" className="text-white/90 hover:text-white transition-colors">
                 <FaInstagram size='25'/>
               </a>
-              <a href="https://www.linkedin.com/company/piwkenya/" aria-label="Pwani Innovation Week on LinkedIn" className="text-slate-200 transition-colors duration-200 hover:text-[#F97316]">
+              <a href="https://www.linkedin.com/company/piwkenya/" className="text-white/90 hover:text-white transition-colors">
                 <FaLinkedin size='25'/>
               </a>
-              <a href="https://www.facebook.com/pwaniinnovationweek" aria-label="Pwani Innovation Week on Facebook" className="text-slate-200 transition-colors duration-200 hover:text-[#F97316]">
+              <a href="https://www.facebook.com/pwaniinnovationweek" className="text-white/90 hover:text-white transition-colors">
                 <FaFacebook size='25'/>
               </a>
             </div>
           </div>
           
           <div>
-            <h3 className="mb-4 border-l-2 border-[#F97316] pl-3 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">Quick Links</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
+            <ul className="space-y-3">
               <li>
-                <Link to="/" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Home</Link>
+                <Link to="/" className="text-white/80 hover:text-white hover:underline transition-colors">Home</Link>
               </li>
               <li>
-                <a href="#about" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">About</a>
+                <a href="#about" className="text-white/80 hover:text-white hover:underline transition-colors">About</a>
               </li>
               <li>
-                <a href="#objectives" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Objectives</a>
+                <a href="#objectives" className="text-white/80 hover:text-white hover:underline transition-colors">Objectives</a>
               </li>
               <li>
-                <a href="#themes" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Thematic Areas</a>
+                <a href="#themes" className="text-white/80 hover:text-white hover:underline transition-colors">Thematic Areas</a>
               </li>
               {/*<li>
                 <a href="#tickets" className="text-gray-300 hover:text-[#F97316] transition-colors">Tickets</a>
@@ -61,73 +61,70 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="mb-4 border-l-2 border-[#F97316] pl-3 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">Events</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="text-lg font-semibold mb-6">Events</h3>
+            <ul className="space-y-3">
               <li>
-                <Link to="/hackathon" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Hackathons</Link>
+                <Link to="/hackathon" className="text-white/80 hover:text-white hover:underline transition-colors">Hackathons</Link>
               </li>
               <li>
-                <Link to="/plenary-sessions" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Plenary Sessions</Link>
+                <Link to="/plenary-sessions" className="text-white/80 hover:text-white hover:underline transition-colors">Plenary Sessions</Link>
               </li>
               <li>
-                <Link to="/workshops" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Workshops</Link>
+                <Link to="/workshops" className="text-white/80 hover:text-white hover:underline transition-colors">Workshops</Link>
               </li>
               <li>
-                <Link to="/panel-discussions" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Panel Discussions</Link>
+                <Link to="/panel-discussions" className="text-white/80 hover:text-white hover:underline transition-colors">Panel Discussions</Link>
               </li>
               <li>
-                <Link to="/networking-events" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Networking Events</Link>
+                <Link to="/networking-events" className="text-white/80 hover:text-white hover:underline transition-colors">Networking Events</Link>
               </li>
               <li>
-                <Link to="/exhibitions" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Exhibitions</Link>
+                <Link to="/exhibitions" className="text-white/80 hover:text-white hover:underline transition-colors">Exhibitions</Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="mb-4 border-l-2 border-[#F97316] pl-3 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">Past Events</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="text-lg font-semibold mb-6">Past Events</h3>
+            <ul className="space-y-3">
               <li>
-                <Link to="/piw-2023" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">PIW 2023</Link>
+                <Link to="/piw-2023" className="text-white/80 hover:text-white hover:underline transition-colors">PIW 2023</Link>
               </li>
               <li>
-                <Link to="/piw-2024" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">PIW 2024</Link>
+                <Link to="/piw-2024" className="text-white/80 hover:text-white hover:underline transition-colors">PIW 2024</Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h3 className="mb-4 border-l-2 border-[#F97316] pl-3 text-xs font-bold uppercase tracking-[0.18em] text-slate-200">Contact Information</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#F97316]" />
-                <span className="text-slate-200/90">Mombasa, Kenya</span>
+            <h3 className="text-lg font-semibold mb-6">Contact Information</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start">
+                <MapPin className="h-6 w-6 text-white mr-2 flex-shrink-0 opacity-90" />
+                <span className="text-white/80">Mombasa, Kenya</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#F97316]" />
-                <span className="text-slate-200/90">info@swahilipothub.co.ke</span>
+              <li className="flex items-start">
+                <Mail className="h-6 w-6 text-white mr-2 flex-shrink-0 opacity-90" />
+                <span className="text-white/80">info@swahilipothub.co.ke</span>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Phone className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#F97316]" />
-                <span className="text-slate-200/90">+254 772 785169</span>
+              <li className="flex items-start">
+                <Phone className="h-6 w-6 text-white mr-2 flex-shrink-0 opacity-90" />
+                <span className="text-white/80">+254 772 785169</span>
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-[#fed7aa]/40 bg-[#ea580c] py-5">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-3 px-4 text-center text-sm text-slate-300 sm:px-6 md:flex-row md:text-left lg:px-8">
-          <div>
+      <div className="bg-[#ea580c] py-6">
+        <div className="container mx-auto px-4">
+          <div className="md:flex md:items-center md:justify-between text-sm">
+            <div className="text-center md:text-left text-white/90">
               <p>&copy; {new Date().getFullYear()} Pwani Innovation Week. All rights reserved.</p>
-          </div>
-          <div>
-            <p>
-              Organized by{' '}
-              <a className='font-semibold text-white transition-colors duration-200 hover:text-[#F97316]' href='https://swahilipothub.co.ke'>
-                Swahilipot Hub Foundation
-              </a>
-            </p>
+            </div>
+            <div className="mt-4 md:mt-0 text-center md:text-right">
+              <p className="text-white/90">Organized by <a className='underline hover:text-white' href='https://swahilipothub.co.ke'>Swahilipot Hub Foundation</a></p>
+            </div>
           </div>
         </div>
       </div>
