@@ -160,7 +160,7 @@ const Schedule = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen page-shell flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-[#F97316]" />
           <p className="text-gray-600">Loading schedule...</p>
@@ -172,7 +172,7 @@ const Schedule = () => {
   if (isError) {
     const errorMessage = error instanceof Error ? error.message : 'Unable to load schedule';
     return (
-      <div className="min-h-screen page-shell flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
           <p className="text-red-600 text-lg">{errorMessage}</p>
           <button
@@ -188,8 +188,8 @@ const Schedule = () => {
   }
 
   return (
-    <div className="min-h-screen page-shell">
-      <div className="pt-20 bg-gradient-to-br page-hero-bg relative overflow-hidden">
+    <div className="min-h-screen bg-white">
+      <div className="pt-20 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-200/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-orange-200/20 rounded-full blur-2xl"></div>
