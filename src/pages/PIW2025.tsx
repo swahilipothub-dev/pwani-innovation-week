@@ -12,11 +12,119 @@ const PIW2025 = () => {
   ];
 
   const highlights = [
-    { number: "2,000+", label: "Participants" },
-    { number: "50+", label: "Partner Organizations" },
-    { number: "28", label: "Innovation Sessions" },
-    { number: "15", label: "Startups Pitched" },
-    { number: "5", label: "Days of Innovation" },
+    { number: "80%+", label: "Participants from the Coast" },
+    { number: "10", label: "Plenary Sessions" },
+    { number: "20", label: "Keynotes" },
+    { number: "16", label: "Breakout Sessions" },
+    { number: "15", label: "Startups at the Deals Den" },
+  ];
+
+  const dailyRecap = [
+    {
+      day: "Day 1",
+      date: "Mon, 27 Oct",
+      title: "Opening & Cultural Foundations",
+      summary:
+        "A Kick-Off Show blending indigenous art, music and storytelling, including a re-enactment of Swahili hero Fumo Liyongo and the Kishuri Traditional Dancers — set the tone that innovation in Pwani is rooted in culture as much as technology.",
+      points: [
+        "Keynotes from Ayubu Mohammed (PIW Secretariat), Dr. Tony Omwansa (KENIA), Olivier Vanden Eynde (Close the Gap) and the Youth Advisory Group",
+        "Blockchain for Coastal Trade and the Blue Economy",
+        "Heritage & Historic Urban Landscapes as catalysts for sustainable development",
+        "Sustainable Aquaculture Value Chains",
+        "Equity & Inclusion, and AI Agents for Everyone workshop",
+      ],
+    },
+    {
+      day: "Day 2",
+      date: "Tue, 28 Oct",
+      title: "Keynotes & Global Partnerships",
+      summary:
+        'A formal welcome to ambassadors from Belgium, France and Saudi Arabia. Prof. Abdul Razak Shaukat described PIW as "not just a conference but the future of Kenya."',
+      points: [
+        "Positioning Mombasa as a Business, Culture and Innovation Hub",
+        "From Idea to Impact: Nurturing Youth-Led Startups and Social Enterprises",
+        "Cybersecurity, Data Protection & Digital Resilience",
+        "Fireside Chat: Youth Mental Health and Well-Being",
+      ],
+    },
+    {
+      day: "Day 3",
+      date: "Wed, 29 Oct",
+      title: "International Perspectives & Circular Economy Launch",
+      summary:
+        "Saudi Arabia's Salam for Cultural Communication shared its cultural diplomacy and innovation model, followed by the launch of the East African Women WastePreneurs Association and the Baus Taka App.",
+      points: [
+        "The Journey of Growth and Self-Discovery — mindset, mentorship, faith and disability inclusion",
+        "The Unseen Edge: Mastering Power Skills for Pwani's Future Leaders",
+        "Incentivizing the ISP Economy in Africa",
+        "Building Your Brand, Financial Acumen and Positive Online Identity",
+        "Case Management Program recognized 79 mentees and 33 mentors (23 women)",
+        "Dinner Gala — Heva Fund's $25,000 contribution supported 100+ performing artists",
+      ],
+    },
+    {
+      day: "Day 4",
+      date: "Thu, 30 Oct",
+      title: "Governance, Circular Economy & Investment",
+      summary:
+        "Hon. Jacob Fikirini announced the NYOTA Project — a KSh 20 billion initiative targeting 820,000 young people, including 100,000 entrepreneurs and 90,000 unskilled youth for Master Craftsman training.",
+      points: [
+        "Rethinking Governance Systems and Economic Futures",
+        "Coastal Circular Economy: Waste-to-Wealth Solutions",
+        "Security Awareness (NTT Data) and Intellectual Property Rights, Patenting & Legalization of Startups",
+        "Fireside Chat with Alice Gugilev (GDI) on wealth as mindset and discipline",
+        "Deals Den — 15 youth-led ventures pitched across Blue/Green and Orange Economy tracks",
+      ],
+    },
+    {
+      day: "Day 5",
+      date: "Fri, 31 Oct",
+      title: "Creative Economy & Closing",
+      summary:
+        "The Orange Economy took center stage, followed by the Official Closing Ceremony recognizing bootcamp graduates, hackathon winners and pitch-track entrepreneurs.",
+      points: [
+        "Building a Sustainable Future through the Creative Gig Economy (HEVA Fund)",
+        "Distributing Coastal Creativity Beyond Borders — with Sanaipei Tande & Dazzler Dutchie",
+        "UK–Kenya Tech Hub Logistics Hackathon winners: Port Ease (1st), Navi Trace (2nd), Novi Nova (3rd)",
+        "Orange Economy Pitch Session — 11 creative entrepreneurs recognized; Heva Fund 9% soft loans announced",
+        "Blue & Green Economy Showcase — Chakula Bora Feeds, Killy Fish and Kulthum Seafoods named investment-ready",
+      ],
+    },
+  ];
+
+  const quotes = [
+    {
+      text: "Heritage is not the past, it is a living force shaping our future.",
+      author: "Opening Fumo Liyongo Performance",
+    },
+    {
+      text: "Technology doesn't transform people, people transform with technology.",
+      author: "Panelist, Blockchain for Coastal Trade session",
+    },
+    {
+      text: "Waste is not just trash — it's an untapped economy waiting for innovators to claim it.",
+      author: "Panelist, Coastal Circular Economy session",
+    },
+    {
+      text: "A business is like a baby — you can never grow it alone.",
+      author: "Panelist, Youth-Led Startups session",
+    },
+    {
+      text: "It's not about giving everyone the same chair, but adjusting the height of the table so all can reach.",
+      author: "Rev. Canon Christine Kinyanjui, National Council of Churches of Kenya",
+    },
+    {
+      text: "Innovation is a team sport.",
+      author: "H.E. Peter Maddens, Belgian Ambassador to Kenya",
+    },
+    {
+      text: "The future can only be claimed by the path we take today — a path not only of hope but of stubborn hope.",
+      author: "H.E. Abdulswamad Shariff Nassir, Governor of Mombasa County",
+    },
+    {
+      text: "Your brand is what people say about you when you're not in the room.",
+      author: "Hatua Network presentation",
+    },
   ];
 
   const keyTopics = [
