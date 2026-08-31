@@ -4,7 +4,7 @@ import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 const NetworkingEvents = () => {
   const content = useScrollReveal();
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen page-shell">
       <main className="section-container pt-32">
         <div ref={content.ref} className="max-w-4xl mx-auto text-center">
           <div style={scaleIn(content.inView, 0)} className="w-16 h-16 mx-auto mb-6">

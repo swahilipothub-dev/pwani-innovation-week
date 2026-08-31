@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {ArrowRight, CalendarDays, Clock, Code, Handshake, Map, MapPin, Mic, MessageCircle, Palette, PartyPopper, Star, Trophy, Users} from 'lucide-react';
 import {Link} from "react-router-dom";
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
+import { SURVEY_LINKS } from '@/lib/config';
 
 const Engage = () => {
   const [activeTab, setActiveTab] = useState('sessions');
@@ -171,7 +172,7 @@ const Engage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-shell">
       {/* Hero Section */}
       <div className="pt-20 bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -408,6 +409,22 @@ const Engage = () => {
             >
               Apply to Speak
             </Link>
+            <a
+              href={SURVEY_LINKS.DEALS_DEN_INNOVATORS}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-[#F97316] px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-block"
+            >
+              Apply as Innovator — Deals Den
+            </a>
+            <a
+              href={SURVEY_LINKS.DEALS_DEN_INVESTORS}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-[#F97316] px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-300 hover:scale-105 inline-block"
+            >
+              Apply as Investor — Deals Den
+            </a>
           </div>
         </div>
       </section>

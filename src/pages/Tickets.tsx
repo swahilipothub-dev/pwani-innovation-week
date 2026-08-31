@@ -1,63 +1,69 @@
+import { CalendarClock, Ticket, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
-import { Ticket } from 'lucide-react';
 
 const Tickets = () => {
-  const card = useScrollReveal();
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-[#0a1628] pt-28 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-4">PIW 2026</p>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-4">Tickets Coming Soon</h1>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
-            Get ready to join us for an unforgettable experience. Ticket sales will open soon.
+    <div className="min-h-screen page-shell">
+      <section className="page-hero-bg pt-24 pb-20">
+        <div className="section-container text-center">
+          <p className="page-hero-kicker mb-4">PIW 2026</p>
+          <h1 className="mb-5 text-4xl font-black text-slate-900 md:text-6xl">Tickets & Registration</h1>
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600">
+            Ticket releases are not open yet. We will announce official ticket categories, dates, and access links soon.
           </p>
         </div>
-      </div>
+      </section>
 
-      {/* Coming Soon */}
-      <div ref={card.ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="max-w-lg mx-auto text-center space-y-8">
-          <div style={scaleIn(card.inView, 0)} className="w-20 h-20 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center mx-auto">
-            <Ticket className="w-9 h-9 text-[#F97316]" />
-          </div>
-
-          <div>
-            <h2 style={fadeUp(card.inView, 100)} className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
-              Tickets Coming Soon
-            </h2>
-            <p style={fadeUp(card.inView, 200)} className="text-gray-500 leading-relaxed">
-              We're working on incredible lineup of experiences for PIW 2026. 
-            </p>
-          </div>
-
-          <div style={fadeUp(card.inView, 300)} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 text-left space-y-3">
-            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">What to expect</p>
-            {[
-              "Early bird ticket options",
-              "Multi-day event passes",
-              "Special pricing for students and professionals",
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#F97316] mt-2 flex-shrink-0" />
-                <p className="text-sm text-gray-600">{item}</p>
+      <section className="pb-24">
+        <div className="section-container">
+          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <CalendarClock className="h-5 w-5" />
               </div>
-            ))}
+              <h2 className="mb-2 text-base font-black text-slate-900">Release Window</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Official timelines for PIW and Pwani Got Talent ticket drops will be published on our channels.
+              </p>
+            </article>
+
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <Ticket className="h-5 w-5" />
+              </div>
+              <h2 className="mb-2 text-base font-black text-slate-900">Ticket Types</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Pass details and eligibility will be shared once registration officially opens.
+              </p>
+            </article>
+
+            <article className="page-surface p-6 text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center bg-[#F97316]/10 text-[#F97316]">
+                <Bell className="h-5 w-5" />
+              </div>
+              <h2 className="mb-2 text-base font-black text-slate-900">Stay Updated</h2>
+              <p className="text-sm leading-relaxed text-slate-600">
+                Check back here and follow PIW announcements for first access when tickets go live.
+              </p>
+            </article>
           </div>
 
-          <div style={fadeUp(card.inView, 400)} className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to="/"
-              className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200"
+              className="inline-flex w-full items-center justify-center bg-[#F97316] px-6 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#EA580C] sm:w-auto"
             >
               Back to Home
             </Link>
+            <Link
+              to="/contact"
+              className="inline-flex w-full items-center justify-center border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors duration-200 hover:border-slate-400 hover:bg-white sm:w-auto"
+            >
+              Contact Organizers
+            </Link>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
