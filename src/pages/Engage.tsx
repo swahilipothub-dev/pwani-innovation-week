@@ -171,7 +171,7 @@ const Engage = () => {
   ];
 
   return (
-    <div className="min-h-screen page-shell">
+    <div className="min-h-screen">
       {/* Hero Section */}
       <div className="pt-20 bg-gradient-to-br from-emerald-50 via-emerald-100/50 to-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -221,7 +221,7 @@ const Engage = () => {
       </section>
 
       {/* Content Sections */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className={`py-20 transition-colors duration-300 ${activeTab === 'sessions' || activeTab === 'goals' ? 'bg-gray-50' : 'bg-white'}`}>
         <div className="section-container">
           {/* Sessions & Events */}
           {activeTab === 'sessions' && (
@@ -242,6 +242,7 @@ const Engage = () => {
                       <img
                         src={type.image}
                         alt={`${type.title} at Pwani Innovation Week`}
+                        loading="lazy"
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className={`absolute inset-0 bg-gradient-to-t ${type.color} opacity-65 mix-blend-multiply`}></div>
@@ -326,7 +327,7 @@ const Engage = () => {
             <div className="animate-fade-in">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">This Year's Goals</h2>
-                <p className="text-xl text-gray-700">Three strategic objectives for PIW 2025</p>
+                <p className="text-xl text-gray-700">Three strategic objectives for PIW 2026</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

@@ -53,9 +53,9 @@ const Inquiries = () => {
   };
 
   return (
-    <div className="min-h-screen page-shell">
+    <div className="min-h-screen bg-white">
 
-      <section className="pt-24 pb-12 bg-gradient-to-br page-hero-bg text-center">
+      <section className="pt-24 pb-12 bg-gradient-to-br from-purple-50 via-purple-100/50 to-white text-center">
         <div className="section-container">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Contact & Inquiries

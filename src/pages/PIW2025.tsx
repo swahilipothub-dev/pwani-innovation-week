@@ -52,7 +52,7 @@ const PIW2025 = () => {
   ];
 
   return (
-    <div className="min-h-screen page-shell bg-white">
+    <div className="min-h-screen bg-gray-50">
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="bg-[#0a1628] pt-28 pb-16 px-4 sm:px-6 lg:px-8">
