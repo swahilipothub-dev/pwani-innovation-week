@@ -32,7 +32,7 @@ const PIW2025 = () => {
       date: "Mon, 27 Oct",
       title: "Opening & Cultural Foundations",
       summary:
-        "A Kick-Off Show blending indigenous art, music and storytelling — including a re-enactment of Swahili hero Fumo Liyongo and the Kishuri Traditional Dancers — set the tone that innovation in Pwani is rooted in culture as much as technology.",
+        "A Kick-Off Show blending indigenous art, music and storytelling, including a re-enactment of Swahili hero Fumo Liyongo and the Kishuri Traditional Dancers — set the tone that innovation in Pwani is rooted in culture as much as technology.",
       points: [
         "Keynotes from Ayubu Mohammed (PIW Secretariat), Dr. Tony Omwansa (KENIA), Olivier Vanden Eynde (Close the Gap) and the Youth Advisory Group",
         "Blockchain for Coastal Trade and the Blue Economy",
