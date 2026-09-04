@@ -26,7 +26,7 @@ const Speakers = () => {
       {/* Header */}
       <div className="relative pt-28 pb-16 overflow-hidden bg-[#0a1628]">
         <img
-          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg"
+          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -92,17 +92,17 @@ const Speakers = () => {
 
           <div style={scaleIn(card.inView, 200)} className="grid grid-cols-2 gap-4">
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.webp"
               alt="PIW session in progress"
               className="w-full h-64 object-cover rounded-2xl shadow-lg col-span-2"
             />
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.webp"
               alt="PIW audience"
               className="w-full h-40 object-cover rounded-2xl shadow-lg"
             />
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.webp"
               alt="PIW exhibition"
               className="w-full h-40 object-cover rounded-2xl shadow-lg"
             />

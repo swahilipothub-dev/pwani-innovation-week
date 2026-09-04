@@ -42,10 +42,10 @@ const stats = [
 ];
 
 const images = [
-  "/images/A21I1862.jpg",
-  "/images/A26I5421.jpg",
-  "/images/A26I5516.jpg",
-  "/images/A26I7052.jpg",
+  "/images/A21I1862.webp",
+  "/images/A26I5421.webp",
+  "/images/A26I5516.webp",
+  "/images/A26I7052.webp",
 ];
 
 const About = () => {

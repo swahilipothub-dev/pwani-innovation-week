@@ -37,7 +37,7 @@ const ThemeBreakdown = () => {
   return (
     <section ref={theme.ref} className="home-section-frame relative overflow-hidden bg-gradient-to-b from-[#eef4ff] via-[#edf3ff] to-[#e8f0fd] py-20 md:py-24 border-[#d9e5f7]">
       <div className="absolute inset-0">
-        <img src="/images/new/download (8).jpg" alt="" loading="lazy" decoding="async" className="h-full w-full object-cover opacity-20" />
+        <img src="/images/new/download (8).webp" alt="" loading="lazy" decoding="async" className="h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-[#eef4ff]/88" />
         <div className="absolute inset-0 bg-black/20 backdrop-blur-[1.5px]" />
       </div>

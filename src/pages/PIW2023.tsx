@@ -75,7 +75,7 @@ const PIW2023 = () => {
           {/* Hero Image */}
           <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-scale-in delay-300">
             <img
-              src="/images/DSC_5601.jpg"
+              src="/images/DSC_5601.webp"
               alt="PIW 2023 Event"
               className="w-full h-96 md:h-[500px] object-cover"
             />
@@ -146,12 +146,12 @@ const PIW2023 = () => {
             </div>
             <div className="space-y-6 animate-slide-up delay-300">
               <img
-                src="/images/J26A0003 (1).jpg"
+                src="/images/J26A0003 (1).webp"
                 alt="PIW 2023 Innovation"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover"
               />
               <img
-                src="/images/DSC_5665.jpg"
+                src="/images/DSC_5665.webp"
                 alt="PIW 2023 Venue"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover"
               />
@@ -195,36 +195,36 @@ const PIW2023 = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-6">
               <img
-                src="/images/DSC_5674.jpg"
+                src="/images/DSC_5674.webp"
                 alt="PIW 2023 Session"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
               />
               <img
-                src="/images/DSC_8833.jpg"
+                src="/images/DSC_8833.webp"
                 alt="PIW 2023 Networking"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
               />
             </div>
             <div className="space-y-6">
               <img
-                src="/images/J26A9713.jpg"
+                src="/images/J26A9713.webp"
                 alt="PIW 2023 Exhibition"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
               />
               <img
-                src="/images/IMG-176.jpg"
+                src="/images/IMG-176.webp"
                 alt="PIW 2023 Workshop"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
               />
             </div>
             <div className="space-y-6">
               <img
-                src="/images/IMG-145.jpg"
+                src="/images/IMG-145.webp"
                 alt="PIW 2023 Panel"
                 className="rounded-2xl shadow-lg w-full h-64 object-cover card-hover"
               />
               <img
-                src="/images/Z50_4804.jpg"
+                src="/images/Z50_4804.webp"
                 alt="PIW 2023 Awards"
                 className="rounded-2xl shadow-lg w-full h-48 object-cover card-hover"
               />

@@ -214,7 +214,7 @@ const PIW2025 = () => {
       {/* ── Hero image ───────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-          <img src="/images/0V6A0066.jpg" alt="PIW 2025 Event" className="w-full h-80 md:h-[480px] object-cover" loading="eager" fetchPriority="high" decoding="async" />
+          <img src="/images/0V6A0066.webp" alt="PIW 2025 Event" className="w-full h-80 md:h-[480px] object-cover" loading="eager" fetchPriority="high" decoding="async" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
           <div className="absolute bottom-8 left-8 text-white">
             <h3 className="text-2xl font-bold mb-1">A Week of Innovation</h3>
@@ -297,8 +297,8 @@ const PIW2025 = () => {
             </p>
           </div>
           <div className="space-y-4">
-            <img src="/images/A21I1152.jpg" alt="PIW 2025 Innovation" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" decoding="async" />
-            <img src="/images/2C0A1199.jpg" alt="PIW 2025 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" loading="lazy" decoding="async" />
+            <img src="/images/A21I1152.webp" alt="PIW 2025 Innovation" className="rounded-2xl shadow-lg w-full h-64 object-cover" loading="lazy" decoding="async" />
+            <img src="/images/2C0A1199.webp" alt="PIW 2025 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" loading="lazy" decoding="async" />
           </div>
         </div>
       </section>
@@ -308,7 +308,7 @@ const PIW2025 = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <img src="/images/A26I8176.JPG" alt="PIW 2025 Theme" className="w-full h-80 object-cover" loading="lazy" decoding="async" />
+              <img src="/images/A26I8176.webp" alt="PIW 2025 Theme" className="w-full h-80 object-cover" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F97316]/10" />
             </div>
             <div>
@@ -459,7 +459,7 @@ const PIW2025 = () => {
         <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">Highlights</p>
         <h2 className="text-3xl font-black text-gray-900 mb-10">Event Gallery</h2>
         <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-          {["A21I1578.jpg", "A21I1862.jpg", "2C0A1199.jpg", "A26I4806.jpg", "A26I5500.jpg", "2C0A1590.jpg"].map((img) => (
+          {["A21I1578.webp", "A21I1862.webp", "2C0A1199.webp", "A26I4806.webp", "A26I5500.webp", "2C0A1590.webp"].map((img) => (
             <img
               key={img}
               src={`/images/${img}`}

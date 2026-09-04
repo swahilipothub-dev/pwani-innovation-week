@@ -41,7 +41,7 @@ const SpeakerApplicationForm = () => {
     <div className="min-h-screen page-shell">
       <section className="relative overflow-hidden pt-24 pb-16">
         <img
-          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.02.22.jpeg"
+          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.02.22.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-15"
         />
@@ -98,7 +98,7 @@ const SpeakerApplicationForm = () => {
 
             <div>
               <img
-                src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg"
+                src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.webp"
                 alt="A speaker addressing the PIW audience"
                 className="w-full h-64 object-cover rounded-2xl shadow-lg mb-6"
               />

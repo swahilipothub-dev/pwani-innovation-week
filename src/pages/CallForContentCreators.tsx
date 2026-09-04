@@ -5,7 +5,7 @@ const CallForContentCreators = () => {
     <div className="min-h-screen page-shell bg-white">
       <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-24">
         <img
-          src="/content.jpg"
+          src="/content.webp"
           alt="Content creator capturing Pwani Innovation Week moments"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -52,7 +52,7 @@ const CallForContentCreators = () => {
             <div className="relative">
               <div className="overflow-hidden rounded-3xl shadow-xl">
                 <img
-                  src="/content.jpg"
+                  src="/content.webp"
                   alt="Content creator working during Pwani Innovation Week"
                   className="h-full w-full object-cover"
                 />

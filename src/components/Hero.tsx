@@ -3,10 +3,10 @@ import { ArrowRight, MapPin, Calendar } from 'lucide-react';
 import { Link } from "react-router-dom";
 
 const images = [
-  "/images/new/download (7).jpg",
-  "/images/new/download (9).jpg",
-  "/images/new/download (2).jpg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg",
+  "/images/new/download (7).webp",
+  "/images/new/download (9).webp",
+  "/images/new/download (2).webp",
+  "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.webp",
 ];
 
 const stats = [
