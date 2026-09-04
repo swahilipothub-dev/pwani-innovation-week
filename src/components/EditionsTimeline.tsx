@@ -55,7 +55,7 @@ const EditionsTimeline = () => {
   return (
     <section className="relative overflow-hidden border-y border-gray-100 bg-[#120b24]">
       <img
-        src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.11.jpeg"
+        src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.11.webp"
         alt="Pwani Innovation Week cultural performance"
         className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
       />

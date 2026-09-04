@@ -133,7 +133,7 @@ const PIW2026 = () => {
       {/* ── Hero image ───────────────────────────────────── */}
       <div ref={heroImg.ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
         <div className={`relative rounded-2xl overflow-hidden shadow-2xl ${fadeUp(heroImg.visible)}`}>
-          <img src="/images/DSC_5674.jpg" alt="PIW 2026 technology workshop" className="w-full h-80 md:h-[480px] object-cover" />
+          <img src="/images/DSC_5674.webp" alt="PIW 2026 technology workshop" className="w-full h-80 md:h-[480px] object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-8 left-8 text-white">
             <h3 className="text-2xl font-bold mb-1">A Week of Innovation</h3>
@@ -207,8 +207,8 @@ const PIW2026 = () => {
             </p>
           </div>
           <div className={`space-y-4 ${fadeRight(about.visible)}`} style={{ transitionDelay: '150ms' }}>
-            <img src="/images/DSC_5674.jpg" alt="PIW 2026 technology workshop" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
-            <img src="/images/2C0A1199.jpg" alt="PIW 2026 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+            <img src="/images/DSC_5674.webp" alt="PIW 2026 technology workshop" className="rounded-2xl shadow-lg w-full h-64 object-cover" />
+            <img src="/images/2C0A1199.webp" alt="PIW 2026 Venue" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
           </div>
         </div>
       </section>
@@ -218,7 +218,7 @@ const PIW2026 = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className={`relative rounded-2xl overflow-hidden shadow-xl ${fadeLeft(theme.visible)}`}>
-              <img src="/images/A26I8176.JPG" alt="PIW 2026 Theme" className="w-full h-80 object-cover" />
+              <img src="/images/A26I8176.webp" alt="PIW 2026 Theme" className="w-full h-80 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#F97316]/10" />
             </div>
             <div className={fadeRight(theme.visible)} style={{ transitionDelay: '150ms' }}>
@@ -301,16 +301,16 @@ const PIW2026 = () => {
         <h2 className="text-3xl font-black text-gray-900 mb-10">Event Moments</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="space-y-5">
-            <img src="/images/A21I1578.jpg" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
-            <img src="/images/A21I1862.jpg" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/A21I1578.webp" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/A21I1862.webp" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
           </div>
           <div className="space-y-5">
-            <img src="/images/2C0A1199.jpg" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
-            <img src="/images/A26I4806.jpg" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/2C0A1199.webp" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/A26I4806.webp" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
           </div>
           <div className="space-y-5">
-            <img src="/images/A26I5500.jpg" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
-            <img src="/images/2C0A1590.jpg" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/A26I5500.webp" alt="PIW 2026" className="rounded-2xl w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-300" />
+            <img src="/images/2C0A1590.webp" alt="PIW 2026" className="rounded-2xl w-full h-48 object-cover hover:scale-[1.02] transition-transform duration-300" />
           </div>
         </div>
       </section>

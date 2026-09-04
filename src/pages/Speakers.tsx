@@ -1,6 +1,7 @@
 import { Users, Mic2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
+import { SURVEY_LINKS } from '@/lib/config';
 
 const pastKeynoteSpeakers = [
   '/images/keynotespeakers/DR Kevit Desai.png',
@@ -25,7 +26,7 @@ const Speakers = () => {
       {/* Header */}
       <div className="relative pt-28 pb-16 overflow-hidden bg-[#0a1628]">
         <img
-          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg"
+          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -50,10 +51,10 @@ const Speakers = () => {
 
             <div>
               <h2 style={fadeUp(card.inView, 100)} className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
-                Speaker Lineup Coming Soon
+                Call for Speakers Is Now Open
               </h2>
               <p style={fadeUp(card.inView, 200)} className="text-gray-500 leading-relaxed">
-                We're curating an outstanding lineup of keynote speakers, panellists, and workshop leaders for PIW 2026. The confirmed lineup will be announced in the coming months — applications to speak are open now.
+                We're curating an outstanding lineup of keynote speakers, panellists, and workshop leaders for PIW 2026. Have expertise to share with 2,500+ delegates, investors, and policymakers? Apply to speak today.
               </p>
             </div>
 
@@ -72,34 +73,36 @@ const Speakers = () => {
             </div>
 
             <div style={fadeUp(card.inView, 400)} className="flex flex-col sm:flex-row gap-3">
-              <Link
-                to="/speaking/apply"
+              <a
+                href={SURVEY_LINKS.CALL_FOR_SPEAKERS}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white text-sm font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#F97316]/25"
               >
                 <Mic2 className="w-4 h-4" /> Apply to Speak
-              </Link>
+              </a>
               <Link
-                to="/"
+                to="/speaking/apply"
                 className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200"
               >
-                Back to Home
+                Learn More
               </Link>
             </div>
           </div>
 
           <div style={scaleIn(card.inView, 200)} className="grid grid-cols-2 gap-4">
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.webp"
               alt="PIW session in progress"
               className="w-full h-64 object-cover rounded-2xl shadow-lg col-span-2"
             />
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.webp"
               alt="PIW audience"
               className="w-full h-40 object-cover rounded-2xl shadow-lg"
             />
             <img
-              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.jpeg"
+              src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.webp"
               alt="PIW exhibition"
               className="w-full h-40 object-cover rounded-2xl shadow-lg"
             />

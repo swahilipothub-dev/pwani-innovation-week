@@ -28,13 +28,13 @@ const economies = [
 ];
 
 const gallery = [
-  { src: "/images/A21I1862.jpg", label: "Hackathons & Tech", span: "sm:col-span-2 sm:row-span-2" },
-  { src: "/images/A26I5421.jpg", label: "Keynote Sessions", span: "" },
-  { src: "/images/A26I5516.jpg", label: "Investor Deal Rooms", span: "" },
-  { src: "/images/new/download (2).jpg", label: "Utamaduni Village", span: "" },
-  { src: "/images/DSC_5052.jpg", label: "Youth Innovators", span: "" },
-  { src: "/images/DSC_5665.jpg", label: "Panel Discussions", span: "sm:col-span-2" },
-  { src: "/images/DSC_8833.jpg", label: "The Grand Concert", span: "" },
+  { src: "/images/A21I1862.webp", label: "Hackathons & Tech", span: "sm:col-span-2 sm:row-span-2" },
+  { src: "/images/A26I5421.webp", label: "Keynote Sessions", span: "" },
+  { src: "/images/A26I5516.webp", label: "Investor Deal Rooms", span: "" },
+  { src: "/images/new/download (2).webp", label: "Utamaduni Village", span: "" },
+  { src: "/images/DSC_5052.webp", label: "Youth Innovators", span: "" },
+  { src: "/images/DSC_5665.webp", label: "Panel Discussions", span: "sm:col-span-2" },
+  { src: "/images/DSC_8833.webp", label: "The Grand Concert", span: "" },
 ];
 
 const stats = [
@@ -94,13 +94,13 @@ const DecadeAndBeyond = () => {
               The 2026 edition arrives at a uniquely defining moment: it marks Swahilipot Hub Foundation&apos;s 10th Anniversary (2016–2026), a decade of transforming youth potential into enterprise, civic agency, and creative power along the Kenyan coast. Under the theme “A Decade and Beyond: Youth, Innovation &amp; Coastal Futures,” PIW 2026 holds two stories in equal tension: a celebration of ten years of institutional staying power, and a declaration that everything built over a decade is a foundation, not a finish line.
               </p>
               <div style={scaleIn(executiveSummary.inView, 260)} className="grid grid-cols-2 gap-4 rounded-2xl bg-[#edf3fb] p-4 ring-1 ring-[#dce7f5]">
-                <img src="/images/image1 (3).jpg" alt="PIW cultural performance" loading="lazy" decoding="async" className="h-48 w-full rounded-xl object-cover shadow-[0_10px_24px_rgba(2,8,23,0.12)] sm:h-60" />
-                <img src="/images/image2.jpg" alt="PIW community showcase" loading="lazy" decoding="async" className="mt-8 h-48 w-full rounded-xl object-cover shadow-[0_10px_24px_rgba(2,8,23,0.12)] sm:h-60" />
+                <img src="/images/image1 (3).webp" alt="PIW cultural performance" loading="lazy" decoding="async" className="h-48 w-full rounded-xl object-cover shadow-[0_10px_24px_rgba(2,8,23,0.12)] sm:h-60" />
+                <img src="/images/image2.webp" alt="PIW community showcase" loading="lazy" decoding="async" className="mt-8 h-48 w-full rounded-xl object-cover shadow-[0_10px_24px_rgba(2,8,23,0.12)] sm:h-60" />
               </div>
             </div>
 
             <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-              <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.jpg" alt="Pwani Innovation Week participants" loading="lazy" decoding="async" className="h-64 w-full rounded-2xl object-cover shadow-[0_16px_34px_rgba(2,8,23,0.14)] ring-1 ring-[#dce7f5] sm:h-72" />
+              <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.webp" alt="Pwani Innovation Week participants" loading="lazy" decoding="async" className="h-64 w-full rounded-2xl object-cover shadow-[0_16px_34px_rgba(2,8,23,0.14)] ring-1 ring-[#dce7f5] sm:h-72" />
               <p style={fadeRight(executiveSummary.inView, 340)} className="rounded-2xl bg-white p-6 text-base leading-relaxed text-slate-600 shadow-[0_10px_24px_rgba(15,23,42,0.05)] ring-1 ring-[#e7eef8]">
               PIW 2026 will convene 2,500+ participants across six days, delivering five thematic tracks, a flagship Deals Den investment showcase, three innovation hackathons, Utamaduni cultural village showcase, field tours, cross-border dialogues, and Pwani Got Talent (PGT), the Grand Closing Concert that brings together the best creative voices in the region.
               </p>
@@ -137,7 +137,7 @@ const DecadeAndBeyond = () => {
         {/* ── AGENDA 2026-2036 CALLOUT ─────────────── */}
         <div ref={agenda.ref} style={fadeUp(agenda.inView)} className="relative rounded-2xl bg-[#0a1628] overflow-hidden mb-24">
           <div className="absolute inset-0 opacity-20">
-            <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.35.jpeg" alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+            <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.35.webp" alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628] via-[#0a1628]/95 to-[#0a1628]/70" />
           <div className="relative z-10 px-8 sm:px-12 py-14 flex flex-col lg:flex-row items-start lg:items-center gap-8">

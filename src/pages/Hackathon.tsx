@@ -9,7 +9,7 @@ const Hackathon = () => {
       <main className="section-container pt-32">
         <div ref={content.ref} className="max-w-4xl mx-auto text-center">
           <div style={fadeUp(content.inView, 0)} className="mb-8 overflow-hidden rounded-2xl shadow-xl">
-            <img src="/images/DSC_5674.jpg" alt="Pwani Innovation Week hackathon workshop" className="h-64 w-full object-cover md:h-96" />
+            <img src="/images/DSC_5674.webp" alt="Pwani Innovation Week hackathon workshop" className="h-64 w-full object-cover md:h-96" />
           </div>
           <div style={scaleIn(content.inView, 120)} className="w-16 h-16 mx-auto mb-6">
             <Award className="w-full h-full text-[#F97316]" />

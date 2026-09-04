@@ -20,7 +20,7 @@ const tracks = [
     tagColor: "text-[#22C55E]",
     title: "Digital Transformation",
     body: "Empowers coastal communities to harness digital technologies for problem-solving and economic advancement. From mobile apps and AI to blockchain, participants explore how tech can disrupt traditional models and unlock new opportunities.",
-    image: "/images/DSC_5674.jpg",
+    image: "/images/DSC_5674.webp",
   },
   {
     icon: <Users className="w-6 h-6 text-[#1D4ED8]" />,

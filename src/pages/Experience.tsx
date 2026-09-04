@@ -17,10 +17,10 @@ const Experience: React.FC = () => {
       title: 'Boat Ride / Dhow',
       description: 'Sail the coastal waters on a traditional dhow and enjoy scenic views.',
       images: [
-        '/images/Z50_4804.jpg',
-        '/images/Z50_5527.jpg',
-        '/images/Z50_5583.jpg',
-        '/images/Z50_6272.jpg',
+        '/images/Z50_4804.webp',
+        '/images/Z50_5527.webp',
+        '/images/Z50_5583.webp',
+        '/images/Z50_6272.webp',
       ],
       videos: [
         'https://www.youtube.com/embed/21X5lGlDOfg',
@@ -30,10 +30,10 @@ const Experience: React.FC = () => {
       title: 'Food Tour',
       description: 'Taste authentic coastal cuisine on a guided street food adventure.',
       images: [
-        '/images/image2.jpg',
-        '/images/IMG-145.jpg',
-        '/images/IMG-176.jpg',
-        '/images/A26I7945.JPG',
+        '/images/image2.webp',
+        '/images/IMG-145.webp',
+        '/images/IMG-176.webp',
+        '/images/A26I7945.webp',
       ],
       videos: [
         'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -43,10 +43,10 @@ const Experience: React.FC = () => {
       title: 'Bike Ride',
       description: 'Explore the city and coastline with a scenic guided bike tour.',
       images: [
-        '/images/DSC_5019.jpg',
-        '/images/DSC_5052.jpg',
-        '/images/DSC_5601.jpg',
-        '/images/DSC_5665.jpg',
+        '/images/DSC_5019.webp',
+        '/images/DSC_5052.webp',
+        '/images/DSC_5601.webp',
+        '/images/DSC_5665.webp',
       ],
       videos: [
         'https://www.youtube.com/embed/aqz-KE-bpKQ',
@@ -56,10 +56,10 @@ const Experience: React.FC = () => {
       title: 'Morning Workouts',
       description: 'Start your day right with energizing group workouts by the beach.',
       images: [
-        '/images/Z50_8689.jpg',
-        '/images/Z50_9796.jpg',
-        '/images/A26I8176.JPG',
-        '/images/A26I7994.JPG',
+        '/images/Z50_8689.webp',
+        '/images/Z50_9796.webp',
+        '/images/A26I8176.webp',
+        '/images/A26I7994.webp',
       ],
       videos: [
         'https://www.youtube.com/embed/5qap5aO4i9A',

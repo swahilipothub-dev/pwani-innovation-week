@@ -44,7 +44,7 @@ const About = () => {
       {/* ── Header ───────────────────────────────────────── */}
       <div className="relative pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <img
-          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.jpeg"
+          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
         />
@@ -93,7 +93,7 @@ const About = () => {
       {/* ── What is PIW 2026 ─────────────────────────────── */}
       <section className="relative overflow-hidden py-20">
         <img
-          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg"
+          src="/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center scale-110 blur-md"
         />
@@ -121,11 +121,11 @@ const About = () => {
 
             <div ref={gallery.ref} className="lg:w-1/2 grid grid-cols-2 gap-3">
               {[
-                "/images/piw-2026/WhatsApp Image 2026-06-30 at 11.57.02.jpeg",
-                "/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg",
-                "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.07.jpeg",
-                "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.11.jpeg",
-                "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.jpeg",
+                "/images/piw-2026/WhatsApp Image 2026-06-30 at 11.57.02.webp",
+                "/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.webp",
+                "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.07.webp",
+                "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.11.webp",
+                "/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.webp",
               ].map((src, i) => (
                 <div
                   key={src}

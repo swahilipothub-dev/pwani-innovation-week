@@ -17,7 +17,7 @@ const Engage = () => {
       color: 'from-blue-500 to-blue-600',
       features: ['Industry Leaders', 'Transformative Insights', 'Q&A Sessions'],
       sessions: '10+ Keynotes',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 13.47.35.webp',
     },
     {
       title: 'Impact-led Sessions',
@@ -26,7 +26,7 @@ const Engage = () => {
       color: 'from-green-500 to-green-600',
       features: ['Expert Facilitators', 'Interactive Discussions', 'Actionable Insights'],
       sessions: '28+ Sessions',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 14.03.23.webp',
     },
     {
       title: 'Hackathons',
@@ -35,7 +35,7 @@ const Engage = () => {
       color: 'from-purple-500 to-purple-600',
       features: ['72-hour Challenge', 'Mentorship Support', 'Prize Pool'],
       sessions: '3 Hackathons',
-      image: '/images/DSC_5674.jpg',
+      image: '/images/DSC_5674.webp',
     },
     {
       title: 'Field Tours',
@@ -44,7 +44,7 @@ const Engage = () => {
       color: 'from-orange-500 to-orange-600',
       features: ['Local Guides', 'Innovation Hubs', 'Cultural Sites'],
       sessions: '5+ Tours',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.17.12.webp',
     },
     {
       title: 'Exhibitions',
@@ -53,7 +53,7 @@ const Engage = () => {
       color: 'from-red-500 to-red-600',
       features: ['Local Entrepreneurs', 'Product Showcase', 'Network Building'],
       sessions: '50+ Exhibitors',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.14.03.webp',
     },
     {
       title: 'Utamaduni Village',
@@ -62,7 +62,7 @@ const Engage = () => {
       color: 'from-pink-500 to-pink-600',
       features: ['Cultural Performances', 'Traditional Crafts', 'Local Cuisine'],
       sessions: 'All Week',
-      image: '/images/new/download (2).jpg',
+      image: '/images/new/download (2).webp',
     },
     {
       title: 'Deals Den',
@@ -71,7 +71,7 @@ const Engage = () => {
       color: 'from-cyan-500 to-cyan-600',
       features: ['Investor Matchmaking', 'Startup Pitches', 'Capital Access'],
       sessions: 'KES 5M+ Target',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.09.50.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.09.50.webp',
     },
     {
       title: 'Fireside Chats',
@@ -80,7 +80,7 @@ const Engage = () => {
       color: 'from-amber-500 to-amber-600',
       features: ['Honest Conversations', 'Expert Voices', 'Community Wisdom'],
       sessions: 'Curated Talks',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 16.10.28.webp',
     },
     {
       title: 'Pre-Event Engagements',
@@ -89,7 +89,7 @@ const Engage = () => {
       color: 'from-indigo-500 to-indigo-600',
       features: ['County Dialogues', 'Local Priorities', 'Community Voices'],
       sessions: '4 Counties',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.webp',
     },
     {
       title: 'Fun & Culture Nights',
@@ -98,7 +98,7 @@ const Engage = () => {
       color: 'from-fuchsia-500 to-fuchsia-600',
       features: ['Live Music', 'Pwani Got Talent', 'Closing Concert'],
       sessions: 'Evenings',
-      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.jpeg',
+      image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.webp',
     },
   ];
 

@@ -120,7 +120,7 @@ const PIW2026Highlights = () => {
 
       {/* ── DIALOGUES & PRE-CONFERENCES ─────────────────── */}
       <section className="relative border-y border-gray-100 overflow-hidden">
-        <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg" alt="" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.webp" alt="" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#0a1628]/75" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div ref={dialogues.ref} className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
