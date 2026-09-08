@@ -1,6 +1,5 @@
-node_modules/
-.idea/
-.vs_code/
+node_modules
+.next
+out
+.env*
 .DS_Store
-.env
-dist/

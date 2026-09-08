@@ -1,80 +1,26 @@
 import type { Config } from "tailwindcss";
-import animate from "tailwindcss-animate";
 
-export default {
-  darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+const config: Config = {
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.ts"],
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        ocean: {
-          DEFAULT: "#0EA5E9",
-          light: "#38BDF8",
-          dark: "#0284C7",
-        },
-        coral: {
-          DEFAULT: "#F97316",
-          light: "#FB923C",
-          dark: "#EA580C",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        navy: "#020817",
+        sky: { DEFAULT: "#2CB0EC", deep: "#0B6FA1", tint: "#E7F0FD", tint2: "#F1F6FD" },
+        orange: { DEFAULT: "#F97316", dark: "#EA580C" },
+        canvas: "#F7FAFC",
+        line: "#E2E8F0",
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        display: ["Montserrat", "sans-serif"],
+        display: ["var(--font-syne)", "sans-serif"],
+        sans: ["var(--font-dm-sans)", "sans-serif"],
+        mono: ["var(--font-dm-mono)", "monospace"],
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+      maxWidth: { site: "1280px" },
+      keyframes: { ticker: { from: { transform: "translateX(0)" }, to: { transform: "translateX(-50%)" } } },
+      animation: { ticker: "ticker 38s linear infinite" },
     },
   },
-  plugins: [animate],
-} satisfies Config;
+  plugins: [],
+};
+export default config;

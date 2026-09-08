@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { @apply bg-canvas text-navy antialiased; }
+  a { @apply text-navy no-underline transition-colors; }
+  a:hover { @apply text-orange; }
+  input, textarea, select { @apply w-full min-w-0 font-sans; }
+}
+
+@layer components {
+  .container-site { @apply max-w-site mx-auto px-8; }
+  .eyebrow { @apply font-mono text-xs tracking-[0.12em] uppercase text-orange font-medium; }
+  .h-display { @apply font-display font-extrabold leading-[0.98] tracking-[-0.035em]; }
+  .field { @apply border border-slate-300 py-3.5 px-4 rounded-[10px] text-[15px] outline-none bg-canvas text-navy focus:border-navy; }
+  .field-dark { @apply bg-white/5 border border-white/15 text-white py-3.5 px-4 rounded-[10px] text-[15px] outline-none placeholder:text-slate-400 focus:border-sky; }
+  .btn-primary { @apply inline-flex items-center gap-2.5 bg-orange text-white font-semibold rounded-[10px] hover:bg-orange-dark hover:text-white; }
+  .link-underline { @apply inline-flex items-center gap-2 font-semibold border-b-2 border-orange pb-[3px] hover:text-orange; }
+  .stripes { background: repeating-linear-gradient(135deg, #E7F0FD 0 12px, #F1F6FD 12px 24px); }
+  .stripes-dark { background: repeating-linear-gradient(135deg, #0F1B33 0 12px, #0B1527 12px 24px); }
+}
