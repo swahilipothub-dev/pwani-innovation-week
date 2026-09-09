@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Waves, Leaf, Lightbulb, Rocket, Globe, Sparkles, Users, Calendar, ArrowRight } from 'lucide-react';
+import { Waves, Leaf, Lightbulb, Rocket, ArrowRight } from 'lucide-react';
 import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
 
 const economies = [
@@ -37,19 +37,11 @@ const gallery = [
   { src: "/images/DSC_8833.jpg", label: "The Grand Concert", span: "" },
 ];
 
-const stats = [
-  { icon: <Users className="w-4 h-4" />, value: "2,500+", label: "Participants" },
-  { icon: <Calendar className="w-4 h-4" />, value: "6", label: "Days of Programming" },
-  { icon: <Sparkles className="w-4 h-4" />, value: "7th", label: "Edition" },
-  { icon: <Globe className="w-4 h-4" />, value: "East Africa", label: "Regional Reach" },
-];
-
 const DecadeAndBeyond = () => {
   const executiveSummary = useScrollReveal();
   const econHead = useScrollReveal();
   const econCards = useScrollReveal();
   const agenda = useScrollReveal();
-  const statsRow = useScrollReveal();
   const galleryHead = useScrollReveal();
   const galleryGrid = useScrollReveal();
 
@@ -160,23 +152,6 @@ const DecadeAndBeyond = () => {
               Read the Agenda <ArrowRight size={16} />
             </Link>
           </div>
-        </div>
-
-        {/* ── STATS ─────────────────────────────────── */}
-        <div ref={statsRow.ref} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              style={scaleIn(statsRow.inView, i * 90)}
-              className="text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-[0_10px_24px_rgba(2,8,23,0.05)] hover:shadow-[0_14px_28px_rgba(2,8,23,0.08)] transition-all duration-300"
-            >
-              <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[#F97316]/10 text-[#F97316] mb-3">
-                {s.icon}
-              </div>
-              <p className="text-2xl md:text-3xl font-black text-gray-900">{s.value}</p>
-              <p className="text-xs text-gray-500 font-semibold mt-1 uppercase tracking-wide">{s.label}</p>
-            </div>
-          ))}
         </div>
 
         {/* ── PHOTO GALLERY ─────────────────────────── */}

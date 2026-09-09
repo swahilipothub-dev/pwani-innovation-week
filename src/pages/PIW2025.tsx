@@ -1,14 +1,9 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { Award, ArrowRight, Calendar, FileText, Lightbulb, MapPin, Quote, Target, Users, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { VoicesShowcase, type Voice } from '@/components/VoicesShowcase';
 
 const PIW2025 = () => {
   const features = [
@@ -26,12 +21,13 @@ const PIW2025 = () => {
     { number: "15", label: "Startups at the Deals Den" },
   ];
 
-  const dailyRecap = [
+  const dailyRecap: Voice[] = [
     {
-      day: "Day 1",
-      date: "Mon, 27 Oct",
-      title: "Opening & Cultural Foundations",
-      summary:
+      tag: "Day 1 · Mon, 27 Oct",
+      name: "Opening & Cultural Foundations",
+      title: "Kick-Off Show & Plenary Sessions",
+      highlight: "\u201CHeritage is not the past, it is a living force shaping our future.\u201D",
+      body:
         "A Kick-Off Show blending indigenous art, music and storytelling, including a re-enactment of Swahili hero Fumo Liyongo and the Kishuri Traditional Dancers — set the tone that innovation in Pwani is rooted in culture as much as technology.",
       points: [
         "Keynotes from Ayubu Mohammed (PIW Secretariat), Dr. Tony Omwansa (KENIA), Olivier Vanden Eynde (Close the Gap) and the Youth Advisory Group",
@@ -42,11 +38,12 @@ const PIW2025 = () => {
       ],
     },
     {
-      day: "Day 2",
-      date: "Tue, 28 Oct",
-      title: "Keynotes & Global Partnerships",
-      summary:
-        'A formal welcome to ambassadors from Belgium, France and Saudi Arabia. Prof. Abdul Razak Shaukat described PIW as "not just a conference but the future of Kenya."',
+      tag: "Day 2 · Tue, 28 Oct",
+      name: "Keynotes & Global Partnerships",
+      title: "Ambassadors from Belgium, France & Saudi Arabia",
+      highlight: "\u201CNot just a conference but the future of Kenya.\u201D — Prof. Abdul Razak Shaukat",
+      body:
+        "A formal welcome to ambassadors from Belgium, France and Saudi Arabia opened a day focused on positioning Mombasa as a business, culture and innovation hub.",
       points: [
         "Positioning Mombasa as a Business, Culture and Innovation Hub",
         "From Idea to Impact: Nurturing Youth-Led Startups and Social Enterprises",
@@ -55,10 +52,11 @@ const PIW2025 = () => {
       ],
     },
     {
-      day: "Day 3",
-      date: "Wed, 29 Oct",
-      title: "International Perspectives & Circular Economy Launch",
-      summary:
+      tag: "Day 3 · Wed, 29 Oct",
+      name: "International Perspectives & Circular Economy Launch",
+      title: "Saudi Cultural Diplomacy & WastePreneurs Launch",
+      highlight: "Saudi Arabia's cultural diplomacy model met the launch of the East African Women WastePreneurs Association.",
+      body:
         "Saudi Arabia's Salam for Cultural Communication shared its cultural diplomacy and innovation model, followed by the launch of the East African Women WastePreneurs Association and the Baus Taka App.",
       points: [
         "The Journey of Growth and Self-Discovery — mindset, mentorship, faith and disability inclusion",
@@ -70,10 +68,11 @@ const PIW2025 = () => {
       ],
     },
     {
-      day: "Day 4",
-      date: "Thu, 30 Oct",
-      title: "Governance, Circular Economy & Investment",
-      summary:
+      tag: "Day 4 · Thu, 30 Oct",
+      name: "Governance, Circular Economy & Investment",
+      title: "The KSh 20B NYOTA Project",
+      highlight: "\u201CWaste is not just trash — it's an untapped economy waiting for innovators to claim it.\u201D",
+      body:
         "Hon. Jacob Fikirini announced the NYOTA Project — a KSh 20 billion initiative targeting 820,000 young people, including 100,000 entrepreneurs and 90,000 unskilled youth for Master Craftsman training.",
       points: [
         "Rethinking Governance Systems and Economic Futures",
@@ -84,14 +83,14 @@ const PIW2025 = () => {
       ],
     },
     {
-      day: "Day 5",
-      date: "Fri, 31 Oct",
-      title: "Creative Economy & Closing",
-      summary:
+      tag: "Day 5 · Fri, 31 Oct",
+      name: "Creative Economy & Closing",
+      title: "Closing Ceremony & Hackathon Winners",
+      highlight: "Distributing coastal creativity beyond borders — with Sanaipei Tande & Dazzler Dutchie.",
+      body:
         "The Orange Economy took center stage, followed by the Official Closing Ceremony recognizing bootcamp graduates, hackathon winners and pitch-track entrepreneurs.",
       points: [
         "Building a Sustainable Future through the Creative Gig Economy (HEVA Fund)",
-        "Distributing Coastal Creativity Beyond Borders — with Sanaipei Tande & Dazzler Dutchie",
         "UK–Kenya Tech Hub Logistics Hackathon winners: Port Ease (1st), Navi Trace (2nd), Novi Nova (3rd)",
         "Orange Economy Pitch Session — 11 creative entrepreneurs recognized; Heva Fund 9% soft loans announced",
         "Blue & Green Economy Showcase — Chakula Bora Feeds, Killy Fish and Kulthum Seafoods named investment-ready",
@@ -344,49 +343,13 @@ const PIW2025 = () => {
 
       {/* ── Day-by-Day Recap ─────────────────────────────── */}
       <section id="program" className="bg-gray-50 border-y border-gray-100 scroll-mt-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3 text-center">Event Report</p>
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-3">Five Days of Innovation</h2>
-          <p className="text-gray-500 text-center mb-12">A day-by-day recap of PIW 2025, 27–31 October 2025</p>
+          <p className="text-gray-500 text-center mb-4">A day-by-day recap of PIW 2025, 27–31 October 2025</p>
+          <p className="text-gray-400 text-xs text-center mb-10">Tap a bar to jump between days, or let it auto-play</p>
 
-          <div className="relative">
-            <span className="absolute left-6 sm:left-8 top-3 bottom-3 w-px bg-gradient-to-b from-[#F97316] via-orange-200 to-transparent" aria-hidden="true" />
-            <Accordion type="single" collapsible defaultValue="Day 1" className="space-y-5">
-              {dailyRecap.map((d, i) => (
-                <AccordionItem
-                  key={d.day}
-                  value={d.day}
-                  className="relative pl-16 sm:pl-20 border-none"
-                >
-                  <div className="absolute left-0 top-1 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#F97316] text-white flex items-center justify-center font-black text-lg sm:text-xl shadow-lg shadow-[#F97316]/30 ring-4 ring-gray-50 z-10">
-                    {i + 1}
-                  </div>
-                  <div className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                    <AccordionTrigger className="hover:no-underline px-6 py-5">
-                      <div className="text-left">
-                        <div className="flex items-center gap-2 mb-1.5">
-                          <span className="text-xs font-bold text-[#F97316] bg-orange-50 rounded-full px-2.5 py-0.5">{d.day}</span>
-                          <span className="text-xs text-gray-400 font-semibold">{d.date}</span>
-                        </div>
-                        <p className="font-bold text-gray-900">{d.title}</p>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-6">
-                      <p className="text-gray-600 leading-relaxed mb-4">{d.summary}</p>
-                      <ul className="space-y-2">
-                        {d.points.map((point) => (
-                          <li key={point} className="flex gap-2 text-sm text-gray-600">
-                            <span className="text-[#F97316] font-bold">•</span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </div>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
+          <VoicesShowcase voices={dailyRecap} />
         </div>
       </section>
 
