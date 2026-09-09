@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cpu, Mic2, Trophy, Palmtree } from 'lucide-react';
-import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
+import { useScrollReveal, fadeUp, fadeLeft, fadeRight } from '@/hooks/useScrollReveal';
 
 const activities = [
   {
@@ -34,13 +34,6 @@ const activities = [
   },
 ];
 
-const stats = [
-  { value: "5,000+", label: "Expected Attendees" },
-  { value: "6", label: "Days" },
-  { value: "7th", label: "Edition" },
-  { value: "10", label: "Years of Impact" },
-];
-
 const images = [
   "/images/A21I1862.jpg",
   "/images/A26I5421.jpg",
@@ -51,7 +44,6 @@ const images = [
 const About = () => {
   const copy = useScrollReveal();
   const mosaic = useScrollReveal();
-  const statsRow = useScrollReveal();
   const activitiesRef = useScrollReveal();
 
   return (
@@ -79,16 +71,6 @@ const About = () => {
             <p style={fadeUp(copy.inView, 280)} className="text-gray-500 leading-relaxed">
               Hosted in Mombasa from <strong className="text-gray-700">26 – 31 October 2026</strong>, this edition marks a decade of impact — a national media moment, an investment showcase, and a community celebration, all in one week.
             </p>
-
-            {/* Stats row */}
-            <div ref={statsRow.ref} className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-2">
-              {stats.map((s, i) => (
-                <div key={s.label} style={scaleIn(statsRow.inView, i * 80)} className="text-center p-4 rounded-xl bg-white border border-gray-200 shadow-[0_10px_24px_rgba(2,8,23,0.05)]">
-                  <p className="text-2xl font-black text-[#F97316]">{s.value}</p>
-                  <p className="text-xs text-gray-500 font-semibold mt-1 uppercase tracking-wide">{s.label}</p>
-                </div>
-              ))}
-            </div>
 
             <div style={fadeUp(copy.inView, 360)}>
               <Link
