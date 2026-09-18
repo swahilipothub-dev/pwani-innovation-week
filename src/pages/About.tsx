@@ -115,7 +115,7 @@ const About = () => {
                 PIW 2026 is the most significant edition to date, coinciding with the <strong className="text-white">10th anniversary of Swahilipot Hub Foundation</strong>. It is simultaneously a national media moment, an investment showcase, and a community celebration — all in one week.
               </p>
               <p style={fadeUp(overview.inView, 360)} className="text-white/75 leading-relaxed">
-                The six-day convention will feature Swahilipot Dialogues, Sectoral Pre-Conferences, Deal Rooms, Pwani Accelerate, and close with a Grand Concert at Mama Ngina Waterfront — the most visible single moment of the year.
+                The six-day convention will feature Swahilipot Dialogues, Sectoral Pre-Conferences, Deal Rooms, Pwani Accelerate, and close with a Grand Concert at Gymkhana — the most visible single moment of the year.
               </p>
             </div>
 

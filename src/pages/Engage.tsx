@@ -93,7 +93,7 @@ const Engage = () => {
     },
     {
       title: 'Fun & Culture Nights',
-      description: 'Complement the programme with Pwani creative arts, music, and entertainment, culminating in Pwani Got Talent and the Grand Closing Concert at Mama Ngina Waterfront.',
+      description: 'Complement the programme with Pwani creative arts, music, and entertainment, culminating in Pwani Got Talent and the Grand Closing Concert at Gymkhana.',
       icon: PartyPopper,
       color: 'from-fuchsia-500 to-fuchsia-600',
       features: ['Live Music', 'Pwani Got Talent', 'Closing Concert'],

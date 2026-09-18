@@ -32,7 +32,7 @@ const programmeDays = [
     day: 'Day 5',
     title: 'Friday · Synthesis & Closing',
     accent: 'from-[#0f2a4d] to-[#17457c]',
-    activities: ['Hackathon finals and awards ceremony.', 'Track wrap-up sessions.', 'Grand Closing Concert at Mama Ngina Waterfront.'],
+    activities: ['Hackathon finals and awards ceremony.', 'Track wrap-up sessions.', 'Grand Closing Concert at Gymkhana.'],
   },
   {
     day: 'Day 6',
@@ -235,7 +235,7 @@ const PIW2026Highlights = () => {
               Innovation Week closes the way the Coast does best — with music, on the water's edge.
             </p>
             <p className="text-white/60 text-sm leading-relaxed max-w-xl">
-              The six-day convention closes with a public concert at the Mama Ngina Waterfront, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
+              The six-day convention closes with a public concert at Gymkhana, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
             </p>
           </div>
           <div style={scaleIn(concert.inView, 200)} className="flex-shrink-0 bg-[#F97316] rounded-2xl px-8 py-7 text-center">
@@ -244,7 +244,7 @@ const PIW2026Highlights = () => {
             </div>
             <p className="text-4xl font-black text-white">5,000+</p>
             <p className="text-orange-200 text-xs font-semibold mt-1 uppercase tracking-wide">
-              Expected concert attendees<br />at Mama Ngina Waterfront
+              Expected concert attendees<br />at Gymkhana
             </p>
           </div>
         </div>
