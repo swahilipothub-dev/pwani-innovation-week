@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight, MapPin, Calendar, Users, CalendarDays, Mic2, Layers } from 'lucide-react';
 import { Link } from "react-router-dom";
 import { useInView } from 'react-intersection-observer';
@@ -189,25 +189,23 @@ const Hero = () => {
                 {/* Countdown */}
                 <div className="space-y-3">
                   <p className="text-xs text-[#dbeafe] uppercase tracking-widest font-semibold">
-                    Countdown to PIW 2026
+                    {countdown.days > 0 ? `${countdown.days} Days To PIW 2026` : 'PIW 2026 Is Here'}
                   </p>
-                  <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                  <div className="grid grid-cols-4 gap-2 sm:gap-3">
                     {countdown_items.map((label, i) => (
-                      <React.Fragment key={label}>
-                        <div className="text-center">
-                          <div className="hero-countdown-card relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl">
-                            <div className="absolute inset-[1.5px] rounded-[15px] bg-[#0a1424]/90 backdrop-blur-md flex items-center justify-center overflow-hidden">
-                              <span key={countdownValues[i]} className="hero-digit text-2xl sm:text-3xl font-black text-[#fde68a]">
-                                {String(countdownValues[i]).padStart(2, '0')}
-                              </span>
-                            </div>
-                          </div>
-                          <p className="text-[10px] text-[#e2e8f0] mt-2 font-semibold uppercase tracking-widest">{label}</p>
+                      <div key={label} className="text-center">
+                        <div className="flex h-14 items-center justify-center rounded-lg border border-white/15 bg-[#0a1424] sm:h-16">
+                          <span
+                            key={countdownValues[i]}
+                            className="hero-digit font-display text-xl font-black tabular-nums text-[#fde68a] sm:text-2xl"
+                          >
+                            {String(countdownValues[i]).padStart(2, '0')}
+                          </span>
                         </div>
-                        {i < countdown_items.length - 1 && (
-                          <span className="hero-colon text-[#fde68a]/70 font-black text-xl sm:text-2xl -mt-4">:</span>
-                        )}
-                      </React.Fragment>
+                        <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-widest text-white/50 sm:text-[10px]">
+                          {label}
+                        </p>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -364,15 +362,6 @@ const Hero = () => {
           animation: heroKenBurns 6.5s ease-out forwards;
         }
 
-        /* Countdown: pulsing glow border (no rotation) + digit flip */
-        .hero-countdown-card {
-          background: linear-gradient(135deg, #F97316, #fde68a 55%, #0ea5e9);
-          animation: heroCountdownPulse 2.2s ease-in-out infinite;
-        }
-        @keyframes heroCountdownPulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5), 0 8px 20px rgba(2,8,26,0.4); transform: scale(1); }
-          50% { box-shadow: 0 0 0 7px rgba(249,115,22,0), 0 10px 26px rgba(2,8,26,0.5); transform: scale(1.035); }
-        }
         @keyframes heroLivePing {
           0% { transform: scale(1); opacity: 0.75; }
           75%, 100% { transform: scale(2.2); opacity: 0; }
@@ -411,18 +400,11 @@ const Hero = () => {
           animation: heroDigitFlip 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
           transform-origin: 50% 100%;
         }
-        .hero-colon {
-          animation: heroPulseRing2 1.4s ease-in-out infinite;
-        }
-        @keyframes heroPulseRing2 {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
-        }
 
         @media (prefers-reduced-motion: reduce) {
           .hero-in, .hero-float, .hero-pulse, .hero-nudge,
-          .hero-shimmer::after, .hero-aurora, .hero-kenburns, .hero-countdown-card,
-          .hero-digit, .hero-colon, .hero-text-shine, .hero-live-ping, .hero-outline-text { animation: none; opacity: 1; }
+          .hero-shimmer::after, .hero-aurora, .hero-kenburns,
+          .hero-digit, .hero-text-shine, .hero-live-ping, .hero-outline-text { animation: none; opacity: 1; }
         }
       `}</style>
     </>
