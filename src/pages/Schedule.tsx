@@ -1,53 +1,9 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {format, parseISO} from 'date-fns';
-import {CalendarPlus, Clock, MapPin, Search, Star, Users} from 'lucide-react';
+import {CalendarPlus, Clock, Sparkles} from 'lucide-react';
 import {useScrollReveal, fadeUp, scaleIn} from '@/hooks/useScrollReveal';
-import {
-  PIW_PROGRAM,
-  type ProgramSession,
-  type SessionType,
-  type Village,
-  type VillageTrack,
-} from '@/lib/scheduleData';
-
-const SESSION_TYPE_META: Record<SessionType, {text: string; border: string}> = {
-  Arrival: {text: 'text-gray-500', border: 'border-gray-300'},
-  Plenary: {text: 'text-[#EA580C]', border: 'border-[#F97316]'},
-  Keynote: {text: 'text-[#EA580C]', border: 'border-[#F97316]'},
-  'Fireside Chat': {text: 'text-amber-600', border: 'border-amber-400'},
-  Documentary: {text: 'text-sky-600', border: 'border-sky-400'},
-  Ceremony: {text: 'text-rose-600', border: 'border-rose-400'},
-  Awards: {text: 'text-yellow-600', border: 'border-yellow-400'},
-  Break: {text: 'text-gray-400', border: 'border-gray-300'},
-  Special: {text: 'text-purple-600', border: 'border-purple-400'},
-};
-
-const VILLAGE_META: Record<Village, {text: string; border: string}> = {
-  'Sustainable Economies Village': {text: 'text-green-700', border: 'border-green-500'},
-  'Digital Transformation Village': {text: 'text-purple-700', border: 'border-purple-500'},
-  'Youth and Entrepreneurship Village': {text: 'text-[#EA580C]', border: 'border-[#F97316]'},
-};
-
-type TimePeriod = 'Morning' | 'Afternoon' | 'Evening';
-const TIME_PERIODS: TimePeriod[] = ['Morning', 'Afternoon', 'Evening'];
-
-const getPeriod = (time: string): TimePeriod => {
-  const match = time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-  if (!match) return 'Morning';
-  let hour = parseInt(match[1], 10);
-  const ampm = match[3].toUpperCase();
-  if (ampm === 'PM' && hour !== 12) hour += 12;
-  if (ampm === 'AM' && hour === 12) hour = 0;
-  if (hour < 12) return 'Morning';
-  if (hour < 17) return 'Afternoon';
-  return 'Evening';
-};
-
-const periodsPresent = (times: string[]) => {
-  const present = new Set(times.map(getPeriod));
-  return TIME_PERIODS.filter((p) => present.has(p));
-};
+import {PIW_PROGRAM, WEEK_LONG_EXPERIENCES} from '@/lib/scheduleData';
 
 const safeFormatDate = (date: string, formatString = 'MMM d') => {
   try {
@@ -57,66 +13,28 @@ const safeFormatDate = (date: string, formatString = 'MMM d') => {
   }
 };
 
-const normalize = (...parts: Array<string | string[] | undefined>) =>
-  parts.flat().filter(Boolean).join(' ').toLowerCase();
+const escapeIcsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
 
-const sessionMatches = (session: ProgramSession, query: string) =>
-  normalize(session.title, session.topic, session.venue, session.moderator, session.speakers, session.keynote, session.panelists, session.partners).includes(query);
-
-const trackMatches = (track: VillageTrack, query: string) =>
-  normalize(track.title, track.village, track.venue, track.moderator, track.keynote, track.partners).includes(query);
-
-const BOOKMARKS_KEY = 'piw2026-schedule-bookmarks';
-
-const loadBookmarks = (): Set<string> => {
-  try {
-    const raw = localStorage.getItem(BOOKMARKS_KEY);
-    return new Set(raw ? (JSON.parse(raw) as string[]) : []);
-  } catch {
-    return new Set();
-  }
-};
-
-// Parses a "10:00 AM – 11:30 AM" range against a session's date into real Date objects for .ics export.
-const parseTimeRange = (time: string, dateISO: string): {start: Date; end: Date} | null => {
-  const [startText, endText] = time.split(/[\u2013-]/).map((s) => s.trim());
-  const parseOne = (t: string) => {
-    const m = t?.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-    if (!m) return null;
-    let hour = parseInt(m[1], 10);
-    const ampm = m[3].toUpperCase();
-    if (ampm === 'PM' && hour !== 12) hour += 12;
-    if (ampm === 'AM' && hour === 12) hour = 0;
-    const d = parseISO(dateISO);
-    d.setHours(hour, parseInt(m[2], 10), 0, 0);
-    return d;
-  };
-  const start = parseOne(startText);
-  const end = parseOne(endText);
-  return start && end ? {start, end} : null;
-};
-
-const escapeIcsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;');
-
-const downloadIcs = (title: string, description: string, location: string, time: string, dateISO: string) => {
-  const range = parseTimeRange(time, dateISO);
-  if (!range) return;
-  const fmt = (d: Date) => format(d, "yyyyMMdd'T'HHmmss");
+// Builds a whole-day, all-day .ics event so attendees can drop the day straight into their calendar.
+const downloadDayIcs = (title: string, description: string, dateISO: string) => {
+  const fmtDate = (d: Date) => format(d, 'yyyyMMdd');
+  const start = parseISO(dateISO);
+  const end = new Date(start);
+  end.setDate(end.getDate() + 1);
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Pwani Innovation Week//Schedule//EN',
     'BEGIN:VEVENT',
     `UID:${Date.now()}@piw2026`,
-    `DTSTAMP:${fmt(new Date())}`,
-    `DTSTART:${fmt(range.start)}`,
-    `DTEND:${fmt(range.end)}`,
+    `DTSTAMP:${format(new Date(), "yyyyMMdd'T'HHmmss")}`,
+    `DTSTART;VALUE=DATE:${fmtDate(start)}`,
+    `DTEND;VALUE=DATE:${fmtDate(end)}`,
     `SUMMARY:${escapeIcsText(title)}`,
-    description ? `DESCRIPTION:${escapeIcsText(description)}` : '',
-    location ? `LOCATION:${escapeIcsText(location)}` : '',
+    `DESCRIPTION:${escapeIcsText(description)}`,
     'END:VEVENT',
     'END:VCALENDAR',
-  ].filter(Boolean);
+  ];
   const blob = new Blob([lines.join('\r\n')], {type: 'text/calendar;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -127,32 +45,6 @@ const downloadIcs = (title: string, description: string, location: string, time:
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
-
-// Small top-right controls shared by session and breakout cards for bookmarking and calendar export.
-const CardActions: React.FC<{
-  bookmarked: boolean;
-  onToggleBookmark: () => void;
-  onAddToCalendar: () => void;
-}> = ({bookmarked, onToggleBookmark, onAddToCalendar}) => (
-  <div className="absolute top-4 right-4 flex items-center gap-1">
-    <button
-      type="button"
-      onClick={onToggleBookmark}
-      aria-label={bookmarked ? 'Remove from my agenda' : 'Add to my agenda'}
-      className={`p-1.5 rounded-lg transition-colors ${bookmarked ? 'text-[#F97316] bg-orange-50' : 'text-gray-300 hover:text-gray-400 hover:bg-gray-50'}`}
-    >
-      <Star className="w-4 h-4" fill={bookmarked ? 'currentColor' : 'none'} />
-    </button>
-    <button
-      type="button"
-      onClick={onAddToCalendar}
-      aria-label="Add to calendar"
-      className="p-1.5 rounded-lg text-gray-300 hover:text-[#F97316] hover:bg-orange-50 transition-colors"
-    >
-      <CalendarPlus className="w-4 h-4" />
-    </button>
-  </div>
-);
 
 // A live clock dressed in the coast's coral/purple/gold banner colors, so the hero isn't just text.
 const CulturalClock: React.FC = () => {
@@ -182,192 +74,11 @@ const CulturalClock: React.FC = () => {
   );
 };
 
-const SessionRow: React.FC<{
-  session: ProgramSession;
-  date: string;
-  bookmarked: boolean;
-  onToggleBookmark: () => void;
-}> = ({session, date, bookmarked, onToggleBookmark}) => {
-  const meta = SESSION_TYPE_META[session.type];
-  return (
-    <div className={`page-surface rounded-2xl border-l-4 ${meta.border} relative grid grid-cols-1 md:grid-cols-[150px_1fr] gap-2 md:gap-8 p-6`}>
-      <CardActions
-        bookmarked={bookmarked}
-        onToggleBookmark={onToggleBookmark}
-        onAddToCalendar={() => downloadIcs(session.title, session.topic ?? '', session.venue ?? '', session.time, date)}
-      />
-      <div className="text-sm font-semibold text-gray-500 md:pt-0.5">{session.time}</div>
-
-      <div className="pr-16">
-        <span className={`text-[11px] font-bold uppercase tracking-wider ${meta.text}`}>{session.type}</span>
-        <h3 className="text-lg md:text-xl font-bold text-gray-900 mt-1">{session.title}</h3>
-        {session.topic && <p className="text-gray-600 mt-1">{session.topic}</p>}
-
-        {(session.venue || session.speakers?.length) && (
-          <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-sm text-gray-500">
-            {session.venue && (
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-gray-400" />
-                {session.venue}
-              </span>
-            )}
-            {session.speakers?.length ? (
-              <span className="inline-flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-gray-400" />
-                {session.speakers.join(', ')}
-              </span>
-            ) : null}
-          </div>
-        )}
-
-        {session.moderator && (
-          <p className="text-sm text-gray-500 mt-1.5">
-            <span className="font-semibold text-gray-700">Moderator: </span>
-            {session.moderator}
-          </p>
-        )}
-
-        {session.keynote?.length ? (
-          <p className="text-sm text-gray-500 mt-1.5">
-            <span className="font-semibold text-gray-700">Keynote: </span>
-            {session.keynote.join(' • ')}
-          </p>
-        ) : null}
-
-        {session.panelists?.length ? (
-          <p className="text-sm text-gray-500 mt-1.5">
-            <span className="font-semibold text-gray-700">Panelists: </span>
-            {session.panelists.join(', ')}
-          </p>
-        ) : null}
-
-        {session.partners?.length ? (
-          <p className="text-sm text-gray-400 mt-1.5">{session.partners.join(' · ')}</p>
-        ) : null}
-
-        {session.notes && <p className="text-sm text-gray-400 italic mt-2">{session.notes}</p>}
-      </div>
-    </div>
-  );
-};
-
-const BreakoutRow: React.FC<{
-  time: string;
-  tracks: VillageTrack[];
-  date: string;
-  bookmarks: Set<string>;
-  onToggleBookmark: (id: string) => void;
-  idPrefix: string;
-}> = ({time, tracks, date, bookmarks, onToggleBookmark, idPrefix}) => (
-  <div className="page-surface rounded-2xl grid grid-cols-1 md:grid-cols-[150px_1fr] gap-2 md:gap-8 p-6">
-    <div className="text-sm font-semibold text-gray-500 md:pt-0.5">{time}</div>
-
-    <div>
-      <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Parallel Sessions</span>
-      <div className="space-y-7 mt-4">
-        {tracks.map((track) => {
-          const meta = VILLAGE_META[track.village];
-          const id = `${idPrefix}-${track.village}`;
-          return (
-            <div key={track.village} className={`relative border-l-2 ${meta.border} pl-4 pr-16`}>
-              <CardActions
-                bookmarked={bookmarks.has(id)}
-                onToggleBookmark={() => onToggleBookmark(id)}
-                onAddToCalendar={() => downloadIcs(track.title, track.village, track.venue ?? '', time, date)}
-              />
-              <span className={`text-xs font-bold uppercase tracking-wide ${meta.text}`}>{track.village}</span>
-              <h4 className="text-lg font-bold text-gray-900 mt-1 leading-snug">{track.title}</h4>
-              {track.format && <p className="text-sm text-gray-400 mt-1">{track.format}</p>}
-              {track.venue && (
-                <p className="text-sm text-gray-500 mt-2 inline-flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400" />
-                  {track.venue}
-                </p>
-              )}
-              {track.moderator && (
-                <p className="text-sm text-gray-500 mt-1.5">
-                  <span className="font-semibold text-gray-700">Moderator: </span>
-                  {track.moderator}
-                </p>
-              )}
-              {track.keynote?.length ? (
-                <p className="text-sm text-gray-500 mt-1.5">
-                  <span className="font-semibold text-gray-700">Keynote: </span>
-                  {track.keynote.join(' • ')}
-                </p>
-              ) : null}
-              {track.partners?.length ? <p className="text-sm text-gray-400 mt-1.5">{track.partners.join(' · ')}</p> : null}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </div>
-);
-
 const Schedule = () => {
   const [selectedDay, setSelectedDay] = useState(1);
-  const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>('Morning');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showBookmarkedOnly, setShowBookmarkedOnly] = useState(false);
-  const [bookmarks, setBookmarks] = useState<Set<string>>(loadBookmarks);
   const heroRef = useScrollReveal();
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(Array.from(bookmarks)));
-    } catch {
-      // localStorage unavailable (e.g. private browsing) — bookmarks just won't persist.
-    }
-  }, [bookmarks]);
-
-  const toggleBookmark = (id: string) => {
-    setBookmarks((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
-
   const activeDay = PIW_PROGRAM.find((day) => day.day === selectedDay) ?? PIW_PROGRAM[0];
-
-  const availablePeriods = useMemo(
-    () => periodsPresent(activeDay.blocks.map((b) => b.time)),
-    [activeDay],
-  );
-
-  const handleSelectDay = (dayNum: number) => {
-    setSelectedDay(dayNum);
-    const day = PIW_PROGRAM.find((d) => d.day === dayNum);
-    if (day) {
-      const present = periodsPresent(day.blocks.map((b) => b.time));
-      if (present.length) setSelectedPeriod(present[0]);
-    }
-  };
-
-  const visibleBlocks = activeDay.blocks.filter((block) => getPeriod(block.time) === selectedPeriod);
-
-  const query = searchQuery.trim().toLowerCase();
-  const renderItems = visibleBlocks
-    .map((block, index) => {
-      const key = `${activeDay.day}-${index}`;
-      if (block.kind === 'session') {
-        const id = `s-${key}`;
-        if (query && !sessionMatches(block, query)) return null;
-        if (showBookmarkedOnly && !bookmarks.has(id)) return null;
-        return {key, id, kind: 'session' as const, session: block};
-      }
-      const tracks = block.tracks.filter((track) => {
-        const id = `t-${key}-${track.village}`;
-        if (query && !trackMatches(track, query)) return false;
-        if (showBookmarkedOnly && !bookmarks.has(id)) return false;
-        return true;
-      });
-      if (!tracks.length) return null;
-      return {key, id: `t-${key}`, kind: 'breakout' as const, time: block.time, tracks};
-    })
-    .filter((item): item is NonNullable<typeof item> => item !== null);
 
   return (
     <div className="min-h-screen page-shell">
@@ -403,7 +114,7 @@ const Schedule = () => {
             {PIW_PROGRAM.map((day) => (
               <button
                 key={day.day}
-                onClick={() => handleSelectDay(day.day)}
+                onClick={() => setSelectedDay(day.day)}
                 className={`px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
                   selectedDay === day.day
                     ? 'bg-[#F97316] text-white shadow-lg scale-105'
@@ -429,86 +140,69 @@ const Schedule = () => {
           </span>
         </div>
         <div className="section-container max-w-3xl relative z-10">
-          <div className="mb-8">
-            <span className="text-[#F97316] text-sm font-semibold tracking-wide uppercase">
-              {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
-            </span>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-              {`Day ${activeDay.day}`}
-              {activeDay.theme ? <span className="text-gray-400"> — {activeDay.theme}</span> : null}
-            </h2>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-5">
-            <div className="relative flex-1 max-w-xs">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search sessions, speakers..."
-                className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#F97316]/30 focus:border-[#F97316]"
-              />
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+            <div>
+              <span className="text-[#F97316] text-sm font-semibold tracking-wide uppercase">
+                {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">{`Day ${activeDay.day}`}</h2>
             </div>
             <button
               type="button"
-              onClick={() => setShowBookmarkedOnly((v) => !v)}
-              className={`inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold border transition-colors ${
-                showBookmarkedOnly ? 'bg-[#F97316] text-white border-[#F97316]' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
-              }`}
+              onClick={() =>
+                downloadDayIcs(
+                  `PIW 2026 – Day ${activeDay.day}`,
+                  activeDay.summary.join('\n\n'),
+                  activeDay.date,
+                )
+              }
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200 bg-white text-gray-600 hover:border-[#F97316] hover:text-[#F97316] transition-colors self-start"
             >
-              <Star className="w-3.5 h-3.5" fill={showBookmarkedOnly ? 'currentColor' : 'none'} />
-              My Agenda{bookmarks.size ? ` (${bookmarks.size})` : ''}
+              <CalendarPlus className="w-3.5 h-3.5" /> Add Day to Calendar
             </button>
           </div>
 
-          {availablePeriods.length > 1 && (
-            <div className="flex gap-6 border-b border-gray-200 mb-4">
-              {availablePeriods.map((period) => {
-                const isActive = selectedPeriod === period;
-                return (
-                  <button
-                    key={period}
-                    onClick={() => setSelectedPeriod(period)}
-                    className={`pb-3 text-sm font-semibold border-b-2 transition-colors duration-200 ${
-                      isActive ? 'border-[#F97316] text-[#F97316]' : 'border-transparent text-gray-400 hover:text-gray-600'
-                    }`}
-                  >
-                    {period}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          <div className="space-y-5">
-            {renderItems.map((item) =>
-              item.kind === 'session' ? (
-                <SessionRow
-                  key={item.key}
-                  session={item.session}
-                  date={activeDay.date}
-                  bookmarked={bookmarks.has(item.id)}
-                  onToggleBookmark={() => toggleBookmark(item.id)}
-                />
-              ) : (
-                <BreakoutRow
-                  key={item.key}
-                  time={item.time}
-                  tracks={item.tracks}
-                  date={activeDay.date}
-                  bookmarks={bookmarks}
-                  onToggleBookmark={toggleBookmark}
-                  idPrefix={item.id}
-                />
-              ),
-            )}
-            {!renderItems.length && (
-              <p className="page-surface rounded-2xl p-8 text-center text-gray-400 text-sm">
-                {query || showBookmarkedOnly ? 'No sessions match your filters.' : 'No sessions scheduled for this time of day.'}
-              </p>
-            )}
+          <div className="space-y-4">
+            {activeDay.summary.map((paragraph, i) => (
+              <div key={i} className="page-surface rounded-2xl p-5 md:p-6 flex gap-4">
+                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-50 text-[#F97316] font-bold text-sm flex items-center justify-center">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p className="text-gray-600 leading-relaxed pt-1">{paragraph}</p>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative py-16 md:py-20 overflow-hidden">
+        <img
+          src="/images/A26I5421.jpg"
+          alt="Visitors at the Utamaduni Village Corner"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="section-container max-w-3xl relative z-10">
+          <div className="mb-6">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F97316] bg-white px-3 py-1 rounded-full">
+              Happening All Week
+            </span>
+            {WEEK_LONG_EXPERIENCES.map((experience) => (
+              <h2 key={experience.title} className="text-2xl md:text-3xl font-bold text-white mt-3 drop-shadow-md">
+                {experience.title}
+              </h2>
+            ))}
+          </div>
+          {WEEK_LONG_EXPERIENCES.map((experience) => (
+            <div key={experience.title} className="page-surface rounded-2xl border-l-4 border-[#F97316] p-6 md:p-8 space-y-4">
+              <Sparkles className="w-5 h-5 text-[#F97316]" />
+              {experience.description.map((paragraph, i) => (
+                <p key={i} className="text-gray-600 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
