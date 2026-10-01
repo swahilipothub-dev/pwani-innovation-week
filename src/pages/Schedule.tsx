@@ -15,6 +15,56 @@ const safeFormatDate = (date: string, formatString = 'MMM d') => {
 
 const escapeIcsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
 
+type TimeOfDay = 'Morning' | 'Afternoon' | 'Evening';
+
+const TIME_OF_DAY_PATTERNS: {label: TimeOfDay; regex: RegExp}[] = [
+  {label: 'Morning', regex: /\bmorning\b/i},
+  {label: 'Afternoon', regex: /after lunch|\bafternoon\b/i},
+  {label: 'Evening', regex: /\bevening\b|\b\d{1,2}:\d{2}\s?PM\b/i},
+];
+
+// Only tags a paragraph with a time of day when the source text itself names one — nothing inferred or added.
+const detectTimeOfDay = (paragraph: string): TimeOfDay | null =>
+  TIME_OF_DAY_PATTERNS.find(({regex}) => regex.test(paragraph))?.label ?? null;
+
+interface DaySegment {
+  label: TimeOfDay | null;
+  paragraphs: string[];
+}
+
+// Groups consecutive paragraphs under the time-of-day they already describe, instead of a flat numbered list.
+const groupIntoSegments = (paragraphs: string[]): DaySegment[] => {
+  const segments: DaySegment[] = [];
+  paragraphs.forEach((paragraph) => {
+    const label = detectTimeOfDay(paragraph);
+    const current = segments[segments.length - 1];
+    if (current && current.label === label) {
+      current.paragraphs.push(paragraph);
+    } else {
+      segments.push({label, paragraphs: [paragraph]});
+    }
+  });
+  return segments;
+};
+
+// Bolds the session/moment names already quoted in the source text, for easier scanning.
+const renderParagraph = (paragraph: string, key: number) => {
+  const parts = paragraph.split(/("(?:[^"\\]|\\.)*")/g);
+  return (
+    <p key={key} className="text-gray-600 leading-relaxed">
+      {parts.map((part, i) =>
+        part.startsWith('"') && part.endsWith('"') && part.length > 2 ? (
+          <strong key={i} className="font-semibold text-gray-900">
+            {part}
+          </strong>
+        ) : (
+          <React.Fragment key={i}>{part}</React.Fragment>
+        ),
+      )}
+    </p>
+  );
+};
+
 // Builds a whole-day, all-day .ics event so attendees can drop the day straight into their calendar.
 const downloadDayIcs = (title: string, description: string, dateISO: string) => {
   const fmtDate = (d: Date) => format(d, 'yyyyMMdd');
@@ -162,13 +212,18 @@ const Schedule = () => {
             </button>
           </div>
 
-          <div className="space-y-4">
-            {activeDay.summary.map((paragraph, i) => (
-              <div key={i} className="page-surface rounded-2xl p-5 md:p-6 flex gap-4">
-                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-orange-50 text-[#F97316] font-bold text-sm flex items-center justify-center">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <p className="text-gray-600 leading-relaxed pt-1">{paragraph}</p>
+          <div className="space-y-6">
+            {groupIntoSegments(activeDay.summary).map((segment, i) => (
+              <div key={i} className="page-surface rounded-2xl p-5 md:p-6">
+                {segment.label && (
+                  <span className="inline-flex items-center gap-1.5 mb-3 text-[11px] font-bold uppercase tracking-widest text-[#F97316]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#F97316]" />
+                    {segment.label}
+                  </span>
+                )}
+                <div className="space-y-3">
+                  {segment.paragraphs.map((paragraph, j) => renderParagraph(paragraph, j))}
+                </div>
               </div>
             ))}
           </div>

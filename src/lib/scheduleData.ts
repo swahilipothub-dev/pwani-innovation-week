@@ -1,6 +1,7 @@
 // Pwani Innovation Week 2026 program (Oct 26–31, 2026), as a narrative day-by-day summary.
-// Source: official PIW program summary document. Day 6 has no written summary in the source,
-// so it is condensed from the previously confirmed session list rather than invented.
+// Source: official PIW program summary document (Days 1-5 and Utamaduni Village). Day 6 is not
+// covered by that document, so its summary is condensed from the confirmed session list only —
+// no unverified figures (e.g. a specific hub count) should be added to it.
 
 export interface ProgramDay {
   day: number;
@@ -69,7 +70,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
     date: '2026-10-31',
     weekday: 'Saturday',
     summary: [
-      'The week closes with an evening of celebration. The Afrotellers Storytelling Stage opens the night with a curated showcase of spoken word, oral storytelling and short performances from across the eleven hubs.',
+      'The week closes with an evening of celebration. The Afrotellers Storytelling Stage opens the night with a curated showcase of spoken word, oral storytelling and short performances from across the coast.',
       'Pwani Got Talent then takes the Main Arena stage from 7:00 PM, the grand finale of PIW week with live performances celebrating coastal talent, music and culture, alongside the closing showcase of the week\u2019s Hackathon.',
     ],
   },
