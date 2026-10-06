@@ -26,6 +26,7 @@ import PIW2023 from './pages/PIW2023'
 import PIW2024 from './pages/PIW2024'
 import PIW2025 from './pages/PIW2025'
 import PIW2026 from './pages/PIW2026'
+import PwaniGotTalent from './pages/PwaniGotTalent'
 import SpeakerApplicationForm from '@/pages/SpeakerApplicationForm.tsx'
 import Tickets from '@/pages/Tickets.tsx'
 import Vendors from '@/pages/Vendors.tsx'
@@ -119,6 +120,7 @@ const App = () => (
             <Route path='/piw-2024' element={<PIW2024 />} />
             <Route path='/piw-2025' element={<PIW2025 />} />
             <Route path='/piw-2026' element={<PIW2026 />} />
+            <Route path='/pwani-got-talent' element={<PwaniGotTalent />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </Layout>

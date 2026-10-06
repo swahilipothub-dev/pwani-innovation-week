@@ -93,10 +93,10 @@ const Engage = () => {
     },
     {
       title: 'Fun & Culture Nights',
-      description: 'Complement the programme with Pwani creative arts, music, and entertainment, culminating in Pwani Got Talent and the Grand Closing Concert at Gymkhana.',
+      description: 'Complement the programme with Pwani creative arts, music, and entertainment, culminating in Pwani Gat Talent and the Grand Closing Concert at Gymkhana.',
       icon: PartyPopper,
       color: 'from-fuchsia-500 to-fuchsia-600',
-      features: ['Live Music', 'Pwani Got Talent', 'Closing Concert'],
+      features: ['Live Music', 'Pwani Gat Talent', 'Closing Concert'],
       sessions: 'Evenings',
       image: '/images/piw-2026/WhatsApp Image 2026-06-30 at 20.13.58.jpeg',
     },
@@ -149,7 +149,7 @@ const Engage = () => {
 
   const specialEvents = [
     {
-      title: 'Pwani Got Talent Evening',
+      title: 'Pwani Gat Talent Evening',
       description: 'Special evening showcasing the creative talents of coastal youth',
       time: 'October 30, 7:00 PM',
       location: 'Main Auditorium',

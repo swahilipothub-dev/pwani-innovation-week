@@ -71,7 +71,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
     weekday: 'Saturday',
     summary: [
       'The week closes with an evening of celebration. The Afrotellers Storytelling Stage opens the night with a curated showcase of spoken word, oral storytelling and short performances from across the coast.',
-      'Pwani Got Talent then takes the Main Arena stage from 7:00 PM, the grand finale of PIW week with live performances celebrating coastal talent, music and culture, alongside the closing showcase of the week\u2019s Hackathon.',
+      'Pwani Gat Talent then takes the Main Arena stage from 7:00 PM, the grand finale of PIW week with live performances celebrating coastal talent, music and culture, alongside the closing showcase of the week\u2019s Hackathon.',
     ],
   },
 ];

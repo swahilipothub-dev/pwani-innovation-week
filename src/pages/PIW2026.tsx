@@ -44,7 +44,7 @@ const PIW2026 = () => {
   ];
 
   const statCards = [
-    { number: "5,000+", label: "Expected Attendees" },
+    { number: "2,500+", label: "Expected Attendees" },
     { number: "60+", label: "Partner Organizations" },
     { number: "30+", label: "Innovation Sessions" },
     { number: "20+", label: "Startups Pitching" },
@@ -71,7 +71,7 @@ const PIW2026 = () => {
     {
       icon: Users,
       title: "Network Building",
-      description: "Connecting 3,000+ participants including entrepreneurs, investors, policymakers, and creatives across the East African coastline.",
+      description: "Connecting 2,500+ participants including entrepreneurs, investors, policymakers, and creatives across the East African coastline.",
     },
     {
       icon: Target,

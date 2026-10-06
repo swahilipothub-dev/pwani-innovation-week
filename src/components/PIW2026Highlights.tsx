@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { CalendarDays, Radio, Users, Handshake, TrendingUp, Music } from 'lucide-react';
+import { ArrowRight, CalendarDays, Clock3, MapPin, Radio, Users, Handshake, TrendingUp, Music } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useScrollReveal, fadeUp, fadeLeft, fadeRight, scaleIn } from '@/hooks/useScrollReveal';
 import { SURVEY_LINKS } from '@/lib/config';
+import pgtBanner from '../../client/public/piw_banner.jpeg';
 
 const programmeDays = [
   {
@@ -36,7 +38,7 @@ const programmeDays = [
   },
   {
     day: 'Day 6',
-    title: 'Saturday · Pwani Got Talent (PGT)',
+    title: 'Saturday · Pwani Gat Talent (PGT)',
     accent: 'from-[#0f2a4d] to-[#17457c]',
     activities: ['The ultimate creative arts showcase.'],
   },
@@ -225,29 +227,36 @@ const PIW2026Highlights = () => {
         </div>
       </section>
 
-      {/* ── GRAND CONCERT ───────────────────────────────── */}
-      <section ref={concert.ref} className="mx-4 sm:mx-6 lg:mx-8 mb-16 rounded-2xl bg-[#0a1628] overflow-hidden max-w-7xl lg:mx-auto shadow-[0_20px_45px_rgba(2,8,23,0.2)]">
-        <div style={fadeUp(concert.inView)} className="px-8 sm:px-12 py-14 flex flex-col md:flex-row items-start md:items-center gap-10">
-          <div className="flex-1">
-            <p className="text-xs text-[#F97316] font-bold uppercase tracking-[0.18em] mb-4">Closing Night</p>
-            <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-4">The Grand Concert</h2>
-            <p className="text-[#F97316] font-semibold text-sm mb-4">
-              Innovation Week closes the way the Coast does best — with music, on the water's edge.
-            </p>
-            <p className="text-white/60 text-sm leading-relaxed max-w-xl">
-              The six-day convention closes with a public concert at Gymkhana, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.
-            </p>
+      {/* ── PWANI GAT TALENT ─────────────────────────────── */}
+      <section ref={concert.ref} className="mx-4 mb-16 sm:mx-6 lg:mx-8">
+        <Link
+          to="/pwani-got-talent"
+          aria-label="Explore Pwani Gat Talent event details"
+          style={fadeUp(concert.inView)}
+          className="group mx-auto grid max-w-7xl overflow-hidden rounded-2xl bg-[#210d0a] text-left shadow-[0_20px_45px_rgba(2,8,23,0.2)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_26px_55px_rgba(2,8,23,0.28)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#F97316] md:grid-cols-[0.82fr_1.18fr]"
+        >
+          <div className="relative min-h-[28rem] overflow-hidden bg-[#41150b] p-4 sm:p-7 md:min-h-[38rem]">
+            <img src={pgtBanner} alt="Pwani Gat Talent, October 31, 2026, at Gymkhana Mombasa" loading="lazy" decoding="async" className="h-full max-h-[44rem] w-full rounded-lg object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]" />
           </div>
-          <div style={scaleIn(concert.inView, 200)} className="flex-shrink-0 bg-[#F97316] rounded-2xl px-8 py-7 text-center">
-            <div className="flex items-center gap-3 mb-2">
-              <Music className="w-6 h-6 text-white/80" />
+          <div className="flex flex-col justify-center bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.2),transparent_42%),linear-gradient(145deg,#32110b,#160b0b)] px-6 py-9 text-white sm:px-10 sm:py-12 lg:px-14">
+            <p className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#FDBA74]">
+              <Music className="h-4 w-4" aria-hidden="true" /> The Coast takes the stage
+            </p>
+            <h2 className="text-4xl font-black leading-[0.95] sm:text-5xl lg:text-6xl">Pwani Gat Talent</h2>
+            <p className="mt-5 max-w-xl text-lg font-semibold text-orange-100">Music, dance, spoken word, comedy, fashion and more. One unforgettable night celebrating coastal creativity.</p>
+            <div className="mt-8 grid gap-4 border-y border-white/15 py-5 text-sm text-white/85 sm:grid-cols-2">
+              <span className="inline-flex items-center gap-3"><CalendarDays className="h-5 w-5 shrink-0 text-[#FDBA74]" aria-hidden="true" />Saturday, 31 October 2026</span>
+              <span className="inline-flex items-center gap-3"><Clock3 className="h-5 w-5 shrink-0 text-[#FDBA74]" aria-hidden="true" />From 2 PM till late</span>
+              <span className="inline-flex items-center gap-3 sm:col-span-2"><MapPin className="h-5 w-5 shrink-0 text-[#FDBA74]" aria-hidden="true" />Gymkhana, Mombasa · near KRA offices</span>
             </div>
-            <p className="text-4xl font-black text-white">5,000+</p>
-            <p className="text-orange-200 text-xs font-semibold mt-1 uppercase tracking-wide">
-              Expected concert attendees<br />at Gymkhana
-            </p>
+            <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
+              <span className="text-sm font-semibold text-orange-100">2,500+ expected attendees</span>
+              <span className="inline-flex items-center gap-2 rounded-md bg-[#F97316] px-5 py-3 font-bold text-white transition-colors group-hover:bg-[#EA580C]">
+                Explore the event <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </span>
+            </div>
           </div>
-        </div>
+        </Link>
       </section>
 
     </div>

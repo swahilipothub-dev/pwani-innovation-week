@@ -17,11 +17,11 @@ const Hero = () => {
 
   const slides = [
     {
-      title: "Pwani Got Talent 2025",
+      title: "Pwani Gat Talent 2025",
       subtitle: "Showcasing the coast's brightest performers on one electric stage",
       image: "/images/day2/A26I4046.jpg",
       description:
-        "Pwani Got Talent 2025 is scheduled to take place on 31st October 2025 from 6:00 PM, bringing together emerging and established performers from across the Coast region for an energetic evening of music, dance, spoken word, and creative showcases."
+        "Pwani Gat Talent 2025 is scheduled to take place on 31st October 2025 from 6:00 PM, bringing together emerging and established performers from across the Coast region for an energetic evening of music, dance, spoken word, and creative showcases."
     },
     {
       title: "Coastal Creativity Live",
@@ -137,7 +137,7 @@ const Hero = () => {
               </div>
             </div>
             <p className="mt-4 inline-flex items-center rounded-full border border-[#F97316]/30 bg-white/80 px-6 py-2 text-xs font-bold uppercase tracking-[0.24em] text-[#F97316] shadow-sm backdrop-blur dark:border-[#F97316]/50 dark:bg-slate-900/70 dark:text-orange-200">
-              to Pwani Got Talent
+              to Pwani Gat Talent
             </p>
 
             <div ref={ref} className="pt-8 border-t border-orange-200 dark:border-orange-500/30">

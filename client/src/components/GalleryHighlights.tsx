@@ -19,7 +19,7 @@ const galleryHighlights = [
     day: 'Day 3',
     date: '31st October 2025',
     image: '/images/day3/TR7_1730.jpg',
-    description: 'Final day celebrations featuring Pwani Got Talent performances and awards.'
+    description: 'Final day celebrations featuring Pwani Gat Talent performances and awards.'
   }
 ];
 

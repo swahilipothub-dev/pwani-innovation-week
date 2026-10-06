@@ -11,7 +11,7 @@ const images = [
 ];
 
 const stats = [
-  { value: 4902, suffix: "+", label: "Expected Attendees", icon: Users },
+  { value: 2500, suffix: "+", label: "Expected Attendees", icon: Users },
   { value: 6, suffix: "", label: "Days of Programming", icon: CalendarDays },
   { value: 4, suffix: "", label: "Swahilipot Dialogues", icon: Mic2 },
   { value: 5, suffix: "", label: "Sectoral Pre-Conferences", icon: Layers },

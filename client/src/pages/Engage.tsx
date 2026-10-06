@@ -103,7 +103,7 @@ const Engage = () => {
 
   const specialEvents = [
     {
-      title: 'Pwani Got Talent Evening',
+      title: 'Pwani Gat Talent Evening',
       description: 'Special evening showcasing the creative talents of coastal youth',
       time: 'October 30, 7:00 PM',
       location: 'Main Auditorium',

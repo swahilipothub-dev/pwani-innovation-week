@@ -169,7 +169,7 @@ const About = () => {
         <p style={fadeUp(stats.inView, 0)} className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-10 text-center">Expected Impact</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { value: "5,000+", label: "Expected Attendees" },
+            { value: "2,500+", label: "Expected Attendees" },
             { value: "6", label: "Days of Programming" },
             { value: "4", label: "Swahilipot Dialogues" },
             { value: "5", label: "Sectoral Pre-Conferences" },

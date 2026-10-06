@@ -94,7 +94,7 @@ const DecadeAndBeyond = () => {
             <div className="mt-6 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <img style={fadeUp(executiveSummary.inView, 340)} src="/images/A21I1862.jpg" alt="Pwani Innovation Week participants" loading="lazy" decoding="async" className="h-64 w-full rounded-2xl object-cover shadow-[0_16px_34px_rgba(2,8,23,0.14)] ring-1 ring-[#dce7f5] sm:h-72" />
               <p style={fadeRight(executiveSummary.inView, 340)} className="rounded-2xl bg-white p-6 text-base leading-relaxed text-slate-600 shadow-[0_10px_24px_rgba(15,23,42,0.05)] ring-1 ring-[#e7eef8]">
-              PIW 2026 will convene 2,500+ participants across six days, delivering five thematic tracks, a flagship Deals Den investment showcase, three innovation hackathons, Utamaduni cultural village showcase, field tours, cross-border dialogues, and Pwani Got Talent (PGT), the Grand Closing Concert that brings together the best creative voices in the region.
+              PIW 2026 will convene 2,500+ participants across six days, delivering five thematic tracks, a flagship Deals Den investment showcase, three innovation hackathons, Utamaduni cultural village showcase, field tours, cross-border dialogues, and Pwani Gat Talent (PGT), the Grand Closing Concert that brings together the best creative voices in the region.
               </p>
             </div>
           </div>

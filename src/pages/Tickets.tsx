@@ -40,7 +40,7 @@ const events = [
     id: 'pgt',
     badge: 'Closing Night · 31 Oct',
     icon: Mic2,
-    name: 'Pwani Got Talent',
+    name: 'Pwani Gat Talent',
     dates: '31 October 2026',
     tagline: 'The grand finale of PIW week — live performances celebrating coastal talent, music and culture.',
     features: ['Live performances & finalists', 'Music, culture and comedy acts', 'One night, once a year'],
@@ -99,7 +99,7 @@ const Tickets = () => {
             Claim Your Seat at PIW 2026
           </h1>
           <p className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-            Booking is open for Pwani Innovation Week and Pwani Got Talent. Choose your pass below,
+            Booking is open for Pwani Innovation Week and Pwani Gat Talent. Choose your pass below,
             checkout opens in a new tab, so this page stays right here for you.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/70">
@@ -110,7 +110,7 @@ const Tickets = () => {
               <MapPin className="h-4 w-4 text-[#F97316]" /> Mombasa, Kenya
             </span>
             <span className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#F97316]" /> 3,000+ delegates
+              <Users className="h-4 w-4 text-[#F97316]" /> 2,500+ delegates
             </span>
           </div>
         </div>
