@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {format, parseISO} from 'date-fns';
-import {CalendarPlus, Clock, Sparkles} from 'lucide-react';
+import {CalendarPlus, Clock, Coffee, Handshake, MapPin, MessageSquare, Mic, Music2, Rocket, Sparkles, Trophy, Wrench} from 'lucide-react';
 import {useScrollReveal, fadeUp, scaleIn} from '@/hooks/useScrollReveal';
-import {PIW_PROGRAM, WEEK_LONG_EXPERIENCES} from '@/lib/scheduleData';
+import {PIW_PROGRAM, WEEK_LONG_EXPERIENCES, SIDE_EVENTS, type ProgramSession} from '@/lib/scheduleData';
 
 const safeFormatDate = (date: string, formatString = 'MMM d') => {
   try {
@@ -15,55 +15,80 @@ const safeFormatDate = (date: string, formatString = 'MMM d') => {
 
 const escapeIcsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
 
-type TimeOfDay = 'Morning' | 'Afternoon' | 'Evening';
-
-const TIME_OF_DAY_PATTERNS: {label: TimeOfDay; regex: RegExp}[] = [
-  {label: 'Morning', regex: /\bmorning\b/i},
-  {label: 'Afternoon', regex: /after lunch|\bafternoon\b/i},
-  {label: 'Evening', regex: /\bevening\b|\b\d{1,2}:\d{2}\s?PM\b/i},
-];
-
-// Only tags a paragraph with a time of day when the source text itself names one — nothing inferred or added.
-const detectTimeOfDay = (paragraph: string): TimeOfDay | null =>
-  TIME_OF_DAY_PATTERNS.find(({regex}) => regex.test(paragraph))?.label ?? null;
-
-interface DaySegment {
-  label: TimeOfDay | null;
-  paragraphs: string[];
+interface SessionTimeGroup {
+  time: string;
+  items: ProgramSession[];
 }
 
-// Groups consecutive paragraphs under the time-of-day they already describe, instead of a flat numbered list.
-const groupIntoSegments = (paragraphs: string[]): DaySegment[] => {
-  const segments: DaySegment[] = [];
-  paragraphs.forEach((paragraph) => {
-    const label = detectTimeOfDay(paragraph);
-    const current = segments[segments.length - 1];
-    if (current && current.label === label) {
-      current.paragraphs.push(paragraph);
+// Groups consecutive sessions that share the same time slot, so parallel tracks render side by side.
+const groupSessionsByTime = (sessions: ProgramSession[]): SessionTimeGroup[] => {
+  const groups: SessionTimeGroup[] = [];
+  sessions.forEach((session) => {
+    const current = groups[groups.length - 1];
+    if (current && current.time === session.time) {
+      current.items.push(session);
     } else {
-      segments.push({label, paragraphs: [paragraph]});
+      groups.push({time: session.time, items: [session]});
     }
   });
-  return segments;
+  return groups;
 };
 
-// Bolds the session/moment names already quoted in the source text, for easier scanning.
-const renderParagraph = (paragraph: string, key: number) => {
-  const parts = paragraph.split(/("(?:[^"\\]|\\.)*")/g);
-  return (
-    <p key={key} className="text-gray-600 leading-relaxed">
-      {parts.map((part, i) =>
-        part.startsWith('"') && part.endsWith('"') && part.length > 2 ? (
-          <strong key={i} className="font-semibold text-gray-900">
-            {part}
-          </strong>
-        ) : (
-          <React.Fragment key={i}>{part}</React.Fragment>
-        ),
-      )}
-    </p>
-  );
+const TRACK_BADGE_STYLES: Record<string, string> = {
+  'Sustainable Economies Village': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  'Digital Transformation Village': 'bg-blue-50 text-blue-700 border-blue-200',
+  'Youth and Entrepreneurship Village': 'bg-purple-50 text-purple-700 border-purple-200',
 };
+
+// Lifts a "X Village — " prefix out of the title into its own track badge, for clearer scanning.
+const splitTrack = (title: string): {track: string | null; title: string} => {
+  const idx = title.indexOf(' — ');
+  if (idx === -1) return {track: null, title};
+  const prefix = title.slice(0, idx);
+  if (!prefix.endsWith('Village')) return {track: null, title};
+  return {track: prefix, title: title.slice(idx + 3)};
+};
+
+// Bolds the "Moderator:" / "Keynote Address:" style label at the start of a detail line.
+const renderDetailLine = (line: string, key: number) => {
+  const idx = line.indexOf(':');
+  if (idx > -1 && idx < 40) {
+    return (
+      <li key={key}>
+        <span className="font-semibold text-gray-700">{line.slice(0, idx + 1)}</span>
+        {line.slice(idx + 1)}
+      </li>
+    );
+  }
+  return <li key={key}>{line}</li>;
+};
+
+interface SessionKind {
+  label: string;
+  icon: typeof Mic;
+  bar: string;
+  iconWrap: string;
+}
+
+const DEFAULT_KIND: SessionKind = {label: 'Session', icon: Sparkles, bar: 'bg-gray-300', iconWrap: 'bg-gray-100 text-gray-500'};
+
+const SESSION_KINDS: {regex: RegExp; kind: SessionKind}[] = [
+  {regex: /deals den/i, kind: {label: 'Deals Den', icon: Handshake, bar: 'bg-emerald-400', iconWrap: 'bg-emerald-50 text-emerald-600'}},
+  {regex: /^plenary/i, kind: {label: 'Plenary', icon: Mic, bar: 'bg-[#F97316]', iconWrap: 'bg-[#F97316]/10 text-[#F97316]'}},
+  {regex: /^fireside chat/i, kind: {label: 'Fireside Chat', icon: MessageSquare, bar: 'bg-purple-400', iconWrap: 'bg-purple-50 text-purple-600'}},
+  {regex: /workshop/i, kind: {label: 'Workshop', icon: Wrench, bar: 'bg-blue-400', iconWrap: 'bg-blue-50 text-blue-600'}},
+  {regex: /^launch event/i, kind: {label: 'Launch Event', icon: Rocket, bar: 'bg-amber-400', iconWrap: 'bg-amber-50 text-amber-600'}},
+  {regex: /festival|gat talent/i, kind: {label: 'Live Culture', icon: Music2, bar: 'bg-pink-400', iconWrap: 'bg-pink-50 text-pink-600'}},
+  {regex: /hackathon awards/i, kind: {label: 'Awards', icon: Trophy, bar: 'bg-yellow-400', iconWrap: 'bg-yellow-50 text-yellow-600'}},
+  {regex: /lunch break|arrival|registration|setting up/i, kind: {label: 'Logistics', icon: Coffee, bar: 'bg-gray-300', iconWrap: 'bg-gray-100 text-gray-500'}},
+];
+
+const getSessionKind = (title: string): SessionKind =>
+  SESSION_KINDS.find(({regex}) => regex.test(title))?.kind ?? DEFAULT_KIND;
+
+// Plain logistics entries (arrival, lunch) render as a slim row instead of a full card.
+const isLogistics = (session: ProgramSession) =>
+  session.details.length === 0 && !session.venue && /lunch break|arrival|registration|setting up/i.test(session.title);
 
 // Builds a whole-day, all-day .ics event so attendees can drop the day straight into their calendar.
 const downloadDayIcs = (title: string, description: string, dateISO: string) => {
@@ -160,15 +185,15 @@ const Schedule = () => {
 
       <section className="py-6 bg-white border-b sticky top-16 z-20">
         <div className="section-container !py-0">
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-2.5">
             {PIW_PROGRAM.map((day) => (
               <button
                 key={day.day}
                 onClick={() => setSelectedDay(day.day)}
-                className={`px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
                   selectedDay === day.day
-                    ? 'bg-[#F97316] text-white shadow-lg scale-105'
-                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white shadow-lg shadow-orange-500/25 scale-105'
+                    : 'bg-gray-50 text-gray-700 hover:bg-orange-50 hover:text-[#F97316] border border-gray-200'
                 }`}
               >
                 <div className="flex flex-col items-center leading-tight">
@@ -189,75 +214,162 @@ const Schedule = () => {
             {String(activeDay.day).padStart(2, '0')}
           </span>
         </div>
-        <div className="section-container max-w-3xl relative z-10">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-            <div>
-              <span className="text-[#F97316] text-sm font-semibold tracking-wide uppercase">
-                {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
+        <div className="section-container max-w-4xl relative z-10">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div className="flex items-center gap-4">
+              <span className="shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white flex items-center justify-center text-xl font-black shadow-lg shadow-orange-500/25">
+                {String(activeDay.day).padStart(2, '0')}
               </span>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">{`Day ${activeDay.day}`}</h2>
+              <div>
+                <span className="text-[#F97316] text-sm font-semibold tracking-wide uppercase">
+                  {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{`Day ${activeDay.day}`}</h2>
+              </div>
             </div>
             <button
               type="button"
               onClick={() =>
                 downloadDayIcs(
                   `PIW 2026 – Day ${activeDay.day}`,
-                  activeDay.summary.join('\n\n'),
+                  activeDay.sessions
+                    .map((s) => `${s.time} — ${s.title}${s.venue ? ` (${s.venue})` : ''}`)
+                    .join('\n'),
                   activeDay.date,
                 )
               }
-              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold border border-gray-200 bg-white text-gray-600 hover:border-[#F97316] hover:text-[#F97316] transition-colors self-start"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gray-900 text-white hover:bg-[#F97316] transition-colors self-start"
             >
               <CalendarPlus className="w-3.5 h-3.5" /> Add Day to Calendar
             </button>
           </div>
 
-          <div className="space-y-6">
-            {groupIntoSegments(activeDay.summary).map((segment, i) => (
-              <div key={i} className="page-surface rounded-2xl p-5 md:p-6">
-                {segment.label && (
-                  <span className="inline-flex items-center gap-1.5 mb-3 text-[11px] font-bold uppercase tracking-widest text-[#F97316]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F97316]" />
-                    {segment.label}
-                  </span>
-                )}
-                <div className="space-y-3">
-                  {segment.paragraphs.map((paragraph, j) => renderParagraph(paragraph, j))}
+          <div className="space-y-8">
+            {groupSessionsByTime(activeDay.sessions).map((group, i) => {
+              if (group.items.length === 1 && isLogistics(group.items[0])) {
+                const kind = getSessionKind(group.items[0].title);
+                return (
+                  <div key={i} className="flex items-center gap-3 text-sm text-gray-500">
+                    <span className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${kind.iconWrap}`}>
+                      <kind.icon className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="font-semibold text-gray-900">{group.time}</span>
+                    <span>—</span>
+                    <span>{group.items[0].title}</span>
+                    <span className="h-px flex-1 bg-gray-100" />
+                  </div>
+                );
+              }
+              return (
+                <div key={i}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="shrink-0 inline-flex items-center gap-2 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                      <Clock className="w-3.5 h-3.5 text-[#F97316]" /> {group.time}
+                    </span>
+                    <span className="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent" />
+                  </div>
+                  <div className={`grid gap-4 ${group.items.length > 1 ? 'md:grid-cols-2' : ''}`}>
+                    {group.items.map((session, j) => {
+                      const {track, title} = splitTrack(session.title);
+                      const kind = getSessionKind(session.title);
+                      return (
+                        <div
+                          key={j}
+                          className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 p-5 md:p-6"
+                        >
+                          <span className={`absolute inset-x-0 top-0 h-1 ${kind.bar}`} />
+                          <div className="flex items-center gap-2 mb-2.5">
+                            <span className={`w-7 h-7 rounded-full flex items-center justify-center ${kind.iconWrap}`}>
+                              <kind.icon className="w-3.5 h-3.5" />
+                            </span>
+                            <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">{kind.label}</span>
+                            {track && (
+                              <span
+                                className={`ml-auto text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${
+                                  TRACK_BADGE_STYLES[track] ?? 'bg-gray-50 text-gray-600 border-gray-200'
+                                }`}
+                              >
+                                {track}
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="font-semibold text-gray-900 leading-snug">{title}</h3>
+                          {session.venue && (
+                            <p className="flex items-center gap-1 text-xs text-gray-500 mt-1.5">
+                              <MapPin className="w-3 h-3 text-[#F97316]" /> {session.venue}
+                            </p>
+                          )}
+                          {session.details.length > 0 && (
+                            <ul className="mt-3 space-y-1 text-sm text-gray-600 leading-relaxed list-disc list-inside">
+                              {session.details.map((line, k) => renderDetailLine(line, k))}
+                            </ul>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="relative py-16 md:py-20 overflow-hidden">
+      <section className="relative py-20 md:py-28 overflow-hidden">
         <img
           src="/images/A26I5421.jpg"
           alt="Visitors at the Utamaduni Village Corner"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="section-container max-w-3xl relative z-10">
-          <div className="mb-6">
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F97316] bg-white px-3 py-1 rounded-full">
-              Happening All Week
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/25" />
+        <div className="section-container max-w-4xl relative z-10">
+          <div className="text-center mb-8">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-white bg-[#F97316] px-4 py-1.5 rounded-full shadow-lg shadow-orange-900/30">
+              <Sparkles className="w-3.5 h-3.5" /> Happening All Week
             </span>
             {WEEK_LONG_EXPERIENCES.map((experience) => (
-              <h2 key={experience.title} className="text-2xl md:text-3xl font-bold text-white mt-3 drop-shadow-md">
+              <h2 key={experience.title} className="text-3xl md:text-5xl font-black text-white mt-4 drop-shadow-lg">
                 {experience.title}
               </h2>
             ))}
           </div>
           {WEEK_LONG_EXPERIENCES.map((experience) => (
-            <div key={experience.title} className="page-surface rounded-2xl border-l-4 border-[#F97316] p-6 md:p-8 space-y-4">
-              <Sparkles className="w-5 h-5 text-[#F97316]" />
+            <div
+              key={experience.title}
+              className="bg-white/95 backdrop-blur rounded-3xl border-t-4 border-[#F97316] p-6 md:p-10 shadow-2xl space-y-4"
+            >
+              <div className="flex flex-wrap gap-2">
+                {['Henna Art', 'Pottery Making', 'Language Corner'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-50 text-[#F97316] border border-orange-100"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
               {experience.description.map((paragraph, i) => (
-                <p key={i} className="text-gray-600 leading-relaxed">
+                <p key={i} className="text-gray-600 leading-relaxed text-base md:text-lg">
                   {paragraph}
                 </p>
               ))}
             </div>
           ))}
+
+          <div className="mt-12">
+            <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#F97316] bg-white px-3 py-1 rounded-full">
+              Side Events & Bootcamps
+            </span>
+            <div className="grid sm:grid-cols-2 gap-4 mt-4">
+              {SIDE_EVENTS.map((event, i) => (
+                <div key={i} className="page-surface rounded-2xl border-l-4 border-[#F97316] p-5">
+                  <p className="text-xs font-semibold text-[#F97316] uppercase tracking-wide mb-1">{event.dates}</p>
+                  <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                  {event.description && <p className="text-sm text-gray-600 mt-1.5 leading-relaxed">{event.description}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
