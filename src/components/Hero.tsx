@@ -224,12 +224,12 @@ const Hero = () => {
                   >
                     View Schedule <ArrowRight size={16} className="hero-nudge" />
                   </Link>
-                  <Link
+                  {/* <Link
                     to="/about"
                     className="hero-shine relative inline-flex items-center gap-2 overflow-hidden bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md text-white hover:text-white rounded-lg px-6 py-3 text-sm font-semibold transition-colors duration-200"
                   >
                     See the Full Programme
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </div>
