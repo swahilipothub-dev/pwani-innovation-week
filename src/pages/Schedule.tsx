@@ -35,9 +35,9 @@ const groupSessionsByTime = (sessions: ProgramSession[]): SessionTimeGroup[] => 
 };
 
 const TRACK_BADGE_STYLES: Record<string, string> = {
-  'Sustainable Economies Village': 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  'Digital Transformation Village': 'bg-blue-50 text-blue-700 border-blue-200',
-  'Youth and Entrepreneurship Village': 'bg-purple-50 text-purple-700 border-purple-200',
+  'Sustainable Economies Village': 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-transparent shadow-sm shadow-emerald-500/30',
+  'Digital Transformation Village': 'bg-gradient-to-r from-blue-500 to-blue-600 text-white border-transparent shadow-sm shadow-blue-500/30',
+  'Youth and Entrepreneurship Village': 'bg-gradient-to-r from-purple-500 to-purple-600 text-white border-transparent shadow-sm shadow-purple-500/30',
 };
 
 // Lifts a "X Village — " prefix out of the title into its own track badge, for clearer scanning.
@@ -49,18 +49,25 @@ const splitTrack = (title: string): {track: string | null; title: string} => {
   return {track: prefix, title: title.slice(idx + 3)};
 };
 
-// Bolds the "Moderator:" / "Keynote Address:" style label at the start of a detail line.
+// Renders each detail as a small role-caption + bold name + muted title/org row, so it scans like a speaker card rather than a wall of bold text.
 const renderDetailLine = (line: string, key: number) => {
-  const idx = line.indexOf(':');
-  if (idx > -1 && idx < 40) {
-    return (
-      <li key={key}>
-        <span className="font-semibold text-gray-700">{line.slice(0, idx + 1)}</span>
-        {line.slice(idx + 1)}
-      </li>
-    );
-  }
-  return <li key={key}>{line}</li>;
+  const colonIdx = line.indexOf(':');
+  const hasLabel = colonIdx > -1 && colonIdx < 40;
+  const label = hasLabel ? line.slice(0, colonIdx) : null;
+  const rest = hasLabel ? line.slice(colonIdx + 1).trim() : line;
+  const commaIdx = rest.indexOf(',');
+  const name = commaIdx > -1 ? rest.slice(0, commaIdx) : rest;
+  const tail = commaIdx > -1 ? rest.slice(commaIdx + 1).trim() : '';
+  return (
+    <div key={key} className="flex gap-2.5">
+      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#F97316] shrink-0" />
+      <p className="text-sm text-gray-600 leading-snug min-w-0">
+        {label && <span className="block text-[10px] font-semibold uppercase tracking-wider text-gray-400">{label}</span>}
+        <span className="font-semibold text-gray-900">{name}</span>
+        {tail && <span>, {tail}</span>}
+      </p>
+    </div>
+  );
 };
 
 interface SessionKind {
@@ -73,13 +80,13 @@ interface SessionKind {
 const DEFAULT_KIND: SessionKind = {label: 'Session', icon: Sparkles, bar: 'bg-gray-300', iconWrap: 'bg-gray-100 text-gray-500'};
 
 const SESSION_KINDS: {regex: RegExp; kind: SessionKind}[] = [
-  {regex: /deals den/i, kind: {label: 'Deals Den', icon: Handshake, bar: 'bg-emerald-400', iconWrap: 'bg-emerald-50 text-emerald-600'}},
-  {regex: /^plenary/i, kind: {label: 'Plenary', icon: Mic, bar: 'bg-[#F97316]', iconWrap: 'bg-[#F97316]/10 text-[#F97316]'}},
-  {regex: /^fireside chat/i, kind: {label: 'Fireside Chat', icon: MessageSquare, bar: 'bg-purple-400', iconWrap: 'bg-purple-50 text-purple-600'}},
-  {regex: /workshop/i, kind: {label: 'Workshop', icon: Wrench, bar: 'bg-blue-400', iconWrap: 'bg-blue-50 text-blue-600'}},
-  {regex: /^launch event/i, kind: {label: 'Launch Event', icon: Rocket, bar: 'bg-amber-400', iconWrap: 'bg-amber-50 text-amber-600'}},
-  {regex: /festival|gat talent/i, kind: {label: 'Live Culture', icon: Music2, bar: 'bg-pink-400', iconWrap: 'bg-pink-50 text-pink-600'}},
-  {regex: /hackathon awards/i, kind: {label: 'Awards', icon: Trophy, bar: 'bg-yellow-400', iconWrap: 'bg-yellow-50 text-yellow-600'}},
+  {regex: /deals den/i, kind: {label: 'Deals Den', icon: Handshake, bar: 'bg-gradient-to-r from-emerald-400 to-emerald-600', iconWrap: 'bg-emerald-50 text-emerald-600'}},
+  {regex: /^plenary/i, kind: {label: 'Plenary', icon: Mic, bar: 'bg-gradient-to-r from-[#F97316] to-[#EA580C]', iconWrap: 'bg-[#F97316]/10 text-[#F97316]'}},
+  {regex: /^fireside chat/i, kind: {label: 'Fireside Chat', icon: MessageSquare, bar: 'bg-gradient-to-r from-purple-400 to-purple-600', iconWrap: 'bg-purple-50 text-purple-600'}},
+  {regex: /workshop/i, kind: {label: 'Workshop', icon: Wrench, bar: 'bg-gradient-to-r from-blue-400 to-blue-600', iconWrap: 'bg-blue-50 text-blue-600'}},
+  {regex: /^launch event/i, kind: {label: 'Launch Event', icon: Rocket, bar: 'bg-gradient-to-r from-amber-400 to-amber-600', iconWrap: 'bg-amber-50 text-amber-600'}},
+  {regex: /festival|gat talent/i, kind: {label: 'Live Culture', icon: Music2, bar: 'bg-gradient-to-r from-pink-400 to-pink-600', iconWrap: 'bg-pink-50 text-pink-600'}},
+  {regex: /hackathon awards/i, kind: {label: 'Awards', icon: Trophy, bar: 'bg-gradient-to-r from-yellow-400 to-yellow-600', iconWrap: 'bg-yellow-50 text-yellow-600'}},
   {regex: /lunch break|arrival|registration|setting up/i, kind: {label: 'Logistics', icon: Coffee, bar: 'bg-gray-300', iconWrap: 'bg-gray-100 text-gray-500'}},
 ];
 
@@ -183,16 +190,16 @@ const Schedule = () => {
         </div>
       </div>
 
-      <section className="py-6 bg-white border-b sticky top-16 z-20">
+      <section className="py-4 md:py-6 bg-white border-b sticky top-16 z-20">
         <div className="section-container !py-0">
-          <div className="flex flex-wrap justify-center gap-2.5">
+          <div className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {PIW_PROGRAM.map((day) => (
               <button
                 key={day.day}
                 onClick={() => setSelectedDay(day.day)}
-                className={`px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ${
+                className={`shrink-0 snap-start px-4 md:px-5 py-2 md:py-2.5 rounded-full font-semibold transition-all duration-300 ${
                   selectedDay === day.day
-                    ? 'bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white shadow-lg shadow-orange-500/25 scale-105'
+                    ? 'bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white shadow-lg shadow-orange-500/25 md:scale-105'
                     : 'bg-gray-50 text-gray-700 hover:bg-orange-50 hover:text-[#F97316] border border-gray-200'
                 }`}
               >
@@ -238,7 +245,7 @@ const Schedule = () => {
                   activeDay.date,
                 )
               }
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gray-900 text-white hover:bg-[#F97316] transition-colors self-start"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-md hover:from-[#F97316] hover:to-[#EA580C] hover:shadow-lg hover:shadow-orange-500/25 transition-all duration-300 self-start"
             >
               <CalendarPlus className="w-3.5 h-3.5" /> Add Day to Calendar
             </button>
@@ -263,7 +270,7 @@ const Schedule = () => {
               return (
                 <div key={i}>
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="shrink-0 inline-flex items-center gap-2 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <span className="shrink-0 inline-flex items-center gap-2 bg-gradient-to-r from-gray-900 to-gray-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                       <Clock className="w-3.5 h-3.5 text-[#F97316]" /> {group.time}
                     </span>
                     <span className="h-px flex-1 bg-gradient-to-r from-gray-200 to-transparent" />
@@ -275,10 +282,10 @@ const Schedule = () => {
                       return (
                         <div
                           key={j}
-                          className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 p-5 md:p-6"
+                          className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:shadow-gray-200/60 hover:-translate-y-1 transition-all duration-300 p-5 md:p-6"
                         >
-                          <span className={`absolute inset-x-0 top-0 h-1 ${kind.bar}`} />
-                          <div className="flex items-center gap-2 mb-2.5">
+                          <span className={`absolute inset-x-0 top-0 h-1.5 ${kind.bar}`} />
+                          <div className="flex flex-wrap items-center gap-2 mb-2.5">
                             <span className={`w-7 h-7 rounded-full flex items-center justify-center ${kind.iconWrap}`}>
                               <kind.icon className="w-3.5 h-3.5" />
                             </span>
@@ -293,16 +300,17 @@ const Schedule = () => {
                               </span>
                             )}
                           </div>
-                          <h3 className="font-semibold text-gray-900 leading-snug">{title}</h3>
+                          <h3 className="text-[15px] md:text-base font-bold text-gray-900 leading-snug group-hover:text-[#F97316] transition-colors">{title}</h3>
                           {session.venue && (
-                            <p className="flex items-center gap-1 text-xs text-gray-500 mt-1.5">
-                              <MapPin className="w-3 h-3 text-[#F97316]" /> {session.venue}
-                            </p>
+                            <div className="inline-flex items-center gap-1.5 rounded-lg bg-orange-50 border border-orange-100 px-2.5 py-1 mt-2.5">
+                              <MapPin className="w-3.5 h-3.5 text-[#F97316] shrink-0" />
+                              <span className="text-xs font-semibold text-gray-800">{session.venue}</span>
+                            </div>
                           )}
                           {session.details.length > 0 && (
-                            <ul className="mt-3 space-y-1 text-sm text-gray-600 leading-relaxed list-disc list-inside">
+                            <div className="mt-3 pt-3 border-t border-gray-100 space-y-2.5">
                               {session.details.map((line, k) => renderDetailLine(line, k))}
-                            </ul>
+                            </div>
                           )}
                         </div>
                       );
