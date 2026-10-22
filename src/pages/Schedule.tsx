@@ -1,9 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {format, intervalToDuration, parseISO} from 'date-fns';
-import {CalendarPlus, Clock, Coffee, Handshake, Layers, MapPin, MessageSquare, Mic, Music2, Rocket, Sparkles, Trophy, Waves, Wrench} from 'lucide-react';
+import {
+  ArrowUp,
+  Bookmark,
+  CalendarPlus,
+  Clock,
+  Coffee,
+  ExternalLink,
+  Handshake,
+  Layers,
+  MapPin,
+  MessageSquare,
+  Mic,
+  Music2,
+  Radio,
+  Rocket,
+  Search,
+  Sparkles,
+  Star,
+  Ticket,
+  Trophy,
+  Waves,
+  Wrench,
+  X,
+} from 'lucide-react';
 import {useScrollReveal} from '@/hooks/useScrollReveal';
+import {useMyAgenda} from '@/hooks/useMyAgenda';
 import {PIW_PROGRAM, WEEK_LONG_EXPERIENCES, SIDE_EVENTS, type ProgramDay, type ProgramSession} from '@/lib/scheduleData';
+
+// Stable identity for a session (titles are unique within a day) so stars/bookmarks survive re-renders & reloads.
+const getSessionId = (day: number, session: ProgramSession) => `${day}::${session.title}::${session.time}`;
+
+// "Now" in Mombasa/Nairobi (UTC+3, no DST) expressed as minutes-since-midnight and a yyyy-MM-dd key.
+const getNairobiNow = (reference: Date) => {
+  const nairobi = new Date(reference.getTime() + 3 * 60 * 60 * 1000);
+  const dateKey = `${nairobi.getUTCFullYear()}-${String(nairobi.getUTCMonth() + 1).padStart(2, '0')}-${String(
+    nairobi.getUTCDate(),
+  ).padStart(2, '0')}`;
+  const minutes = nairobi.getUTCHours() * 60 + nairobi.getUTCMinutes();
+  return {dateKey, minutes};
+};
 
 // A distinct visual accent per day so the six-day journey reads as a sequence, not a repeated template.
 interface DayAccent {
@@ -151,32 +188,97 @@ const renderDetailLine = (line: string, key: number) => {
   );
 };
 
-// Shared session card markup, reused by the standard grid and the Day 1 timeline so both stay visually consistent.
+// External ticket purchase CTA for sessions sold via a third-party platform (e.g. Pwani Gat Talent on SoldOutAfrica).
+// rel="noopener noreferrer" guards against reverse-tabnabbing on the external target.
+const renderTicketCta = (session: ProgramSession) => {
+  if (!session.ticketUrl) return null;
+  return (
+    <a
+      href={session.ticketUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-gray-900 text-white text-xs font-bold px-3.5 py-2 hover:bg-[#F97316] transition-colors shadow-sm"
+    >
+      <Ticket className="w-3.5 h-3.5" />
+      Get Tickets
+      {session.ticketPriceFrom && <span className="font-normal text-white/70">· {session.ticketPriceFrom}</span>}
+      <ExternalLink className="w-3 h-3" />
+    </a>
+  );
+};
+
+// Shared session card markup, reused by the standard grid, the Day 1 timeline, and the My Agenda view so all stay visually consistent.
 // showOwnTime is set for overlapping/parallel clusters, where the group header shows a span rather than one fixed time.
-const renderSessionCard = (session: ProgramSession, key: number, showOwnTime = false, delayMs = 0) => {
+interface SessionCardOptions {
+  day: number;
+  isBookmarked: boolean;
+  onToggleBookmark: (id: string) => void;
+  onOpenDetail: (day: number, session: ProgramSession) => void;
+  status?: 'live' | 'next' | null;
+}
+const renderSessionCard = (session: ProgramSession, key: number, showOwnTime = false, delayMs = 0, opts?: SessionCardOptions) => {
   const {track, title} = splitTrack(session.title);
   const kind = getSessionKind(session.title);
   const tagline = DAY_ONE_TAGLINES[session.title];
+  const sessionId = opts ? getSessionId(opts.day, session) : '';
   return (
     <div
       key={key}
+      id={opts?.status === 'live' ? 'live-session' : undefined}
       style={{animationDelay: `${delayMs}ms`}}
-      className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:shadow-gray-200/60 hover:-translate-y-1 transition-all duration-300 p-5 md:p-6 animate-fade-slide-in"
+      onClick={() => {
+        if (opts) opts.onOpenDetail(opts.day, session);
+      }}
+      role={opts ? 'button' : undefined}
+      tabIndex={opts ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (opts && (e.key === 'Enter' || e.key === ' ')) opts.onOpenDetail(opts.day, session);
+      }}
+      className={`group relative overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-xl hover:shadow-gray-200/60 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-offset-2 transition-all duration-300 p-5 md:p-6 animate-fade-slide-in ${
+        opts ? 'cursor-pointer' : ''
+      } ${opts?.status === 'live' ? 'border-emerald-300 ring-2 ring-emerald-200' : 'border-gray-100'}`}
     >
       <span className={`absolute inset-x-0 top-0 h-1.5 ${kind.bar}`} />
+      {opts && (
+        <button
+          type="button"
+          aria-label={opts.isBookmarked ? 'Remove from My Agenda' : 'Add to My Agenda'}
+          aria-pressed={opts.isBookmarked}
+          onClick={(e) => {
+            e.stopPropagation();
+            opts.onToggleBookmark(sessionId);
+          }}
+          className={`absolute top-3.5 right-3.5 z-10 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+            opts.isBookmarked ? 'bg-[#F97316] text-white' : 'bg-gray-50 text-gray-400 hover:bg-orange-50 hover:text-[#F97316]'
+          }`}
+        >
+          <Star className={`w-4 h-4 ${opts.isBookmarked ? 'fill-current' : ''}`} />
+        </button>
+      )}
       {showOwnTime && (
         <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-gray-500 mb-2">
           <Clock className="w-3 h-3 text-[#F97316]" /> {session.time}
         </div>
       )}
-      <div className="flex flex-wrap items-center gap-2 mb-2.5">
+      <div className="flex flex-wrap items-center gap-2 mb-2.5 pr-8">
         <span className={`w-7 h-7 rounded-full flex items-center justify-center ${kind.iconWrap}`}>
           <kind.icon className="w-3.5 h-3.5" />
         </span>
         <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">{kind.label}</span>
+        {opts?.status && (
+          <span
+            className={`inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
+              opts.status === 'live' ? 'bg-emerald-500 text-white animate-pulse' : 'bg-gray-900 text-white'
+            }`}
+          >
+            {opts.status === 'live' && <Radio className="w-2.5 h-2.5" />}
+            {opts.status === 'live' ? 'Live Now' : 'Up Next'}
+          </span>
+        )}
         {track && (
           <span
-            className={`ml-auto text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${
+            className={`${opts?.status ? '' : 'ml-auto'} text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${
               TRACK_BADGE_STYLES[track] ?? 'bg-gray-50 text-gray-600 border-gray-200'
             }`}
           >
@@ -186,6 +288,7 @@ const renderSessionCard = (session: ProgramSession, key: number, showOwnTime = f
       </div>
       <h3 className="text-[15px] md:text-base font-bold text-gray-900 leading-snug group-hover:text-[#F97316] transition-colors">{title}</h3>
       {tagline && <p className="text-xs text-gray-500 italic mt-1 leading-snug">{tagline}</p>}
+      {session.description && <p className="text-sm text-gray-600 leading-relaxed mt-2">{session.description}</p>}
       {session.venue && (
         <div className="inline-flex items-center gap-1.5 rounded-lg bg-orange-50 border border-orange-100 px-2.5 py-1 mt-2.5">
           <MapPin className="w-3.5 h-3.5 text-[#F97316] shrink-0" />
@@ -197,6 +300,7 @@ const renderSessionCard = (session: ProgramSession, key: number, showOwnTime = f
           {session.details.map((line, k) => renderDetailLine(line, k))}
         </div>
       )}
+      {renderTicketCta(session)}
     </div>
   );
 };
@@ -234,7 +338,7 @@ const downloadDayIcs = (title: string, description: string, dateISO: string) => 
   const start = parseISO(dateISO);
   const end = new Date(start);
   end.setDate(end.getDate() + 1);
-  const lines = [
+  downloadIcsFile(`${title.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.ics`, [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Pwani Innovation Week//Schedule//EN',
@@ -247,16 +351,50 @@ const downloadDayIcs = (title: string, description: string, dateISO: string) => 
     `DESCRIPTION:${escapeIcsText(description)}`,
     'END:VEVENT',
     'END:VCALENDAR',
-  ];
+  ]);
+};
+
+const downloadIcsFile = (filename: string, lines: string[]) => {
   const blob = new Blob([lines.join('\r\n')], {type: 'text/calendar;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${title.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.ics`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+};
+
+// Builds a .ics VEVENT for one timed session on a given calendar date; falls back to a 1-hour slot when the time can't be parsed.
+const sessionToIcsEvent = (day: ProgramDay, session: ProgramSession, uidSuffix: string) => {
+  const range = parseTimeRange(session.time);
+  const dayDate = parseISO(day.date);
+  const toStamp = (minutes: number) => {
+    const d = new Date(dayDate);
+    d.setHours(Math.floor(minutes / 60), minutes % 60, 0, 0);
+    return format(d, "yyyyMMdd'T'HHmmss");
+  };
+  const startMinutes = range?.start ?? 8 * 60;
+  const endMinutes = range?.end ?? startMinutes + 60;
+  const description = [session.venue && `Venue: ${session.venue}`, ...session.details].filter(Boolean).join('\\n');
+  return [
+    'BEGIN:VEVENT',
+    `UID:${uidSuffix}@piw2026`,
+    `DTSTAMP:${format(new Date(), "yyyyMMdd'T'HHmmss")}`,
+    `DTSTART:${toStamp(startMinutes)}`,
+    `DTEND:${toStamp(endMinutes)}`,
+    `SUMMARY:${escapeIcsText(`Day ${day.day}: ${session.title}`)}`,
+    ...(session.venue ? [`LOCATION:${escapeIcsText(session.venue)}`] : []),
+    ...(description ? [`DESCRIPTION:${escapeIcsText(description)}`] : []),
+    'END:VEVENT',
+  ];
+};
+
+// Bundles every bookmarked session (across all days) into one downloadable "My Agenda" calendar file.
+const downloadAgendaIcs = (items: {day: ProgramDay; session: ProgramSession}[]) => {
+  const body = items.flatMap(({day, session}, i) => sessionToIcsEvent(day, session, `${Date.now()}-${i}`));
+  downloadIcsFile('piw-2026-my-agenda.ics', ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pwani Innovation Week//My Agenda//EN', ...body, 'END:VCALENDAR']);
 };
 
 // A frosted countdown-and-clock panel over the hero art: ticks down to Day 1 arrival, then flips to a live Mombasa clock.
@@ -317,16 +455,262 @@ const EventPulse: React.FC = () => {
   );
 };
 
+// Full-detail drawer for a session, opened by clicking its card — gives cramped card content room to breathe.
+interface SessionDetailModalProps {
+  day: ProgramDay;
+  session: ProgramSession;
+  isBookmarked: boolean;
+  onToggleBookmark: (id: string) => void;
+  onClose: () => void;
+}
+const SessionDetailModal: React.FC<SessionDetailModalProps> = ({day, session, isBookmarked, onToggleBookmark, onClose}) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  const {track, title} = splitTrack(session.title);
+  const kind = getSessionKind(session.title);
+  const sessionId = getSessionId(day.day, session);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 backdrop-blur-sm p-0 md:p-6 animate-fade-slide-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full md:max-w-xl max-h-[88vh] overflow-y-auto rounded-t-3xl md:rounded-3xl bg-white shadow-2xl p-6 md:p-8"
+      >
+        <span className={`absolute inset-x-0 top-0 h-1.5 ${kind.bar} rounded-t-3xl`} />
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center"
+        >
+          <X className="w-4 h-4" />
+        </button>
+        <div className="flex flex-wrap items-center gap-2 mb-3 pr-10">
+          <span className={`w-8 h-8 rounded-full flex items-center justify-center ${kind.iconWrap}`}>
+            <kind.icon className="w-4 h-4" />
+          </span>
+          <span className="text-xs font-bold uppercase tracking-widest text-gray-400">{kind.label}</span>
+          {track && (
+            <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full border ${TRACK_BADGE_STYLES[track] ?? 'bg-gray-50 text-gray-600 border-gray-200'}`}>
+              {track}
+            </span>
+          )}
+        </div>
+        <p className="text-xs font-bold text-gray-500 mb-1.5">
+          Day {day.day} · {day.weekday}, {safeFormatDate(day.date, 'MMMM d')} · {session.time}
+        </p>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-3">{title}</h2>
+        {session.venue && (
+          <div className="inline-flex items-center gap-1.5 rounded-lg bg-orange-50 border border-orange-100 px-3 py-1.5 mb-4">
+            <MapPin className="w-4 h-4 text-[#F97316] shrink-0" />
+            <span className="text-sm font-semibold text-gray-800">{session.venue}</span>
+          </div>
+        )}
+        {session.details.length > 0 && (
+          <div className="pt-4 border-t border-gray-100 space-y-3">
+            {session.details.map((line, k) => renderDetailLine(line, k))}
+          </div>
+        )}
+        <div className="mt-6 flex gap-3">
+          <button
+            type="button"
+            onClick={() => onToggleBookmark(sessionId)}
+            className={`flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold transition-colors ${
+              isBookmarked ? 'bg-[#F97316] text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-[#F97316]'
+            }`}
+          >
+            <Star className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} /> {isBookmarked ? 'In My Agenda' : 'Add to My Agenda'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// A slim fixed bar across the very top that fills with page scroll depth — gives a sense of progress on a long page
+// instead of endless, directionless scrolling.
+const ScrollProgressBar: React.FC = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(100, Math.max(0, (scrollTop / max) * 100)) : 0);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-transparent pointer-events-none">
+      <div
+        className="h-full bg-gradient-to-r from-[#F97316] via-purple-500 to-sky-400 transition-[width] duration-150 ease-out"
+        style={{width: `${progress}%`}}
+      />
+    </div>
+  );
+};
+
+// Bottom-right helper FABs: jump straight to the live session (when one's running today) and a quick way back to the top.
+interface ScrollHelpersProps {
+  hasLiveSession: boolean;
+}
+const ScrollHelpers: React.FC<ScrollHelpersProps> = ({hasLiveSession}) => {
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 640);
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive: true});
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (!showBackToTop && !hasLiveSession) return null;
+
+  return (
+    <div className="fixed bottom-6 right-5 z-40 flex flex-col items-end gap-2.5">
+      {hasLiveSession && (
+        <button
+          type="button"
+          onClick={() => document.getElementById('live-session')?.scrollIntoView({behavior: 'smooth', block: 'center'})}
+          className="inline-flex items-center gap-1.5 pl-3 pr-4 py-2.5 rounded-full bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-colors animate-pulse"
+        >
+          <Radio className="w-3.5 h-3.5" /> Jump to Live
+        </button>
+      )}
+      {showBackToTop && (
+        <button
+          type="button"
+          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          aria-label="Back to top"
+          className="w-11 h-11 rounded-full bg-white text-gray-700 shadow-lg border border-gray-100 flex items-center justify-center hover:bg-gray-50 hover:text-[#F97316] transition-colors"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
+    </div>
+  );
+};
+
 const Schedule = () => {
   const [selectedDay, setSelectedDay] = useState(1);
+  const [hasAutoSelectedToday, setHasAutoSelectedToday] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [kindFilter, setKindFilter] = useState<string | null>(null);
+  const [showAgenda, setShowAgenda] = useState(false);
+  const [detailTarget, setDetailTarget] = useState<{day: number; session: ProgramSession} | null>(null);
+  const [now, setNow] = useState(new Date());
   const heroRef = useScrollReveal();
+  const {isBookmarked, toggle, count: agendaCount} = useMyAgenda();
+
+  // Keep a lightweight live clock so "Live Now"/"Up Next" badges and auto day-selection stay accurate without a page reload.
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 30000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Jump straight to today's day tab on first load if PIW is in progress — saves visitors the manual click.
+  useEffect(() => {
+    if (hasAutoSelectedToday) return;
+    const {dateKey} = getNairobiNow(now);
+    const todayProgramDay = PIW_PROGRAM.find((day) => day.date === dateKey);
+    if (todayProgramDay) setSelectedDay(todayProgramDay.day);
+    setHasAutoSelectedToday(true);
+  }, [now, hasAutoSelectedToday]);
 
   const activeDay = PIW_PROGRAM.find((day) => day.day === selectedDay) ?? PIW_PROGRAM[0];
   const dayAccent = getDayAccent(activeDay.day);
   const dayHeadline = getDayHeadline(activeDay);
 
+  const {dateKey: todayKey, minutes: nowMinutes} = getNairobiNow(now);
+  const isActiveDayToday = activeDay.date === todayKey;
+
+  const availableKinds = useMemo(
+    () => Array.from(new Set(activeDay.sessions.filter((s) => !isLogistics(s)).map((s) => getSessionKind(s.title).label))),
+    [activeDay],
+  );
+
+  const filteredSessions = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return activeDay.sessions.filter((session) => {
+      if (kindFilter && getSessionKind(session.title).label !== kindFilter) return false;
+      if (!q) return true;
+      return (
+        session.title.toLowerCase().includes(q) ||
+        (session.venue?.toLowerCase().includes(q) ?? false) ||
+        session.details.some((d) => d.toLowerCase().includes(q))
+      );
+    });
+  }, [activeDay, searchQuery, kindFilter]);
+
+  // First session whose range contains "now" is live; the first one starting after "now" is up next (today only).
+  const sessionStatuses = useMemo(() => {
+    const statuses = new Map<string, 'live' | 'next'>();
+    if (!isActiveDayToday) return statuses;
+    let nextAssigned = false;
+    activeDay.sessions.forEach((session) => {
+      const range = parseTimeRange(session.time);
+      if (!range) return;
+      const id = getSessionId(activeDay.day, session);
+      if (nowMinutes >= range.start && nowMinutes < range.end) {
+        statuses.set(id, 'live');
+      } else if (!nextAssigned && range.start > nowMinutes) {
+        statuses.set(id, 'next');
+        nextAssigned = true;
+      }
+    });
+    return statuses;
+  }, [activeDay, isActiveDayToday, nowMinutes]);
+
+  const agendaItems = useMemo(
+    () =>
+      PIW_PROGRAM.flatMap((day) => day.sessions.map((session) => ({day, session})))
+        .filter(({day, session}) => isBookmarked(getSessionId(day.day, session)))
+        .sort((a, b) => a.day.day - b.day.day || a.session.time.localeCompare(b.session.time)),
+    [isBookmarked],
+  );
+
+  const cardOpts = (day: number, session: ProgramSession): SessionCardOptions => ({
+    day,
+    isBookmarked: isBookmarked(getSessionId(day, session)),
+    onToggleBookmark: toggle,
+    onOpenDetail: (d, s) => setDetailTarget({day: d, session: s}),
+    status: sessionStatuses.get(getSessionId(day, session)),
+  });
+
   return (
     <div className="min-h-screen page-shell">
+      <ScrollProgressBar />
+      <ScrollHelpers hasLiveSession={Array.from(sessionStatuses.values()).includes('live')} />
       <div className="relative overflow-hidden pt-20">
         <img
           src="/Teal Coastal Tech Event Background.png"
@@ -356,16 +740,19 @@ const Schedule = () => {
 
 
       <section className="py-5 md:py-7 bg-white border-b sticky top-16 z-20">
-        <div className="section-container !py-0">
+        <div className="section-container !py-0 space-y-4">
           <div className="relative flex md:flex-wrap md:justify-center gap-2 md:gap-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-4 px-4 md:mx-0 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <span className="hidden md:block absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gray-200 -z-10" />
             {PIW_PROGRAM.map((day) => {
               const accent = getDayAccent(day.day);
-              const isActive = selectedDay === day.day;
+              const isActive = !showAgenda && selectedDay === day.day;
               return (
                 <button
                   key={day.day}
-                  onClick={() => setSelectedDay(day.day)}
+                  onClick={() => {
+                    setShowAgenda(false);
+                    setSelectedDay(day.day);
+                  }}
                   className={`shrink-0 snap-start group flex items-center gap-2 pl-2 pr-4 md:pr-5 py-1.5 md:py-2 rounded-full font-semibold transition-all duration-300 border ${
                     isActive
                       ? `bg-gradient-to-br ${accent.grad} text-white border-transparent shadow-lg ${accent.glow} md:scale-105`
@@ -389,114 +776,233 @@ const Schedule = () => {
               );
             })}
           </div>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAgenda((v) => !v)}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+                showAgenda
+                  ? 'bg-gray-900 text-white border-transparent shadow-md'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              <Bookmark className={`w-4 h-4 ${showAgenda ? 'fill-current' : ''}`} />
+              My Agenda
+              <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1 rounded-full text-[11px] font-bold ${showAgenda ? 'bg-white/20' : 'bg-orange-100 text-[#F97316]'}`}>
+                {agendaCount}
+              </span>
+            </button>
+          </div>
         </div>
       </section>
+
 
       <section className="relative py-16 md:py-20 bg-gray-50 overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
           <span className="text-[42vw] leading-none font-black text-gray-900/[0.035]">
-            {String(activeDay.day).padStart(2, '0')}
+            {showAgenda ? '\u2605' : String(activeDay.day).padStart(2, '0')}
           </span>
         </div>
-        <div key={activeDay.day} className="section-container max-w-4xl relative z-10 animate-fade-slide-in">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-            <div className="flex items-center gap-4">
-              <span className={`shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${dayAccent.grad} text-white flex items-center justify-center text-xl font-black shadow-lg ${dayAccent.glow}`}>
-                {String(activeDay.day).padStart(2, '0')}
-              </span>
-              <div>
-                <span className={`${dayAccent.text} text-sm font-semibold tracking-wide uppercase`}>
-                  {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
+        {showAgenda ? (
+          <div key="agenda" className="section-container max-w-4xl relative z-10 animate-fade-slide-in">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div className="flex items-center gap-4">
+                <span className="shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-gray-900 to-gray-700 text-white flex items-center justify-center shadow-lg">
+                  <Bookmark className="w-6 h-6 fill-current" />
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{`Day ${activeDay.day}`}</h2>
-                {dayHeadline && <p className="text-sm text-gray-500 mt-0.5 max-w-md leading-snug">{dayHeadline}</p>}
+                <div>
+                  <span className="text-gray-500 text-sm font-semibold tracking-wide uppercase">Your Starred Sessions</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">My Agenda</h2>
+                </div>
               </div>
+              {agendaItems.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => downloadAgendaIcs(agendaItems)}
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-md hover:shadow-lg transition-all duration-300 self-start"
+                >
+                  <CalendarPlus className="w-3.5 h-3.5" /> Download My Agenda
+                </button>
+              )}
             </div>
-            <button
-              type="button"
-              onClick={() =>
-                downloadDayIcs(
-                  `PIW 2026 – Day ${activeDay.day}`,
-                  activeDay.sessions
-                    .map((s) => `${s.time} — ${s.title}${s.venue ? ` (${s.venue})` : ''}`)
-                    .join('\n'),
-                  activeDay.date,
-                )
-              }
-              className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-md hover:bg-gradient-to-r ${dayAccent.grad
-                .split(' ')
-                .map((c) => `hover:${c}`)
-                .join(' ')} hover:shadow-lg hover:${dayAccent.glow} transition-all duration-300 self-start`}
-            >
-              <CalendarPlus className="w-3.5 h-3.5" /> Add Day to Calendar
-            </button>
-          </div>
 
-          {activeDay.day === 1 && (
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-900 to-[#7c2d12] text-white p-6 md:p-8 shadow-xl mb-10 animate-fade-slide-in" style={{animationDelay: '80ms'}}>
-              <Waves className="absolute -right-6 -bottom-8 w-36 h-36 text-white/10" />
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-amber-300 mb-2.5">
-                <Sparkles className="w-3.5 h-3.5" /> Opening Day · 10 Years of Pwani
-              </span>
-              <p className="relative z-10 text-sm md:text-base text-white/85 max-w-2xl leading-relaxed">
-                The story starts here — a decade of the coast told through art, a new home for Swahili heritage at Fort Jesus,
-                and the honest conversations that trace how Pwani built its agency, its spaces, and its livelihoods.
-              </p>
-            </div>
-          )}
-
-          <div className="relative pl-9 md:pl-11">
-            <span className={`absolute left-[13px] md:left-[15px] top-1 bottom-1 w-px bg-gradient-to-b ${dayAccent.line} via-gray-200 to-transparent animate-grow-line`} />
-            <div className="space-y-8">
-              {groupSessionsByTime(activeDay.sessions).map((group, i) => {
-                const groupDelay = Math.min(i * 90, 540);
-                if (group.items.length === 1 && isLogistics(group.items[0])) {
-                  const kind = getSessionKind(group.items[0].title);
-                  return (
-                    <div
-                      key={i}
-                      className="relative flex items-center gap-3 text-sm text-gray-500 animate-fade-slide-in"
-                      style={{animationDelay: `${groupDelay}ms`}}
-                    >
-                      <span className={`absolute -left-9 md:-left-11 w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-gray-50 ${kind.iconWrap}`}>
-                        <kind.icon className="w-3.5 h-3.5" />
-                      </span>
-                      <span className="font-semibold text-gray-900">{group.time}</span>
-                      <span>—</span>
-                      <span>{group.items[0].title}</span>
-                      <span className="h-px flex-1 bg-gray-100" />
-                    </div>
-                  );
-                }
-                return (
-                  <div key={i} className="relative animate-fade-slide-in" style={{animationDelay: `${groupDelay}ms`}}>
-                    <span className={`absolute -left-9 md:-left-11 top-0 w-7 h-7 rounded-full ${dayAccent.dot} ring-4 ring-gray-50 flex items-center justify-center shadow-sm`}>
-                      <Clock className="w-3.5 h-3.5 text-white" />
-                    </span>
-                    {group.overlapping ? (
-                      <div className="mb-3">
-                        <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-gray-900 to-gray-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                          {group.time}
-                        </span>
-                        <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mt-2">
-                          <Layers className="w-3.5 h-3.5 text-[#F97316]" />
-                          Parallel sessions — pick where you'll be, times overlap below
-                        </p>
-                      </div>
-                    ) : (
-                      <span className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm mb-3">
-                        {group.time}
-                      </span>
-                    )}
-                    <div className={`grid gap-4 ${group.items.length > 1 ? 'md:grid-cols-2' : ''}`}>
-                      {group.items.map((session, j) => renderSessionCard(session, j, group.overlapping, groupDelay + j * 70))}
-                    </div>
+            {agendaItems.length === 0 ? (
+              <div className="text-center py-16 rounded-2xl border border-dashed border-gray-200 bg-white">
+                <Star className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                <p className="text-gray-500 font-medium">No sessions starred yet.</p>
+                <p className="text-sm text-gray-400 mt-1">Tap the star on any session to build your personal agenda.</p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {agendaItems.map(({day, session}, i) => (
+                  <div key={`${day.day}-${i}`}>
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">
+                      Day {day.day} · {day.weekday}, {safeFormatDate(day.date)}
+                    </p>
+                    {renderSessionCard(session, i, true, Math.min(i * 60, 480), cardOpts(day.day, session))}
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        ) : (
+          <div key={activeDay.day} className="section-container max-w-4xl relative z-10 animate-fade-slide-in">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+              <div className="flex items-center gap-4">
+                <span className={`shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br ${dayAccent.grad} text-white flex items-center justify-center text-xl font-black shadow-lg ${dayAccent.glow}`}>
+                  {String(activeDay.day).padStart(2, '0')}
+                </span>
+                <div>
+                  <span className={`${dayAccent.text} text-sm font-semibold tracking-wide uppercase`}>
+                    {activeDay.weekday}, {safeFormatDate(activeDay.date, 'MMMM d, yyyy')}
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{`Day ${activeDay.day}`}</h2>
+                  {dayHeadline && <p className="text-sm text-gray-500 mt-0.5 max-w-md leading-snug">{dayHeadline}</p>}
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() =>
+                  downloadDayIcs(
+                    `PIW 2026 – Day ${activeDay.day}`,
+                    activeDay.sessions
+                      .map((s) => `${s.time} — ${s.title}${s.venue ? ` (${s.venue})` : ''}`)
+                      .join('\n'),
+                    activeDay.date,
+                  )
+                }
+                className={`inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow-md hover:bg-gradient-to-r ${dayAccent.grad
+                  .split(' ')
+                  .map((c) => `hover:${c}`)
+                  .join(' ')} hover:shadow-lg hover:${dayAccent.glow} transition-all duration-300 self-start`}
+              >
+                <CalendarPlus className="w-3.5 h-3.5" /> Add Day to Calendar
+              </button>
+            </div>
+
+            {activeDay.day === 1 && (
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-gray-900 to-[#7c2d12] text-white p-6 md:p-8 shadow-xl mb-10 animate-fade-slide-in" style={{animationDelay: '80ms'}}>
+                <Waves className="absolute -right-6 -bottom-8 w-36 h-36 text-white/10" />
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-amber-300 mb-2.5">
+                  <Sparkles className="w-3.5 h-3.5" /> Opening Day · 10 Years of Pwani
+                </span>
+                <p className="relative z-10 text-sm md:text-base text-white/85 max-w-2xl leading-relaxed">
+                  The story starts here — a decade of the coast told through art, a new home for Swahili heritage at Fort Jesus,
+                  and the honest conversations that trace how Pwani built its agency, its spaces, and its livelihoods.
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-3 mb-8 sm:flex-row sm:items-center">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search this day's sessions, speakers, venues…"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#F97316]/40 focus:border-[#F97316]"
+                />
+              </div>
+              {availableKinds.length > 1 && (
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setKindFilter(null)}
+                    className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                      !kindFilter ? 'bg-gray-900 text-white border-transparent' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    All
+                  </button>
+                  {availableKinds.map((label) => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setKindFilter(kindFilter === label ? null : label)}
+                      className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                        kindFilter === label ? 'bg-gray-900 text-white border-transparent' : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {filteredSessions.length === 0 ? (
+              <div className="text-center py-16 rounded-2xl border border-dashed border-gray-200 bg-white">
+                <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                <p className="text-gray-500 font-medium">No sessions match your search.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery('');
+                    setKindFilter(null);
+                  }}
+                  className="mt-3 text-sm font-semibold text-[#F97316] hover:underline"
+                >
+                  Clear filters
+                </button>
+              </div>
+            ) : (
+              <div className="relative pl-9 md:pl-11">
+                <span className={`absolute left-[13px] md:left-[15px] top-1 bottom-1 w-px bg-gradient-to-b ${dayAccent.line} via-gray-200 to-transparent animate-grow-line`} />
+                <div className="space-y-8">
+                  {groupSessionsByTime(filteredSessions).map((group, i) => {
+                    const groupDelay = Math.min(i * 90, 540);
+                    if (group.items.length === 1 && isLogistics(group.items[0])) {
+                      const kind = getSessionKind(group.items[0].title);
+                      return (
+                        <div
+                          key={i}
+                          className="relative flex items-center gap-3 text-sm text-gray-500 animate-fade-slide-in"
+                          style={{animationDelay: `${groupDelay}ms`}}
+                        >
+                          <span className={`absolute -left-9 md:-left-11 w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-gray-50 ${kind.iconWrap}`}>
+                            <kind.icon className="w-3.5 h-3.5" />
+                          </span>
+                          <span className="font-semibold text-gray-900">{group.time}</span>
+                          <span>—</span>
+                          <span>{group.items[0].title}</span>
+                          <span className="h-px flex-1 bg-gray-100" />
+                        </div>
+                      );
+                    }
+                    return (
+                      <div key={i} className="relative animate-fade-slide-in" style={{animationDelay: `${groupDelay}ms`}}>
+                        <span className={`absolute -left-9 md:-left-11 top-0 w-7 h-7 rounded-full ${dayAccent.dot} ring-4 ring-gray-50 flex items-center justify-center shadow-sm`}>
+                          <Clock className="w-3.5 h-3.5 text-white" />
+                        </span>
+                        {group.overlapping ? (
+                          <div className="mb-3">
+                            <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-gray-900 to-gray-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                              {group.time}
+                            </span>
+                            <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mt-2">
+                              <Layers className="w-3.5 h-3.5 text-[#F97316]" />
+                              Parallel sessions — pick where you'll be, times overlap below
+                            </p>
+                          </div>
+                        ) : (
+                          <span className="inline-flex items-center bg-gradient-to-r from-gray-900 to-gray-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm mb-3">
+                            {group.time}
+                          </span>
+                        )}
+                        <div className={`grid gap-4 ${group.items.length > 1 ? 'md:grid-cols-2' : ''}`}>
+                          {group.items.map((session, j) =>
+                            renderSessionCard(session, j, group.overlapping, groupDelay + j * 70, cardOpts(activeDay.day, session)),
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <section className="relative py-20 md:py-28 overflow-hidden">
@@ -505,6 +1011,7 @@ const Schedule = () => {
           alt="Visitors at the Utamaduni Village Corner"
           className="absolute inset-0 w-full h-full object-cover"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/25" />
         <div className="section-container max-w-4xl relative z-10">
           <div className="text-center mb-8">
@@ -578,6 +1085,16 @@ const Schedule = () => {
           </Link>
         </div>
       </section>
+
+      {detailTarget && (
+        <SessionDetailModal
+          day={PIW_PROGRAM.find((d) => d.day === detailTarget.day) ?? PIW_PROGRAM[0]}
+          session={detailTarget.session}
+          isBookmarked={isBookmarked(getSessionId(detailTarget.day, detailTarget.session))}
+          onToggleBookmark={toggle}
+          onClose={() => setDetailTarget(null)}
+        />
+      )}
     </div>
   );
 };
