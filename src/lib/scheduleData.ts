@@ -7,6 +7,12 @@ export interface ProgramSession {
   title: string;
   venue?: string;
   details: string[];
+  /** Longer scene-setting blurb, rendered as plain prose rather than a name/role detail line. */
+  description?: string;
+  /** External ticket purchase link — renders a "Get Tickets" CTA on the session card/modal. */
+  ticketUrl?: string;
+  /** Short price teaser shown next to the ticket CTA, e.g. "From KES 1,000". */
+  ticketPriceFrom?: string;
 }
 
 export interface ProgramDay {
@@ -483,8 +489,12 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '3:00 PM till late',
         title: 'Pwani Gat Talent',
-        venue: 'Gymkhana',
-        details: ['Partners: Afrotellers, Swahilipot FM'],
+        venue: 'CoastGymkhana',
+        details: ['Partners: Afrotellers, Swahilipot FM', 'Payment: M-Pesa, Airtel Money, Visa or Mastercard — QR ticket delivered by SMS and email'],
+        description:
+          'The six-day convention closes with a public concert at the Gym Khana, drawing crowds far beyond the delegate list. It is deliberately the most visible single moment of the year — the image that anchors the press coverage and reminds every attendee why this work matters.',
+        ticketUrl: 'https://soldoutafrica.com/pwani-gat-talent',
+        ticketPriceFrom: 'From KES 1,000',
       },
     ],
   },
