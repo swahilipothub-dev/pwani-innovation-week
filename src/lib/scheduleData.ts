@@ -149,7 +149,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       },
       {
         time: '12:00 PM – 1:00 PM',
-        title: 'Fireside Chat 1',
+        title: 'Fireside Chat 2',
         details: [
           'Keynote Speaker: Esnas Tsindoli, Chairperson, Youth Advisory Group, Mombasa County',
           'Partners: Mahmoud Noor, Chief Mentor, Swahilipot Hub Foundation',
@@ -159,7 +159,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {time: '1:00 PM – 2:00 PM', title: 'Lunch Break', details: []},
       {
         time: '2:00 PM – 4:30 PM',
-        title: 'Sustainable Economies Village — Workshop 1: Food Systems Policy Dialogue',
+        title: 'Sustainable Economies Village — Workshop 4: Food Systems Policy Dialogue',
         venue: 'Mazrui Hall',
         details: [
           'Keynote Address: Sabrina M. Jefwa, CECM Blue Economy, Lamu',
@@ -189,7 +189,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       },
       {
         time: '2:00 PM – 4:30 PM',
-        title: 'Youth and Entrepreneurship Village — Workshop 4: What Does a Better Coast Look Like? More Jobs, Stronger Businesses, and Livable Communities',
+        title: 'Youth and Entrepreneurship Village — Workshop 1: What Does a Better Coast Look Like? More Jobs, Stronger Businesses, and Livable Communities',
         venue: 'Main Arena',
         details: [
           'Keynote Address: Alice Gugelev, CEO, GDI Africa',
