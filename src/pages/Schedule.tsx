@@ -73,8 +73,8 @@ const getDayHeadline = (day: ProgramDay): string | null => {
 const DAY_ONE_TAGLINES: Record<string, string> = {
   'Arrival, Registration & Setting Up': 'Badges on, seats found \u2014 energy building before the first bell.',
   'Plenary 1: This Is Pwani — 10 Years Through Art': 'A decade of the coast, told through art, music, and memory.',
-  'Launch Event: Launch of the Swahili Library': 'A new home for Swahili heritage opens its doors at Fort Jesus.',
-  'Fireside Chat': 'An honest, unscripted conversation on community-led change.',
+  'Launch Event 1: Launch of the Swahili Library': 'A new home for Swahili heritage opens its doors this week.',
+  'Fireside Chat 1: The Coast We Have — Unlocking Our Resources, Creating Our Future': 'An honest, unscripted conversation on community-led change.',
   'Plenary 2: The Coast We Inherited to the Coast We Are Building — 10 Years of Agency, Safe Spaces, Livelihoods':
     'From the coast we inherited to the coast we\u2019re building \u2014 ten years of agency and livelihoods.',
   'Lunch Break': 'Recharge before the afternoon sessions.',
@@ -1030,7 +1030,7 @@ const Schedule = () => {
               className="bg-white/95 backdrop-blur rounded-3xl border-t-4 border-[#F97316] p-6 md:p-10 shadow-2xl space-y-4"
             >
               <div className="flex flex-wrap gap-2">
-                {['Henna Art', 'Pottery Making', 'Language Corner'].map((tag) => (
+                {['Henna Art', 'Pottery Making', 'Mosaic Painting', 'Language Corner'].map((tag) => (
                   <span
                     key={tag}
                     className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-50 text-[#F97316] border border-orange-100"
