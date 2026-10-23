@@ -139,6 +139,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '11:30 AM – 12:00 PM',
         title: 'Launch Event: Swahilipot Hub Foundation Impact Report & MOU Signing',
+        venue: 'Main Arena',
         details: [
           'Moderator (Impact Report): Ken Miheso, Chief Operations Officer, Swahilipot Hub Foundation',
           'Moderator (MOU Signing): Rukiya Janwaala, Head of Communication and Partnerships',
@@ -150,6 +151,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '12:00 PM – 1:00 PM',
         title: 'Fireside Chat 2',
+        venue: 'Main Arena',
         details: [
           'Keynote Speaker: Esnas Tsindoli, Chairperson, Youth Advisory Group, Mombasa County',
           'Partners: Mahmoud Noor, Chief Mentor, Swahilipot Hub Foundation',
@@ -173,6 +175,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '2:00 PM – 4:30 PM',
         title: 'Digital Transformation Village — Workshop 2: Green Is the New Gold',
+        venue: 'Arena B',
         details: [
           'Moderator: Arafat Mukasa, Head of Business Development and Partnerships, Midella',
           'Keynote Address: Ms. Emily Achieng, CECM, Department of Water, Environment, Energy and Natural Resources, County Government of Mombasa',
@@ -184,12 +187,13 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '2:00 PM – 4:30 PM',
         title: 'Sustainable Economies Village — Workshop 3',
+        venue: 'Amphitheatre',
         details: ['Keynote Address: TBC', 'Moderator: TBC', 'Partners: AAR, ABSA Bank'],
       },
       {
         time: '2:00 PM – 4:30 PM',
         title: 'Sustainable Economies Village — Workshop 4: Food Systems Policy Dialogue',
-        venue: 'Mazrui Hall',
+        venue: 'Ali Mazrui Hall',
         details: [
           'Keynote Address: Sabrina M. Jefwa, CECM Blue Economy, Lamu',
           'Ibrahim Khamisi, CECM for Blue Economy, Cooperatives, Agriculture and Livestock, County Government of Mombasa',
@@ -212,11 +216,11 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {time: '8:30 AM – 9:00 AM', title: 'Arrival and Registration', details: []},
       {
         time: '9:00 AM – 10:15 AM',
-        title: 'Fireside Chat 2: Kenya\u2019s Position in AI for the Next 5 Years',
+        title: 'Fireside Chat 3: Kenya\u2019s Position in AI for the Next 5 Years',
         venue: 'Main Arena',
         details: [
           'Keynote Address: Mr. Jessy K. Maruti, CEO, ICT Authority',
-          'Moderator: Share Internet',
+          'Moderator: Sir. Michael Onyango',
           'Panelist: Prof. Bitange Ndemo, Global Technocrat',
         ],
       },
@@ -227,15 +231,15 @@ export const PIW_PROGRAM: ProgramDay[] = [
         details: [
           'Keynote Address: Atrash Ali, Senior Advisor, Conrad N. Hilton Foundation',
           'Moderator: Rukiya Jaanwalla, Head of Communication and Partnerships, Swahilipot Hub Foundation',
-          'Panelists: Brenda Nambatya',
-          'Chris Maclay',
-          'Nick Markham',
+          'Panelists: Brenda Nambatya, Regional Platform Inclusion Lead, Jobtech Alliance',
+          'Chris Maclay, Programmes Director, Jobtech Alliance',
+          'Nick Markham, Investment and Venture Support Lead, Jobtech Alliance',
         ],
       },
       {
         time: '10:15 AM – 1:00 PM',
         title: 'Digital Transformation Village — Workshop 5: Business Modelling',
-        venue: 'Main Arena B',
+        venue: 'Arena B',
         description:
           'Equips participants with practical knowledge and skills to develop and refine business models for their innovations and entrepreneurial ventures.',
         details: ['Keynote Address: Ajira Digital', 'Moderator: Belinda Nasimiyu', 'Partners: ICT Authority', 'Ajira'],
