@@ -132,7 +132,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
           'Kamal Abdulsatar Haji, Lord Mayor, Zanzibar City Council',
           'Ms. Hannah Tsadik, Country Representative, Mastercard Foundation',
           'Prof. Shaukat Abdulrazak, PhD, EBS, Principal Secretary, State Department for Science, Research and Innovation',
-          'Head of the Youth Affairs Advisory Unit, Office of the Deputy President, Republic of Kenya',
+          'Gerald Mithamo Head of the Youth Affairs Advisory Unit, Office of the Deputy President, Republic of Kenya',
           'H.E. Abdulswamad Shariff Nassir, Governor, County Government of Mombasa',
         ],
       },
