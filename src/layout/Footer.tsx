@@ -66,12 +66,6 @@ const Footer = () => {
                 <Link to="/workshops" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Workshops</Link>
               </li>
               <li>
-                <Link to="/panel-discussions" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Panel Discussions</Link>
-              </li>
-              <li>
-                <Link to="/networking-events" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Networking Events</Link>
-              </li>
-              <li>
                 <Link to="/exhibitions" className="text-slate-200/90 transition-colors duration-200 hover:text-[#F97316]">Exhibitions</Link>
               </li>
             </ul>
