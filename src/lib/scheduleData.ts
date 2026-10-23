@@ -268,7 +268,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
       {
         time: '3:30 PM – 5:00 PM',
         title: 'Sustainable Economies Village — Workshop 7: Anchoring the Blue Economy — Maritime Education, Youth Innovation, and Kenya\u2019s Untapped Opportunity',
-        venue: 'TBC',
+        venue: 'Amphithitre',
         details: [
           'Partners: Miss Nicole Sulu, Bandari Maritime Academy',
           'James Waruiru, Environmental Programs Head, Majestic Hub',
@@ -316,8 +316,6 @@ export const PIW_PROGRAM: ProgramDay[] = [
         details: [
           'Topic 1: Sovereignty as a Governance Question at National, East African Community, and African Union Levels \u2014 Ms. Linet Akeyo, Program Officer, Maskani Ya Taifa, Inuka Kenya Ni Sisi!',
           'Topic 2: Algorithmic Colonialism',
-          'Keynote Address: TBC',
-          'Moderator: TBC',
           'Partners: Afrotellers, Swahilipot Hub Foundation',
         ],
       },
