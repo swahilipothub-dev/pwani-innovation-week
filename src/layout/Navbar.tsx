@@ -33,8 +33,6 @@ const experienceLinks = [
   { label: "Hackathon", to: "/hackathon" },
   { label: "Plenary Sessions", to: "/plenary-sessions" },
   { label: "Workshops", to: "/workshops" },
-  { label: "Panel Discussions", to: "/panel-discussions" },
-  { label: "Networking Events", to: "/networking-events" },
   { label: "Exhibitions", to: "/exhibitions" },
 ];
 

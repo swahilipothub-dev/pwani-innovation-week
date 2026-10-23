@@ -19,8 +19,6 @@ import NotFound from './pages/NotFound'
 import Hackathon from './pages/Hackathon'
 import PlenarySessions from './pages/PlenarySessions'
 import Workshops from './pages/Workshops'
-import PanelDiscussions from './pages/PanelDiscussions'
-import NetworkingEvents from './pages/NetworkingEvents'
 import Exhibitions from './pages/Exhibitions'
 import PIW2023 from './pages/PIW2023'
 import PIW2024 from './pages/PIW2024'
@@ -79,14 +77,6 @@ const App = () => (
             <Route
               path='/workshops'
               element={<Workshops />}
-            />
-            <Route
-              path='/panel-discussions'
-              element={<PanelDiscussions />}
-            />
-            <Route
-              path='/networking-events'
-              element={<NetworkingEvents />}
             />
             <Route
               path='/exhibitions'
