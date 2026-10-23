@@ -19,6 +19,31 @@ const stats = [
 
 const countdown_items = ["Days", "Hrs", "Min", "Sec"] as const;
 
+const marquee_words = ["Pitch For Funding", "Secret Reveals", "Deal Rooms Live", "Culture Nights", "Meet The Builders", "Something Big Is Coming"];
+
+const teasers = [
+  {
+    title: "The Mystery Headliner",
+    teaser: "A name we can't drop yet. You'll want to be in the room when we do.",
+    unlock: "Unlocks Day 1",
+  },
+  {
+    title: "Live Deal Drops",
+    teaser: "Real cheques, real stages, real reactions — watch funding happen live.",
+    unlock: "Unlocks Day 3",
+  },
+  {
+    title: "After-Dark Takeover",
+    teaser: "The nights hit different this year. Gymkhana won't know what hit it.",
+    unlock: "Unlocks Day 5",
+  },
+  {
+    title: "The Decade Surprise",
+    teaser: "10 years in the making. We're saving this one for the main stage.",
+    unlock: "Unlocks Day 6",
+  },
+];
+
 /** Counts up from 0 to `value` once it scrolls into view. */
 const AnimatedNumber = ({ value, suffix = "", inView, duration = 1600 }: { value: number; suffix?: string; inView: boolean; duration?: number }) => {
   const [display, setDisplay] = useState(0);
@@ -77,6 +102,14 @@ const Hero = () => {
 
   const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
   const heroPanelClass = "border border-white/4 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-xl";
+
+  const isUrgent = countdown.days <= 2;
+  const hasLaunched = countdown.days === 0 && countdown.hours === 0 && countdown.minutes === 0 && countdown.seconds === 0;
+  const countdownLabel = hasLaunched
+    ? 'PIW 2026 Is Here'
+    : isUrgent
+      ? `⚡ Final Countdown — ${countdown.days > 0 ? `${countdown.days} Day${countdown.days === 1 ? '' : 's'} Left` : 'Hours Left'} ⚡`
+      : `${countdown.days} Days To PIW 2026`;
 
   return (
     <>
@@ -142,6 +175,18 @@ const Hero = () => {
                 </div>
               </div>
 
+              {/* Energy ticker — hints the week is bigger than a conference */}
+              <div className="hero-in overflow-hidden rounded-full border border-white/10 bg-black/30 backdrop-blur-sm" style={{ animationDelay: '40ms' }}>
+                <div className="hero-marquee flex w-max items-center gap-8 whitespace-nowrap py-2 px-4">
+                  {[...marquee_words, ...marquee_words].map((word, i) => (
+                    <span key={i} className="flex items-center gap-8 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#fde68a]/85">
+                      {word}
+                      <span className="h-1 w-1 rounded-full bg-[#F97316]" />
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               {/* Headline: mixed weight + outline + shimmer for graphic depth */}
               <h1 className="leading-[0.86] tracking-tight">
                 <span className="hero-in block text-3xl sm:text-4xl lg:text-5xl font-medium text-white/80" style={{ animationDelay: '90ms' }}>
@@ -160,6 +205,11 @@ const Hero = () => {
                   A Decade and Beyond · Youth, Innovation &amp; Coastal Futures
                 </p>
               </div>
+
+              {/* Tease: this year is bigger than people expect */}
+              <p className="hero-in max-w-xl text-base sm:text-lg text-white/70 leading-relaxed" style={{ animationDelay: '320ms' }}>
+                This isn&apos;t just another conference. We&apos;ve been quietly stacking surprises for the whole week — <span className="hero-text-shine font-bold">some of it drops live, on stage, with no warning.</span>
+              </p>
             </div>
 
             {/* ── Floating info / CTA panel ── */}
@@ -188,16 +238,16 @@ const Hero = () => {
 
                 {/* Countdown */}
                 <div className="space-y-3">
-                  <p className="text-xs text-[#dbeafe] uppercase tracking-widest font-semibold">
-                    {countdown.days > 0 ? `${countdown.days} Days To PIW 2026` : 'PIW 2026 Is Here'}
+                  <p className={`text-xs uppercase tracking-widest font-semibold ${isUrgent ? 'hero-urgent-label text-[#fdba74]' : 'text-[#dbeafe]'}`}>
+                    {countdownLabel}
                   </p>
-                  <div className="grid grid-cols-4 gap-2 sm:gap-3">
+                  <div className={`grid grid-cols-4 gap-2 sm:gap-3 ${isUrgent ? 'hero-urgent-pulse rounded-lg' : ''}`}>
                     {countdown_items.map((label, i) => (
                       <div key={label} className="text-center">
-                        <div className="flex h-14 items-center justify-center rounded-lg border border-white/15 bg-[#0a1424] sm:h-16">
+                        <div className={`flex h-14 items-center justify-center rounded-lg border sm:h-16 ${isUrgent ? 'border-[#F97316]/70 bg-[#1a0f06]' : 'border-white/15 bg-[#0a1424]'}`}>
                           <span
                             key={countdownValues[i]}
-                            className="hero-digit font-display text-xl font-black tabular-nums text-[#fde68a] sm:text-2xl"
+                            className={`hero-digit font-display text-xl font-black tabular-nums sm:text-2xl ${isUrgent ? 'text-[#fdba74]' : 'text-[#fde68a]'}`}
                           >
                             {String(countdownValues[i]).padStart(2, '0')}
                           </span>
