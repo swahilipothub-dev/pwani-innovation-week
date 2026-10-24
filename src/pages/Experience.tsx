@@ -1,167 +1,253 @@
-import React, {useMemo, useState} from 'react';
-import {PlayCircle, Ticket, Video, Images} from 'lucide-react';
-import {Button} from '@/components/ui/button';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import { useScrollReveal, fadeUp } from '@/hooks/useScrollReveal';
+import React, { useMemo, useState } from 'react';
+import {
+  ArrowDown,
+  Calendar,
+  Clapperboard,
+  Clock,
+  Footprints,
+  MapPin,
+  Sparkles,
+  Ticket,
+} from 'lucide-react';
+import { StationCard } from '@/components/CreativeTrail/StationCard';
+import { CREATIVE_TRAIL_STATIONS, FILTER_OPTIONS, type FilterKey } from '@/lib/creativeTrailData';
+import './Experience.css';
 
-type ExperienceKey = 'boat' | 'food' | 'bike' | 'workout';
-
-const EXPERIENCE_PRICE_LABEL = 'Ksh 2,000.00';
+const ORDERED_STATIONS = [...CREATIVE_TRAIL_STATIONS].sort(
+  (first, second) => Number(first.number) - Number(second.number),
+);
 
 const Experience: React.FC = () => {
-  const [selected, setSelected] = useState<ExperienceKey>('boat');
-  const heroRef = useScrollReveal();
+  const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
+  const [selectedStation, setSelectedStation] = useState<string | null>(null);
 
-  const experiences = useMemo(() => ({
-    boat: {
-      title: 'Boat Ride / Dhow',
-      description: 'Sail the coastal waters on a traditional dhow and enjoy scenic views.',
-      images: [
-        '/images/Z50_4804.jpg',
-        '/images/Z50_5527.jpg',
-        '/images/Z50_5583.jpg',
-        '/images/Z50_6272.jpg',
-      ],
-      videos: [
-        'https://www.youtube.com/embed/21X5lGlDOfg',
-      ],
-    },
-    food: {
-      title: 'Food Tour',
-      description: 'Taste authentic coastal cuisine on a guided street food adventure.',
-      images: [
-        '/images/image2.jpg',
-        '/images/IMG-145.jpg',
-        '/images/IMG-176.jpg',
-        '/images/A26I7945.JPG',
-      ],
-      videos: [
-        'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      ],
-    },
-    bike: {
-      title: 'Bike Ride',
-      description: 'Explore the city and coastline with a scenic guided bike tour.',
-      images: [
-        '/images/DSC_5019.jpg',
-        '/images/DSC_5052.jpg',
-        '/images/DSC_5601.jpg',
-        '/images/DSC_5665.jpg',
-      ],
-      videos: [
-        'https://www.youtube.com/embed/aqz-KE-bpKQ',
-      ],
-    },
-    workout: {
-      title: 'Morning Workouts',
-      description: 'Start your day right with energizing group workouts by the beach.',
-      images: [
-        '/images/Z50_8689.jpg',
-        '/images/Z50_9796.jpg',
-        '/images/A26I8176.JPG',
-        '/images/A26I7994.JPG',
-      ],
-      videos: [
-        'https://www.youtube.com/embed/5qap5aO4i9A',
-      ],
-    },
-  } as const), []);
-
-  const current = experiences[selected];
+  const visibleStations = useMemo(
+    () => (activeFilter === 'all' ? ORDERED_STATIONS : ORDERED_STATIONS.filter((station) => station.tags.includes(activeFilter))),
+    [activeFilter],
+  );
 
   return (
-    <div className="min-h-screen page-shell">
-      {/* Hero */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-orange-50 via-white to-emerald-50">
-        <div ref={heroRef.ref} className="section-container text-center">
-          <h1 style={fadeUp(heroRef.inView, 0)} className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">Experience</h1>
-          <p style={fadeUp(heroRef.inView, 120)} className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">Choose an activity to explore photos, videos, and grab your ticket.</p>
+    <div className="ct-page">
+      <section className="ct-hero">
+        <figure className="ct-hero__banner">
+          <img
+            src="/images/creative-trail-banner.webp"
+            alt="The Creative Trail banner, presented by Imani Collective. October 27–29, 2026, 9:30 AM–5:00 PM daily in Old Town, Mombasa. Walk-ins welcome; session spaces are limited. The Film and Fashion Showcase is October 28, 5:30–7:00 PM at Forodhani."
+            className="ct-hero__banner-image"
+            width="1920"
+            height="768"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+        <div className="ct-hero__inner section-container">
+          <div className="ct-hero__copy">
+            <h1 className="sr-only">The Creative Trail</h1>
+            <p className="ct-hero__intro">
+              Join us for three days of creativity, culture, and hands-on experiences throughout Old Town, Mombasa, as part of Pwani Innovation Week 2026.
+            </p>
+
+            <div className="ct-hero__facts">
+              {[
+                {icon: Calendar, label: 'October 27–29, 2026'},
+                {icon: Clock, label: '9:30 AM – 5:00 PM daily'},
+                {icon: MapPin, label: 'Old Town, Mombasa'},
+              ].map(({icon: Icon, label}) => (
+                <span key={label}>
+                  <Icon aria-hidden="true" /> {label}
+                </span>
+              ))}
+            </div>
+
+            <p className="ct-hero__availability">
+              Walk-ins welcome. Session spaces are limited.
+            </p>
+
+            <div className="ct-hero__actions">
+              <a href="#stations" className="ct-button ct-button--primary">
+                Explore the Stations <ArrowDown aria-hidden="true" />
+              </a>
+              <a href="#visit" className="ct-button ct-button--outline">
+                Plan Your Visit
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Selector */}
-      <section className="py-8 bg-white border-b">
+      {/* Experience overview */}
+      <section className="ct-overview">
         <div className="section-container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {(
-              [
-                { key: 'boat', label: 'Boat ride / Dhow' },
-                { key: 'food', label: 'Food Tour' },
-                { key: 'bike', label: 'Bike ride' },
-                { key: 'workout', label: 'Morning Workouts' },
-              ] as {key: ExperienceKey, label: string}[]
-            ).map(({key, label}) => (
-              <button
-                key={key}
-                onClick={() => setSelected(key)}
-                className={`px-4 py-3 rounded-lg border transition-all text-sm md:text-base ${selected === key ? 'bg-[#F97316] text-white border-[#F97316] shadow' : 'bg-white text-gray-800 hover:bg-gray-50 border-gray-200'}`}
-              >
-                {label}
-              </button>
+          <p className="ct-overview__intro">
+            The Creative Trail offers 16 creative stations across Old Town where visitors meet local makers, discover
+            traditional and contemporary practices, hear the stories behind their crafts, and take part in hands-on
+            activities — walk-ins welcome, subject to session availability.
+          </p>
+          <div className="ct-overview__facts">
+            {[
+              {icon: Sparkles, value: '16', label: 'Creative Stations'},
+              {icon: Calendar, value: '3', label: 'Days of Activities'},
+              {icon: MapPin, value: 'Old Town', label: 'Mombasa'},
+              {icon: Clock, value: 'Oct 27–29', label: '2026'},
+              {icon: Footprints, value: 'Walk-in', label: 'Access, spaces limited'},
+            ].map(({icon: Icon, value, label}) => (
+              <div key={label} className="ct-overview__fact">
+                <Icon aria-hidden="true" />
+                <p>{value}</p>
+                <span>{label}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Details */}
-      <section className="py-12 bg-gradient-to-br from-gray-50 to-white">
-        <div className="section-container space-y-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Images className="w-5 h-5 text-[#F97316]"/>
-                  {current.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-700 mb-6">{current.description}</p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {current.images.map((src, idx) => (
-                    <img key={idx} src={src} alt={`${current.title} ${idx+1}`} className="rounded-lg object-cover w-full h-36 md:h-40"/>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>Ticket</span>
-                  <Ticket className="w-5 h-5 text-[#F97316]"/>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-gray-800 mb-4">{EXPERIENCE_PRICE_LABEL}</div>
-                {/* <Button className="w-full bg-[#F97316] hover:bg-[#EA580C]">Get Ticket</Button> */}
-              </CardContent>
-            </Card>
+      {/* Station directory */}
+      <section id="stations" className="ct-directory scroll-mt-24">
+        <div className="section-container">
+          <div className="ct-directory__intro">
+            <p className="ct-eyebrow">Find your point of curiosity</p>
+            <h2>The 16 Creative Stations</h2>
+            <p>
+              Follow the numbered trail from Station 01 to Station 16. Every stop is in Old Town, Mombasa — use the
+              filters to find experiences that interest you.
+            </p>
           </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Video className="w-5 h-5 text-[#F97316]"/>
-                Videos
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {current.videos.map((url, idx) => (
-                  <div key={idx} className="aspect-video w-full rounded-lg overflow-hidden bg-black/5">
-                    <iframe
-                      className="w-full h-full"
-                      src={url}
-                      title={`${current.title} video ${idx+1}`}
-                      frameBorder={0}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  </div>
-                ))}
+          <div role="group" aria-label="Filter stations by type" className="ct-filters">
+            {FILTER_OPTIONS.map(({key, label}) => {
+              const active = activeFilter === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setActiveFilter(key)}
+                  className={`ct-filter${active ? ' is-active' : ''}`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
+          <p aria-live="polite" className="sr-only">
+            Showing {visibleStations.length} of {ORDERED_STATIONS.length} stations
+          </p>
+
+          <div className="ct-station-grid">
+            {visibleStations.map((station) => (
+              <div key={station.number} className="ct-station-grid__item">
+                <StationCard
+                  station={station}
+                  isSelected={selectedStation === station.number}
+                  onToggleSelection={() => setSelectedStation((current) => current === station.number ? null : station.number)}
+                />
               </div>
-            </CardContent>
-          </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Film & Fashion Showcase — dedicated callout */}
+      <section className="ct-showcase">
+        <div className="section-container">
+          <div className="ct-showcase__art" aria-hidden="true">
+            <span className="ct-showcase__frame"><Clapperboard /></span>
+            <span className="ct-showcase__spotlight" />
+            <span className="ct-showcase__line" />
+          </div>
+          <div className="ct-showcase__content">
+            <span className="ct-eyebrow">One night only · October 28</span>
+            <h2>Film &amp; Fashion Showcase</h2>
+            <p className="ct-showcase__description">
+              {CREATIVE_TRAIL_STATIONS.find((station) => station.number === '11')?.description}
+            </p>
+            <div className="ct-showcase__facts">
+              <span>
+                <Calendar aria-hidden="true" /> October 28, 2026
+              </span>
+              <span>
+                <Clock aria-hidden="true" /> 5:30–7:00 PM
+              </span>
+              <span>
+                <MapPin aria-hidden="true" /> Forodhani
+              </span>
+              <span className="ct-showcase__free">Free entry</span>
+            </div>
+            <p className="ct-showcase__note">This showcase runs one evening only and is separate from the daily trail hours.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Plan Your Visit */}
+      <section id="visit" className="ct-visit scroll-mt-24">
+        <div className="section-container">
+          <div className="ct-visit__intro">
+            <p className="ct-eyebrow">Before you set out</p>
+            <h2>Plan Your Visit</h2>
+            <p>Everything you need to know before you set out on the trail.</p>
+          </div>
+          <div className="ct-visit__grid">
+            <div className="ct-visit__card">
+              <p className="ct-visit__label">
+                <Calendar aria-hidden="true" /> Dates &amp; Hours
+              </p>
+              <p className="ct-visit__main">October 27–29, 2026</p>
+              <p>9:30 AM – 5:00 PM daily</p>
+              <p className="ct-visit__note">Swahili Cooking starts at 9 AM.</p>
+            </div>
+            <div className="ct-visit__card">
+              <p className="ct-visit__label">
+                <MapPin aria-hidden="true" /> Start Here
+              </p>
+              <p className="ct-visit__main">Swahilipot Hub Foundation</p>
+              <p>or Old Town off Ndia Kuu Road</p>
+              <p className="ct-visit__note">Walk-ins welcome.</p>
+            </div>
+            <div className="ct-visit__card">
+              <p className="ct-visit__label">
+                <Ticket aria-hidden="true" /> Passport
+              </p>
+              <p className="ct-visit__main">Collect stamps, win prizes</p>
+              <p>Each stamp = 1 raffle ticket.</p>
+              <p className="ct-visit__note">Sign in at Reed Weaving (Station 09).</p>
+            </div>
+            <div className="ct-visit__card">
+              <p className="ct-visit__label">
+                <Footprints aria-hidden="true" /> Good to Know
+              </p>
+              <p className="ct-visit__main">Walk-ins welcome</p>
+              <p>Session spaces are limited.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing call to action */}
+      <section className="ct-closing">
+        <div className="section-container ct-closing__inner">
+          <p className="ct-eyebrow">Take the long way through Old Town</p>
+          <h2>
+            Discover the Makers. Experience the Heritage. Celebrate the Craft.
+          </h2>
+          <p className="ct-closing__description">
+            Sixteen stations, three days, one trail through Old Town. Walk-ins are always welcome — just remember
+            that session spaces are limited.
+          </p>
+          <div className="ct-closing__actions">
+            <a
+              href="#stations"
+              className="ct-button ct-button--light"
+            >
+              Explore the 16 Stations
+            </a>
+            <a
+              href="#visit"
+              className="ct-button ct-button--outline"
+            >
+              Plan Your Visit
+            </a>
+          </div>
         </div>
       </section>
     </div>
@@ -169,6 +255,3 @@ const Experience: React.FC = () => {
 };
 
 export default Experience;
-
-
-

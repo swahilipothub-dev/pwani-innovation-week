@@ -67,7 +67,7 @@ const App = () => (
             <Route path='/contact' element={<ComingSoon title="Contact & Inquiries" description="We're setting up our contact system. Reach out soon!" />} />
             <Route
               path='/experience'
-              element={<ComingSoon title="Experience" description="Explore unique coastal experiences coming soon!" />}
+              element={<Experience />}
             />
             <Route
               path='/call-for-content-creators'
