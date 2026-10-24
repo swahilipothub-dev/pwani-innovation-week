@@ -22,7 +22,6 @@ const engageLinks = [
   { label: "Call for Volunteers", to: "https://swahilipot.jengasol.co.ke/survey/start/47b9e087-2bc1-4f3a-be66-ed111127ba0f" },
   { label: "Apply as Innovator — Deals Den", to: SURVEY_LINKS.DEALS_DEN_INNOVATORS },
   { label: "Apply as Investor — Deals Den", to: SURVEY_LINKS.DEALS_DEN_INVESTORS },
-  { label: "Experience", to: "/experience" },
   { label: "Vendor Application", to: "https://erp.swahilipothub.co.ke/survey/start/dc12d2d9-8c94-47ce-8ce6-c72da2a3bc4f" },
   { label: "Exhibitor Application", to: "/exhibitors" },
   { label: "Contact / Inquiries", to: "/contact" },
@@ -30,6 +29,7 @@ const engageLinks = [
 ];
 
 const experienceLinks = [
+  { label: "The Creative Trail (Old Town)", to: "/experience" },
   { label: "Hackathon", to: "/hackathon" },
   { label: "Plenary Sessions", to: "/plenary-sessions" },
   { label: "Workshops", to: "/workshops" },
