@@ -30,7 +30,7 @@ const activities = [
     label: "Utamaduni Village",
     color: "text-[#22C55E]",
     bg: "bg-[#22C55E]",
-    body: "Experience a rich celebration of coastal cultures — what it truly means to be Pwani.",
+    body: "Explore coastal traditions through Jomvu Kuu pottery, henna art, Swahili attire, and hands-on games.",
   },
 ];
 

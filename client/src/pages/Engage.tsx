@@ -48,10 +48,10 @@ const Engage = () => {
     },
     {
       title: 'Utamaduni Village',
-      description: 'Enjoy a touch of coastal cultures at the Utamaduni village, and get a feel of what it means to be Pwani',
+      description: 'Step into the cultural world of the Kenyan coast through Jomvu Kuu pottery, henna art, Swahili attire, and the artistry of everyday coastal life.',
       icon: Palette,
       color: 'from-pink-500 to-pink-600',
-      features: ['Cultural Performances', 'Traditional Crafts', 'Local Cuisine'],
+      features: ['500+ Year Pottery Tradition', 'Henna & Swahili Attire', 'Physical & Mobile Games'],
       sessions: 'All Week'
     }
   ];

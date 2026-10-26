@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import { Mic, ArrowUpRight, CalendarDays, Users2 } from 'lucide-react';
 import { PIW_PROGRAM } from '@/lib/scheduleData';
 import { ExperienceSessionCard } from '@/components/ExperienceSessionCard';
+
+const Partners = lazy(() => import('@/components/Partners'));
 
 const plenaryDays = PIW_PROGRAM.map((day) => ({
   ...day,
@@ -80,6 +83,10 @@ const PlenarySessions = () => {
           ))}
         </div>
       </main>
+
+      <Suspense fallback={null}>
+        <Partners />
+      </Suspense>
     </div>
   );
 };

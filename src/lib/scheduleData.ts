@@ -515,9 +515,10 @@ export const WEEK_LONG_EXPERIENCES: WeekLongExperience[] = [
   {
     title: 'Utamaduni Village',
     description: [
-      'A space dedicated to showcasing culture(s) from various coastal communities. Throughout the week, visitors will interact with short bits of authentic history and how indigenous knowledge in these communities has evolved or has been preserved across space and time.',
-      'The village will include experiential activities like henna art, pottery making, and also an opportunity to learn short words and phrases from coastal communities like the Swahili, Mijikenda, Taita, and Pokomo.',
-      'The Village will run in collaboration with Imani Collective, an artisanal space in Old Town that will support part of the experiential activities and, by extension, the Mombasa Food experience, which will happen in Makadara.',
+      'Culture comes alive when we experience it, not just hear about it. At Utamaduni Village, visitors can step into the cultural world of the Kenyan coast and discover the indigenous knowledge, creative practices, and traditions that have shaped what it means to be Pwani.',
+      'Get hands-on with pottery, a craft with a history spanning more than 500 years in the Jomvu Kuu community. Discover henna art, try on Swahili attire, and celebrate the artistry of everyday coastal life. A gaming corner will bring physical and mobile games into the experience.',
+      'The cultural experience extends into the historic streets of Old Town Mombasa through the Creative Trail, curated by Imani Collective. Explore Swahili cuisine and tea-making, natural botanicals, traditional weaving, Swahili wood carving, and mural art while meeting the people and stories behind these creative practices.',
+      'Come curious. Take part. Meet the makers. Experience Pwani through the hands, knowledge, and imagination of its people. In the evening, enjoy a Swahili food bazaar along Makadara Road.',
     ],
   },
 ];
@@ -537,5 +538,4 @@ export const SIDE_EVENTS: SideEvent[] = [
     description: 'A practical, human-centered design session on moving from ideation to prototyping for young innovators.',
   },
 ];
-
 

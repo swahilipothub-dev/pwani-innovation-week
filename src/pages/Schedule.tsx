@@ -1030,7 +1030,7 @@ const Schedule = () => {
               className="bg-white/95 backdrop-blur rounded-3xl border-t-4 border-[#F97316] p-6 md:p-10 shadow-2xl space-y-4"
             >
               <div className="flex flex-wrap gap-2">
-                {['Henna Art', 'Pottery Making', 'Mosaic Painting', 'Language Corner'].map((tag) => (
+                {['Pottery Making', 'Henna Art', 'Swahili Attire', 'Physical & Mobile Games'].map((tag) => (
                   <span
                     key={tag}
                     className="text-xs font-semibold px-3 py-1 rounded-full bg-orange-50 text-[#F97316] border border-orange-100"

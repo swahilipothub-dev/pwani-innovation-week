@@ -1,8 +1,31 @@
 import { Handshake } from 'lucide-react';
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 
+type Partner = {
+  name: string;
+  logo?: string;
+};
+
+const partners: Partner[] = [
+  { name: 'Share', logo: '/images/partners/share.jpeg' },
+  { name: 'UNICEF', logo: '/images/partners/unicef.jpeg' },
+  { name: 'UN Women', logo: '/images/partners/un-women.jpeg' },
+  { name: 'UK Kenya Tech Hub', logo: '/images/partners/uk-kenya-tech-hub.jpeg' },
+  { name: 'TrustAfrica', logo: '/images/partners/trustafrica.jpeg' },
+  { name: 'ICT Authority', logo: '/images/partners/ict-authority.jpeg' },
+  { name: 'Huria', logo: '/images/partners/huria.jpeg' },
+  { name: 'Ajira Digital', logo: '/images/partners/ajira.jpeg' },
+  { name: 'Afrotellers', logo: '/images/partners/afrotellers.jpeg' },
+  { name: 'ABSA', logo: '/images/partners/absa.jpg' },
+  { name: 'Coca-Cola Coastal Bottlers Limited', logo: '/images/partners/coca-cola-coastal-bottlers.jpg' },
+  { name: 'DIGIKEN - Digital Platforms Kenya', logo: '/images/partners/digiken.jpg' },
+  { name: 'Imaginable Futures', logo: '/images/partners/imaginable-futures.jpg' },
+  { name: 'Conrad N. Hilton Foundation', logo: '/images/partners/conrad-hilton-foundation.jpg' },
+  { name: 'KENIA - Kenya National Innovation Agency', logo: '/images/partners/kenia.jpg' },
+  { name: 'Mastercard Foundation', logo: '/images/partners/mastercard-foundation.jpg' },
+];
+
 const Partners = () => {
-  const partners = Array.from({ length: 8 }, (_, index) => index + 1);
   const heading = useScrollReveal();
   const cta = useScrollReveal();
 
@@ -20,13 +43,21 @@ const Partners = () => {
         {/* Continuous Carousel — already animated via CSS marquee */}
         <div className="relative overflow-hidden">
           <div className="whitespace-nowrap animate-marquee">
-            {[...partners, ...partners].map((index, i) => (
-              <div key={i} className="inline-block w-64 mx-4 align-top">
-                <div className="bg-gray-50 rounded-lg p-6 flex items-center justify-center h-40 card-hover">
-                  <div className="flex flex-col items-center justify-center text-gray-400">
-                    <Handshake className="h-12 w-12 mb-2" />
-                    <div className="text-sm font-medium">Partner {index}</div>
-                  </div>
+            {[...partners, ...partners].map((partner, i) => (
+              <div key={i} className="              inline-block w-80 md:w-96 mx-4 align-top">
+                              <div className="bg-white border border-gray-100 rounded-lg p-3 flex items-center justify-center h-56 md:h-64 card-hover">
+                  {partner.logo ? (
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-gray-400">
+                      <Handshake className="h-12 w-12 mb-2" />
+                      <div className="text-sm font-medium">{partner.name}</div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -48,14 +79,15 @@ const Partners = () => {
 
       <style>{`
         @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
         }
         .animate-marquee {
           display: flex;
           width: max-content;
-          animation: marquee 20s linear infinite;
+          animation: marquee 35s linear infinite;
         }
+        .animate-marquee:hover { animation-play-state: paused; }
       `}</style>
     </section>
   );

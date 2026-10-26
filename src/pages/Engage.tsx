@@ -57,10 +57,10 @@ const Engage = () => {
     },
     {
       title: 'Utamaduni Village',
-      description: 'Experience the Coast through heritage, cuisine, traditional arts, and the stories that make Pwani a signature place to call home.',
+      description: 'Step into the cultural world of the Kenyan coast through Jomvu Kuu pottery, henna art, Swahili attire, and the artistry of everyday coastal life.',
       icon: Palette,
       color: 'from-pink-500 to-pink-600',
-      features: ['Cultural Performances', 'Traditional Crafts', 'Local Cuisine'],
+      features: ['500+ Year Pottery Tradition', 'Henna & Swahili Attire', 'Physical & Mobile Games'],
       sessions: 'All Week',
       image: '/images/new/download (2).jpg',
     },

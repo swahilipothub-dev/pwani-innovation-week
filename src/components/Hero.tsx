@@ -19,7 +19,7 @@ const stats = [
 
 const countdown_items = ["Days", "Hrs", "Min", "Sec"] as const;
 
-const marquee_words = ["Pitch For Funding", "Secret Reveals", "Deal Rooms Live", "Culture Nights", "Meet The Builders", "Something Big Is Coming"];
+const marquee_words = ["Funding On The Line", "Secret Reveals", "Deals Close Live", "Culture After Dark", "Builders In The Room", "More Than You Expect"];
 
 const teasers = [
   {
@@ -84,9 +84,13 @@ const Hero = () => {
   }, [currentSlide]);
 
   useEffect(() => {
-    const target = new Date('2026-10-26T00:00:00').getTime();
+    const eventStart = new Date('2026-10-26T00:00:00').getTime();
+    const eventEnd = new Date('2026-11-01T00:00:00').getTime(); // exclusive — end of Oct 31
     const tick = () => {
-      const diff = target - Date.now();
+      const now = Date.now();
+      // Before the event: count down to opening day. During the event: count down to close,
+      // so the clock stays live and useful instead of freezing at 00:00:00:00 once PIW starts.
+      const diff = now < eventStart ? eventStart - now : eventEnd - now;
       if (diff <= 0) { setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
       setCountdown({
         days: Math.floor(diff / 86400000),
@@ -103,13 +107,22 @@ const Hero = () => {
   const countdownValues = [countdown.days, countdown.hours, countdown.minutes, countdown.seconds];
   const heroPanelClass = "border border-white/4 bg-gradient-to-br from-[#0a1b37]/86 via-[#0d2447]/80 to-[#3a220f]/56 backdrop-blur-md shadow-[0_12px_30px_rgba(2,8,26,0.34)] rounded-xl";
 
-  const isUrgent = countdown.days <= 2;
-  const hasLaunched = countdown.days === 0 && countdown.hours === 0 && countdown.minutes === 0 && countdown.seconds === 0;
-  const countdownLabel = hasLaunched
-    ? 'PIW 2026 Is Here'
-    : isUrgent
-      ? `⚡ Final Countdown — ${countdown.days > 0 ? `${countdown.days} Day${countdown.days === 1 ? '' : 's'} Left` : 'Hours Left'} ⚡`
-      : `${countdown.days} Days To PIW 2026`;
+  const eventStart = new Date('2026-10-26T00:00:00').getTime();
+  const eventEnd = new Date('2026-11-01T00:00:00').getTime();
+  const now = Date.now();
+  const isLive = now >= eventStart && now < eventEnd;
+  const hasEnded = now >= eventEnd;
+  const currentDay = isLive ? Math.min(6, Math.floor((now - eventStart) / 86400000) + 1) : 0;
+
+  const isUrgent = isLive || countdown.days <= 2;
+  const countdownLabel = hasEnded
+    ? 'PIW 2026 — That\u2019s A Wrap!'
+    : isLive
+      ? `\u{1F534} LIVE NOW \u2014 Day ${currentDay} of 6`
+      : countdown.days <= 2
+        ? `\u26A1 Final Countdown \u2014 ${countdown.days > 0 ? `${countdown.days} Day${countdown.days === 1 ? '' : 's'} Left` : 'Hours Left'} \u26A1`
+        : `${countdown.days} Days To PIW 2026`;
+  const countdownSubLabel = isLive ? 'Time left this week' : null;
 
   return (
     <>
@@ -241,6 +254,11 @@ const Hero = () => {
                   <p className={`text-xs uppercase tracking-widest font-semibold ${isUrgent ? 'hero-urgent-label text-[#fdba74]' : 'text-[#dbeafe]'}`}>
                     {countdownLabel}
                   </p>
+                  {countdownSubLabel && (
+                    <p className="-mt-2 text-[10px] font-semibold uppercase tracking-widest text-white/40">
+                      {countdownSubLabel}
+                    </p>
+                  )}
                   <div className={`grid grid-cols-4 gap-2 sm:gap-3 ${isUrgent ? 'hero-urgent-pulse rounded-lg' : ''}`}>
                     {countdown_items.map((label, i) => (
                       <div key={label} className="text-center">
@@ -269,10 +287,10 @@ const Hero = () => {
                     Buy tickets <ArrowRight size={16} className="hero-nudge" />
                   </Link>
                   <Link
-                    to="/about"
+                    to={isLive ? "/schedule" : "/about"}
                     className="hero-shine relative inline-flex items-center gap-2 overflow-hidden bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md text-white hover:text-white rounded-lg px-6 py-3 text-sm font-semibold transition-colors duration-200"
                   >
-                    See the Full Programme
+                    {isLive ? "View Today's Schedule" : "See the Full Programme"}
                   </Link>
                 </div>
               </div>
