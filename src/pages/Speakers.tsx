@@ -1,7 +1,6 @@
 import { Users, Mic2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
-import { SURVEY_LINKS } from '@/lib/config';
 import { SPEAKERS_FOR_PAGE, SPEAKER_GROUP_POSTERS } from '@/lib/speakers2026';
 
 const pastKeynoteSpeakers = [
@@ -53,15 +52,15 @@ const Speakers = () => {
 
             <div>
               <h2 style={fadeUp(card.inView, 100)} className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
-                Call for Speakers Is Now Open
+                PIW 2026 Speaker Lineup Is Live
               </h2>
               <p style={fadeUp(card.inView, 200)} className="text-gray-500 leading-relaxed">
-                We're curating an outstanding lineup of keynote speakers, panellists, and workshop leaders for PIW 2026. Have expertise to share with 2,500+ delegates, investors, and policymakers? Apply to speak today.
+                Pwani Innovation Week 2026 is underway — meet the keynote speakers, panellists, and workshop leaders joining us on stage across the six-day programme.
               </p>
             </div>
 
             <div style={fadeUp(card.inView, 300)} className="bg-gray-50 border border-gray-100 rounded-2xl p-6 text-left space-y-3">
-              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Who we're looking for</p>
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">What's on stage</p>
               {[
                 "Keynote addresses from national and regional leaders",
                 "Panel experts across technology, enterprise, and creative industries",
@@ -75,19 +74,11 @@ const Speakers = () => {
             </div>
 
             <div style={fadeUp(card.inView, 400)} className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={SURVEY_LINKS.CALL_FOR_SPEAKERS}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/schedule"
                 className="inline-flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white text-sm font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-[#F97316]/25"
               >
-                <Mic2 className="w-4 h-4" /> Apply to Speak
-              </a>
-              <Link
-                to="/speaking/apply"
-                className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 text-sm font-semibold px-6 py-3 rounded-lg transition-all duration-200"
-              >
-                Learn More
+                <Mic2 className="w-4 h-4" /> View Full Schedule
               </Link>
             </div>
           </div>
