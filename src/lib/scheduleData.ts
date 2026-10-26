@@ -581,5 +581,6 @@ export const SIDE_EVENTS: SideEvent[] = [
     title: 'Masterclass: The Innovator\u2019s Toolkit',
     description: 'A practical, human-centered design session on moving from ideation to prototyping for young innovators.',
   },
+  {dates: 'Oct 26–30, 2026', title: 'Mosaic Painting'},
 ];
 
