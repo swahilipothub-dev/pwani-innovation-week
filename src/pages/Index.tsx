@@ -6,6 +6,7 @@ const DecadeAndBeyond = lazy(() => import('@/components/DecadeAndBeyond'));
 const PIW2026Highlights = lazy(() => import('@/components/PIW2026Highlights'));
 const ThemeBreakdown = lazy(() => import('@/components/ThemeBreakdown'));
 const About = lazy(() => import('@/components/About'));
+const Partners = lazy(() => import('@/components/Partners'));
 const ThematicAreas = lazy(() => import('@/components/ThematicAreas'));
 
 const SectionFallback = () => (
@@ -33,6 +34,9 @@ const Index = () => {
       {/* <Objectives /> */}
       <Suspense fallback={<SectionFallback />}>
         <ThematicAreas/>
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Partners/>
       </Suspense>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Clock, MapPin } from 'lucide-react';
 import type { ProgramSession } from '@/lib/scheduleData';
+import { getSpeakerPhoto } from '@/lib/speakers2026';
 
 const TRACK_STYLES: Record<string, {bar: string; chip: string}> = {
   'Digital Transformation Village': {bar: 'from-blue-400 to-blue-600', chip: 'bg-blue-50 text-blue-600 border-blue-100'},
@@ -96,18 +97,30 @@ export function ExperienceSessionCard({session, index}: {session: ProgramSession
         <div className="mt-4 pt-4 border-t border-gray-100">
           <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2.5">Speakers &amp; Partners</p>
           <div className="flex flex-wrap gap-2">
-            {speakers.map((speaker, i) => (
-              <div
-                key={`${speaker.name}-${i}`}
-                className="flex items-center gap-2 rounded-full bg-gray-50 border border-gray-100 pl-1 pr-3 py-1 hover:bg-orange-50 hover:border-orange-100 transition-colors"
-                title={speaker.role}
-              >
-                <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white text-[10px] font-bold flex items-center justify-center shrink-0">
-                  {initials(speaker.name) || '•'}
-                </span>
-                <span className="text-xs font-semibold text-gray-800">{speaker.name}</span>
-              </div>
-            ))}
+            {speakers.map((speaker, i) => {
+              const photo = getSpeakerPhoto(speaker.name);
+              return (
+                <div
+                  key={`${speaker.name}-${i}`}
+                  className="flex items-center gap-2 rounded-full bg-gray-50 border border-gray-100 pl-1 pr-3 py-1 hover:bg-orange-50 hover:border-orange-100 transition-colors"
+                  title={photo ? `${photo.role} — ${photo.title}` : speaker.role}
+                >
+                  {photo ? (
+                    <img
+                      src={photo.photo}
+                      alt={speaker.name}
+                      className="w-6 h-6 rounded-full object-cover shrink-0"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#F97316] to-[#EA580C] text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                      {initials(speaker.name) || '•'}
+                    </span>
+                  )}
+                  <span className="text-xs font-semibold text-gray-800">{speaker.name}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

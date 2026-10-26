@@ -2,6 +2,7 @@ import { Users, Mic2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useScrollReveal, fadeUp, scaleIn } from '@/hooks/useScrollReveal';
 import { SURVEY_LINKS } from '@/lib/config';
+import { SPEAKERS_FOR_PAGE, SPEAKER_GROUP_POSTERS } from '@/lib/speakers2026';
 
 const pastKeynoteSpeakers = [
   '/images/keynotespeakers/DR Kevit Desai.png',
@@ -18,6 +19,7 @@ const pastKeynoteSpeakers = [
 
 const Speakers = () => {
   const card = useScrollReveal();
+  const lineup = useScrollReveal();
   const gallery = useScrollReveal();
 
   return (
@@ -108,6 +110,62 @@ const Speakers = () => {
             />
           </div>
 
+        </div>
+      </div>
+
+      {/* PIW 2026 confirmed speakers & moderators */}
+      <div ref={lineup.ref} className="bg-[#0a1628] py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div style={fadeUp(lineup.inView, 0)} className="text-center max-w-2xl mx-auto mb-14">
+            <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-3">7th Edition</p>
+            <h2 className="text-2xl md:text-3xl font-black text-white mb-3">PIW 2026 Speaker Lineup</h2>
+            <p className="text-white/50 leading-relaxed">
+              Confirmed speakers and moderators joining us for Pwani Innovation Week 2026, 26th–31st October.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            {SPEAKERS_FOR_PAGE.map((speaker, idx) => (
+              <div
+                key={speaker.name}
+                style={scaleIn(lineup.inView, idx * 60)}
+                className="card-hover rounded-2xl overflow-hidden bg-white/5 border border-white/10"
+              >
+                <div className="aspect-[4/5] overflow-hidden">
+                  <img
+                    src={speaker.photo}
+                    alt={speaker.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-[#F97316] mb-1.5">
+                    {speaker.role}
+                  </span>
+                  <h3 className="text-sm font-bold text-white leading-snug">{speaker.name}</h3>
+                  <p className="text-xs text-white/50 leading-snug mt-1">{speaker.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Multi-speaker session posters, shown unedited as announced */}
+          <div style={fadeUp(lineup.inView, 80)} className="mt-16 pt-12 border-t border-white/10">
+            <p className="text-xs text-[#F97316] font-bold uppercase tracking-widest mb-6 text-center">Session Panels</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {SPEAKER_GROUP_POSTERS.map((poster, idx) => (
+                <div
+                  key={poster.id}
+                  style={scaleIn(lineup.inView, idx * 60)}
+                  className="card-hover rounded-2xl overflow-hidden bg-white/5 border border-white/10"
+                >
+                  <img src={poster.photo} alt={poster.caption} className="w-full h-auto" loading="lazy" />
+                  <p className="text-xs text-white/60 leading-snug p-4">{poster.caption}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
