@@ -12,6 +12,13 @@ const images = [
   "/images/piw-2026/live/2C0A9133.jpg",
   "/images/piw-2026/live/2C0A9145.jpg",
   "/images/piw-2026/live/IMG_8830.jpg",
+  "/images/piw-2026/live/596A9121.jpg",
+  "/images/piw-2026/live/DJI_20261026151026_0494_D.jpg",
+  "/images/piw-2026/live/DJI_20261026151851_0503_D.jpg",
+  "/images/piw-2026/live/0V6A7705.jpg",
+  "/images/piw-2026/live/0V6A7683.jpg",
+  "/images/piw-2026/live/2C0A8598.jpg",
+  "/images/piw-2026/live/0V6A7665.jpg",
 ];
 
 const stats = [
