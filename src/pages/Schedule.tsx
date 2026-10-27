@@ -9,6 +9,7 @@ import {
   Coffee,
   ExternalLink,
   Handshake,
+  Image as ImageIcon,
   Layers,
   MapPin,
   MessageSquare,
@@ -28,6 +29,9 @@ import {
 import {useScrollReveal} from '@/hooks/useScrollReveal';
 import {useMyAgenda} from '@/hooks/useMyAgenda';
 import {PIW_PROGRAM, WEEK_LONG_EXPERIENCES, SIDE_EVENTS, type ProgramDay, type ProgramSession} from '@/lib/scheduleData';
+
+// Shared photo album where photographers upload live PIW 2026 event photos.
+const PIW_PHOTOS_DRIVE_URL = 'https://drive.google.com/drive/folders/1ezmljx9avtoVglKK0XvaCvy-xQlezGOH';
 
 // Stable identity for a session (titles are unique within a day) so stars/bookmarks survive re-renders & reloads.
 const getSessionId = (day: number, session: ProgramSession) => `${day}::${session.title}::${session.time}`;
@@ -439,9 +443,21 @@ const EventPulse: React.FC = () => {
             </div>
           </>
         ) : (
-          <p className="text-center text-sm font-bold text-amber-300 uppercase tracking-widest">
-            {hasEnded ? 'See You Next Year' : 'Happening Now'}
-          </p>
+          <>
+            <p className="text-center text-sm font-bold text-amber-300 uppercase tracking-widest">
+              {hasEnded ? 'See You Next Year' : 'Happening Now'}
+            </p>
+            {!hasEnded && (
+              <a
+                href={PIW_PHOTOS_DRIVE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex items-center justify-center gap-1.5 rounded-xl bg-white/10 py-2 text-xs font-bold text-white hover:bg-white/20 transition-colors"
+              >
+                <ImageIcon className="w-3.5 h-3.5 text-[#F97316]" /> View Live Photos <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+          </>
         )}
         <div className="mt-4 pt-4 border-t border-white/10 text-center">
           <p className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-white/60 mb-1.5">

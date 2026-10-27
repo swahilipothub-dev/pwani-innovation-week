@@ -3,11 +3,15 @@ import { ArrowRight, MapPin, Calendar, Users, CalendarDays, Mic2, Layers } from 
 import { Link } from "react-router-dom";
 import { useInView } from 'react-intersection-observer';
 
+// Landscape-only shots — portrait photos crop too tight on this full-bleed wide banner.
 const images = [
-  "/images/new/download (7).jpg",
-  "/images/new/download (9).jpg",
-  "/images/new/download (2).jpg",
-  "/images/piw-2026/WhatsApp Image 2026-06-30 at 15.13.54.jpeg",
+  "/images/piw-2026/live/DJI_20261026113103_0489_D.jpg",
+  "/images/piw-2026/live/0V6A7674.jpg",
+  "/images/piw-2026/live/596A8120.jpg",
+  "/images/piw-2026/live/596A9221.jpg",
+  "/images/piw-2026/live/2C0A9133.jpg",
+  "/images/piw-2026/live/2C0A9145.jpg",
+  "/images/piw-2026/live/IMG_8830.jpg",
 ];
 
 const stats = [
@@ -139,13 +143,15 @@ const Hero = () => {
             decoding="async"
             className="hero-kenburns w-full h-full object-cover"
           />
+          {/* Preload the next slide in the background so the switch doesn't stall on load. */}
+          <img src={images[(currentSlide + 1) % images.length]} alt="" loading="eager" decoding="async" className="hidden" />
         </div>
 
-        {/* dark + blur treatment for strong contrast and cleaner focus */}
-        <div className="absolute inset-0 bg-black/86" />
+        {/* dark + blur treatment for strong contrast and cleaner focus — lighter on mobile (stacked layout) so the photo still shows, full strength on desktop (text sits over the left side) */}
+        <div className="absolute inset-0 bg-black/55 lg:bg-black/86" />
         <div className="absolute inset-0 backdrop-blur-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/88 to-black/78 pointer-events-none" />
-        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#0b1f3d]/45 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/80 lg:bg-gradient-to-r lg:from-black/95 lg:via-black/88 lg:to-black/78 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#0b1f3d]/25 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/94 to-transparent pointer-events-none" />
 
         {/* ── Wallpaper: aurora mesh + tech grid, screen-blended on top of the dark photo so it actually glows ── */}
@@ -400,8 +406,8 @@ const Hero = () => {
           will-change: transform;
         }
         .hero-aurora-a {
-          top: -12%; left: -8%; width: 46vw; height: 46vw;
-          background: radial-gradient(circle, rgba(249,115,22,0.5), transparent 70%);
+          top: -18%; left: -14%; width: 38vw; height: 38vw;
+          background: radial-gradient(circle, rgba(249,115,22,0.28), transparent 70%);
           animation: heroAuroraDrift 22s ease-in-out infinite;
         }
         .hero-aurora-b {
