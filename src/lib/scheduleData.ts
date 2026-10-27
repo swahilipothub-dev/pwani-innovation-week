@@ -391,7 +391,7 @@ export const PIW_PROGRAM: ProgramDay[] = [
         venue: 'Arena B',
         details: [
           'Moderator: Joab Kose, Founder, Brickwall Consultancy',
-          'Partners: Kagisano Bray, Managing Director, Kagisano Logistics',
+          'Partners: Owen Bray, Managing Director, Kagisano Logistics',
           'Leonard Kambona, AU Representative in AI',
           'Enos Weswa, Country Director, UK-Kenya Tech Hub',
           'Dycoh Gacheri, Multimodal AI Data Annotation Specialist',
