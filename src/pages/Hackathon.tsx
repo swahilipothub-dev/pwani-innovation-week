@@ -1,5 +1,4 @@
 import { ArrowUpRight, CalendarDays, Clock3, Compass, Fish, MapPin, ShieldCheck, Ship, Users } from 'lucide-react';
-import oceanImage from '../../client/public/images/ocean.jpeg';
 import { useScrollReveal, fadeUp } from '@/hooks/useScrollReveal';
 
 const challengeAreas = [
@@ -8,6 +7,7 @@ const challengeAreas = [
   { title: 'Coastal Travel & Tourism', icon: Compass },
   { title: 'Cybersecurity', detail: 'Industry Talks & Hack The Box CTF', icon: ShieldCheck },
 ];
+const oceanImage = '/images/ocean.jpeg';
 
 const Hackathon = () => {
   const content = useScrollReveal();
