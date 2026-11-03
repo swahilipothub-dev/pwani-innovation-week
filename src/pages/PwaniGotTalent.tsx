@@ -2,12 +2,13 @@ import { useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { ArrowUpRight, CalendarDays, Clock3, MapPin, Music2, Sparkles } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import pgtBanner from '../../client/public/piw_banner.jpeg';
-import pgtVideo from '../../client/public/pgt_mg.mp4';
-import djSarah from '../../client/public/images/pgt-2026/dj_sarah.jpeg';
-import iyani from '../../client/public/images/pgt-2026/iyani.jpeg';
-import nubia from '../../client/public/images/pgt-2026/nubia.jpeg';
-import jMelody from '../../client/public/images/pgt-2026/j_melody.jpeg';
+
+const pgtBanner = '/piw_banner.jpeg';
+const pgtVideo = '/pgt_mg.mp4';
+const djSarah = '/images/pgt-2026/dj_sarah.jpeg';
+const iyani = '/images/pgt-2026/iyani.jpeg';
+const nubia = '/images/pgt-2026/nubia.jpeg';
+const jMelody = '/images/pgt-2026/j_melody.jpeg';
 
 const pgtSlides = [
   { src: pgtBanner, alt: 'Pwani Gat Talent, October 31, 2026, at Gymkhana Mombasa' },
