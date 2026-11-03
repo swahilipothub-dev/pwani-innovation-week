@@ -15,7 +15,7 @@ const pgtSlides = [
   { src: djSarah, alt: 'DJ Sarah at Pwani Gat Talent 2026' },
   { src: iyani, alt: 'Iyani at Pwani Gat Talent 2026' },
   { src: nubia, alt: 'Nubia at Pwani Gat Talent 2026' },
-  { src: jMelody, alt: 'J Melody at Pwani Gat Talent 2026' },
+  { src: jMelody, alt: 'Jay Melody at Pwani Gat Talent 2026' },
 ];
 
 const performanceTypes = [
